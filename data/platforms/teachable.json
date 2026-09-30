@@ -82,5 +82,5 @@
     "notes": "Prices and fees are from Teachable's pricing page, read 2026-09-29, which lists Starter, Builder, Growth and Custom; no free plan or $1 + 10% fee appears on the page any longer. Teachable states the 0% transaction fee on Builder and Growth applies when using teachable:pay or the Monthly Payment Gateway; other gateway setups are not modeled. Processing rates are Teachable's standard rates and can differ if you connect your own gateway. Sales tax handling and payout schedules are not modeled.",
     "changelog": []
   },
-  "related": ["gumroad", "patreon", "substack", "stripe"]
+  "related": ["gumroad", "patreon", "substack", "udemy"]
 }

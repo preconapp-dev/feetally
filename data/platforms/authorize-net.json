@@ -7,9 +7,9 @@
   "currency": "USD",
   "tagline": "Authorize.net fee calculator: $25/month plus 2.9% + 30¢ all-in-one, or 10¢ per transaction gateway-only.",
   "fee_summary": "Authorize.net charges $25 a month on every plan. All-in-One adds 2.9% + 30¢ per transaction; Payment Gateway Only adds 10¢ per transaction plus a 10¢ daily batch fee on top of your own merchant account's rate. eChecks cost 0.75%.",
-  "last_verified": "2026-09-29",
+  "last_verified": "2026-09-30",
   "sources": [
-    {"title": "Authorize.net Pricing", "url": "https://www.authorize.net/sign-up/pricing.html", "accessed": "2026-09-29"}
+    {"title": "Authorize.net Pricing", "url": "https://www.authorize.net/sign-up/pricing.html", "accessed": "2026-09-30"}
   ],
   "inputs": [
     {"id": "amount", "label": "Transaction amount", "type": "money", "role": "price", "default": 100, "help": "What the customer pays."},

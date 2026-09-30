@@ -7,9 +7,9 @@
   "currency": "USD",
   "tagline": "Amazon fee calculator: referral fee by category (8%–17%), $0.99 per item or $39.99/month, $1.80 media fee.",
   "fee_summary": "Amazon charges a referral fee on the item price plus shipping, 15% in most categories (8% for electronics, 5%–17% for clothing), with a $0.30 minimum per item. On top of that you pay $0.99 per item on the Individual plan or $39.99 a month on the Professional plan, and media items carry a $1.80 closing fee.",
-  "last_verified": "2026-09-29",
+  "last_verified": "2026-09-30",
   "sources": [
-    {"title": "Amazon: Pricing for selling on Amazon (selling plans and referral fees)", "url": "https://sell.amazon.com/pricing", "accessed": "2026-09-29"}
+    {"title": "Amazon: Pricing for selling on Amazon (selling plans and referral fees)", "url": "https://sell.amazon.com/pricing", "accessed": "2026-09-30"}
   ],
   "inputs": [
     {"id": "sale_price", "label": "Item price", "type": "money", "role": "price", "default": 45, "help": "The listed price the buyer pays for the item."},
@@ -105,5 +105,5 @@
     "notes": "Rates are from Amazon's US pricing page as of September 2026 and apply to the United States store. The calculator covers 10 common categories; categories with split-rate schedules (Jewelry, Watches, Furniture, Electronics Accessories) and other specialized categories are not modeled and differ. FBA fulfillment, storage, inbound placement and advertising fees are not modeled. The refund administration fee is not modeled. Amazon typically settles seller accounts every 14 days and may hold a reserve for returns and claims.",
     "changelog": []
   },
-  "related": ["ebay", "walmart-marketplace", "shopify", "etsy"]
+  "related": ["ebay", "walmart-marketplace", "amazon-handmade", "etsy"]
 }

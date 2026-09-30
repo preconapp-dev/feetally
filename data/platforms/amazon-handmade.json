@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "slug": "amazon-handmade",
+  "name": "Amazon Handmade",
+  "category": "marketplace",
+  "region": "United States",
+  "currency": "USD",
+  "tagline": "Amazon Handmade fee calculator: 15% referral fee ($0.30 minimum), no monthly fee after month one.",
+  "fee_summary": "Amazon Handmade deducts a referral fee of 15% or $0.30, whichever is greater, for every unit shipped. Approved makers pay the $39.99 Professional selling plan fee once, for their first month; after that the monthly fee is waived.",
+  "last_verified": "2026-09-30",
+  "sources": [
+    {"title": "Amazon Handmade program page (referral fee and Professional plan waiver)", "url": "https://sell.amazon.com/programs/handmade", "accessed": "2026-09-30"},
+    {"title": "Amazon: Pricing for selling on Amazon (referral fee basis, selling plans, standard category rates)", "url": "https://sell.amazon.com/pricing", "accessed": "2026-09-30"}
+  ],
+  "inputs": [
+    {"id": "sale_price", "label": "Item price", "type": "money", "role": "price", "default": 40, "help": "The listed price the buyer pays for the item, before shipping and sales tax."},
+    {"id": "shipping_charged", "label": "Shipping charged to buyer", "type": "money", "role": "shipping_charged", "default": 0, "help": "Amazon's referral fee applies to shipping and gift-wrap charges too. Leave 0 for free shipping."},
+    {"id": "first_month", "label": "Still in my first month (one-time $39.99 plan fee)", "type": "toggle", "role": "other", "default": false, "help": "Approved Handmade sellers pay the Professional plan fee once, in month one. Turn on to spread it across your first month's orders."},
+    {"id": "orders_per_month", "label": "Orders in your first month", "type": "number", "role": "orders_per_month", "default": 20, "min": 1, "help": "Only used when the first-month switch is on, to split the one-time $39.99 across those orders."},
+    {"id": "item_cost", "label": "Materials and making cost", "type": "money", "role": "cost", "default": 10, "help": "What the materials and supplies for one item cost you."},
+    {"id": "shipping_cost", "label": "Your shipping cost", "type": "money", "role": "shipping_cost", "default": 5, "help": "What you pay for postage and packaging."},
+    {"id": "target_profit", "label": "Target profit", "type": "money", "role": "target_profit", "default": 20, "help": "We'll show the item price you need to hit this profit."}
+  ],
+  "fees": [
+    {"id": "referral", "label": "Handmade referral fee", "basis": "price_plus_shipping", "pct": 15, "min": 0.30,
+     "note": "15% of the total sales price (item price + shipping + gift wrap) or $0.30, whichever is greater, for every unit shipped."},
+    {"id": "first_month_plan", "label": "Professional plan fee, first month only", "basis": "none", "fixed": 39.99, "monthly": true,
+     "when": {"input": "first_month", "equals": true},
+     "note": "$39.99 paid once for your first month, divided by your first-month orders. The ongoing monthly fee is waived for approved Handmade sellers."}
+  ],
+  "worked_example": {
+    "inputs": {"sale_price": 40, "shipping_charged": 0, "first_month": false, "item_cost": 10, "shipping_cost": 5},
+    "expected": {"total_fees": 6.00, "net_payout": 34.00, "profit": 19.00},
+    "explanation": "A $40 handmade item with free shipping has a total sales price of $40. The referral fee is 15% of $40 = $6.00, well above the $0.30 minimum, and past the first month there is no plan fee, so Amazon pays out $34.00. After $10 of materials and $5 of postage, profit is $19.00. In your first month, with 20 orders, the one-time $39.99 plan fee would add $2.00 to each order."
+  },
+  "content": {
+    "intro": "Amazon Handmade is the part of Amazon reserved for makers. Approved artisans and collaborative groups such as cooperatives, nonprofits and charities list handcrafted goods alongside the rest of Amazon's catalog, and Amazon uses an application process to keep the category to genuine handmade work. Products qualify if they are handcrafted, hand-designed, hand-altered, repurposed or upcycled, and the category covers jewelry, artwork, clothing, home goods, kitchen items, stationery, toys, pet supplies and more.\n\nThe fee stack is short. For every unit shipped, Handmade deducts a referral fee of 15% or $0.30, whichever is greater. On Amazon a referral fee is a percentage of the total sales price, which Amazon defines as the list price plus shipping costs and any gift-wrapping charges, so shipping you charge the buyer is part of the fee basis.\n\nHandmade sellers register on Amazon's Professional selling plan, which normally costs $39.99 a month plus selling fees. Approved makers pay it once: following a one-time, first-month payment, the ongoing monthly fee is waived, which Amazon describes as a savings of $480 per year. The calculator's first-month switch spreads that single $39.99 across the orders you expect in month one, so you can see what your first sales really cost and what every sale costs after that.",
+    "how_fees_work": [
+      "Referral fee: 15% or $0.30, whichever is greater, deducted for every unit shipped. On a $40 item that is $6.00; on an item priced under $2.00 the $0.30 minimum applies instead.",
+      "Fee basis: Amazon calculates referral fees on the total sales price, which includes the list price plus shipping costs and any gift-wrapping charges. Charging $6 shipping on a $40 item means the 15% is taken on $46, or $6.90.",
+      "Professional selling plan: normally $39.99 a month plus selling fees. Approved Handmade sellers make a one-time, first-month payment and the ongoing monthly fee is then waived, a savings of $480 per year by Amazon's count.",
+      "Application: you must apply and be approved before listing. Amazon asks for information about you, your products and your process, and accepts work that is handcrafted, hand-designed, hand-altered, repurposed or upcycled.",
+      "Customization: you can offer personalized or made-to-order products by registering for Amazon Custom. Custom products must be fulfilled by the seller and can't be fulfilled through Fulfillment by Amazon (FBA).",
+      "Compared with standard Amazon categories: regular sellers pay 20% on the first $250 of a jewelry sale and 17% on clothing over $20, plus $39.99 every month on the Professional plan or $0.99 per item on the Individual plan. Handmade is a flat 15% with the monthly fee waived after month one."
+    ],
+    "tips": [
+      "Treat shipping as part of the price. The 15% applies to the shipping charge as well, so moving $6 from the item price into a shipping charge saves nothing in fees.",
+      "Budget for the first month. The one-time $39.99 plan payment is a real cost: with 10 orders in month one it adds $4.00 to each. Turn on the first-month switch in the calculator to see it.",
+      "Keep small items at $2.00 or more where you can. 15% of $2.00 is exactly $0.30, so below that price the $0.30 minimum takes a bigger share of the sale.",
+      "Price personalized work for your own fulfillment. Custom products can't go through FBA, so put your real postage and packaging in the shipping cost field.",
+      "Use the target-profit field to price from your materials cost up. A $10 item with $5 postage and free shipping needs a $41.18 price to clear $20 after the 15% fee."
+    ],
+    "faq": [
+      {"q": "What percentage does Amazon Handmade take?", "a": "A referral fee of 15% or $0.30, whichever is greater, for every unit shipped. On a $40 sale with free shipping that is $6.00, leaving $34.00."},
+      {"q": "Is there a monthly fee for Amazon Handmade?", "a": "Not after the first month. The Professional selling plan is $39.99 a month, and Amazon says that following a one-time, first-month payment the ongoing monthly fee is waived for approved Handmade sellers, a savings of $480 per year."},
+      {"q": "Does Amazon Handmade charge the 15% on shipping?", "a": "Yes, on the basis Amazon uses for referral fees: the total sales price, which includes the list price plus shipping costs and any gift-wrapping charges."},
+      {"q": "Who can sell on Amazon Handmade?", "a": "Approved makers and collaborative groups such as cooperatives, nonprofits and charities. You apply, tell Amazon about yourself, your products and your process, and can list once approved. Products must be handcrafted, hand-designed, hand-altered, repurposed or upcycled."},
+      {"q": "Can I sell personalized items on Amazon Handmade?", "a": "Yes, by registering for Amazon Custom, which lets buyers customize, personalize or configure a product. Custom products must be fulfilled by the seller and can't be fulfilled through FBA."},
+      {"q": "How much do I keep on a $40 Amazon Handmade sale?", "a": "$34.00 after the $6.00 referral fee, if shipping is free and you are past your first month. With $10 of materials and $5 of postage, profit is $19.00."},
+      {"q": "Is Amazon Handmade cheaper than selling in regular Amazon categories?", "a": "Often. Standard referral fees are 15% in most categories but 20% on the first $250 of jewelry and 17% on clothing over $20, and regular sellers keep paying $39.99 a month for the Professional plan or $0.99 per item on Individual. Handmade is a flat 15% with the monthly fee waived after month one."}
+    ],
+    "notes": "Rates are from Amazon's Handmade program page and its US pricing page, read 2026-09-30, and apply to the United States store. The Handmade page states the 15% or $0.30 referral fee and the monthly-fee waiver but does not restate what the 15% is charged on; the calculator uses Amazon's general definition of a referral fee from the pricing page (total sales price: list price plus shipping and gift wrap). Amazon's Seller Central help article on Handmade referral fees could not be read without signing in. The page does not describe any conditions for keeping the fee waiver. FBA fulfillment and storage fees, advertising and refund administration fees are not modeled.",
+    "changelog": []
+  },
+  "related": ["amazon", "etsy", "ebay"]
+}

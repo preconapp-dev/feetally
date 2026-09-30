@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "slug": "udemy",
+  "name": "Udemy",
+  "category": "creator-platform",
+  "region": "United States",
+  "currency": "USD",
+  "tagline": "Udemy instructor earnings calculator: keep 97% of your own coupon sales, 37% of Udemy-driven sales.",
+  "fee_summary": "Udemy pays instructors 97% of the net amount when a student buys with the instructor's coupon or referral link, and 37% on any other Udemy sale. The net amount is what the student paid minus taxes and fees, such as the 30% Apple or Google takes on purchases in the iOS and Android apps.",
+  "last_verified": "2026-09-30",
+  "sources": [
+    {"title": "Udemy Support: Instructor revenue share", "url": "https://support.udemy.com/hc/en-us/articles/229605008-Instructor-revenue-share", "accessed": "2026-09-30"},
+    {"title": "Udemy Support: How do I earn revenue from Udemy Business and subscription plans?", "url": "https://support.udemy.com/hc/en-us/articles/115013221767-How-do-I-Earn-Revenue-From-Udemy-Business-and-Personal-Plan", "accessed": "2026-09-30"},
+    {"title": "Udemy Support: Instructor Payment Overview", "url": "https://support.udemy.com/hc/en-us/articles/229604008-Instructor-Payment-Overview", "accessed": "2026-09-30"},
+    {"title": "Udemy Support: Teaching on Udemy FAQ", "url": "https://support.udemy.com/hc/en-us/articles/360003469994-Teaching-on-Udemy-FAQ", "accessed": "2026-09-30"},
+    {"title": "Udemy Teach: Updating subscription terms (November 2023 announcement)", "url": "https://teach.udemy.com/enabling-investment-subscription-terms-update/", "accessed": "2026-09-30"}
+  ],
+  "inputs": [
+    {"id": "sale_price", "label": "Price the student paid", "type": "money", "role": "price", "default": 20, "help": "What the student paid for the course after any discount, before sales tax or VAT."},
+    {"id": "channel", "label": "How the student bought", "type": "select", "role": "other", "default": "organic",
+     "options": [
+       {"id": "organic", "label": "Udemy sale (no instructor coupon or referral link)", "note": "You receive 37% of the net amount."},
+       {"id": "instructor", "label": "Your instructor coupon or referral link", "note": "You receive 97% of the net amount."}
+     ]},
+    {"id": "mobile_app", "label": "Paid in the iOS or Android app", "type": "toggle", "role": "other", "default": false, "help": "Apple or Google takes 30% of in-app purchases before Udemy's revenue share is calculated."},
+    {"id": "cost", "label": "Your cost per sale", "type": "money", "role": "cost", "default": 0, "help": "Optional: ad spend or production cost you want to net out per enrollment."},
+    {"id": "target_profit", "label": "Target earnings per sale", "type": "money", "role": "target_profit", "default": 10, "help": "We'll show the price the student needs to pay."}
+  ],
+  "fees": [
+    {"id": "app_store_fee", "label": "Apple or Google in-app purchase fee", "basis": "price", "pct": 30,
+     "when": {"input": "mobile_app", "equals": true},
+     "note": "Udemy cites a 30% fee imposed by Apple or Google on iOS and Android sales. It comes off before the revenue share."},
+    {"id": "udemy_share", "label": "Udemy's share of the net amount", "basis": "price",
+     "pct_by": {"input": "channel", "values": {"organic": 63, "instructor": 3}},
+     "when": {"input": "mobile_app", "equals": false},
+     "note": "Udemy keeps 63% on its own sales (you receive 37%) and 3% on sales through your coupon or referral link (you receive 97%)."},
+    {"id": "udemy_share_app", "label": "Udemy's share of the net amount (after the app fee)", "basis": "price",
+     "pct_by": {"input": "channel", "values": {"organic": 44.1, "instructor": 2.1}},
+     "when": {"input": "mobile_app", "equals": true},
+     "note": "Taken on the 70% left after the app store fee: 63% x 70% = 44.1% of the price, or 3% x 70% = 2.1% through your coupon or referral link."}
+  ],
+  "worked_example": {
+    "inputs": {"sale_price": 20, "channel": "organic", "mobile_app": false, "cost": 0},
+    "expected": {"total_fees": 12.60, "net_payout": 7.40, "profit": 7.40},
+    "explanation": "A student pays $20 for your course on the Udemy website without using your coupon or referral link. The net amount is $20, Udemy keeps 63% = $12.60, and you receive 37% = $7.40. Had the student used your coupon or referral link, Udemy would keep 3% = $0.60 and you would receive $19.40."
+  },
+  "content": {
+    "intro": "Udemy is a marketplace for online video courses. Instructors publish courses, Udemy hosts them, runs checkout and brings in students through its own marketplace and promotions, and the two split each sale. Udemy says there is no fee to be an instructor; instructors are paid according to a revenue share model.\n\nThe split depends on who brought the student. When a student buys using your instructor coupon or course referral link, you receive 97% of the revenue. On any other Udemy sale, where no instructor coupon or referral link was used, you receive 37% and Udemy keeps 63%. Both percentages apply to the net amount: what the student paid less any applicable taxes or fees, such as the 30% fee Apple or Google imposes on purchases made in the iOS and Android apps.\n\nOn a $20 web purchase that means $19.40 to you through your own coupon, or $7.40 when Udemy made the sale. If the same $20 is paid inside the mobile app, the store fee removes $6.00 first and your 37% of the remaining $14.00 is $5.18.\n\nCourses can also earn from subscriptions. For Udemy Business, Udemy sets aside 15% of monthly subscription revenue as an instructor pool and divides it by each instructor's share of the minutes consumed. That income depends on watch time rather than price, so this calculator covers individual course purchases only.",
+    "how_fees_work": [
+      "Instructor promotion: you receive 97% of the net amount when the student purchases using your instructor coupon or course referral link. Udemy keeps 3%.",
+      "Udemy sales: you receive 37% of the net amount on any Udemy sale where no instructor coupon or course referral link was used. Udemy keeps 63%.",
+      "Net amount: the revenue share is calculated on what the student paid less any applicable taxes or fees. Transaction taxes such as sales tax and VAT come off before the split, so enter the price before tax.",
+      "Mobile app purchases: Udemy names the 30% fee imposed by Apple or Google on iOS and Android sales as one of those deductions. A $20 in-app purchase leaves a $14.00 net amount, so 37% is $5.18 and 97% is $13.58.",
+      "Udemy Business subscriptions (not modeled): each month Udemy allocates 15% of monthly subscription revenue from Udemy Business customers to an instructor revenue pool. Your share of the pool equals your share of total minutes consumed across Udemy Business courses.",
+      "Payout schedule: Udemy describes a three-month cycle. Enrollments are paid for in month 1, refunds, corrections and adjustments are processed during months 1 and 2, and you are paid in month 3, typically within the first 10 business days of that month.",
+      "Payout minimum: a payment is issued only once the amount payable reaches $25 USD. Smaller balances carry forward, and any balance still under $25 is paid out in December."
+    ],
+    "tips": [
+      "Send your own audience through a coupon or referral link. The same $20 sale pays you $19.40 with your link and $7.40 without it, a difference of $12.00.",
+      "When you share a link, point buyers to the website checkout where you can. An in-app purchase loses 30% to Apple or Google before the split: $13.58 instead of $19.40 on a $20 coupon sale.",
+      "Plan around 37% for every sale you don't refer. To earn $10 from a Udemy-driven web sale the student has to pay $27.02.",
+      "Expect refunds to come out before you are paid. Udemy processes refunds during the month of the sale and the month after, then pays your share of what is left.",
+      "Treat the $25 payout minimum as a timing detail, not a fee. Balances under $25 carry over and are paid in December."
+    ],
+    "faq": [
+      {"q": "What percentage does Udemy take from instructors?", "a": "63% of the net amount on sales made without your coupon or referral link, leaving you 37%, and 3% on sales made with your instructor coupon or referral link, leaving you 97%."},
+      {"q": "How much do I make on a $20 Udemy course sale?", "a": "$7.40 if Udemy made the sale on the web, $19.40 if the student used your coupon or referral link, and $5.18 if a Udemy-driven sale was paid through the iOS or Android app."},
+      {"q": "Does it cost anything to teach on Udemy?", "a": "No. Udemy says there is no fee to be an instructor on Udemy; instructors are paid according to a revenue share model."},
+      {"q": "What is the net amount on Udemy?", "a": "The amount the student paid less any applicable taxes or fees, such as the 30% fee imposed by Apple or Google for sales on iOS and Android. Your 97% or 37% is calculated on that figure, not on the list price."},
+      {"q": "How do Udemy Business and subscriptions pay instructors?", "a": "Udemy allocates 15% of monthly subscription revenue from Udemy Business customers to an instructor pool and splits it by minutes consumed. Udemy announced in November 2023 that the subscription share would move from 25% to 20% in January 2024, 17.5% in January 2025 and 15% in January 2026, while the 37% marketplace share stayed the same."},
+      {"q": "When does Udemy pay instructors?", "a": "In the third month of a cycle: enrollments in month 1, refunds and adjustments during months 1 and 2, payment in month 3, typically within the first 10 business days. Instructors can be paid by PayPal, Payoneer, Tipalti or direct deposit (US only)."},
+      {"q": "Is there a minimum payout on Udemy?", "a": "Yes. The amount payable must reach $25 USD before a payment is issued. Balances under $25 accumulate, and any remaining balance under $25 is paid in December."}
+    ],
+    "notes": "Revenue shares are from Udemy's instructor revenue share help article, read 2026-09-30. Udemy's full definition of net amount is in its Instructor Terms, which could not be read for this page; the calculator models the one deduction the help article puts a number on, the 30% Apple or Google fee on in-app purchases, and expects the price before tax. Each fee line is rounded to the cent, so an in-app result can differ from Udemy's own figure by a cent. Subscription and Udemy Business earnings depend on minutes consumed and are not modeled. Refunds, currency conversion and any charges from your payout provider are not modeled.",
+    "changelog": []
+  },
+  "related": ["teachable", "gumroad", "patreon"]
+}

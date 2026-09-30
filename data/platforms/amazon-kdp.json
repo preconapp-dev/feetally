@@ -7,12 +7,12 @@
   "currency": "USD",
   "tagline": "Amazon KDP royalty calculator: 70% or 35% ebook royalty, $0.15/MB delivery cost, and your payout per sale.",
   "fee_summary": "KDP pays 70% of the list price minus delivery costs ($0.15 per MB on Amazon.com) for ebooks priced $2.99 to $12.99, or 35% of list price with no delivery cost at any price from $0.99 to $200. Amazon keeps the rest.",
-  "last_verified": "2026-09-29",
+  "last_verified": "2026-09-30",
   "sources": [
-    {"title": "KDP Help: Digital Pricing Page (eBook royalty options)", "url": "https://kdp.amazon.com/en_US/help/topic/G200644210", "accessed": "2026-09-29"},
-    {"title": "KDP Help: eBook List Price Requirements", "url": "https://kdp.amazon.com/en_US/help/topic/G200634560", "accessed": "2026-09-29"},
-    {"title": "KDP Help: eBook Delivery Costs", "url": "https://kdp.amazon.com/en_US/help/topic/G200634500", "accessed": "2026-09-29"},
-    {"title": "KDP Help: Paperback printing cost", "url": "https://kdp.amazon.com/en_US/help/topic/G201834340", "accessed": "2026-09-29"}
+    {"title": "KDP Help: Digital Pricing Page (eBook royalty options)", "url": "https://kdp.amazon.com/en_US/help/topic/G200644210", "accessed": "2026-09-30"},
+    {"title": "KDP Help: eBook List Price Requirements", "url": "https://kdp.amazon.com/en_US/help/topic/G200634560", "accessed": "2026-09-30"},
+    {"title": "KDP Help: eBook Delivery Costs", "url": "https://kdp.amazon.com/en_US/help/topic/G200634500", "accessed": "2026-09-30"},
+    {"title": "KDP Help: Paperback printing cost", "url": "https://kdp.amazon.com/en_US/help/topic/G201834340", "accessed": "2026-09-30"}
   ],
   "inputs": [
     {"id": "list_price", "label": "eBook list price", "type": "money", "role": "price", "default": 4.99, "help": "Your Amazon.com list price in USD. The 70% option requires $2.99 to $12.99; the 35% option allows $0.99 to $200."},

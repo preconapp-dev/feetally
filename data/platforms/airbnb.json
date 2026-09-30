@@ -7,9 +7,9 @@
   "currency": "USD",
   "tagline": "Airbnb host fee calculator: 3% split fee or 15.5% host-only fee, and your exact payout per booking.",
   "fee_summary": "Airbnb charges hosts either a 3% split fee (guests then pay a 14.1%–16.5% service fee on top) or a 15.5% host-only fee with no guest service fee. Both are calculated on the booking subtotal: nightly price plus cleaning and other host fees, before taxes.",
-  "last_verified": "2026-09-29",
+  "last_verified": "2026-09-30",
   "sources": [
-    {"title": "Airbnb Help Center: Service fees (article 1857)", "url": "https://www.airbnb.com/help/article/1857", "accessed": "2026-09-29"}
+    {"title": "Airbnb Help Center: Service fees (article 1857)", "url": "https://www.airbnb.com/help/article/1857", "accessed": "2026-09-30"}
   ],
   "inputs": [
     {"id": "booking_subtotal", "label": "Booking subtotal", "type": "money", "role": "price", "default": 600, "help": "Nightly price × nights plus your cleaning fee and any other host fees. Leave out taxes and the guest service fee."},
@@ -60,7 +60,7 @@
       {"q": "How much does Airbnb take on a $600 booking?", "a": "$93.00 on the host-only fee (15.5%), leaving $507.00. On the split fee the host pays $18.00 (3%), but the guest pays at least $84.60 extra in service fees."},
       {"q": "When does Airbnb pay hosts?", "a": "Airbnb releases the payout after the guest checks in, minus the host service fee. Check the payouts section of your host account for the schedule that applies to your payout method."}
     ],
-    "notes": "Rates are from Airbnb's US help center article on service fees, read 2026-09-29. Airbnb publishes ranges rather than single numbers for two items: the guest service fee (14.1%–16.5% of the subtotal) and the host-only fee for hosts who are not on the 15.5% rate (14%–16%). The calculator uses 15.5% and 14.1%; check the fee shown on your own reservation breakdown for the exact figure. Airbnb does not state a date for completing the migration from split fees to host-only fees. Payout timing is not modeled; see Airbnb's payouts help article for your account.",
+    "notes": "Rates are from Airbnb's US help center article on service fees, read 2026-09-30. Airbnb publishes ranges rather than single numbers for two items: the guest service fee (14.1%–16.5% of the subtotal) and the host-only fee for hosts who are not on the 15.5% rate (14%–16%). The calculator uses 15.5% and 14.1%; check the fee shown on your own reservation breakdown for the exact figure. Airbnb does not state a date for completing the migration from split fees to host-only fees. Payout timing is not modeled; see Airbnb's payouts help article for your account.",
     "changelog": []
   },
   "related": ["vrbo", "turo", "rover"]

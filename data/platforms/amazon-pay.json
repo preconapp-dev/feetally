@@ -7,9 +7,9 @@
   "currency": "USD",
   "tagline": "Amazon Pay fee calculator: 2.9% + 30¢ domestic, 3.9% + 30¢ cross-border. See what you keep per order.",
   "fee_summary": "Amazon Pay charges a 2.9% processing fee on payments made with a US-issued payment method, or 3.9% when the payment method was issued outside the US, plus a $0.30 authorization fee on every transaction. There are no monthly or setup fees.",
-  "last_verified": "2026-09-29",
+  "last_verified": "2026-09-30",
   "sources": [
-    {"title": "Amazon Pay Help: Fees (US)", "url": "https://pay.amazon.com/help/201212280", "accessed": "2026-09-29"}
+    {"title": "Amazon Pay Help: Fees (US)", "url": "https://pay.amazon.com/help/201212280", "accessed": "2026-09-30"}
   ],
   "inputs": [
     {"id": "amount", "label": "Transaction amount", "type": "money", "role": "price", "default": 100, "help": "What the shopper pays at checkout on your site."},

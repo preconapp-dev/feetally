@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "slug": "ebay-motors",
+  "name": "eBay Motors",
+  "category": "marketplace",
+  "region": "United States",
+  "currency": "USD",
+  "tagline": "eBay Motors fee calculator: $34 or $79 to list a vehicle, no final value fee, 2.8% on the deposit.",
+  "fee_summary": "eBay Motors charges a nonrefundable listing fee of $34 for a vehicle listed at $15,000 or less, or $79 for one listed over $15,000, and no final value fee when the vehicle sells. If the buyer pays a deposit in checkout, eBay keeps 2.8% of the deposit.",
+  "last_verified": "2026-09-30",
+  "sources": [
+    {"title": "eBay Help: Fees for selling a vehicle on eBay Motors", "url": "https://www.ebay.com/help/selling/fees-credits-invoices/motors-fees?id=4127", "accessed": "2026-09-30"}
+  ],
+  "inputs": [
+    {"id": "listing_price", "label": "Vehicle listing price", "type": "money", "role": "price", "default": 12000, "help": "Your asking price, used here as the sale price too. For auctions, enter the highest of your starting bid, reserve or Buy It Now price; that is what sets the listing fee."},
+    {"id": "deposit", "label": "Deposit the buyer pays in checkout", "type": "money", "role": "other", "default": 500, "help": "The deposit you chose for the listing. eBay's options start at 1% of the listing price. Enter 0 if the listing has no deposit requirement."},
+    {"id": "vehicle_cost", "label": "What the vehicle cost you", "type": "money", "role": "cost", "default": 9000, "help": "Purchase price plus repairs, detailing and any other costs of getting it ready to sell."},
+    {"id": "target_profit", "label": "Target profit", "type": "money", "role": "target_profit", "default": 2000, "help": "We'll show the price you need to sell at to clear this amount."}
+  ],
+  "fees": [
+    {"id": "listing_fee", "label": "Vehicle listing fee", "basis": "price",
+     "tiers": [{"max": 15000, "fixed": 34}, {"min": 15000.01, "fixed": 79}],
+     "note": "$34 for a vehicle listed at $15,000 or less, $79 over $15,000. Charged when you list (and at each auto-relist) and nonrefundable."},
+    {"id": "deposit_processing", "label": "Deposit processing fee", "basis": "input:deposit", "pct": 2.8,
+     "note": "2.8% of the deposit, charged when the vehicle sells and the buyer pays the deposit in checkout. Deducted from the deposit before it is paid out to you."}
+  ],
+  "worked_example": {
+    "inputs": {"listing_price": 12000, "deposit": 500, "vehicle_cost": 9000},
+    "expected": {"total_fees": 48.00, "net_payout": 11952.00, "profit": 2952.00},
+    "explanation": "A car listed and sold at $12,000 is at or under $15,000, so the listing fee is $34. The buyer pays a $500 deposit in checkout and eBay keeps 2.8% of it, $14.00, paying out the other $486.00. There is no final value fee, so total eBay fees are $48.00 and you keep $11,952.00 of the $12,000. After the $9,000 the car cost you, profit is $2,952.00."
+  },
+  "content": {
+    "intro": "eBay Motors is eBay's marketplace for vehicles: cars and trucks, motorcycles, powersports, boats, and other vehicles and trailers. Sellers list by auction or at a fixed price, buyers from anywhere in the country bid or buy, and the winning buyer pays a deposit through eBay's checkout.\n\nVehicle fees work differently from the rest of eBay. There is no percentage commission: eBay says it doesn't charge a final value fee when your vehicle sells. Instead you pay one listing fee that depends on the listing price, $34 for a vehicle listed at $15,000 or less and $79 for a vehicle listed over $15,000. Both include 40 photos, an auction of up to 10 days or a 30-day fixed-price listing, an AutoCheck report on Cars & Trucks listings, and Secure Purchase. The fee is charged when you list, charged again at each relist if you opt into auto-relist, and is nonrefundable whether or not the vehicle sells.\n\nThe only other selling fee is on the deposit. When you list with a deposit requirement and the buyer pays it in checkout, eBay keeps a deposit processing fee of 2.8% of the deposit and pays you the rest. On a $500 deposit that is $14.00, so $486.00 reaches you. Parts and accessories sold in Motors categories are not covered here; they follow eBay's regular selling fees.",
+    "how_fees_work": [
+      "Listing fee: $34 for a vehicle listed at $15,000 or less, $79 for a vehicle listed over $15,000. A listing at exactly $15,000 pays $34. Both prices include 40 photos, up to a 10-day auction or a 30-day fixed-price listing, an AutoCheck report (Cars & Trucks) and Secure Purchase.",
+      "Which price sets the fee: the listing price. For auctions, eBay uses the highest of the starting bid, the reserve price or the Buy It Now price, so a $9,000 starting bid with a $16,000 reserve is a $79 listing.",
+      "When it is charged: at the time of listing, and again at each relist if you opt into auto-relist. Listing fees are nonrefundable, so a vehicle that doesn't sell still costs $34 or $79 per listing.",
+      "Final value fee: none. eBay does not charge a final value fee when a vehicle sells, whatever the price.",
+      "Deposit processing fee: 2.8% of the deposit amount, charged when the vehicle sells and the buyer pays the deposit in checkout. It is deducted from the deposit before the remaining funds are paid out to you, which happens once both buyer and seller have completed Secure Purchase.",
+      "Deposit amounts: for vehicles listed at $1,000 or more, you pick the deposit from the options eBay offers when you create the listing; they are at least 1% of the listing price. For vehicles listed under $1,000, eBay sets the amount.",
+      "Older package pricing: auto-relists of listings created before April 15, 2026, and listings made with older versions of the eBay and eBay Motors apps, still use the Basic ($19), Plus ($34) and Premium ($79) packages."
+    ],
+    "tips": [
+      "Watch the $15,000 line. A listing at $15,000 costs $34 and one at $15,001 costs $79, so if your asking price is close, listing at $15,000 or less saves $45.",
+      "Set auction terms with the fee in mind. The fee uses the highest of your starting bid, reserve and Buy It Now price, so a reserve or Buy It Now above $15,000 makes it a $79 listing even with a low starting bid.",
+      "Think before turning on auto-relist. Each relist is a new nonrefundable listing fee; three runs of a $34 listing cost $102.",
+      "The 2.8% applies only to the deposit, not the vehicle price: $14.00 on a $500 deposit, $28.00 on $1,000. A larger deposit costs a little more in fees, so choose it for the commitment you want from the buyer, not by default.",
+      "Because there is no final value fee, eBay's cost is nearly flat. On a $12,000 sale with a $500 deposit the fees are $48.00, or 0.4% of the price, so price the vehicle on condition and market value rather than padding for fees."
+    ],
+    "faq": [
+      {"q": "How much does it cost to sell a car on eBay Motors?", "a": "$34 to list a vehicle at $15,000 or less, or $79 for a vehicle listed over $15,000. There is no final value fee when it sells. If the buyer pays a deposit in checkout, eBay also keeps 2.8% of that deposit."},
+      {"q": "Does eBay Motors charge a final value fee on vehicles?", "a": "No. eBay's vehicle fee page says it doesn't charge a final value fee when your vehicle sells. The listing fee and the 2.8% deposit processing fee are the only selling fees it lists."},
+      {"q": "Is the eBay Motors listing fee refunded if my car doesn't sell?", "a": "No. Vehicle listing fees apply to each listing you create, are charged at the time of listing or relisting, and are nonrefundable."},
+      {"q": "What is the eBay Motors deposit processing fee?", "a": "2.8% of the deposit amount, charged when the vehicle sells and the buyer pays the deposit in checkout. On a $500 deposit eBay deducts $14.00 and pays you $486.00."},
+      {"q": "Which price decides whether I pay $34 or $79?", "a": "The listing price. For auctions that is the highest of the starting bid, reserve price or Buy It Now price. $15,000 or less is $34; over $15,000 is $79."},
+      {"q": "Do these fees apply to motorcycles, boats and trailers?", "a": "Yes. The vehicle listing fees cover Cars & Trucks, Motorcycles, Powersports, Boats, and Other Vehicles & Trailers. Parts and accessories use eBay's regular selling fees instead."},
+      {"q": "What happened to the Basic, Plus and Premium listing packages?", "a": "They now apply only to auto-relists of listings created before April 15, 2026, and to listings made with older versions of the eBay and eBay Motors apps: Basic $19, Plus $34, Premium $79. Other listings pay the $34 or $79 listing fee."}
+    ],
+    "notes": "Fees are from eBay's US help page on vehicle selling fees, read 2026-09-30, and are in US dollars. The calculator sets the listing fee from the price you enter and treats that price as the sale price; for auctions enter the highest of your starting bid, reserve or Buy It Now price, which is what eBay uses. It assumes a single listing; each auto-relist adds another listing fee. The page lists no separate fee for a reserve price or other listing upgrades, and does not say what happens to the deposit processing fee if a sale falls through, so neither is modeled. Dealer subscription pricing is arranged with eBay directly and is not covered. Parts and accessories follow eBay's standard selling fees; use the eBay calculator for those.",
+    "changelog": [
+      {"date": "2026-04-15", "change": "Listings created from this date pay a single listing fee of $34 (listed at $15,000 or less) or $79 (over $15,000). The earlier Basic $19, Plus $34 and Premium $79 packages remain only for auto-relists of older listings and older app versions."}
+    ]
+  },
+  "related": ["ebay", "offerup", "turo"]
+}
