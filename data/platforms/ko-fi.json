@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "slug": "ko-fi",
+  "name": "Ko-fi",
+  "category": "creator-platform",
+  "region": "United States",
+  "currency": "USD",
+  "tagline": "Ko-fi fee calculator: 0% on one-time tips, 5% on shop, memberships and commissions, or 0% with Gold.",
+  "fee_summary": "On the free plan Ko-fi takes 0% of one-time tips and a flat 5% of shop sales, memberships, monthly tips, and commissions. Ko-fi Gold ($12/month) drops the service fee to 0%. PayPal or Stripe processing, typically around 3% + $0.30, applies on top because payments go straight to your own account.",
+  "last_verified": "2026-09-29",
+  "sources": [
+    {"title": "Ko-fi Help Center: What fees does Ko-fi charge?", "url": "https://help.ko-fi.com/hc/en-us/articles/360002506494-What-fees-does-Ko-fi-charge", "accessed": "2026-09-29"},
+    {"title": "Ko-fi Gold", "url": "https://ko-fi.com/gold", "accessed": "2026-09-29"}
+  ],
+  "inputs": [
+    {"id": "amount", "label": "Payment amount", "type": "money", "role": "price", "default": 25, "help": "The tip, membership charge, shop price, or commission price the supporter pays."},
+    {"id": "payment_type", "label": "Type of payment", "type": "select", "role": "other", "default": "shop",
+     "options": [
+       {"id": "one_time_tip", "label": "One-time tip (donation)", "note": "0% on the Free plan."},
+       {"id": "monthly_tip", "label": "Monthly tip", "note": "5% unless you have Gold."},
+       {"id": "membership", "label": "Membership tier", "note": "5% unless you have Gold."},
+       {"id": "shop", "label": "Shop item", "note": "5% unless you have Gold."},
+       {"id": "commission", "label": "Commission", "note": "5% unless you have Gold."}
+     ]},
+    {"id": "plan", "label": "Your Ko-fi plan", "type": "select", "role": "other", "default": "free",
+     "options": [
+       {"id": "free", "label": "Ko-fi Free ($0/month)", "note": "0% on one-time tips; 5% on everything else."},
+       {"id": "standard", "label": "Contributor / Standard ($0/month)", "note": "Flat 5% on every payment type, including one-time tips."},
+       {"id": "gold", "label": "Ko-fi Gold ($12/month)", "note": "0% service fee on all payment options."}
+     ]},
+    {"id": "payments_per_month", "label": "Payments you receive per month", "type": "number", "role": "orders_per_month", "default": 20, "help": "Only used to spread the $12 Gold subscription across your monthly payments.", "min": 1},
+    {"id": "include_processing", "label": "Include PayPal/Stripe processing (about 3% + $0.30)", "type": "toggle", "role": "other", "default": true, "help": "Ko-fi says your processor's usual fees apply on top, typically around 3% + $0.30. Turn off to see Ko-fi's fee alone."},
+    {"id": "cost", "label": "Your cost per sale", "type": "money", "role": "cost", "default": 0, "help": "Optional: product, printing, or shipping cost. Usually $0 for tips and digital items."},
+    {"id": "target_profit", "label": "Target profit per payment", "type": "money", "role": "target_profit", "default": 20, "help": "We'll show the price you need to set."}
+  ],
+  "fees": [
+    {"id": "kofi_fee_free", "label": "Ko-fi service fee", "basis": "price",
+     "pct_by": {"input": "payment_type", "values": {"one_time_tip": 0, "monthly_tip": 5, "membership": 5, "shop": 5, "commission": 5}, "default": 5},
+     "when": {"input": "plan", "equals": "free"},
+     "note": "Free plan: 0% on one-time tips; flat 5% on shop items, memberships, monthly tips, and commissions."},
+    {"id": "kofi_fee_standard", "label": "Ko-fi service fee", "basis": "price", "pct": 5,
+     "when": {"input": "plan", "equals": "standard"},
+     "note": "Contributor/Standard plan: flat 5% on every payment type, including one-time tips."},
+    {"id": "kofi_fee_gold", "label": "Ko-fi service fee (Gold)", "basis": "price", "pct": 0,
+     "when": {"input": "plan", "equals": "gold"},
+     "note": "Gold: 0% service fee on all payment options."},
+    {"id": "gold_subscription", "label": "Ko-fi Gold subscription (share per payment)", "basis": "none", "fixed": 12, "monthly": true,
+     "when": {"input": "plan", "equals": "gold"},
+     "note": "$12 per month, divided across the payments you receive that month."},
+    {"id": "processing", "label": "PayPal/Stripe processing (typical)", "basis": "price", "pct": 3, "fixed": 0.30,
+     "when": {"input": "include_processing", "equals": true},
+     "note": "Ko-fi says your processor's usual fees apply on top, typically around 3% + $0.30; the exact rate depends on your PayPal or Stripe account, location, and currency."}
+  ],
+  "worked_example": {
+    "inputs": {"amount": 25, "payment_type": "shop", "plan": "free", "include_processing": true, "cost": 5},
+    "expected": {"total_fees": 2.30, "net_payout": 22.70, "profit": 17.70},
+    "explanation": "A $25 shop sale on the free plan pays Ko-fi 5%, or $1.25. Your payment processor then takes roughly 3% of $25 ($0.75) plus $0.30, or $1.05. Total fees are $2.30, leaving $22.70. After a $5 product cost, profit is $17.70."
+  },
+  "content": {
+    "intro": "Ko-fi is a tip jar that grew into a small storefront. Supporters can send a one-time \"coffee,\" set up a monthly tip or membership, buy digital or physical items from your shop, or request a commission. Payments go straight to your own PayPal or Stripe account rather than sitting in a Ko-fi balance.\n\nOn the free plan, one-time tips carry no Ko-fi fee at all. Everything else, including shop items, memberships, monthly tips, and commissions, carries a flat 5% service fee. A $25 print in your shop costs $1.25 in Ko-fi fees; a $10 tip costs nothing.\n\nThere are two other options. The Contributor (also called Standard) plan costs $0 a month but charges 5% on every payment type, one-time tips included. Ko-fi Gold costs $12 a month and drops the service fee to 0% on all payment options. Gold pays for itself once you take more than $240 a month in fee-bearing payments.\n\nBecause Ko-fi hands the money to PayPal or Stripe, their processing fees apply on top. Ko-fi's help center puts that at typically around 3% + $0.30 per payment, though the exact rate depends on your account type, location, and currency. The calculator includes that estimate by default so the payout you see is closer to what actually lands.",
+    "how_fees_work": [
+      "One-time tips on the free plan: 0%. Ko-fi takes nothing from a one-off donation; only your payment processor's fee comes out.",
+      "Shop, memberships, monthly tips, and commissions on the free plan: a flat 5% service fee on each payment. A $40 commission costs $2.00.",
+      "Contributor / Standard plan: no monthly cost, but the flat 5% applies to every payment type, including one-time tips.",
+      "Ko-fi Gold: $12 per month for a 0% service fee on all payment options. The calculator spreads the $12 across the number of payments you enter per month.",
+      "Payment processing: all payments go directly into your PayPal or Stripe account, and Ko-fi says your processor's usual fees still apply on top, typically around 3% + $0.30. Ko-fi does not set or collect this fee.",
+      "No payout fee or waiting period from Ko-fi: money arrives in your PayPal or Stripe account with the payment itself, subject to those processors' own rules."
+    ],
+    "tips": [
+      "Use the free plan if most of your income is one-time tips. They carry 0% Ko-fi fee, so the only deduction is PayPal or Stripe's.",
+      "Do the Gold math before upgrading. At 5%, Gold's $12 a month breaks even at $240 of fee-bearing payments per month; below that, the free plan is cheaper.",
+      "Sell through the shop only when it is worth 5%. A $3 digital item pays $0.15 to Ko-fi and about $0.39 to the processor, so nearly 18% of a small sale is fees.",
+      "Check your PayPal account type. Ko-fi's 3% + $0.30 figure is an estimate; PayPal's rate depends on whether payments arrive as goods and services or as donations, and on the buyer's country.",
+      "Encourage larger, less frequent payments. The fixed 30 cents from your processor hits every transaction, so one $20 membership charge costs less in fees than four $5 tips."
+    ],
+    "faq": [
+      {"q": "Does Ko-fi take a cut of donations?", "a": "No. On the free plan Ko-fi takes 0% of one-time tips. Your PayPal or Stripe processing fee still applies, typically around 3% + $0.30 according to Ko-fi."},
+      {"q": "How much does Ko-fi take from a $5 coffee?", "a": "Nothing on the free plan. Your processor takes roughly $0.45 (3% + $0.30), so about $4.55 reaches your PayPal or Stripe account."},
+      {"q": "What fee does Ko-fi charge on shop sales and memberships?", "a": "A flat 5% on the free plan. Ko-fi Gold ($12/month) removes it. Processing fees from PayPal or Stripe are extra."},
+      {"q": "How much does Ko-fi Gold cost and is it worth it?", "a": "$12 per month for a 0% service fee on all payment options. It saves money once you take more than $240 a month in shop, membership, monthly tip, or commission payments."},
+      {"q": "Does Ko-fi charge a monthly fee?", "a": "Not on the free or Contributor plans. Only Ko-fi Gold has a subscription, at $12 per month."},
+      {"q": "When does Ko-fi pay out?", "a": "Immediately. All payments go straight into your own PayPal or Stripe account; Ko-fi does not hold a balance or run payout cycles."},
+      {"q": "Does Ko-fi's 5% include PayPal or Stripe fees?", "a": "No. The 5% is Ko-fi's service fee. PayPal and Stripe take their normal transaction fees on top, which Ko-fi says are usually around 3% + $0.30."}
+    ],
+    "notes": "The 3% + $0.30 processing line is Ko-fi's own \"typically around\" estimate, not a published rate; your PayPal or Stripe account will charge its actual rate, which varies by account type, location, and currency. Ko-fi's help article calls the $0/month 5%-on-everything option the Standard plan while the Gold page calls it Contributor. Gold's $12/month price is from the Gold page; an annual price was not verified.",
+    "changelog": []
+  },
+  "related": ["buy-me-a-coffee", "patreon", "gumroad", "paypal"]
+}

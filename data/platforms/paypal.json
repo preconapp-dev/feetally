@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "slug": "paypal",
+  "name": "PayPal",
+  "category": "payment-processor",
+  "region": "United States",
+  "currency": "USD",
+  "tagline": "PayPal fee calculator: 3.49% + 49¢ checkout, 2.99% + 49¢ cards, 2.29% + 9¢ QR. See what you keep.",
+  "fee_summary": "PayPal charges 3.49% + 49¢ for PayPal Checkout and Venmo payments, 2.99% + 49¢ for standard card payments, 2.89% + 29¢ for advanced card payments and 2.29% + 9¢ for QR codes. International payers add 1.50%, and currency conversion adds 4.00%.",
+  "last_verified": "2026-09-29",
+  "sources": [
+    {"title": "PayPal Merchant Fees (US), last updated September 1, 2026", "url": "https://www.paypal.com/us/webapps/mpp/merchant-fees", "accessed": "2026-09-29"},
+    {"title": "PayPal Business Fees (US)", "url": "https://www.paypal.com/us/business/paypal-business-fees", "accessed": "2026-09-29"}
+  ],
+  "inputs": [
+    {"id": "amount", "label": "Transaction amount", "type": "money", "role": "price", "default": 100, "help": "What the customer pays, before PayPal's fee."},
+    {"id": "txn_type", "label": "Transaction type", "type": "select", "role": "other", "default": "checkout",
+     "options": [
+       {"id": "checkout", "label": "PayPal Checkout (PayPal, guest checkout or Venmo)", "note": "3.49% + 49¢"},
+       {"id": "standard_card", "label": "Standard credit or debit card payment", "note": "2.99% + 49¢"},
+       {"id": "advanced_card", "label": "Advanced credit or debit card payment", "note": "2.89% + 29¢"},
+       {"id": "qr", "label": "QR code payment (in person)", "note": "2.29% + 9¢"},
+       {"id": "invoice", "label": "Invoice paid with PayPal or Venmo", "note": "3.49% + 49¢"},
+       {"id": "invoice_card", "label": "Invoice paid by card", "note": "2.99% + 49¢"},
+       {"id": "goods_services", "label": "Goods and services payment sent in the app", "note": "2.99%, no fixed fee"},
+       {"id": "micropayments", "label": "Micropayments pricing", "note": "4.99% + 9¢"},
+       {"id": "pay_later", "label": "PayPal Pay Later", "note": "4.99% + 49¢"}
+     ]},
+    {"id": "international", "label": "Payer is outside the US", "type": "toggle", "role": "other", "default": false, "help": "Adds 1.50%."},
+    {"id": "currency_conversion", "label": "Currency conversion", "type": "toggle", "role": "other", "default": false, "help": "Adds PayPal's 4.00% conversion spread."},
+    {"id": "cost", "label": "Your cost of goods", "type": "money", "role": "cost", "default": 0, "help": "Optional. What the product or job cost you, to see profit."},
+    {"id": "target_profit", "label": "Target profit", "type": "money", "role": "target_profit", "default": 50, "help": "We'll show the amount to charge so you net this much."}
+  ],
+  "fees": [
+    {"id": "processing", "label": "PayPal transaction fee", "basis": "price",
+     "pct_by": {"input": "txn_type", "values": {"checkout": 3.49, "standard_card": 2.99, "advanced_card": 2.89, "qr": 2.29, "invoice": 3.49, "invoice_card": 2.99, "goods_services": 2.99, "micropayments": 4.99, "pay_later": 4.99}},
+     "fixed_by": {"input": "txn_type", "values": {"checkout": 0.49, "standard_card": 0.49, "advanced_card": 0.29, "qr": 0.09, "invoice": 0.49, "invoice_card": 0.49, "goods_services": 0, "micropayments": 0.09, "pay_later": 0.49}},
+     "note": "Percentage plus a fixed fee that depends on how the customer pays."},
+    {"id": "intl", "label": "International transaction fee", "basis": "price", "pct": 1.5,
+     "when": {"input": "international", "equals": true},
+     "note": "Additional 1.50% on commercial transactions from payers outside the US."},
+    {"id": "fx", "label": "Currency conversion", "basis": "price", "pct": 4,
+     "when": {"input": "currency_conversion", "equals": true},
+     "note": "4.00% spread when PayPal converts a goods-and-services payment."}
+  ],
+  "worked_example": {
+    "inputs": {"amount": 100, "txn_type": "checkout", "cost": 40},
+    "expected": {"total_fees": 3.98, "net_payout": 96.02, "profit": 56.02},
+    "explanation": "A $100 PayPal Checkout payment from a US customer costs 3.49% ($3.49) plus 49¢, so PayPal keeps $3.98 and you receive $96.02. After the $40 the item cost you, profit is $56.02."
+  },
+  "content": {
+    "intro": "PayPal is the most widely recognized way to get paid online, and a business account lets you take PayPal, Venmo, credit and debit cards, invoices and in-person QR code payments. The catch is that the fee depends heavily on which of those products the money comes through.\n\nThe standard PayPal Checkout rate for a US business is 3.49% + 49¢ per domestic transaction. That covers the PayPal button, guest checkout and Pay with Venmo. Cards run through PayPal's standard card fields cost 2.99% + 49¢, and Advanced Credit and Debit Card Payments cost 2.89% + 29¢. QR code payments in person are the cheapest at 2.29% + 9¢. If a customer pays you through the PayPal app and marks it as goods and services, the fee is a flat 2.99% with no fixed part.\n\nTwo surcharges stack on top: an extra 1.50% when the payer is outside the US, and a 4.00% currency conversion spread when PayPal converts the payment. Chargebacks cost $20 and standard disputes $15. There are no monthly fees for a standard business account. Micropayments pricing (4.99% + 9¢) is a separate plan you have to request, and it only pays off on sales under about $10.",
+    "how_fees_work": [
+      "PayPal Checkout, guest checkout and Pay with Venmo: 3.49% + 49¢ per domestic transaction. On $100 that is $3.98.",
+      "Standard credit and debit card payments: 2.99% + 49¢. Advanced Credit and Debit Card Payments (PayPal's hosted card fields, subject to approval): 2.89% + 29¢.",
+      "QR code payments in person: 2.29% + 9¢ per transaction.",
+      "Send/Receive Money for Goods and Services (a customer pays you in the app and marks it as a purchase): 2.99% with no fixed fee.",
+      "Invoices: 3.49% + 49¢ when the customer pays with PayPal or Venmo, 2.99% + 49¢ when they pay by card.",
+      "Micropayments: 4.99% + 9¢, a separate pricing plan you must request. PayPal Pay Later (Pay in 4, Pay Monthly): 4.99% + 49¢.",
+      "International transactions add 1.50%. Currency conversion adds 4.00% on a goods-and-services payment (3.00% on other conversions, such as converting a balance). Chargeback fee $20, standard dispute fee $15, high-volume dispute fee $30."
+    ],
+    "tips": [
+      "Route card payments through the standard or advanced card products instead of the PayPal button where you can: 2.99% + 49¢ or 2.89% + 29¢ beats 3.49% + 49¢.",
+      "Use QR codes for in-person sales. At 2.29% + 9¢ it is the cheapest PayPal rate, less than half a point above Zettle's reader rate.",
+      "Ask for micropayments pricing only if most sales are under $10. On a $5 sale it costs 34¢ instead of 66¢, but on a $50 sale it costs $2.59 instead of $2.24.",
+      "Hold and get paid in USD. If a customer pays in another currency, the 4.00% conversion spread plus 1.50% international fee take almost 9% of a PayPal Checkout sale.",
+      "Skip instant transfers unless you need the money today. Standard transfers to your bank are free; instant ones cost 1.50% with a 50¢ minimum."
+    ],
+    "faq": [
+      {"q": "How much does PayPal take from $100?", "a": "$3.98 for a standard PayPal Checkout payment (3.49% + 49¢), so you keep $96.02. A card payment through standard card processing costs $3.48, and a goods-and-services payment sent in the app costs $2.99."},
+      {"q": "What is the PayPal fee for goods and services?", "a": "2.99% with no fixed fee when someone pays you in the PayPal app and marks the payment as goods and services. Payments through a PayPal Checkout button on a website are 3.49% + 49¢."},
+      {"q": "Does PayPal charge a monthly fee for a business account?", "a": "No. A standard PayPal business account has no monthly fee; you pay per transaction."},
+      {"q": "What is PayPal's international fee?", "a": "An additional 1.50% on any commercial transaction where the payer is outside the US, plus a 4.00% spread if PayPal converts the currency."},
+      {"q": "How much is a PayPal chargeback fee?", "a": "$20 for a chargeback filed through the card issuer, $15 for a standard dispute filed through PayPal, or $30 per dispute if your account is in the high-volume dispute tier."},
+      {"q": "What is the PayPal fee on a $1,000 invoice?", "a": "$35.39 if the client pays with PayPal or Venmo (3.49% + 49¢), or $30.39 if they pay by card (2.99% + 49¢)."},
+      {"q": "How much does PayPal charge for QR code payments?", "a": "2.29% + 9¢ per in-person QR code transaction, whether the customer pays with PayPal or Venmo."}
+    ],
+    "notes": "Rates are from PayPal's US merchant fee schedule, which shows 'Last Updated: September 1, 2026'. The currency-conversion toggle uses the 4.00% spread PayPal lists for goods-and-services transactions; converting a balance or withdrawal is 3.00%. Advanced Credit and Debit Card Payments requires approval; older articles still quote 2.59% + 49¢ for it, but the current schedule lists 2.89% + 29¢. Instant transfer to a bank or debit card costs 1.50% with a 50¢ minimum; standard transfers are free. Payout timing is not stated on the fee page. Dispute and chargeback fees are not modeled in the calculator.",
+    "changelog": [
+      {"date": "2026-09-01", "change": "PayPal's US merchant fee schedule shows 'Last Updated: September 1, 2026'. The rates in this calculator are taken from that version, including Advanced Credit and Debit Card Payments at 2.89% + 29¢."}
+    ]
+  },
+  "related": ["stripe", "venmo", "zettle", "braintree"]
+}

@@ -1,0 +1,31 @@
+{
+  "note": "Platforms to add next, roughly in priority order. 'skipped' entries were attempted and need a human browser or a better source.",
+  "queue": [
+    {"slug": "cash-app", "name": "Cash App for Business", "category": "payment-processor", "status": "skipped", "why": "Help pages are JS-rendered; 2.75% business fee and instant-deposit fee need a browser to verify."},
+    {"slug": "facebook-marketplace", "name": "Facebook Marketplace", "category": "marketplace", "status": "skipped", "why": "facebook.com blocks fetches; verify the 10% shipped-checkout selling fee (min $0.80) at https://www.facebook.com/business/help/223030991929920 in a browser."},
+    {"slug": "thredup", "name": "thredUP", "category": "resale-app", "status": "skipped", "why": "Payout chart is a range per price band; needs the exact table from thredup.com/cleanout/earnings in a browser."},
+    {"slug": "clover", "name": "Clover", "category": "payment-processor", "status": "skipped", "why": "Pricing page is a JS app; rates only in browser."},
+    {"slug": "toast", "name": "Toast", "category": "payment-processor", "status": "skipped", "why": "Processing rate not published; skip unless Toast posts one."},
+    {"slug": "taskrabbit", "name": "Taskrabbit", "category": "gig", "status": "skipped", "why": "Service fee percentage not published."},
+    {"slug": "amazon-handmade", "name": "Amazon Handmade", "category": "marketplace", "status": "todo", "why": "15% referral fee, no Professional plan fee for Handmade sellers — verify."},
+    {"slug": "ebay-motors", "name": "eBay Motors (vehicles)", "category": "marketplace", "status": "todo", "why": "Vehicle listing and final value fees differ from the standard schedule."},
+    {"slug": "redbubble", "name": "Redbubble", "category": "creator-platform", "status": "todo", "why": "Artist margin model plus account-tier platform fee."},
+    {"slug": "printful", "name": "Printful", "category": "creator-platform", "status": "todo", "why": "Product base cost vs retail; model as cost input + optional platform fees."},
+    {"slug": "shopify-payments", "name": "Shopify Payments (POS)", "category": "payment-processor", "status": "todo", "why": "In-person rates by plan."},
+    {"slug": "wise-business", "name": "Wise Business", "category": "payment-processor", "status": "todo", "why": "Variable by currency; may not fit the schema cleanly."},
+    {"slug": "helcim", "name": "Helcim", "category": "payment-processor", "status": "todo", "why": "Interchange-plus; publish the average effective rate only if Helcim states one."},
+    {"slug": "ebay-uk", "name": "eBay UK", "category": "marketplace", "status": "later", "why": "Non-US; add once US coverage is complete."},
+    {"slug": "vinted-uk", "name": "Vinted UK", "category": "resale-app", "status": "later", "why": "Non-US."},
+    {"slug": "onlyfans", "name": "OnlyFans", "category": "creator-platform", "status": "todo", "why": "20% platform fee; check ad-network suitability before publishing."},
+    {"slug": "udemy", "name": "Udemy", "category": "creator-platform", "status": "todo", "why": "37% / 97% revenue share by sale channel."},
+    {"slug": "spotify-distrokid", "name": "DistroKid / Spotify payouts", "category": "creator-platform", "status": "later", "why": "Per-stream rates are not published; probably skip."},
+    {"slug": "shutterstock-contributor", "name": "Shutterstock Contributor", "category": "creator-platform", "status": "todo", "why": "Earnings level tiers 15–40%."},
+    {"slug": "adobe-stock", "name": "Adobe Stock Contributor", "category": "creator-platform", "status": "todo", "why": "33% images / 35% video royalty."},
+    {"slug": "lulu", "name": "Lulu", "category": "publishing", "status": "todo", "why": "Print cost + 20% of profit on Lulu bookstore sales."},
+    {"slug": "ingramspark", "name": "IngramSpark", "category": "publishing", "status": "todo", "why": "Wholesale discount + print cost model."},
+    {"slug": "zazzle", "name": "Zazzle", "category": "creator-platform", "status": "todo", "why": "Royalty percentage set by creator; 5%–99%."},
+    {"slug": "society6", "name": "Society6", "category": "creator-platform", "status": "todo", "why": "Fixed 10% artist margin on most products."},
+    {"slug": "uber-driver", "name": "Uber (drivers)", "category": "gig", "status": "later", "why": "Take rate not published as a fixed %."},
+    {"slug": "instacart", "name": "Instacart (retailers)", "category": "gig", "status": "later", "why": "Fees negotiated; likely skip."}
+  ]
+}

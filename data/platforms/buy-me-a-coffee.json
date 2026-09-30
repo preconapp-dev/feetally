@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "slug": "buy-me-a-coffee",
+  "name": "Buy Me a Coffee",
+  "category": "creator-platform",
+  "region": "United States",
+  "currency": "USD",
+  "tagline": "Buy Me a Coffee fee calculator: 5% platform fee plus Stripe 2.9% + $0.30, or let supporters cover it.",
+  "fee_summary": "Buy Me a Coffee keeps 5% of every payment. Stripe processing of 2.9% + $0.30 (plus 0.5% on memberships and 1% on non-US cards) comes out of your earnings unless you turn off \"Cover credit card fee,\" in which case supporters pay it on top.",
+  "last_verified": "2026-09-29",
+  "sources": [
+    {"title": "Buy Me a Coffee Help: How to calculate charges on your payment?", "url": "https://help.buymeacoffee.com/en/articles/8105744-how-to-calculate-charges-on-your-payment", "accessed": "2026-09-29"},
+    {"title": "Buy Me a Coffee Help: Frequently Asked Questions", "url": "https://help.buymeacoffee.com/en/articles/4539170-frequently-asked-questions", "accessed": "2026-09-29"},
+    {"title": "Buy Me a Coffee Help: How to eliminate the credit card fee from your earnings?", "url": "https://help.buymeacoffee.com/en/articles/8105320-how-to-eliminate-the-credit-card-fee-from-your-earnings", "accessed": "2026-09-29"}
+  ],
+  "inputs": [
+    {"id": "amount", "label": "Support amount", "type": "money", "role": "price", "default": 5, "help": "What the supporter pays: the coffee total, membership charge, or extra/shop price."},
+    {"id": "payment_type", "label": "Type of payment", "type": "select", "role": "other", "default": "one_time",
+     "options": [
+       {"id": "one_time", "label": "One-time (coffee, extra, shop item)"},
+       {"id": "membership", "label": "Membership (recurring)", "note": "Stripe adds 0.5% for subscription payments."}
+     ]},
+    {"id": "international", "label": "Supporter's card is from outside the US", "type": "toggle", "role": "other", "default": false, "help": "Stripe adds 1% for international transactions."},
+    {"id": "supporter_covers", "label": "Supporter covers the credit card fee", "type": "toggle", "role": "other", "default": false, "help": "Turn on if you switched off \"Cover credit card fee\" in Settings, so supporters pay Stripe's 2.9% + $0.30 on top of their contribution."},
+    {"id": "cost", "label": "Your cost per payment", "type": "money", "role": "cost", "default": 0, "help": "Optional: cost of a shop item or perk. Usually $0 for coffees."},
+    {"id": "target_profit", "label": "Target profit per payment", "type": "money", "role": "target_profit", "default": 5, "help": "We'll show the amount you need to receive."}
+  ],
+  "fees": [
+    {"id": "platform", "label": "Buy Me a Coffee platform fee", "basis": "price", "pct": 5, "note": "5% per transaction; you keep 95% before processing."},
+    {"id": "stripe_creator", "label": "Stripe processing (deducted from you)", "basis": "price", "pct": 2.9, "fixed": 0.30,
+     "when": {"input": "supporter_covers", "equals": false},
+     "note": "2.9% + $0.30 per successful transaction when \"Cover credit card fee\" is on."},
+    {"id": "stripe_supporter", "label": "Stripe processing (paid by supporter)", "paid_by": "buyer", "basis": "price", "pct": 2.9, "fixed": 0.30,
+     "when": {"input": "supporter_covers", "equals": true},
+     "note": "Added to the supporter's charge instead: a $25 contribution is charged $26.03."},
+    {"id": "subscription_surcharge", "label": "Stripe subscription surcharge", "basis": "price", "pct": 0.5,
+     "when": {"input": "payment_type", "equals": "membership"},
+     "note": "+0.5% on subscription (membership) payments."},
+    {"id": "international_surcharge", "label": "Stripe international card surcharge", "basis": "price", "pct": 1,
+     "when": {"input": "international", "equals": true},
+     "note": "+1% for transactions from outside the US."}
+  ],
+  "worked_example": {
+    "inputs": {"amount": 5, "payment_type": "one_time", "international": false, "supporter_covers": false, "cost": 0},
+    "expected": {"total_fees": 0.70, "net_payout": 4.30, "profit": 4.30},
+    "explanation": "A $5 coffee from a US card pays Buy Me a Coffee 5%, or $0.25. Stripe takes 2.9% of $5 ($0.145) plus $0.30, which rounds to $0.45. Total fees are $0.70, so $4.30 is credited to your balance; with no cost, profit is $4.30."
+  },
+  "content": {
+    "intro": "Buy Me a Coffee is a support page for creators: fans send a one-time \"coffee\" at a price you set, join a monthly or yearly membership, or buy extras such as downloads, commissions, and shop items. Payments run through Stripe, and there is no monthly fee for any feature.\n\nThe platform fee is 5% of every transaction, so you keep 95% before processing. Stripe then charges 2.9% + $0.30 per successful transaction, plus 0.5% on subscription (membership) payments and 1% when the supporter's card is from outside the US. Stripe also takes 0.5% when it processes your payout.\n\nOn a $5 coffee from a US card that is $0.25 to Buy Me a Coffee and $0.45 to Stripe, leaving $4.30. On a $25 one-time support, fees are $1.25 + $1.03, leaving $22.72.\n\nOne setting changes the math. Under Settings, \"Cover credit card fee\" decides who pays Stripe's charge. Leave it on and the 2.9% + $0.30 comes out of your earnings; switch it off and supporters pay it on top, so a $25 contribution is charged $26.03 and you receive the full $25 minus the 5% platform fee. Payouts can be requested once your balance reaches $10 and go to your Stripe account, then your bank.",
+    "how_fees_work": [
+      "Platform fee: 5% of every transaction (coffees, memberships, extras, shop). Buy Me a Coffee says you keep 95% of your earnings; there is no monthly fee and all features are free.",
+      "Stripe processing: 2.9% + $0.30 per successful transaction. By default it is deducted from your earnings; a $10 coffee costs $0.59 in processing.",
+      "Supporter-paid option: switch off \"Cover credit card fee\" in Settings and supporters pay the processing fee on top of their contribution. Buy Me a Coffee's example: a $25 contribution is charged $26.03.",
+      "Membership surcharge: Stripe adds 0.5% on subscription payments, so a membership charge pays 3.4% + $0.30 in processing instead of 2.9% + $0.30.",
+      "International cards: Stripe adds 1% for transactions from outside the US.",
+      "Payout processing: Stripe applies a 0.5% fee when your balance is paid out. You can request a payout once your account reaches $10; after moderation approval, funds go to your Stripe account and then to your bank. This per-payout fee is not included in the per-payment figures above."
+    ],
+    "tips": [
+      "Turn off \"Cover credit card fee\" if your supporters will not mind paying $0.45 more on a $5 coffee. On 200 coffees a month that keeps about $90 in your pocket.",
+      "Set a coffee price of $5 rather than $1 or $3. Stripe's fixed $0.30 is 30% of a $1 payment but 6% of a $5 payment; the 5% platform fee is the same either way.",
+      "Offer yearly memberships. One annual charge pays the $0.30 fixed fee once instead of twelve times, and the 0.5% subscription surcharge stays the same in total.",
+      "Request larger, less frequent payouts. Stripe's 0.5% payout fee is a percentage, so batching does not change the rate, but it does cut down on moderation waits and bank transfers.",
+      "Expect about 1% less from overseas fans. International cards add 1% in Stripe fees, which matters if most of your audience is outside the US."
+    ],
+    "faq": [
+      {"q": "How much does Buy Me a Coffee take from $5?", "a": "$0.25 in platform fee (5%) plus $0.45 in Stripe processing (2.9% + $0.30), so you keep $4.30. If supporters cover the card fee, you keep $4.75."},
+      {"q": "Does Buy Me a Coffee charge a monthly fee?", "a": "No. All features, including memberships, publishing, and emails, are free. The only cost is 5% per transaction plus Stripe processing."},
+      {"q": "What percentage does Buy Me a Coffee take?", "a": "5% of each payment. Stripe's processing of 2.9% + $0.30 (plus 0.5% for memberships and 1% for non-US cards) is separate, and a 0.5% Stripe fee applies at payout."},
+      {"q": "Can supporters pay the credit card fee instead of me?", "a": "Yes. Turn off \"Cover credit card fee\" under Settings and the processing fee is added to their charge: a $25 contribution is billed $26.03."},
+      {"q": "What is the minimum payout on Buy Me a Coffee?", "a": "$10. Once your balance reaches $10 you can request a payout, which is transferred to your Stripe account and then your bank after moderation approval."},
+      {"q": "Does Buy Me a Coffee use PayPal?", "a": "Buy Me a Coffee's fee article covers Stripe only; it accepts major credit cards, Apple Pay, and Google Pay. PayPal fees are not part of its published fee schedule."},
+      {"q": "Is the 5% fee charged on memberships too?", "a": "Yes. The 5% applies to every transaction type. Memberships also carry Stripe's extra 0.5% subscription surcharge on top of 2.9% + $0.30."}
+    ],
+    "notes": "Stripe's 0.5% payout processing fee is charged on the amount paid out, not per payment, so it is described but not modeled. Buy Me a Coffee's supporter-covers example ($26.03 on $25) matches Stripe's 2.9% + $0.30 only; whether the 0.5% membership and 1% international surcharges are also passed to supporters is not stated, so the calculator keeps them on the creator's side. Payouts require a $10 balance and moderation approval; timing was not stated.",
+    "changelog": []
+  },
+  "related": ["ko-fi", "patreon", "stripe", "gumroad"]
+}

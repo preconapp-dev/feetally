@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ title }}</title>
+<meta name="description" content="{{ description }}">
+<link rel="canonical" href="{{ canonical }}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="{{ site.name }}">
+<meta property="og:title" content="{{ title }}">
+<meta property="og:description" content="{{ description }}">
+<meta property="og:url" content="{{ canonical }}">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#0f766e" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0d1220" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="{{ rel('assets/favicon.svg') }}" type="image/svg+xml">
+<link rel="stylesheet" href="{{ rel('assets/site.css') }}">
+{% if site.ga4_id %}<script async src="https://www.googletagmanager.com/gtag/js?id={{ site.ga4_id }}"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','{{ site.ga4_id }}');</script>{% endif %}
+{% if site.adsense_client %}<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ site.adsense_client }}" crossorigin="anonymous"></script>{% endif %}
+{% block head %}{% endblock %}
+</head>
+<body>
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="{{ rel('') }}" aria-label="{{ site.name }} home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="2" y="2" width="28" height="28" rx="7" fill="#0f766e"/><path d="M9 11h14M9 16h10M9 21h7" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/><circle cx="23" cy="21" r="3" fill="#2dd4bf"/></svg>
+      <span>{{ site.name }}</span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="{{ rel('#calculators') }}">Calculators</a>
+      <a href="{{ rel('compare/') }}">Compare</a>
+      <a class="optional" href="{{ rel('price-after-fees-calculator/') }}">Price after fees</a>
+      <a class="optional" href="{{ rel('about/') }}">About</a>
+    </nav>
+  </div>
+</header>
+<main class="container{% if narrow %} narrow{% endif %}">
+{% block content %}{% endblock %}
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <div>
+      <strong>{{ site.name }}</strong><br>
+      <span class="fine">Free fee calculators for people who sell online. Every rate is checked against the platform's own fee page and dated. {{ site.name }} is independent and not affiliated with any platform named on this site. Fees change; confirm with the platform before you rely on a number.</span>
+    </div>
+    <div>
+      <ul>
+        {% for hub in site.hubs %}<li><a href="{{ rel(hub.slug ~ '/') }}">{{ hub.short }}</a></li>{% endfor %}
+        <li><a href="{{ rel('compare/') }}">Compare platforms</a></li>
+      </ul>
+    </div>
+    <div>
+      <ul>
+        <li><a href="{{ rel('about/') }}">About &amp; methodology</a></li>
+        <li><a href="{{ rel('about/#contact') }}">Contact</a></li>
+        <li><a href="{{ rel('privacy/') }}">Privacy policy</a></li>
+        <li><a href="{{ rel('terms/') }}">Terms of use</a></li>
+      </ul>
+      <span class="fine">&copy; {{ year }} {{ site.name }}</span>
+    </div>
+  </div>
+</footer>
+{% block scripts %}{% endblock %}
+</body>
+</html>

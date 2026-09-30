@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% block head %}
+<script type="application/ld+json">{{ jsonld|safe }}</script>
+{% endblock %}
+{% block content %}
+<div class="page-head">
+  <span class="eyebrow"><a href="{{ rel(hub.slug ~ '/') }}">{{ hub.short }}</a></span>
+  <h1>{{ p.name }} Fee Calculator ({{ year }})</h1>
+  <p class="lead">{{ p.fee_summary }}</p>
+  <div class="meta-line">
+    <span>Fees verified {{ p.last_verified|nicedate }}</span>
+    <span>{{ p.region }} · {{ p.currency }}</span>
+    <a href="#sources">Sources</a>
+  </div>
+</div>
+
+<div class="calc">
+  <form id="calc-form" class="card" autocomplete="off" onsubmit="return false;" aria-label="{{ p.name }} fee calculator inputs"></form>
+  <div id="calc-results" class="card results" aria-live="polite">
+    <noscript><p>Turn on JavaScript to use the calculator. The fee schedule and a worked example are below.</p></noscript>
+  </div>
+</div>
+<p class="notice">Enter your numbers above; results update as you type. Sales tax collected from the buyer is not included unless the platform charges a fee on it and the calculator has a tax field.</p>
+
+{{ ad('top')|safe }}
+
+<section class="section" id="fees">
+  <h2>{{ p.name }} fees at a glance</h2>
+  <table class="fee-table">
+    <thead><tr><th>Fee</th><th>Rate</th><th>Applies to</th></tr></thead>
+    <tbody>
+    {% for f in fee_rows %}
+      <tr><td>{{ f.label }}{% if f.paid_by == 'buyer' %} <small class="muted">(paid by buyer)</small>{% endif %}</td><td class="rate">{{ f.rate }}</td><td>{{ f.applies }}</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</section>
+
+<section class="section" id="example">
+  <h2>Worked example</h2>
+  <div class="example">
+    <div class="ex-nums">
+      <div><div class="k">Sale</div><div class="v">{{ example.gross|money }}</div></div>
+      <div><div class="k">Fees</div><div class="v">{{ example.total_fees|money }}</div></div>
+      <div><div class="k">You keep</div><div class="v">{{ example.net_payout|money }}</div></div>
+    </div>
+    <p style="margin:0">{{ p.worked_example.explanation }}</p>
+  </div>
+</section>
+
+<section class="section" id="how">
+  <h2>How {{ p.name }} fees work</h2>
+  {% for para in intro_paras %}<p>{{ para }}</p>{% endfor %}
+  <ul>
+  {% for item in p.content.how_fees_work %}<li>{{ item }}</li>{% endfor %}
+  </ul>
+</section>
+
+{{ ad('mid')|safe }}
+
+<section class="section" id="tips">
+  <h2>Ways to keep more of each {{ p.name }} sale</h2>
+  <ul>
+  {% for t in p.content.tips %}<li>{{ t }}</li>{% endfor %}
+  </ul>
+</section>
+
+<section class="section" id="faq">
+  <h2>{{ p.name }} fee FAQ</h2>
+  {% for f in p.content.faq %}
+  <details class="faq"{% if loop.first %} open{% endif %}><summary>{{ f.q }}</summary><p>{{ f.a }}</p></details>
+  {% endfor %}
+</section>
+
+{% if p.content.notes or p.content.changelog %}
+<section class="section" id="notes">
+  <h2>Good to know</h2>
+  {% if p.content.notes %}<div class="callout">{{ p.content.notes }}</div>{% endif %}
+  {% if p.content.changelog %}
+  <h3>Recent fee changes</h3>
+  <ul class="changelog">
+  {% for c in p.content.changelog|sort(attribute='date', reverse=true) %}<li><span class="d">{{ c.date }}</span>{{ c.change }}</li>{% endfor %}
+  </ul>
+  {% endif %}
+</section>
+{% endif %}
+
+<section class="section" id="sources">
+  <h2>Sources</h2>
+  <ul class="sources">
+  {% for s in p.sources %}<li><a href="{{ s.url }}" rel="noopener" target="_blank">{{ s.title }}</a> <small class="muted">(accessed {{ s.accessed|nicedate }})</small></li>{% endfor %}
+  </ul>
+  <p class="notice">Rates are read from the pages above and re-checked on a schedule. If you find a rate that has changed, <a href="{{ rel('about/#contact') }}">tell us</a> and we'll fix it.</p>
+</section>
+
+{% if related %}
+<section class="section" id="related">
+  <h2>Related calculators</h2>
+  <div class="grid">
+  {% for r in related %}
+    <a class="tile" href="{{ rel(r.slug ~ '-fee-calculator/') }}"><span class="t-name">{{ r.name }} fee calculator</span><span class="t-sub">{{ r.short }}</span></a>
+  {% endfor %}
+    <a class="tile" href="{{ rel('compare/#' ~ hub.slug) }}"><span class="t-name">Compare {{ hub.short|lower }}</span><span class="t-sub">Same sale, every platform side by side.</span></a>
+  </div>
+</section>
+{% endif %}
+{% endblock %}
+{% block scripts %}
+<script type="application/json" id="platform-data">{{ platform_json|safe }}</script>
+<script src="{{ rel('assets/calc.js') }}"></script>
+<script src="{{ rel('assets/app.js') }}"></script>
+{% endblock %}

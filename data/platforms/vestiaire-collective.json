@@ -1,0 +1,157 @@
+{
+  "schema_version": 1,
+  "slug": "vestiaire-collective",
+  "name": "Vestiaire Collective",
+  "category": "resale-app",
+  "region": "United States",
+  "currency": "USD",
+  "tagline": "Vestiaire Collective fee calculator: 12% selling fee ($10 flat under $83) plus 3% processing, and payout.",
+  "fee_summary": "US sellers pay a 12% selling fee on items priced $83 to $16,667, a flat $10 under $83, and a flat $2,000 above $16,667, plus a 3% payment processing fee with a $3 minimum. Both come off the final sale price; the buyer pays shipping.",
+  "last_verified": "2026-09-29",
+  "sources": [
+    {
+      "title": "Vestiaire Collective Help Center – Seller: Selling Fees",
+      "url": "https://faq.vestiairecollective.com/hc/en-us/articles/24659638721425-Seller-Selling-Fees",
+      "accessed": "2026-09-29"
+    },
+    {
+      "title": "Vestiaire Collective Help Center – Seller: Selling Fees (until July 18th, 2025)",
+      "url": "https://faq.vestiairecollective.com/hc/en-us/articles/37257080663185-Seller-Selling-Fees-until-July-18th-2025",
+      "accessed": "2026-09-29"
+    }
+  ],
+  "inputs": [
+    {
+      "id": "sale_price",
+      "label": "Final sale price",
+      "type": "money",
+      "role": "price",
+      "default": 250,
+      "help": "The price the item sells for after any accepted offer, before shipping and tax. Minimum listing price is $18."
+    },
+    {
+      "id": "item_cost",
+      "label": "What the item cost you",
+      "type": "money",
+      "role": "cost",
+      "default": 120,
+      "help": "Purchase price or sourcing cost. Enter 0 for things you already owned."
+    },
+    {
+      "id": "target_profit",
+      "label": "Target profit",
+      "type": "money",
+      "role": "target_profit",
+      "default": 50,
+      "help": "We'll show the sale price you need to clear this much."
+    }
+  ],
+  "fees": [
+    {
+      "id": "selling_fee",
+      "label": "Selling fee",
+      "basis": "price",
+      "tiers": [
+        {
+          "max": 82.99,
+          "fixed": 10
+        },
+        {
+          "min": 83,
+          "max": 16667,
+          "pct": 12
+        },
+        {
+          "min": 16667.01,
+          "fixed": 2000
+        }
+      ],
+      "note": "12% of the final price for items $83 to $16,667; a fixed $10 for items under $83; a fixed $2,000 for items over $16,667. Applies to items listed from July 18, 2025."
+    },
+    {
+      "id": "processing",
+      "label": "Payment processing fee",
+      "basis": "price",
+      "pct": 3,
+      "min": 3,
+      "note": "3% of the sale price, minimum $3. The minimum applies to sales under $100."
+    }
+  ],
+  "worked_example": {
+    "inputs": {
+      "sale_price": 250,
+      "item_cost": 120
+    },
+    "expected": {
+      "total_fees": 37.5,
+      "net_payout": 212.5,
+      "profit": 92.5
+    },
+    "explanation": "A designer bag sells for $250, which is inside the $83 to $16,667 band, so the selling fee is 12% of $250 = $30.00. Payment processing is 3% of $250 = $7.50, above the $3 minimum. Fees total $37.50 and the payout is $250.00 − $37.50 = $212.50. After the $120 the seller paid for the bag, profit is $92.50. The buyer pays shipping and any duties or tax separately."
+  },
+  "content": {
+    "intro": "Vestiaire Collective is a global resale marketplace for pre-owned luxury and designer fashion: handbags, shoes, ready-to-wear, jewelry, and watches. Items are listed by individual sellers, and most go through Vestiaire's authentication and quality control before reaching the buyer. US sellers list in dollars and are paid in dollars.\n\nListing is free. When an item sells, two fees come off the final price. The selling fee is 12% for items priced between $83 and $16,667. Below $83 it is a flat $10, and above $16,667 it is a flat $2,000, so the percentage never quite exceeds 12% at either end. This schedule applies to items listed from July 18, 2025; items listed between October 21, 2024 and July 17, 2025 were charged 10% between $100 and $20,000 with the same $10 and $2,000 caps.\n\nThe second fee is payment processing at 3% of the sale price with a $3 minimum, which means every sale under $100 pays the full $3. The minimum listing price is $18, and at that price the two fees take $13 of the $18.\n\nOn a $250 bag, fees are $30.00 plus $7.50, and you receive $212.50. Buyers pay shipping and any duties or taxes on top of your price, so those never reduce your payout.",
+    "how_fees_work": [
+      "Selling fee, $83 to $16,667: 12% of the final sale price. On a $250 sale that is $30.00; on a $1,000 sale it is $120.00.",
+      "Selling fee under $83: a fixed $10. A $50 sale therefore pays 20% in selling fee alone, which is why the $18 minimum listing price leaves so little.",
+      "Selling fee over $16,667: a fixed $2,000. Above that price the effective rate drops below 12%.",
+      "Payment processing: 3% of the sale price with a $3 minimum, charged on every sale. Under $100 the fee is $3 regardless of price.",
+      "Both fees are deducted from the final sale price, so an accepted offer lowers the fee base. Shipping and any buyer-side fees or duties are paid by the buyer and are not part of your fee base.",
+      "Fees are fixed at the time an item is listed: the July 18, 2025 schedule applies to items listed on or after that date; older listings keep the schedule that applied when they were listed."
+    ],
+    "tips": [
+      "Stay at or above $83. An $80 sale pays the $10 flat fee (12.5%) plus $3 processing; at $83 the selling fee is $9.96, and the percentage only falls from there.",
+      "Small items are punished twice. Under $100 you pay the $3 processing minimum, and under $83 the $10 flat selling fee; a $40 accessory nets just $27.",
+      "Build 15% into your list price. To clear $50 profit on a $120 item you need to sell at $200 or more (15% of $200 is $30).",
+      "Accept offers with the fee math in mind: a $20 price cut on a $250 bag costs you $17 in payout, not $20, because the 12% and 3% shrink too.",
+      "Keep listings updated rather than relisting old ones if you are on a better historical schedule; fees are set by the listing date."
+    ],
+    "faq": [
+      {
+        "q": "What are Vestiaire Collective's seller fees in the US?",
+        "a": "A 12% selling fee on items priced $83 to $16,667 (flat $10 under $83, flat $2,000 over $16,667) plus a 3% payment processing fee with a $3 minimum."
+      },
+      {
+        "q": "Does Vestiaire Collective charge sellers for shipping?",
+        "a": "The buyer pays shipping at checkout, and the seller's fees are calculated on the sale price only. Vestiaire provides the label for sending the item in; check the Help Center for label rules in your country."
+      },
+      {
+        "q": "How much does Vestiaire Collective take on a $500 sale?",
+        "a": "12% ($60.00) plus 3% ($15.00) = $75.00, leaving a $425.00 payout."
+      },
+      {
+        "q": "What is the minimum price on Vestiaire Collective?",
+        "a": "$18 for US sellers. At that price the $10 flat selling fee and $3 processing minimum leave $5."
+      },
+      {
+        "q": "Did Vestiaire Collective raise its fees?",
+        "a": "Yes. For items listed from July 18, 2025 the selling fee rose from 10% to 12% and the percentage band moved from $100–$20,000 to $83–$16,667. Processing stayed at 3% with a $3 minimum."
+      },
+      {
+        "q": "When does Vestiaire Collective pay sellers?",
+        "a": "Payment is released after the item passes Vestiaire's authentication and quality control (or the buyer confirms receipt for direct-shipped items), then sent to your chosen payout method. Exact timing is listed in the Help Center."
+      },
+      {
+        "q": "Does the buyer pay extra on Vestiaire Collective?",
+        "a": "Buyers pay shipping and any duties or taxes on top of your price, and any buyer-side fee Vestiaire shows at checkout is charged to them, not you. None of it reduces your payout."
+      }
+    ],
+    "notes": "Fee schedule verified on the US (en-us) Help Center article, which states the fees apply to all new items listed from July 18, 2025 onward. The 3% processing fee is described as charged 'on your sale'; this calculator applies it to the sale price. Vestiaire's UK/EU help pages describe a separate reduced-fee promotion for selected brands that ended January 11, 2026; it did not apply to USD listings. Buyer-side fees, shipping-label costs, and payout timing were not verified on an official page for this update. Sellers listing in other currencies have different thresholds.",
+    "changelog": [
+      {
+        "date": "2025-07-18",
+        "change": "US selling fee raised to 12% for items $83–$16,667; flat $10 under $83 and flat $2,000 above $16,667. Processing unchanged at 3% (min $3)."
+      },
+      {
+        "date": "2024-10-21",
+        "change": "US selling fee set at 10% for items $100–$20,000, flat $10 under $100, flat $2,000 over $20,000, plus 3% (min $3) processing."
+      }
+    ]
+  },
+  "related": [
+    "poshmark",
+    "grailed",
+    "thredup",
+    "ebay"
+  ]
+}

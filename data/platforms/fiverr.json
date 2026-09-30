@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "slug": "fiverr",
+  "name": "Fiverr",
+  "category": "freelance",
+  "region": "United States",
+  "currency": "USD",
+  "tagline": "Fiverr fee calculator: sellers keep 80% of every order, extra, and tip. See the 20% cut and your payout.",
+  "fee_summary": "Fiverr keeps 20% of everything a client pays for your order, including Gig extras and tips, so you earn 80%. Clients also pay a separate service fee of 5.5% plus $3.50 on orders under $200. Withdrawals to PayPal are free; funds clear 14 days after completion.",
+  "last_verified": "2026-09-29",
+  "sources": [
+    {"title": "Fiverr Help Center: Your Earnings page", "url": "https://help.fiverr.com/hc/en-us/articles/9234443621137-Your-Earnings-page", "accessed": "2026-09-29"},
+    {"title": "Fiverr Help Center: How Fiverr works for freelancers", "url": "https://help.fiverr.com/hc/en-us/articles/34069565843985", "accessed": "2026-09-29"},
+    {"title": "Fiverr Help Center: Paying for orders, extras, or custom offers", "url": "https://help.fiverr.com/hc/en-us/articles/360050216133-Paying-for-orders-extras-or-custom-offers", "accessed": "2026-09-29"},
+    {"title": "Fiverr Help Center: How Fiverr works for clients", "url": "https://help.fiverr.com/hc/en-us/articles/360010558038-How-Fiverr-works", "accessed": "2026-09-29"},
+    {"title": "Fiverr Help Center: Withdrawing your earnings & managing payout methods", "url": "https://help.fiverr.com/hc/en-us/articles/360010530058-Withdrawing-your-earnings-managing-payout-methods", "accessed": "2026-09-29"}
+  ],
+  "inputs": [
+    {"id": "order_total", "label": "Order amount", "type": "money", "role": "price", "default": 100, "help": "Gig price plus any extras and tip, before Fiverr's buyer service fee. Fiverr takes 20% of all of it."},
+    {"id": "early_payout", "label": "Use Early Payout (1% fee)", "type": "toggle", "role": "other", "default": false, "help": "Eligible freelancers can skip the 14-day clearing period for a 1% fee."},
+    {"id": "cost", "label": "Your cost to deliver", "type": "money", "role": "cost", "default": 0, "help": "Optional: software, stock assets, subcontractors, or other out-of-pocket cost for this order."},
+    {"id": "target_profit", "label": "Target profit per order", "type": "money", "role": "target_profit", "default": 50, "help": "We'll show the order amount you need to charge."}
+  ],
+  "fees": [
+    {"id": "seller_fee", "label": "Fiverr service fee (20%)", "basis": "price", "pct": 20, "note": "You earn 80% of the purchase amount, including Gig extras and tips."},
+    {"id": "early_payout_fee", "label": "Early Payout fee", "basis": "price", "pct": 1, "when": {"input": "early_payout", "equals": true}, "note": "Optional 1% to skip the clearing period; eligibility required."},
+    {"id": "buyer_fee", "label": "Client service fee (paid by client)", "paid_by": "buyer", "basis": "price",
+     "tiers": [{"max": 199.99, "pct": 5.5, "fixed": 3.50}, {"min": 200, "pct": 5.5}],
+     "note": "5.5% of the purchase amount plus $3.50 on orders under $200, added to the client's total at checkout. Does not reduce your payout."}
+  ],
+  "worked_example": {
+    "inputs": {"order_total": 100, "early_payout": false, "cost": 0},
+    "expected": {"total_fees": 20.00, "net_payout": 80.00, "profit": 80.00},
+    "explanation": "On a $100 order Fiverr keeps 20%, or $20.00, and you earn $80.00 once the order clears. The client separately pays a service fee of 5.5% ($5.50) plus $3.50 because the order is under $200, so they are charged $109.00; that fee does not come out of your $80.00. With no delivery cost, profit is $80.00."
+  },
+  "content": {
+    "intro": "Fiverr is a freelance marketplace where you list fixed-price services (Gigs) starting at $5 and clients order them directly. Writers, designers, developers, video editors, voice actors, and marketers sell there, and prices are set in US dollars no matter where you live.\n\nThe seller fee is simple: Fiverr keeps 20% and you earn 80% of the purchase amount, including Gig extras and tips. A $100 order pays you $80; a $20 tip pays you $16. There is no listing fee and no monthly fee for a basic seller account.\n\nClients pay a separate service fee on top of your price. Fiverr's payments article puts it at 5.5% of the purchase amount plus $3.50 on orders under $200, charged on every payment, including extras and tips. It does not reduce your 80%, but it does make your Gig look more expensive to the client: a $50 Gig costs them $56.25.\n\nMoney from a completed order sits in a 14-day clearing period (shorter for Top Rated, Seller Plus, and Fiverr Pro sellers) before you can withdraw it. Eligible freelancers can skip the wait for a 1% Early Payout fee. Withdrawals to PayPal are free; bank transfer via Payoneer costs $1 and a Payoneer account $3 per withdrawal.",
+    "how_fees_work": [
+      "Seller service fee: 20% of the purchase amount. Fiverr's earnings page says you earn 80% of every order, including Gig extras and tips. On a $250 order you receive $200.",
+      "Client service fee (paid by the client, not you): 5.5% of the purchase amount plus $3.50 on orders under $200, added at checkout. Every payment in an order carries its own fee, so an extra or a tip is charged separately. This is shown in the calculator for information only.",
+      "Clearing period: funds from a completed order become available 14 days after completion. Top Rated, Seller Plus, and Fiverr Pro sellers get a shorter clearing period.",
+      "Early Payout: eligible freelancers can skip the clearing period and get paid faster for a 1% fee on the amount paid out.",
+      "Withdrawal fees, per withdrawal: PayPal $0 (minimum $1); bank transfer via Payoneer $1 (minimum $20); Payoneer account $3 (minimum $10). You can withdraw up to $5,000 per transaction, and your provider may apply currency conversion.",
+      "No listing or monthly fee for a standard seller account. Optional paid programs (Promoted Gigs, Seller Plus, Fiverr Pro subscriptions) are separate and not included here."
+    ],
+    "tips": [
+      "Price for the 80%. If you need $100 in hand, list at $125: Fiverr takes $25 and you keep $100.",
+      "Remember the client's fee when comparing yourself to competitors. A $95 Gig costs the client $103.73 with the 5.5% + $3.50 fee; a $100 Gig costs $109.00. Small price gaps shrink after fees.",
+      "Withdraw to PayPal if you can. It is the only fee-free method; Payoneer bank transfers cost $1 and Payoneer accounts $3 every time you withdraw.",
+      "Skip Early Payout unless you need the cash. Waiting 14 days keeps the full 80%; paying 1% to get $800 a week early costs $8.",
+      "Bundle work into one order. Fiverr's 20% is the same either way, but the client pays the $3.50 small-order fee on each separate payment under $200, so one $180 order costs them less than three $60 orders."
+    ],
+    "faq": [
+      {"q": "How much does Fiverr take from sellers?", "a": "20% of every payment, including Gig extras and tips. You earn 80%, so a $100 order pays you $80 and a $10 tip pays you $8."},
+      {"q": "What is the Fiverr buyer service fee?", "a": "Fiverr's payments article states 5.5% of the purchase amount plus $3.50 on orders under $200, added at checkout on every payment including tips. It is paid by the client and does not reduce your 80%."},
+      {"q": "Does Fiverr take 20% of tips?", "a": "Yes. The 80% you earn applies to the purchase amount including tips, so Fiverr keeps 20% of a tip too. The client also pays the service fee on the tip."},
+      {"q": "How long until I can withdraw Fiverr earnings?", "a": "14 days after the order is marked complete for standard sellers; Top Rated, Seller Plus, and Fiverr Pro sellers have a shorter clearing period. Eligible sellers can pay 1% for Early Payout."},
+      {"q": "Does Fiverr charge to withdraw money?", "a": "PayPal withdrawals are free. Bank transfer via Payoneer costs $1 and a Payoneer account $3 per withdrawal. Minimums are $1, $20, and $10 respectively."},
+      {"q": "Does Fiverr charge a monthly fee?", "a": "No. A standard seller account has no monthly or listing fee; Fiverr earns its 20% only when you complete an order. Seller Plus and Fiverr Pro subscriptions are optional paid programs."},
+      {"q": "How much do I get from a $5 Fiverr order?", "a": "$4.00. Fiverr keeps $1.00 (20%). The client pays $8.78 in total: $5 plus a $0.28 (5.5%) fee and the $3.50 small-order fee."}
+    ],
+    "notes": "Fiverr's help articles currently disagree on the client fee: the dedicated payments article says 5.5% plus $3.50 on orders under $200, while the 'How Fiverr works for clients' overview says 5.5% plus $3.00 on orders under $100. This page uses the dedicated payments article; either way the client fee does not change your 80%. Early Payout requires eligibility. Withdrawal fees and clearing periods are as stated in Fiverr's withdrawal and freelancer articles; Fiverr Ads, Seller Plus, and Fiverr Pro pricing are not covered. Your withdrawal provider may charge currency conversion.",
+    "changelog": []
+  },
+  "related": ["upwork", "paypal", "etsy", "taskrabbit"]
+}

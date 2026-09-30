@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "slug": "zettle",
+  "name": "PayPal Zettle",
+  "category": "payment-processor",
+  "region": "United States",
+  "currency": "USD",
+  "tagline": "PayPal Zettle fee calculator: 2.29% + 9¢ for card and QR payments in person, 3.49% + 9¢ keyed.",
+  "fee_summary": "PayPal Zettle (now PayPal Point of Sale) charges 2.29% + 9¢ for cards tapped, dipped or swiped on its reader and for QR code payments, 3.49% + 9¢ for manually entered cards, and 3.49% + 49¢ (PayPal or Venmo) or 2.99% + 49¢ (card) on invoices. No monthly fee.",
+  "last_verified": "2026-09-29",
+  "sources": [
+    {"title": "PayPal Point of Sale Pricing (US)", "url": "https://www.paypal.com/us/business/pos-system/pricing", "accessed": "2026-09-29"},
+    {"title": "PayPal Merchant Fees (US), last updated September 1, 2026", "url": "https://www.paypal.com/us/webapps/mpp/merchant-fees", "accessed": "2026-09-29"}
+  ],
+  "inputs": [
+    {"id": "amount", "label": "Sale amount", "type": "money", "role": "price", "default": 100, "help": "What the customer pays, before PayPal's fee."},
+    {"id": "txn_type", "label": "Transaction type", "type": "select", "role": "other", "default": "card_present",
+     "options": [
+       {"id": "card_present", "label": "Card tapped, dipped or swiped on the reader", "note": "2.29% + 9¢"},
+       {"id": "qr", "label": "QR code (customer pays with PayPal or Venmo)", "note": "2.29% + 9¢"},
+       {"id": "keyed", "label": "Manually entered card", "note": "3.49% + 9¢"},
+       {"id": "invoice_paypal", "label": "Invoice paid with PayPal or Venmo", "note": "3.49% + 49¢"},
+       {"id": "invoice_card", "label": "Invoice paid by card", "note": "2.99% + 49¢"}
+     ]},
+    {"id": "cost", "label": "Your cost of goods", "type": "money", "role": "cost", "default": 0, "help": "Optional. What the product or job cost you, to see profit."},
+    {"id": "target_profit", "label": "Target profit", "type": "money", "role": "target_profit", "default": 50, "help": "We'll show the amount to charge so you net this much."}
+  ],
+  "fees": [
+    {"id": "processing", "label": "PayPal Zettle transaction fee", "basis": "price",
+     "pct_by": {"input": "txn_type", "values": {"card_present": 2.29, "qr": 2.29, "keyed": 3.49, "invoice_paypal": 3.49, "invoice_card": 2.99}},
+     "fixed_by": {"input": "txn_type", "values": {"card_present": 0.09, "qr": 0.09, "keyed": 0.09, "invoice_paypal": 0.49, "invoice_card": 0.49}},
+     "note": "Percentage plus a fixed fee that depends on how the customer pays."}
+  ],
+  "worked_example": {
+    "inputs": {"amount": 100, "txn_type": "card_present", "cost": 40},
+    "expected": {"total_fees": 2.38, "net_payout": 97.62, "profit": 57.62},
+    "explanation": "A $100 card tapped on a PayPal Zettle reader costs 2.29% ($2.29) plus 9¢, so PayPal keeps $2.38 and $97.62 goes to your PayPal business account. After the $40 the goods cost you, profit is $57.62."
+  },
+  "content": {
+    "intro": "PayPal Zettle, now sold as PayPal Point of Sale, is PayPal's answer to Square: a $29 card reader or a $199 terminal, a free POS app, and payments that settle into your PayPal business account. It suits market vendors, salons, cafés and anyone who already gets paid through PayPal online and wants the same account for in-person sales.\n\nThe in-person rate is 2.29% + 9¢ per transaction for cards that are tapped, dipped or swiped on the reader, and the same 2.29% + 9¢ when a customer scans your QR code and pays with PayPal or Venmo. Keying a card number in by hand costs 3.49% + 9¢. Invoices sent from the app are charged at PayPal's online rates: 3.49% + 49¢ if the customer pays with PayPal or Venmo, or 2.99% + 49¢ if they pay by card.\n\nThere are no monthly fees, setup fees or contracts. Compared with Square's free-plan rate of 2.6% + 15¢, Zettle's 2.29% + 9¢ saves 37¢ on a $100 sale and 9¢ on a $10 sale, which adds up for a busy counter. The trade-off is that your money lives in a PayPal account rather than going straight to a bank.",
+    "how_fees_work": [
+      "Card present (tap, dip or swipe on the reader or terminal): 2.29% + 9¢ per transaction. On $100 that is $2.38.",
+      "QR code payments (the customer scans your code and pays with PayPal or Venmo): 2.29% + 9¢.",
+      "Manual card entry (typing the card number in): 3.49% + 9¢.",
+      "Invoices paid with PayPal or Venmo: 3.49% + 49¢. Invoices paid by card or other methods: 2.99% + 49¢.",
+      "Hardware: $29 for your first card reader as a new business user (one per user), $79 for additional readers; the terminal is $199, or $239 with a built-in barcode scanner.",
+      "No monthly or setup fees."
+    ],
+    "tips": [
+      "Put a QR code at the counter. It costs the same 2.29% + 9¢ as a card tap and lets customers pay from a PayPal or Venmo balance.",
+      "Never key cards in when the customer is standing there. Manual entry is 3.49% versus 2.29% on the reader, $1.20 more on a $100 sale.",
+      "For invoices, ask clients to pay by card rather than PayPal balance: 2.99% + 49¢ beats 3.49% + 49¢, a 50¢ saving on $100.",
+      "If most of your tickets are small, Zettle's 9¢ fixed fee beats Square's 15¢ and SumUp's 10¢. On a $10 sale Zettle costs 32¢, SumUp 36¢ and Square 41¢."
+    ],
+    "faq": [
+      {"q": "How much does PayPal Zettle charge per transaction?", "a": "2.29% + 9¢ for in-person card and QR code payments, 3.49% + 9¢ for manually keyed cards, and 3.49% + 49¢ (PayPal or Venmo) or 2.99% + 49¢ (card) for invoices."},
+      {"q": "How much does Zettle take from $100?", "a": "$2.38 on a tapped or dipped card, leaving $97.62. Keyed in, it is $3.58."},
+      {"q": "Does PayPal Zettle have a monthly fee?", "a": "No. You buy the hardware once and then pay per transaction."},
+      {"q": "How much is the PayPal Zettle card reader?", "a": "$29 for your first reader as a new business user, $79 for additional readers. The terminal is $199, or $239 with a barcode scanner."},
+      {"q": "Is Zettle cheaper than Square?", "a": "For in-person cards, yes at list rates: 2.29% + 9¢ versus Square's 2.6% + 15¢ on the free plan. On a $50 sale that is $1.24 versus $1.45."},
+      {"q": "Where does the money go when I sell with Zettle?", "a": "Into your PayPal business account balance. From there you can make a free standard transfer to your bank, or pay 1.50% (minimum 50¢) for an instant transfer."}
+    ],
+    "notes": "Rates are PayPal's published US Point of Sale pricing, which matches the PayPal Zettle rows on PayPal's merchant fee schedule dated September 1, 2026. International card and American Express surcharges are not listed on the POS pricing page, so no international toggle is included; PayPal's general 1.50% international fee applies to online commercial transactions. Instant transfer from PayPal to a bank or debit card costs 1.50% with a 50¢ minimum; standard transfers are free. Payout timing is not stated on the pricing page. The $29 reader offer is one per new business user and subject to change.",
+    "changelog": []
+  },
+  "related": ["paypal", "square", "sumup", "venmo"]
+}

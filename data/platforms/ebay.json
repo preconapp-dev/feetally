@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "slug": "ebay",
+  "name": "eBay",
+  "category": "marketplace",
+  "region": "United States",
+  "currency": "USD",
+  "tagline": "eBay fee calculator: 13.6% final value fee plus $0.30–$0.40 per order, Store rates, ads and international fee.",
+  "fee_summary": "eBay takes one final value fee when an item sells: 13.6% of the item price plus shipping in most categories (12.7% with a Basic Store or higher) plus $0.30 per order under $10 or $0.40 over $10. Promoted Listings ads and a 1.65% international fee are optional extras.",
+  "last_verified": "2026-09-29",
+  "sources": [
+    {"title": "eBay Help: Selling fees", "url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822", "accessed": "2026-09-29"},
+    {"title": "eBay Help: Store selling fees", "url": "https://www.ebay.com/help/selling/fees-credits-invoices/store-selling-fees?id=4809", "accessed": "2026-09-29"},
+    {"title": "eBay Help: Promoted Listings General campaign strategy", "url": "https://www.ebay.com/help/selling/ebay-advertising/promoted-listings/general-campaign-strategy?id=4164", "accessed": "2026-09-29"}
+  ],
+  "inputs": [
+    {"id": "sale_price", "label": "Item price", "type": "money", "role": "price", "default": 60, "help": "What the buyer pays for the item, before shipping and sales tax."},
+    {"id": "shipping_charged", "label": "Shipping charged to buyer", "type": "money", "role": "shipping_charged", "default": 8, "help": "eBay's final value fee applies to shipping too. Enter 0 for free shipping."},
+    {"id": "category", "label": "Category", "type": "select", "role": "other", "default": "most",
+     "options": [
+       {"id": "most", "label": "Most categories", "note": "13.6% (12.7% with a Basic Store or higher)"},
+       {"id": "sneakers_150", "label": "Athletic shoes (sneakers), sale $150 or more", "note": "8% (7% with a Basic Store or higher) and no per-order fee. Under $150 the standard rate and per-order fee apply."},
+       {"id": "trading_cards", "label": "Trading cards", "note": "13.25% (12.35% with a Basic Store or higher)"},
+       {"id": "guitars", "label": "Guitars & basses", "note": "6.7% for all sellers"},
+       {"id": "books_media", "label": "Books, movies & TV, music", "note": "15.3% for all sellers"},
+       {"id": "business_industrial", "label": "Heavy equipment, printing presses, food trucks", "note": "3% (2.5% with a Basic Store or higher) up to $15,000"}
+     ]},
+    {"id": "store", "label": "eBay Store subscription", "type": "select", "role": "other", "default": "none",
+     "options": [
+       {"id": "none", "label": "No Store", "note": "250 zero-insertion-fee listings a month"},
+       {"id": "starter", "label": "Starter Store ($4.95/mo on a yearly plan)", "note": "$7.95 month to month. Same final value fees as no Store."},
+       {"id": "basic", "label": "Basic Store ($21.95/mo on a yearly plan)", "note": "$27.95 month to month. Reduced final value fees."},
+       {"id": "premium", "label": "Premium Store ($59.95/mo on a yearly plan)", "note": "$74.95 month to month. Same reduced rates as Basic."},
+       {"id": "anchor", "label": "Anchor Store ($299.95/mo on a yearly plan)", "note": "$349.95 month to month. Same reduced rates as Basic."}
+     ]},
+    {"id": "orders_per_month", "label": "Orders per month", "type": "number", "role": "orders_per_month", "default": 30, "help": "Used to spread the Store subscription across your orders."},
+    {"id": "promoted_rate", "label": "Promoted Listings ad rate (%)", "type": "percent", "role": "other", "default": 0, "help": "Leave at 0 if you don't advertise. eBay allows 2% to 100%; the fee applies only when the promoted item sells."},
+    {"id": "international", "label": "Buyer is outside the US", "type": "toggle", "role": "other", "default": false},
+    {"id": "item_cost", "label": "What the item cost you", "type": "money", "role": "cost", "default": 20, "help": "Purchase or sourcing cost of the item."},
+    {"id": "shipping_cost", "label": "Your shipping cost", "type": "money", "role": "shipping_cost", "default": 6, "help": "What you pay for the label and packaging."},
+    {"id": "target_profit", "label": "Target profit", "type": "money", "role": "target_profit", "default": 20, "help": "We'll show the item price you need to hit this profit."}
+  ],
+  "fees": [
+    {"id": "fvf_standard", "label": "Final value fee", "basis": "price_plus_shipping",
+     "pct_by": {"input": "category", "values": {"most": 13.6, "sneakers_150": 8, "trading_cards": 13.25, "guitars": 6.7, "books_media": 15.3, "business_industrial": 3}, "default": 13.6},
+     "when": {"input": "store", "in": ["none", "starter"]},
+     "note": "Percentage of the total amount of the sale (item price + shipping + sales tax) for sellers without a Store or with a Starter Store."},
+    {"id": "fvf_store", "label": "Final value fee (Store rate)", "basis": "price_plus_shipping",
+     "pct_by": {"input": "category", "values": {"most": 12.7, "sneakers_150": 7, "trading_cards": 12.35, "guitars": 6.7, "books_media": 15.3, "business_industrial": 2.5}, "default": 12.7},
+     "when": {"input": "store", "in": ["basic", "premium", "anchor"]},
+     "note": "Reduced rates for Basic, Premium, Anchor and Enterprise Store subscribers."},
+    {"id": "per_order", "label": "Per-order fee", "basis": "price_plus_shipping",
+     "tiers": [{"max": 10, "fixed": 0.30}, {"min": 10.01, "fixed": 0.40}],
+     "when": {"input": "category", "in": ["most", "trading_cards", "guitars", "books_media", "business_industrial"]},
+     "note": "$0.30 on orders of $10 or less, $0.40 on orders over $10. Not charged on athletic shoes selling for $150 or more."},
+    {"id": "store_subscription", "label": "Store subscription (monthly, split per order)", "basis": "none", "monthly": true,
+     "fixed_by": {"input": "store", "values": {"none": 0, "starter": 4.95, "basic": 21.95, "premium": 59.95, "anchor": 299.95}, "default": 0},
+     "when": {"input": "store", "in": ["starter", "basic", "premium", "anchor"]},
+     "note": "Yearly-plan monthly price divided by your orders per month."},
+    {"id": "promoted", "label": "Promoted Listings General ad fee", "basis": "price_plus_shipping", "pct_input": "promoted_rate",
+     "when": {"input": "promoted_rate", "gt": 0},
+     "note": "Your ad rate times the total sale amount, charged only when the promoted item sells within 30 days of a click on the ad."},
+    {"id": "international", "label": "International fee", "basis": "price_plus_shipping", "pct": 1.65,
+     "when": {"input": "international", "equals": true},
+     "note": "1.65% of the total amount of the sale when the buyer's delivery or registered address is outside the US. Waived if you use eBay International Shipping."}
+  ],
+  "worked_example": {
+    "inputs": {"sale_price": 60, "shipping_charged": 8, "category": "most", "store": "none", "promoted_rate": 5, "international": false, "item_cost": 20, "shipping_cost": 6},
+    "expected": {"total_fees": 13.05, "net_payout": 54.95, "profit": 28.95},
+    "explanation": "The buyer pays $60 for the item plus $8 shipping, so the total amount of the sale is $68. With no Store, the final value fee is 13.6% of $68 = $9.25, plus a $0.40 per-order fee because the order is over $10. The listing was promoted at a 5% ad rate and sold after a click, so the ad fee is 5% of $68 = $3.40. Total fees are $13.05. eBay pays out $68.00 − $13.05 = $54.95. After the $20 you paid for the item and $6 for the shipping label, profit is $28.95."
+  },
+  "content": {
+    "intro": "eBay is the largest general-purpose marketplace for US individual sellers and small businesses: used and new goods, collectibles, parts, electronics, clothing, and almost everything else. Anyone can list, and most sellers get 250 zero-insertion-fee listings a month before the $0.35 insertion fee applies.\n\nThe fee stack is simpler than on most marketplaces because eBay handles payments itself and does not add a separate card-processing fee. When an item sells, eBay takes one final value fee: 13.6% of the total amount of the sale in most categories, plus a per-order fee of $0.30 on orders of $10 or less or $0.40 on orders over $10. The \"total amount of the sale\" includes the item price, shipping and handling charged to the buyer, and sales tax, so the percentage applies to more than your item price.\n\nSome categories are priced differently: 6.7% for guitars and basses, 13.25% for trading cards, 15.3% for books, movies and music, 3% for heavy equipment, and 8% with no per-order fee for athletic shoes that sell for $150 or more. Basic, Premium and Anchor Store subscribers pay a reduced 12.7% in most categories in exchange for a monthly subscription. Optional extras add to the bill: Promoted Listings General charges the ad rate you choose (2% to 100%) on the total sale amount when a promoted item sells, and sales to buyers outside the US carry a 1.65% international fee unless you use eBay International Shipping.",
+    "how_fees_work": [
+      "Final value fee: 13.6% of the total amount of the sale in most categories, calculated per item on the first $7,500, then 2.35% on the portion over $7,500. The total amount of the sale is the item price plus any shipping and handling charged to the buyer plus sales tax. It is charged when the item sells and deducted before your payout.",
+      "Per-order fee: $0.30 on orders of $10 or less and $0.40 on orders over $10, added to the final value fee on every order. Not charged on athletic shoes that sell for $150 or more.",
+      "Category rates that differ from 13.6%: guitars and basses 6.7%; trading cards, comic books and coins 13.25%; books, movies and TV, and music 15.3%; heavy equipment, printing presses and food trucks 3% up to $15,000; athletic shoes 8% when the sale is $150 or more (13.6% under $150); jewelry and watches 15% up to $5,000; women's handbags 15% up to $2,000; NFTs 5%.",
+      "Store subscriptions (optional): Starter $4.95 a month on a yearly plan ($7.95 month to month), Basic $21.95 ($27.95), Premium $59.95 ($74.95), Anchor $299.95 ($349.95), Enterprise $2,999.95 yearly only. Basic and above pay 12.7% in most categories on the first $2,500 per item (2.35% above that), 7% on athletic shoes at $150 or more, 12.35% on trading cards and 2.5% on heavy equipment. Starter pays the same rates as sellers without a Store.",
+      "Promoted Listings General: you set an ad rate between 2% and 100% of the item's total sale amount, including shipping and tax. You are charged only when the promoted item sells within 30 days of a click on your ad. Promoted Listings Priority is billed per click and is not included in this calculator.",
+      "International fee: 1.65% of the total amount of the sale when the buyer's delivery address or registered address is outside the US. Not charged when the item ships through eBay International Shipping.",
+      "Listing and currency fees: 250 zero-insertion-fee listings a month without a Store, then $0.35 per listing. Payouts in a currency other than USD carry a 3% conversion charge, rising to 3.25% on October 14, 2026."
+    ],
+    "tips": [
+      "Price the shipping line carefully: eBay's 13.6% applies to shipping charged to the buyer and to sales tax, not just the item price. Charging $8 shipping costs you about $1.09 in fees on top of the label.",
+      "Turn on eBay International Shipping instead of shipping abroad yourself. The 1.65% international fee is waived on those orders and eBay handles customs.",
+      "A Basic Store ($21.95 a month on a yearly plan) cuts the most-categories rate from 13.6% to 12.7%. That 0.9-point saving covers the subscription once you sell roughly $2,440 a month; below that, stay on the free plan.",
+      "In Promoted Listings General, set a fixed ad rate near the 2% minimum instead of accepting the suggested dynamic rate. You pay the rate on the whole sale, including shipping, every time a promoted item sells after a click.",
+      "Sneakers that sell for $150 or more get an 8% rate with no per-order fee, so bundling or pricing a pair at $150 rather than $145 can lower the fee in dollars."
+    ],
+    "faq": [
+      {"q": "Does eBay charge fees on shipping?", "a": "Yes. The final value fee is calculated on the total amount of the sale, which includes the item price, shipping and handling charged to the buyer, and sales tax. Offering free shipping does not avoid the fee; it just moves the shipping cost into your item price."},
+      {"q": "When does eBay take its fee?", "a": "When the item sells. eBay deducts the final value fee, the per-order fee and any ad fee from the sale proceeds before the money is paid out to your bank account. Insertion fees, if any, are charged when you create the listing."},
+      {"q": "Does eBay charge a separate payment processing fee?", "a": "No. eBay processes payments itself and the cost is included in the final value fee. There is no PayPal-style 2.9% + $0.30 charge on top."},
+      {"q": "Is there a monthly fee to sell on eBay?", "a": "No. Without a Store you get 250 zero-insertion-fee listings a month and pay only when something sells. Store subscriptions from $4.95 a month are optional and mainly pay off for higher-volume sellers through lower final value fees and more free listings."},
+      {"q": "What is the per-order fee?", "a": "A fixed $0.30 on orders of $10 or less and $0.40 on orders over $10, charged once per order alongside the final value fee. It is not charged on athletic shoes that sell for $150 or more."},
+      {"q": "Do I pay eBay fees on sales tax?", "a": "Yes. Sales tax collected from the buyer is part of the total amount of the sale, so the final value fee percentage applies to it. This calculator leaves tax out, so your real fee will be slightly higher in states where tax is collected."},
+      {"q": "Do I get the fee back if the sale is canceled or refunded?", "a": "Often, yes. If you cancel the sale or refund the buyer in full, you may be eligible for a final value fee credit under eBay's fee credits policy. Ad fees and insertion fees are handled separately."}
+    ],
+    "notes": "As of September 2026 from eBay's US selling fees pages. The calculator assumes the sale is $7,500 or less per item ($2,500 or less on Store rates); above that, the portion over the threshold is charged at 2.35% instead. Sales tax is not modeled even though eBay charges the final value fee on it. Store subscription prices use the yearly-plan monthly rate; month-to-month plans cost more (Basic $27.95). The Enterprise Store ($2,999.95 a year) is not modeled. Only Promoted Listings General is modeled; Priority campaigns bill per click. The 3% currency conversion charge applies only to non-USD payouts and is not modeled. eBay pays sale proceeds, minus fees, to your linked bank account on the payout schedule you choose in your payments settings.",
+    "changelog": [
+      {"date": "2026-10-14", "change": "Currency conversion charge for US-registered sellers increases from 3% to 3.25% (announced on eBay's selling fees page)."}
+    ]
+  },
+  "related": ["amazon", "mercari", "poshmark", "facebook-marketplace"]
+}

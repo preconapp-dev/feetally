@@ -1,0 +1,166 @@
+{
+  "schema_version": 1,
+  "slug": "ruby-lane",
+  "name": "Ruby Lane",
+  "category": "marketplace",
+  "region": "United States",
+  "currency": "USD",
+  "tagline": "Ruby Lane fee calculator: $45/month shop fee plus 9.9% service fee (5% over $2,500, 2.5% over $7,500).",
+  "fee_summary": "Ruby Lane shops pay a $45 monthly maintenance fee for unlimited listings plus a service fee on each sale: 9.9% of the sale amount up to $2,500, 5% on the portion from $2,500 to $7,500, and 2.5% above $7,500. Payment processing is through your own PayPal or card account and is extra.",
+  "last_verified": "2026-09-29",
+  "sources": [
+    {
+      "title": "Ruby Lane – Terms of Use (fees section, effective June 1, 2024)",
+      "url": "https://www.rubylane.com/info/termsofuse",
+      "accessed": "2026-09-29"
+    },
+    {
+      "title": "Ruby Lane – FAQ: What does it cost to have a shop on Ruby Lane?",
+      "url": "https://www.rubylane.com/info/faq?action=View&article=AVWYdjlZIc1iOM8wLwGO",
+      "accessed": "2026-09-29"
+    }
+  ],
+  "inputs": [
+    {
+      "id": "sale_price",
+      "label": "Item sale price",
+      "type": "money",
+      "role": "price",
+      "default": 150,
+      "help": "The price the item sells for, excluding sales tax."
+    },
+    {
+      "id": "orders_per_month",
+      "label": "Sales per month",
+      "type": "number",
+      "role": "orders_per_month",
+      "default": 10,
+      "min": 1,
+      "help": "Used to spread the $45 monthly maintenance fee across your sales."
+    },
+    {
+      "id": "item_cost",
+      "label": "What the item cost you",
+      "type": "money",
+      "role": "cost",
+      "default": 60,
+      "help": "Purchase price or sourcing cost."
+    },
+    {
+      "id": "target_profit",
+      "label": "Target profit",
+      "type": "money",
+      "role": "target_profit",
+      "default": 75,
+      "help": "We'll show the sale price you need to clear this much."
+    }
+  ],
+  "fees": [
+    {
+      "id": "service_fee",
+      "label": "Service fee",
+      "basis": "price",
+      "tiers": [
+        {
+          "max": 2500,
+          "pct": 9.9
+        },
+        {
+          "min": 2500.01,
+          "max": 7500,
+          "pct": 5,
+          "fixed": 122.5
+        },
+        {
+          "min": 7500.01,
+          "pct": 2.5,
+          "fixed": 310
+        }
+      ],
+      "note": "9.9% of the sale amount up to $2,500, plus 5% of the portion from $2,500 to $7,500, plus 2.5% of the portion above $7,500, calculated per item. The fixed parts carry the lower bands' fee forward (9.9% of $2,500 = $247.50; 5% of the next $5,000 = $250)."
+    },
+    {
+      "id": "maintenance",
+      "label": "Monthly maintenance fee (per sale share)",
+      "basis": "none",
+      "fixed": 45,
+      "monthly": true,
+      "note": "$45 per month for unlimited items, charged on the 1st of each month and prorated for shops that open or close mid-month. Divided here by your sales per month."
+    }
+  ],
+  "worked_example": {
+    "inputs": {
+      "sale_price": 150,
+      "orders_per_month": 10,
+      "item_cost": 60
+    },
+    "expected": {
+      "total_fees": 19.35,
+      "net_payout": 130.65,
+      "profit": 70.65
+    },
+    "explanation": "An antique sells for $150 in a shop that makes 10 sales a month. The service fee is 9.9% of $150 = $14.85, since the sale is under $2,500. The $45 monthly maintenance fee spread over 10 sales adds $4.50 per sale. Fees total $19.35, leaving $130.65 of the $150. After the $60 the dealer paid for the piece, profit is $70.65. Your PayPal or card-processing fee is charged separately by your own processor."
+  },
+  "content": {
+    "intro": "Ruby Lane is a long-running online marketplace for antiques, vintage collectibles, jewelry, art, and fine porcelain, glass, and silver. It is built for dealers rather than casual sellers: every seller runs a shop, listings are reviewed against category standards, and buyers pay the shop directly.\n\nThe cost of a shop has two parts. The maintenance fee is a flat $45 per month for unlimited items, charged on the 1st of each month and prorated when a shop opens or closes mid-month. There is no setup fee and no per-listing fee. The service fee is charged per item sold: 9.9% of the sale amount up to $2,500, then 5% on the portion between $2,500 and $7,500, then 2.5% on anything above $7,500. A $150 sale pays $14.85; a $10,000 sale pays $247.50 + $250 + $62.50 = $560.\n\nRuby Lane does not process payments. Buyers pay through the shop's own PayPal or card account, so that processor's fee (PayPal's commercial rate, or your card processor's) comes on top of Ruby Lane's fees and is not included here.\n\nHow the $45 spreads across your sales decides your real fee rate. At 10 sales a month it adds $4.50 per sale, bringing the total on a $150 item to 12.9%; at 3 sales a month it adds $15 per sale.",
+    "how_fees_work": [
+      "Maintenance fee: $45 per month for unlimited listings, charged on the 1st of every month and prorated for shops that open or close during the month. It is the minimum cost of keeping a shop open and is due whether or not you sell.",
+      "Service fee, first band: 9.9% of the total amount of the sale up to $2,500, calculated per item. On a $150 sale that is $14.85.",
+      "Service fee, second band: 5% on the portion of the sale over $2,500 up to $7,500. A $5,000 sale pays $247.50 + $125 = $372.50.",
+      "Service fee, third band: 2.5% on the portion of the sale exceeding $7,500. A $10,000 sale pays $560.",
+      "Setup and listing: no setup fee and no per-item listing fee.",
+      "Payment processing: not charged by Ruby Lane. Buyers pay through your own PayPal or card account and that processor's fee applies separately.",
+      "Legacy 'Up to 50 items' plan: $54 per month with a 6.7% service fee on the order total (excluding sales tax) capped at $250 per item. Shops on legacy plans can switch to the Standard plan, but the switch is not reversible."
+    ],
+    "tips": [
+      "Volume lowers your real rate. The $45 is fixed, so a shop selling 20 items a month pays $2.25 per sale toward it, while a shop selling 3 pays $15 per sale.",
+      "High-ticket items are cheap to sell. Above $2,500 the marginal rate drops to 5%, and above $7,500 to 2.5%, so a $10,000 sale pays an effective 5.6%.",
+      "Compare with Etsy or eBay on total cost, not headline rate: at 10 sales a month a $150 sale costs $19.35 on Ruby Lane before payment processing, which is competitive with eBay's roughly 13.6% plus a per-order fee.",
+      "Watch your processor's fee. Since Ruby Lane does not process payments, PayPal or card fees of about 3% to 3.5% are on top, so budget for roughly 13% to 16% all-in on a $150 sale.",
+      "If you have a slow month, remember the maintenance fee is prorated only when a shop opens or closes, not when it sits idle."
+    ],
+    "faq": [
+      {
+        "q": "How much does it cost to sell on Ruby Lane?",
+        "a": "A $45 monthly maintenance fee for unlimited listings plus a service fee of 9.9% of each sale up to $2,500 (5% on the portion between $2,500 and $7,500, 2.5% above $7,500). Setup and listings are free."
+      },
+      {
+        "q": "Does Ruby Lane charge a fee on shipping?",
+        "a": "Ruby Lane's terms describe the service fee as a percentage of the total amount of the sale per item, excluding sales tax on the legacy plan. This calculator applies it to the item price; if your invoice bundles shipping into the sale amount, add it to the price to see the effect."
+      },
+      {
+        "q": "How much does Ruby Lane take on a $500 sale?",
+        "a": "The service fee is 9.9% of $500 = $49.50. With 10 sales a month, the $45 maintenance fee adds $4.50 per sale, for $54.00 in Ruby Lane fees. Your payment processor's fee is extra."
+      },
+      {
+        "q": "Is there a listing fee on Ruby Lane?",
+        "a": "No. Listings are free and there is no setup fee; the only fixed cost is the $45 monthly maintenance fee."
+      },
+      {
+        "q": "Does Ruby Lane handle payments?",
+        "a": "No. Buyers pay through your own PayPal or credit card processing account, and that processor's fees are separate from Ruby Lane's."
+      },
+      {
+        "q": "When is the Ruby Lane maintenance fee charged?",
+        "a": "On the 1st of every month. It is prorated for shops that open or close during the month, and for new shops it is prorated from the first full day after opening."
+      },
+      {
+        "q": "Did Ruby Lane change its fees?",
+        "a": "The current Standard plan ($45/month, 9.9%/5%/2.5% service fee) is stated in the Terms of Use as effective June 1, 2024. Older 'Up to 50 items' shops pay $54/month and 6.7% capped at $250 per item until they switch."
+      }
+    ],
+    "notes": "Fees are from Ruby Lane's Terms of Use (effective June 1, 2024) and its cost FAQ. The Terms describe the service fee as '9.9% on the total amount of the sale up to $2,500, calculated per item' without stating whether buyer-paid shipping is included; this calculator applies it to the item price. The FAQ's $250 per-item cap wording sits under the legacy 'Up to 50 items' plan and is not applied to the Standard plan, whose own worked figures ($247.50 + $250 + $62.50 on a $10,000 sale) exceed $250. Payment processing fees depend on your own PayPal or card processor and are not modeled. Ruby Lane's fees page returned server errors on the access date; the Terms of Use and FAQ were read instead.",
+    "changelog": [
+      {
+        "date": "2024-06-01",
+        "change": "Terms of Use fee schedule effective: $45/month maintenance for unlimited items; service fee of 9.9% up to $2,500, 5% on $2,500–$7,500, and 2.5% above $7,500 per item."
+      }
+    ]
+  },
+  "related": [
+    "chairish",
+    "etsy",
+    "ebay",
+    "bonanza"
+  ]
+}

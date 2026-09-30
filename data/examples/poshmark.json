@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "slug": "poshmark",
+  "name": "Poshmark",
+  "category": "resale-app",
+  "page_type": "fee-calculator",
+  "region": "United States",
+  "currency": "USD",
+  "last_verified": "2026-09-29",
+  "fee_summary": "Poshmark keeps a flat $2.95 on sales under $15 and 20% on sales of $15 or more. Buyers pay shipping directly, so it never passes through your payout.",
+  "seo": { "description": "Free Poshmark fee calculator: enter your sale price and cost to see Poshmark's $2.95 or 20% fee, your net payout, and profit margin. Updated for 2026." },
+  "sources": [ { "title": "Poshmark Fee policy", "url": "https://poshmark.com/fee_policy", "accessed": "2026-09-29" } ],
+  "verification": "official",
+  "caveats": [],
+  "inputs": [
+    { "id": "sale_price", "role": "price", "label": "Sale price", "type": "money", "default": 45, "help": "The price the buyer pays for the item." },
+    { "id": "item_cost", "role": "item_cost", "label": "Your cost", "type": "money", "default": 15, "help": "What you paid for the item, including any supplies." }
+  ],
+  "fees": [
+    { "id": "commission", "label": "Poshmark fee", "paid_by": "seller", "basis": "price",
+      "tiers": [ { "max": 14.99, "fixed": 2.95 }, { "min": 15, "pct": 20 } ],
+      "note": "Flat $2.95 on sales under $15; 20% of the sale price on sales of $15 or more." }
+  ],
+  "worked_example": {
+    "inputs": { "sale_price": 45, "item_cost": 15 },
+    "expected": { "total_fees": 9.00, "net_payout": 36.00, "profit": 21.00 },
+    "explanation": "A $45 sale is $15 or more, so Poshmark keeps 20% ($9.00). You receive $36.00; after your $15 cost, profit is $21.00."
+  },
+  "content": {
+    "intro": "Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur excepteur sint occaecat cupidatat non proident sunt in culpa qui officia deserunt mollit anim id est laborum lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit.",
+    "how_fees_work": ["a", "b", "c"],
+    "tips": ["a", "b", "c"],
+    "faq": [{"q":"A?","a":"a"},{"q":"B?","a":"b"},{"q":"C?","a":"c"},{"q":"D?","a":"d"}]
+  },
+  "related": [ "mercari", "depop", "ebay" ]
+}

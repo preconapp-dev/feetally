@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "slug": "indiegogo",
+  "name": "Indiegogo",
+  "category": "crowdfunding",
+  "region": "United States",
+  "currency": "USD",
+  "tagline": "Indiegogo fee calculator: 5% platform fee plus 3% + $0.20 per transaction, and what you net.",
+  "fee_summary": "Indiegogo charges a flat 5% platform fee on the amount collected plus payment processing of 3% + $0.20 per transaction. If a campaign does not reach its goal, nothing is charged, including processing fees.",
+  "last_verified": "2026-09-29",
+  "sources": [
+    {"title": "Indiegogo Knowledge Base: Fees", "url": "https://help.indiegogo.com/article/596-fees", "accessed": "2026-09-29"},
+    {"title": "Indiegogo Knowledge Base: What changed with the Platform Upgrade?", "url": "https://help.indiegogo.com/article/645-what-changed-with-the-platform-upgrade", "accessed": "2026-09-29"}
+  ],
+  "inputs": [
+    {"id": "total_raised", "label": "Total raised", "type": "money", "role": "price", "default": 10000, "help": "The amount collected when the campaign ends, or your goal, to plan."},
+    {"id": "contributions", "label": "Number of contributions", "type": "number", "role": "other", "default": 100, "step": 1, "min": 0, "help": "Each transaction carries a fixed $0.20, so the count matters."},
+    {"id": "fulfillment_cost", "label": "Cost to make and ship perks", "type": "money", "role": "cost", "default": 0, "help": "Total cost of producing and delivering perks. Optional."},
+    {"id": "target_profit", "label": "Amount you need to keep", "type": "money", "role": "target_profit", "default": 2000, "help": "We'll show the total you need to raise."}
+  ],
+  "fees": [
+    {"id": "platform_fee", "label": "Indiegogo platform fee (5%)", "basis": "price", "pct": 5,
+     "note": "5% of the collected amount."},
+    {"id": "processing", "label": "Payment processing (3% + $0.20 per transaction)", "basis": "price", "pct": 3,
+     "per_unit": {"input": "contributions", "rate": 0.20},
+     "note": "3% of the collected amount plus $0.20 for each contribution."}
+  ],
+  "worked_example": {
+    "inputs": {"total_raised": 10000, "contributions": 100, "fulfillment_cost": 0},
+    "expected": {"total_fees": 820.00, "net_payout": 9180.00, "profit": 9180.00},
+    "explanation": "This is Indiegogo's own example. A campaign that collects $10,000 from 100 contributions pays the 5% platform fee, $500.00, plus payment processing of 3% of $10,000 ($300.00) and $0.20 on each of the 100 transactions ($20.00), so $320.00. Total fees are $820.00 and the payout to the campaigner's bank account is $9,180.00, before the cost of making and shipping perks."
+  },
+  "content": {
+    "intro": "Indiegogo is the second major rewards crowdfunding platform in the United States, with a long history in consumer hardware and gadgets. On October 16, 2025 it migrated to a new platform built on Gamefound technology, and several rules changed with it: flexible \"keep what you raise\" funding is no longer available for new campaigns, end dates cannot be changed once a campaign is live, and the post-campaign phase formerly called InDemand is now called Late Pledge.\n\nThe fees were simplified at the same time. Indiegogo charges a flat 5% platform fee on the collected amount, plus a payment processing fee of 3% plus $0.20 per transaction. Indiegogo's own example: a campaign that raises $10,000 across 100 transactions pays $500 in platform fee and $320 in processing, and $9,180 lands in the bank account. If the campaign does not reach its goal, you pay nothing, including payment processing fees.\n\nThe pledge manager, which collects add-ons, shipping and late pledges after the campaign, costs nothing to use; Indiegogo takes the same 5% of each successfully collected payment plus 3% + $0.20 per transaction. Campaigns launched after the upgrade are paid out through Adyen, while campaigns that were live before October 16, 2025 stay on Stripe.",
+    "how_fees_work": [
+      "Platform fee: 5% of the collected amount, charged on a successfully funded campaign.",
+      "Payment processing: 3% of the collected amount plus $0.20 for every transaction, in the project currency. Fifty backers who each pay $200 cost $10 in fixed fees; 500 backers paying $20 each cost $100 on the same total.",
+      "Unfunded campaigns: if your project does not reach its goal you pay nothing, including payment processing fees. New campaigns are fixed funding only.",
+      "Pledge manager: no separate charge; Indiegogo takes 5% of each successfully collected payment plus 3% + $0.20 per transaction on add-ons, shipping and late pledges.",
+      "No upfront costs: launching a campaign is free; fees are deducted from the collected funds before payout.",
+      "Processor: campaigns created after October 16, 2025 process payments through Adyen; older campaigns remain on Stripe."
+    ],
+    "tips": [
+      "Plan on about 8%–9% in fees at typical perk prices. Add-ons collected later through the pledge manager cost the same 8% + $0.20 per transaction.",
+      "Because new campaigns are fixed funding, set a goal you will clear; a campaign that misses pays nothing but also collects nothing.",
+      "Consolidate shipping and add-ons into a backer's single pledge-manager checkout where possible, since every transaction costs $0.20.",
+      "Price perks so the 5% + 3% + $0.20 and shipping still leave your margin; the calculator's \"amount you need to keep\" field works backward from your required net.",
+      "Remember the end date is locked once you launch on the new platform, so build your fulfillment costs and fee math before going live."
+    ],
+    "faq": [
+      {"q": "What fees does Indiegogo charge?", "a": "A 5% platform fee on the collected amount plus payment processing of 3% + $0.20 per transaction. That is about 8.2% on a $10,000 campaign with 100 contributions."},
+      {"q": "Does Indiegogo charge if the campaign fails?", "a": "No. Indiegogo says that if your project doesn't reach its goal you won't pay anything, including payment processing fees."},
+      {"q": "How much does Indiegogo take on $10,000?", "a": "$500 in platform fee plus $300 in processing plus $0.20 per transaction. With 100 contributions that is $820, leaving $9,180, which is Indiegogo's own example."},
+      {"q": "Does Indiegogo still offer flexible funding?", "a": "No. Since the October 16, 2025 platform upgrade, flexible funding is not available for new campaigns; live flexible campaigns were converted to fixed funding."},
+      {"q": "What does the Indiegogo pledge manager cost?", "a": "Nothing to use. Indiegogo takes 5% of each successfully collected payment plus 3% + $0.20 per transaction, the same as the campaign."},
+      {"q": "What happened to InDemand?", "a": "It was renamed Late Pledge in the 2025 upgrade. It is the post-campaign funding phase and is charged the same 5% + processing."}
+    ],
+    "notes": "Fees are from Indiegogo's knowledge base (Fees article, last updated November 4, 2025, and the Platform Upgrade article), read 2026-09-29. The Fees article's processing sentence is truncated, but its worked example ($320 on $10,000 across 100 transactions) and the Platform Upgrade article both state 3% + $0.20 per transaction. Fees for campaigns in other currencies use the same structure with €0.20 in euro projects. Payout timing is not modeled.",
+    "changelog": [
+      {"date": "2025-10-16", "change": "Indiegogo migrated to a new platform: fee structure simplified to a flat 5% platform fee plus 3% + $0.20 per transaction; flexible funding discontinued for new campaigns; InDemand renamed Late Pledge; new campaigns process payments through Adyen."}
+    ]
+  },
+  "related": ["kickstarter", "gofundme", "patreon"]
+}

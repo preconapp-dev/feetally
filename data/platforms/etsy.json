@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "slug": "etsy",
+  "name": "Etsy",
+  "category": "marketplace",
+  "region": "United States",
+  "currency": "USD",
+  "tagline": "Etsy fee calculator: $0.20 listing, 6.5% transaction, 3% + $0.25 processing and 12–15% Offsite Ads.",
+  "fee_summary": "Etsy charges $0.20 to list an item, 6.5% of the item price plus shipping when it sells, and a US payment processing fee of 3% + $0.25 per order. Sales that come from Offsite Ads pay an extra 15% (12% once your shop has passed $10,000 in sales over 12 months).",
+  "last_verified": "2026-09-29",
+  "sources": [
+    {"title": "Etsy Fees & Payments Policy", "url": "https://www.etsy.com/legal/fees", "accessed": "2026-09-29"},
+    {"title": "Etsy Payments Policy (payment processing fees by country)", "url": "https://www.etsy.com/legal/etsy-payments", "accessed": "2026-09-29"},
+    {"title": "Etsy Help: Listing fees", "url": "https://help.etsy.com/hc/en-us/articles/360000344908", "accessed": "2026-09-29"}
+  ],
+  "inputs": [
+    {"id": "sale_price", "label": "Item price", "type": "money", "role": "price", "default": 35, "help": "The price you display for the listing, including any personalization charge."},
+    {"id": "shipping_charged", "label": "Shipping charged to buyer", "type": "money", "role": "shipping_charged", "default": 5, "help": "Etsy's transaction and processing fees apply to shipping too. Enter 0 for free shipping."},
+    {"id": "offsite_ads", "label": "Sale came from an Offsite Ad", "type": "select", "role": "other", "default": "off",
+     "options": [
+       {"id": "off", "label": "No (organic sale)", "note": "No Offsite Ads fee"},
+       {"id": "under10k", "label": "Yes, shop under $10,000 in sales over 12 months", "note": "15% of the order (optional program for these shops)"},
+       {"id": "over10k", "label": "Yes, shop over $10,000 in sales over 12 months", "note": "12% of the order (mandatory for these shops)"}
+     ]},
+    {"id": "item_cost", "label": "Materials and cost of the item", "type": "money", "role": "cost", "default": 8, "help": "Supplies, materials or purchase cost for this item."},
+    {"id": "shipping_cost", "label": "Your shipping cost", "type": "money", "role": "shipping_cost", "default": 4.50, "help": "Label and packaging cost."},
+    {"id": "target_profit", "label": "Target profit", "type": "money", "role": "target_profit", "default": 20, "help": "We'll show the item price you need to hit this profit."}
+  ],
+  "fees": [
+    {"id": "listing", "label": "Listing fee", "basis": "none", "fixed": 0.20,
+     "note": "$0.20 per listing, charged when you publish and again when the listing auto-renews after each sale, so it works out to $0.20 per item sold."},
+    {"id": "transaction", "label": "Transaction fee", "basis": "price_plus_shipping", "pct": 6.5,
+     "note": "6.5% of the displayed price plus shipping and gift wrap. Not charged on sales tax for US sellers."},
+    {"id": "processing", "label": "Payment processing fee (US)", "basis": "price_plus_shipping", "pct": 3, "fixed": 0.25,
+     "note": "3% + $0.25 per order on the gross order amount. Etsy also applies it to sales tax collected, which this calculator does not include."},
+    {"id": "offsite_ads", "label": "Offsite Ads fee", "basis": "price_plus_shipping",
+     "pct_by": {"input": "offsite_ads", "values": {"off": 0, "under10k": 15, "over10k": 12}, "default": 0},
+     "max": 100,
+     "when": {"input": "offsite_ads", "in": ["under10k", "over10k"]},
+     "note": "15% or 12% of the order total (price plus shipping and gift wrap) when a buyer orders within 30 days of clicking an Offsite Ad. Capped at $100 per order."}
+  ],
+  "worked_example": {
+    "inputs": {"sale_price": 35, "shipping_charged": 5, "offsite_ads": "off", "item_cost": 8, "shipping_cost": 4.50},
+    "expected": {"total_fees": 4.25, "net_payout": 35.75, "profit": 23.25},
+    "explanation": "The buyer pays $35 for the item plus $5 shipping, an order total of $40. The listing fee is $0.20. The transaction fee is 6.5% of $40 = $2.60. US payment processing is 3% of $40 plus $0.25 = $1.45. The sale was organic, so no Offsite Ads fee. Total fees are $4.25 and Etsy deposits $35.75. After $8 in materials and $4.50 for postage, profit is $23.25."
+  },
+  "content": {
+    "intro": "Etsy is the marketplace for handmade goods, craft supplies and vintage items (20 years or older). Sellers are mostly individuals and small studios: jewelry makers, printers, woodworkers, knitters, digital designers and vintage dealers. There is no monthly fee to run a shop; the optional Etsy Plus subscription costs $10 a month.\n\nThe fee stack has three parts on every sale. A $0.20 listing fee is charged when you publish and again each time the listing renews after a sale, so budget $0.20 per item sold. The transaction fee is 6.5% of the price you display plus whatever you charge for shipping and gift wrap; personalization charges are treated as part of the price. Payment processing for US shops is 3% plus $0.25 per order on the gross order amount, including shipping and sales tax. On a $40 order those add up to about $4.25, roughly 10.6% of what the buyer paid.\n\nOffsite Ads is the fee most sellers underestimate. When a buyer orders within 30 days of clicking one of Etsy's ads on Google, Facebook or similar, Etsy takes 15% of that order, or 12% for shops that made $10,000 or more over the prior 365 days. The program is optional below $10,000 and mandatory above it, and the fee is capped at $100 per order. US sellers do not pay the regulatory operating fee that applies in some other countries.",
+    "how_fees_work": [
+      "Listing fee: $0.20 for each listing you publish or renew. Listings expire after four months and auto-renew for $0.20, and a listing that sells is automatically renewed at $0.20 after each item sells. For a multi-quantity listing you pay $0.20 up front and $0.20 for each additional unit as it sells.",
+      "Transaction fee: 6.5% of the price you display plus the amount you charge for shipping and gift wrapping. Personalization fees are added to the displayed price and pay the same 6.5%. For US sellers it is not charged on sales tax.",
+      "Payment processing fee (Etsy Payments, US bank account): 3% + $0.25 per order, calculated on the gross order amount including shipping and tax. It is deducted when the payment completes. There is no deposit fee for US sellers.",
+      "Offsite Ads fee: 15% of the total order amount (price plus shipping and gift wrap) when a buyer orders from your shop within 30 days of clicking an Etsy Offsite Ad, or 12% if your shop made $10,000 USD or more in the prior 365 days. Capped at $100 per attributed order. Optional under $10,000, required above it.",
+      "Fees that don't apply to a typical US seller: the regulatory operating fee (charged in certain other countries only) and the 2.5% currency conversion fee (only if you list in a currency other than your payment account's). Etsy Plus is an optional $10 a month subscription."
+    ],
+    "tips": [
+      "Price shipping honestly rather than inflating it: both the 6.5% transaction fee and the 3% processing fee apply to the shipping charge, so a padded shipping line still pays fees.",
+      "If your shop is under $10,000 in trailing 12-month sales, decide whether Offsite Ads is worth 15% per attributed order. You can opt out in Shop Manager; shops over $10,000 cannot, but pay 12% instead.",
+      "Use multi-quantity listings for items you stock in depth. You still pay $0.20 per unit sold, but you avoid re-listing work and the fee is only charged as units sell.",
+      "The $0.25 per-order processing fee hurts most on cheap items: a $5 sticker pays about 19% in fees all in. Bundle low-priced items or set a minimum order.",
+      "Keep sales tax in mind when checking your deposit: Etsy collects it from the buyer and applies the 3% processing fee to it, so your effective fee looks slightly higher than this calculator shows."
+    ],
+    "faq": [
+      {"q": "Does Etsy charge fees on shipping?", "a": "Yes. The 6.5% transaction fee applies to the price plus shipping and gift wrap, and the 3% + $0.25 processing fee applies to the gross order amount including shipping. Free shipping avoids nothing; it just moves the cost into your price."},
+      {"q": "When does Etsy take its fees?", "a": "Listing fees are charged when you publish or renew. Transaction, processing and Offsite Ads fees are deducted from the sale amount in your Payment account when the payment completes, before funds are deposited to your bank on your deposit schedule."},
+      {"q": "Is there a monthly fee to sell on Etsy?", "a": "No. Opening a shop and keeping it running costs nothing per month. Etsy Plus is an optional $10 a month subscription with credits and customization tools."},
+      {"q": "What is the Etsy Offsite Ads fee?", "a": "15% of an order that comes from a buyer who clicked an Etsy Offsite Ad in the previous 30 days, or 12% if your shop made $10,000 or more in the prior 365 days. It is capped at $100 per order and is mandatory for shops above the $10,000 threshold."},
+      {"q": "Does the transaction fee apply to sales tax?", "a": "Not for US sellers; the 6.5% transaction fee excludes sales tax. The 3% + $0.25 payment processing fee, however, is calculated on the gross order amount including tax."},
+      {"q": "Do I get the fees back if I refund a buyer?", "a": "Etsy credits the transaction fee proportionally when you issue a refund through Etsy. Listing fees are not refunded, and processing fee credits depend on the refund amount, so check the order's fee details after refunding."},
+      {"q": "Does Etsy send a 1099-K?", "a": "Yes, if your shop meets the federal or state reporting threshold for the year. The form reports gross sales before fees, so keep your own record of fees to deduct."}
+    ],
+    "notes": "Rates are from Etsy's Fees & Payments Policy and Etsy Payments Policy as of September 2026 for sellers with a US bank account. Sales tax is not modeled even though the 3% processing fee applies to it. The listing fee is modeled as $0.20 per item sold; if a listing expires or renews without selling you pay $0.20 again. The refund-credit description in the FAQ is a general statement and was not verified against a specific policy page. Etsy Plus and the currency conversion fee are not modeled. Etsy deposits available funds to your bank on the schedule you choose (daily, weekly, biweekly or monthly); new shops may see a holding period on part of each sale.",
+    "changelog": [
+      {"date": "2022-04-11", "change": "Transaction fee increased from 5% to 6.5% of the item price plus shipping and gift wrap."}
+    ]
+  },
+  "related": ["ebay", "amazon", "shopify", "poshmark"]
+}

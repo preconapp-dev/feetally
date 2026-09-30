@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "slug": "square",
+  "name": "Square",
+  "category": "payment-processor",
+  "region": "United States",
+  "currency": "USD",
+  "tagline": "Square fee calculator: 2.6% + 15¢ in person, 3.3% + 30¢ online, 3.5% + 15¢ keyed. See your exact payout.",
+  "fee_summary": "On Square's free plan you pay 2.6% + 15¢ for in-person card payments, 3.3% + 30¢ for online and invoice card payments, 2.9% + 30¢ through Square's payment APIs and 3.5% + 15¢ for keyed or card-on-file payments. International cards add 1.5%.",
+  "last_verified": "2026-09-29",
+  "sources": [
+    {"title": "Square Pricing and Processing Fees (US)", "url": "https://squareup.com/us/en/pricing", "accessed": "2026-09-29"}
+  ],
+  "inputs": [
+    {"id": "amount", "label": "Transaction amount", "type": "money", "role": "price", "default": 100, "help": "What the customer pays, before Square's fee."},
+    {"id": "txn_type", "label": "Transaction type", "type": "select", "role": "other", "default": "in_person",
+     "options": [
+       {"id": "in_person", "label": "In person (tap, dip or swipe)", "note": "2.6% + 15¢"},
+       {"id": "online", "label": "Online or invoice paid by card", "note": "3.3% + 30¢ on the free plan"},
+       {"id": "online_api", "label": "Online through Square's payment APIs", "note": "2.9% + 30¢"},
+       {"id": "keyed", "label": "Manually entered or card on file", "note": "3.5% + 15¢"},
+       {"id": "afterpay", "label": "Afterpay", "note": "6% + 30¢"},
+       {"id": "ach", "label": "ACH bank transfer on an invoice", "note": "1%, $1 minimum"}
+     ]},
+    {"id": "international", "label": "Card issued outside the US", "type": "toggle", "role": "other", "default": false, "help": "Adds 1.5% on card payments."},
+    {"id": "cost", "label": "Your cost of goods", "type": "money", "role": "cost", "default": 0, "help": "Optional. What the product or job cost you, to see profit."},
+    {"id": "target_profit", "label": "Target profit", "type": "money", "role": "target_profit", "default": 50, "help": "We'll show the amount to charge so you net this much."}
+  ],
+  "fees": [
+    {"id": "processing", "label": "Square processing fee", "basis": "price",
+     "pct_by": {"input": "txn_type", "values": {"in_person": 2.6, "online": 3.3, "online_api": 2.9, "keyed": 3.5, "afterpay": 6}, "default": 0},
+     "fixed_by": {"input": "txn_type", "values": {"in_person": 0.15, "online": 0.30, "online_api": 0.30, "keyed": 0.15, "afterpay": 0.30}, "default": 0},
+     "when": {"input": "txn_type", "in": ["in_person", "online", "online_api", "keyed", "afterpay"]},
+     "note": "Square Free plan rates. Plus and Premium plans are lower in person and online."},
+    {"id": "ach", "label": "ACH bank transfer fee", "basis": "price", "pct": 1, "min": 1,
+     "when": {"input": "txn_type", "equals": "ach"},
+     "note": "1% of the invoice with a $1 minimum (capped at $10 on Plus and Premium)."},
+    {"id": "intl", "label": "International card fee", "basis": "price",
+     "pct_by": {"input": "txn_type", "values": {"in_person": 1.5, "online": 1.5, "online_api": 1.5, "keyed": 1.5, "afterpay": 0, "ach": 0}, "default": 0},
+     "when": {"input": "international", "equals": true},
+     "note": "Extra 1.5% on credit or debit cards issued outside the United States."}
+  ],
+  "worked_example": {
+    "inputs": {"amount": 100, "txn_type": "in_person", "cost": 40},
+    "expected": {"total_fees": 2.75, "net_payout": 97.25, "profit": 57.25},
+    "explanation": "A $100 card tapped on a Square reader costs 2.6% ($2.60) plus 15¢, so Square keeps $2.75 and deposits $97.25. After the $40 the goods cost you, profit is $57.25."
+  },
+  "content": {
+    "intro": "Square is the go-to processor for coffee shops, salons, food trucks and market vendors, but it also runs online stores, invoices and payment links. On the free plan there is no monthly fee; you pay a flat rate per payment that depends on how the card reaches Square.\n\nTap, dip or swipe a card in person and Square charges 2.6% + 15¢. Card payments made online or through an invoice cost 3.3% + 30¢ on the free plan. Payments processed through Square's developer APIs inside your own app are 2.9% + 30¢. The most expensive way to get paid is manual entry or a card on file at 3.5% + 15¢. Afterpay costs 6% + 30¢, and ACH bank payments on invoices are 1% with a $1 minimum. Cards issued outside the US carry an extra 1.5% on every plan.\n\nSquare Plus ($49 a month per location) drops in-person to 2.5% + 15¢ and online to 2.9% + 30¢; Square Premium ($149 a month per location) goes to 2.4% + 15¢ in person. This calculator uses the free-plan rates, which is what most small sellers are on.",
+    "how_fees_work": [
+      "In person (tap, dip or swipe): 2.6% + 15¢ per payment on the free plan. A $100 sale costs $2.75.",
+      "Online or invoice card payments: 3.3% + 30¢ on the free plan (2.9% + 30¢ on Plus and Premium). A $100 invoice paid by card costs $3.60.",
+      "Online API payments (cards processed inside your own web or mobile app through Square's payments APIs): 2.9% + 30¢ on every plan.",
+      "Manual entry or card on file: 3.5% + 15¢ on every plan. Typing a card number into the app or charging a saved card costs $3.65 on $100.",
+      "Afterpay (buy now, pay later): 6% + 30¢ per order on every plan.",
+      "ACH bank transfer on an invoice: 1% with a $1 minimum on the free plan; on Plus and Premium the fee is also capped at $10.",
+      "International cards: an extra 1.5% on credit or debit cards issued outside the United States, on every plan."
+    ],
+    "tips": [
+      "Get the card in front of a reader whenever possible. In person is 2.6% + 15¢; keying the same card in is 3.5% + 15¢, nearly a full point more.",
+      "Offer ACH on large invoices. A $2,000 invoice costs $20 by ACH versus $66.30 by card on the free plan.",
+      "If you process a lot online, run the numbers on Square Plus: the drop from 3.3% to 2.9% on online payments covers the $49 monthly fee at about $12,250 a month in online volume.",
+      "Building your own checkout? Payments through Square's APIs are 2.9% + 30¢ instead of 3.3% + 30¢.",
+      "Be careful with Afterpay at 6% + 30¢. It can make sense on bigger baskets, but on a $40 order it takes $2.70."
+    ],
+    "faq": [
+      {"q": "How much does Square take from $100?", "a": "$2.75 in person (2.6% + 15¢), $3.60 online or by invoice (3.3% + 30¢), and $3.65 for a manually entered card (3.5% + 15¢) on the free plan."},
+      {"q": "Does Square charge a monthly fee?", "a": "Not on the free plan. Square Plus costs $49 a month per location and Square Premium $149 a month per location, in exchange for lower processing rates."},
+      {"q": "What is Square's fee for invoices?", "a": "3.3% + 30¢ when the invoice is paid by card on the free plan, or 1% (minimum $1) when it is paid by ACH bank transfer."},
+      {"q": "Does Square charge extra for international cards?", "a": "Yes. Cards issued outside the US cost an extra 1.5% on top of the normal rate."},
+      {"q": "Is Square cheaper than Stripe?", "a": "In person, Square's 2.6% + 15¢ and Stripe Terminal's 2.7% + 5¢ cross at $100: Stripe is cheaper below that, Square above. Online, Stripe's 2.9% + 30¢ beats Square's free-plan 3.3% + 30¢ unless you use Square's API or a paid plan."},
+      {"q": "How much does Square charge for Afterpay?", "a": "6% + 30¢ per Afterpay order, the same on every plan."},
+      {"q": "What does a keyed-in card cost on Square?", "a": "3.5% + 15¢, whether you type the number in or charge a card on file."}
+    ],
+    "notes": "The calculator uses Square Free plan rates. Square Plus ($49 a month per location): 2.5% + 15¢ in person, 2.9% + 30¢ online, ACH capped at $10. Square Premium ($149 a month per location): 2.4% + 15¢ in person, 2.9% + 30¢ online. Both paid plans have a 30-day trial. The 1.5% international fee is applied only to card options in the calculator. Instant transfer and chargeback fees are not listed on the pricing page we checked, so they are not modeled, and payout timing is not stated there. Gift card loads cost 2.5% on the Free and Plus plans.",
+    "changelog": []
+  },
+  "related": ["stripe", "paypal", "sumup", "zettle"]
+}

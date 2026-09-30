@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "slug": "kickstarter",
+  "name": "Kickstarter",
+  "category": "crowdfunding",
+  "region": "United States",
+  "currency": "USD",
+  "tagline": "Kickstarter fee calculator: 5% platform fee plus 3% + $0.30 per pledge, and what a funded project nets.",
+  "fee_summary": "If your project is funded, Kickstarter keeps 5% of the total raised plus payment processing of 3% + $0.30 per pledge (5% + $0.08 for pledges under $10). If the project is not funded, there are no fees.",
+  "last_verified": "2026-09-29",
+  "sources": [
+    {"title": "Kickstarter Help: Fees for the United States", "url": "https://www.kickstarter.com/help/fees", "accessed": "2026-09-29"}
+  ],
+  "inputs": [
+    {"id": "total_pledged", "label": "Total pledged", "type": "money", "role": "price", "default": 10000, "help": "The funding total when the campaign ends (or your goal, to plan)."},
+    {"id": "backers", "label": "Number of pledges", "type": "number", "role": "other", "default": 200, "step": 1, "min": 0, "help": "Each pledge carries a fixed processing fee, so the count matters."},
+    {"id": "pledge_size", "label": "Pledge size", "type": "select", "role": "other", "default": "standard",
+     "options": [
+       {"id": "standard", "label": "Pledges of $10 or more (3% + $0.30 each)"},
+       {"id": "micro", "label": "Pledges under $10 (5% + $0.08 each)", "note": "Kickstarter's micropledge rate. Use if nearly all pledges are under $10."}
+     ]},
+    {"id": "fulfillment_cost", "label": "Cost to make and ship rewards", "type": "money", "role": "cost", "default": 0, "help": "Total cost of producing and delivering rewards. Optional, to see what is left."},
+    {"id": "target_profit", "label": "Amount you need to keep", "type": "money", "role": "target_profit", "default": 2000, "help": "We'll show the funding total you need to raise."}
+  ],
+  "fees": [
+    {"id": "platform_fee", "label": "Kickstarter fee (5%)", "basis": "price", "pct": 5,
+     "note": "5% of total funds raised, charged only if the project is successfully funded."},
+    {"id": "processing_standard", "label": "Payment processing (3% + $0.30 per pledge)", "basis": "price", "pct": 3,
+     "per_unit": {"input": "backers", "rate": 0.30},
+     "when": {"input": "pledge_size", "equals": "standard"},
+     "note": "3% of funds raised plus $0.30 for each pledge."},
+    {"id": "processing_micro", "label": "Payment processing, micropledges (5% + $0.08 per pledge)", "basis": "price", "pct": 5,
+     "per_unit": {"input": "backers", "rate": 0.08},
+     "when": {"input": "pledge_size", "equals": "micro"},
+     "note": "Kickstarter's discounted rate for pledges under $10."}
+  ],
+  "worked_example": {
+    "inputs": {"total_pledged": 10000, "backers": 200, "pledge_size": "standard", "fulfillment_cost": 0},
+    "expected": {"total_fees": 860.00, "net_payout": 9140.00, "profit": 9140.00},
+    "explanation": "A project that ends at $10,000 from 200 backers pays Kickstarter's 5% fee, $500.00, plus payment processing of 3% of $10,000 ($300.00) and $0.30 on each of the 200 pledges ($60.00), so $360.00. Total fees are $860.00 and the creator receives $9,140.00 before the cost of making and shipping rewards. Had the project missed its goal, no fees would be charged and no money collected."
+  },
+  "content": {
+    "intro": "Kickstarter is the best-known rewards crowdfunding platform in the United States, used for board games, gadgets, books, films and other creative projects. Funding is all-or-nothing: backers pledge during the campaign, and their cards are charged only if the project reaches its goal by the deadline.\n\nFees follow the same rule. If the project is funded, Kickstarter deducts its 5% fee from the total funds raised, and the payment processor takes 3% plus $0.30 per pledge. Pledges under $10 get a discounted micropledge rate of 5% plus $0.08 per pledge. Kickstarter's own summary is that the total cost is its 5% fee plus payment processing of between 3% and 5%. If funding is not successful, there are no fees at all.\n\nThe per-pledge part means the backer count matters, not just the total. A $10,000 project from 200 backers pays $860 in fees (8.6%); the same $10,000 from 1,000 backers pays $1,100 (11%). There is no fee to create or launch a project, and Kickstarter takes its fees out of the collected funds before transferring them, so you never pay an invoice.",
+    "how_fees_work": [
+      "Kickstarter fee: 5% of the total funds raised, deducted from collected pledges. Charged only when the project is successfully funded.",
+      "Payment processing: 3% of the funds raised plus $0.30 for each pledge. This is the processor's fee and is also deducted before payout.",
+      "Micropledges: pledges under $10 are charged a discounted rate of 5% plus $0.08 per pledge instead of 3% + $0.30.",
+      "Unfunded projects: if the goal is not reached, no cards are charged and no fees are owed.",
+      "No upfront costs: creating and launching a project is free; all fees come out of the money collected at the end of a successful campaign.",
+      "Fees apply to collected funds: the 5% and the processing percentages are calculated on what is actually raised, so pledges that fail to collect do not generate fees."
+    ],
+    "tips": [
+      "Budget 8%–10% for fees when you set your goal. With average pledges between $25 and $100 the combined fee is 8.3%–9.2%, and it rises as the average pledge falls.",
+      "Encourage backers to combine add-ons into one pledge instead of pledging twice; the $0.30 charge is per pledge.",
+      "Do not rely on $1 pledges for a headline backer count; each one costs 5% + $0.08, so a $1 pledge nets $0.82 after the 5% fee and the micropledge processing.",
+      "Set the goal to cover fees, rewards, shipping and taxes; the calculator's \"amount you need to keep\" field works backward from what you must have left after fees.",
+      "Remember that pledges are collected only if you fund, so a stretch goal that inflates costs still pays the same percentage."
+    ],
+    "faq": [
+      {"q": "What fees does Kickstarter charge?", "a": "5% of the total funds raised plus payment processing of 3% + $0.30 per pledge in the US. Pledges under $10 are charged 5% + $0.08 per pledge instead."},
+      {"q": "Does Kickstarter charge if the campaign fails?", "a": "No. If funding isn't successful there are no fees, and backers are not charged."},
+      {"q": "How much does Kickstarter take on $10,000?", "a": "$500 for the 5% fee plus $300 in processing plus $0.30 per pledge; with 200 backers that is $860 total, leaving $9,140."},
+      {"q": "Is the Kickstarter fee per pledge or per project?", "a": "Both parts apply to the whole project: the 5% and 3% are percentages of the total raised, and the $0.30 (or $0.08) is charged once per pledge."},
+      {"q": "What is Kickstarter's micropledge fee?", "a": "Pledges under $10 pay a discounted processing rate of 5% plus $0.08 per pledge, on top of Kickstarter's 5% fee."},
+      {"q": "Does it cost anything to launch a Kickstarter?", "a": "No. Creating and launching a project is free; fees are only deducted from a successfully funded project's collected funds."},
+      {"q": "When does Kickstarter take its fees?", "a": "After a successful campaign ends and pledges are collected. The fees are deducted from the funding total before the money is transferred to you."}
+    ],
+    "notes": "Fees are from Kickstarter's US fee page, read 2026-09-29. The page now lists processing at 3% + $0.30 per pledge and 5% + $0.08 for micropledges; many older guides still cite $0.20 and $0.05, and Kickstarter's page gives no date for the change. The micropledge select applies one rate to all pledges; a real campaign mixing sizes falls between the two. Fees differ for projects based outside the US. Payout timing is not modeled; see Kickstarter's funding handbook.",
+    "changelog": []
+  },
+  "related": ["indiegogo", "gofundme", "patreon"]
+}

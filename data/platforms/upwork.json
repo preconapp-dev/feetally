@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "slug": "upwork",
+  "name": "Upwork",
+  "category": "freelance",
+  "region": "United States",
+  "currency": "USD",
+  "tagline": "Upwork fee calculator: enter your contract service fee (0% to 15%) and see your take-home per payment.",
+  "fee_summary": "Upwork charges a Freelancer Service Fee of 0% to 15% per contract on everything you earn, including bonuses; you see the exact rate before you accept and it is fixed for the life of the contract. Withdrawals to a US bank by ACH are free; Instant Pay costs $2 and a USD wire $50.",
+  "last_verified": "2026-09-29",
+  "sources": [
+    {"title": "Upwork Help: Learn about the Freelancer Service Fee", "url": "https://support.upwork.com/hc/en-us/articles/211062538-Learn-about-the-Freelancer-Service-Fee", "accessed": "2026-09-29"},
+    {"title": "Upwork Help: When do I pay a Freelancer Service Fee?", "url": "https://support.upwork.com/hc/en-us/articles/40445575013395-When-do-I-pay-a-Freelancer-Service-Fee", "accessed": "2026-09-29"},
+    {"title": "Upwork Help: How to get paid on Upwork", "url": "https://support.upwork.com/hc/en-us/articles/211060918-How-to-get-paid-on-Upwork", "accessed": "2026-09-29"},
+    {"title": "Upwork Help: Direct to U.S. Bank: timing and fees explained", "url": "https://support.upwork.com/hc/en-us/articles/227022468-Direct-to-U-S-Bank-timing-and-fees-explained", "accessed": "2026-09-29"},
+    {"title": "Upwork Help: What is the Contract Initiation Fee on Upwork?", "url": "https://support.upwork.com/hc/en-us/articles/26106318334611-What-is-the-Contract-Initiation-Fee-on-Upwork", "accessed": "2026-09-29"},
+    {"title": "Upwork Help: Connects", "url": "https://support.upwork.com/hc/en-us/articles/211062898-Connects", "accessed": "2026-09-29"}
+  ],
+  "inputs": [
+    {"id": "amount", "label": "Amount billed to the client", "type": "money", "role": "price", "default": 500, "help": "The milestone, weekly hourly total, or bonus before Upwork's fee. Your rate as shown to the client already includes the fee."},
+    {"id": "fee_pct", "label": "Your contract's service fee (%)", "type": "percent", "role": "other", "default": 10, "min": 0, "help": "Upwork shows the exact percentage (0% to 15%) on the offer or proposal. Upwork's own example uses 10%."},
+    {"id": "withdrawal", "label": "Withdrawal method", "type": "select", "role": "other", "default": "ach",
+     "options": [
+       {"id": "ach", "label": "Direct to U.S. Bank (ACH), free", "note": "Free for freelancers with a US tax address; 2 to 5 business days."},
+       {"id": "instant_pay", "label": "Instant Pay, $2.00 per transfer", "note": "US freelancers only."},
+       {"id": "wire", "label": "USD wire transfer, $50.00 per transfer"}
+     ]},
+    {"id": "cost", "label": "Your cost for this work", "type": "money", "role": "cost", "default": 0, "help": "Optional: software, subcontractors, or other out-of-pocket cost."},
+    {"id": "target_profit", "label": "Target take-home", "type": "money", "role": "target_profit", "default": 400, "help": "We'll show the amount you need to bill."}
+  ],
+  "fees": [
+    {"id": "service_fee", "label": "Freelancer Service Fee", "basis": "price", "pct_input": "fee_pct", "note": "0% to 15% per contract on all earnings including bonuses; fixed once the contract begins. Upwork rounds the fee down to the cent."},
+    {"id": "withdrawal_fee", "label": "Withdrawal fee (per transfer)", "basis": "none", "fixed_by": {"input": "withdrawal", "values": {"ach": 0, "instant_pay": 2, "wire": 50}, "default": 0}, "note": "Charged once per withdrawal, not per payment; shown here as if you withdraw this payment on its own."}
+  ],
+  "worked_example": {
+    "inputs": {"amount": 500, "fee_pct": 10, "withdrawal": "ach", "cost": 0},
+    "expected": {"total_fees": 50.00, "net_payout": 450.00, "profit": 450.00},
+    "explanation": "A $500 milestone on a contract with a 10% Freelancer Service Fee pays Upwork $50.00. Withdrawing by Direct to U.S. Bank (ACH) is free for US freelancers, so $450.00 reaches your bank; with no costs, profit is $450.00."
+  },
+  "content": {
+    "intro": "Upwork is the largest general freelance marketplace in the US. Clients post jobs, freelancers send proposals (paid for with Connects), and work runs as hourly contracts billed weekly or fixed-price contracts paid by milestone. Developers, designers, writers, marketers, virtual assistants, and consultants all work there.\n\nThe cost of working on Upwork is the Freelancer Service Fee. In 2026 it is no longer a single flat rate: Upwork's help center says the fee ranges from 0% to 15% per contract. You see the exact percentage when a client sends an offer or when you submit a proposal, and once the contract begins the rate is fixed and will not change. Upwork's own worked example uses 10%: bill $22.22 an hour to take home $20.\n\nThe fee applies to all earnings, including bonuses, on both hourly and fixed-price work. There are exceptions: Any Hire contracts carry no service fee, Upwork Payroll contracts are excluded, Direct Contracts with a client you brought to Upwork carry a reduced fee (0% for Freelancer Plus members), and Enterprise clients can have their own arrangement.\n\nGetting the money out is cheap for US freelancers. Direct to U.S. Bank (ACH) withdrawals are free with a US tax address; Instant Pay costs $2.00 and a USD wire $50.00 per transfer. Hourly earnings become available ten days after the weekly billing period ends, and fixed-price milestones five days after the client approves them.",
+    "how_fees_work": [
+      "Freelancer Service Fee: 0% to 15% per contract, charged on all your earnings on that contract, including bonuses. The percentage is shown on the offer or proposal before you accept and is fixed for the life of the contract. Upwork rounds the fee down to the nearest cent.",
+      "Exceptions: no service fee on Any Hire contracts; Upwork Payroll contracts are excluded; Direct Contracts with a client you brought to Upwork carry a reduced fee, and Freelancer Plus members pay 0% on them; Enterprise clients may have a different arrangement.",
+      "Refunds: if your client is refunded, by you or through payment protection, Upwork returns the Freelancer Service Fee you paid on that amount.",
+      "Withdrawal fees, per transfer: Direct to U.S. Bank (ACH) is free for freelancers with a US tax address (a $2.99 fee applies to non-US freelancers starting September 1, 2026); Instant Pay $2.00; USD wire $50.00; Direct to Local Bank outside the US $0.99. Upwork charges a small per-transfer fee for PayPal that it shows in your Withdrawals settings.",
+      "Security period: hourly earnings are available ten days after the weekly billing period (the following Wednesday); fixed-price milestones and Project Catalog funds release five days after the client approves; bonuses five days after the client's payment processes.",
+      "Costs to win work: Connects cost $0.15 each and the number needed varies per job; boosting a proposal bids extra Connects. Freelancer Plus includes 100 Connects a month. Clients, not freelancers, pay the one-time Contract Initiation Fee of $0.99 to $14.99."
+    ],
+    "tips": [
+      "Read the fee on every proposal. Because the rate now varies by contract from 0% to 15%, two similar jobs can cost you very different amounts; the percentage is shown before you submit.",
+      "Price backward from take-home. For $20 an hour in hand at a 10% fee, bill $22.22; at 15%, bill $23.53 (divide your target by 1 minus the fee).",
+      "Bring your own clients through Direct Contracts. The service fee is reduced, and Freelancer Plus members pay 0% on those contracts.",
+      "Withdraw by ACH. It is free for US freelancers, while Instant Pay costs $2 per transfer and a wire $50; batching payments into fewer withdrawals cuts those fees to zero.",
+      "Treat Connects as a marketing cost. At $0.15 each, a 16-Connect proposal costs $2.40; track your win rate so you know what each contract really costs to land."
+    ],
+    "faq": [
+      {"q": "What percentage does Upwork take in 2026?", "a": "Between 0% and 15% per contract. Upwork shows the exact rate on each offer or proposal, and it stays fixed for that contract. Upwork's own example uses 10%, which turns a $500 milestone into $450."},
+      {"q": "Is Upwork's fee still a flat 10%?", "a": "No. Upwork's help center now describes a variable Freelancer Service Fee ranging from 0% to 15% per contract, shown before you accept. 10% is the rate Upwork uses in its example, not a guaranteed flat rate."},
+      {"q": "Does Upwork charge a fee on bonuses and tips?", "a": "Yes. Upwork says you pay the Freelancer Service Fee on all earnings, including bonuses."},
+      {"q": "Does Upwork charge to withdraw money?", "a": "Direct to U.S. Bank (ACH) withdrawals are free for freelancers with a US tax address. Instant Pay costs $2.00 per transfer, a USD wire $50.00, and PayPal carries a small per-transfer fee shown in your settings."},
+      {"q": "How long until Upwork earnings are available?", "a": "Hourly earnings are available ten days after the weekly billing period ends; fixed-price milestones five days after the client approves them; bonuses five days after the client's payment is processed."},
+      {"q": "Do clients pay Upwork fees too?", "a": "Yes. Clients pay a one-time Contract Initiation Fee of $0.99 to $14.99 when they start a Marketplace or Project Catalog contract, plus Upwork's client-side marketplace fees. These do not come out of your earnings."},
+      {"q": "How do I pay 0% fees on Upwork?", "a": "Any Hire contracts carry no Freelancer Service Fee, and Freelancer Plus members pay 0% on Direct Contracts with clients they bring to Upwork. Some contracts may also be offered at 0% within the 0% to 15% range."}
+    ],
+    "notes": "The service fee percentage is set per contract by Upwork and shown at proposal or offer time; enter yours in the calculator. The exact reduced rate for Direct Contracts (for non-Plus members), the PayPal withdrawal fee amount, the Freelancer Plus monthly price, and the client marketplace fee percentage were not stated on the pages read and are not modeled. Withdrawal fees are per transfer, so the withdrawal line assumes this payment is withdrawn on its own. Upwork rounds fees down to the cent; this calculator rounds to the nearest cent, so results can differ by a penny.",
+    "changelog": [
+      {"date": "2026-09-01", "change": "Direct to U.S. Bank withdrawals carry a $2.99 fee for freelancers without a US tax address; they remain free for US freelancers."}
+    ]
+  },
+  "related": ["fiverr", "paypal", "taskrabbit", "stripe"]
+}

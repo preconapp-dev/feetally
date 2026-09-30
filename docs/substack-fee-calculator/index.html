@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Substack Fee Calculator (2026): Fees, Profit &amp; Net Payout | FeeTally</title>
+<meta name="description" content="Substack fee calculator: 10% platform fee plus Stripe 2.9% + $0.30 and a 0.7% billing fee per payment.">
+<link rel="canonical" href="https://feetally.com/substack-fee-calculator/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FeeTally">
+<meta property="og:title" content="Substack Fee Calculator (2026): Fees, Profit &amp; Net Payout | FeeTally">
+<meta property="og:description" content="Substack fee calculator: 10% platform fee plus Stripe 2.9% + $0.30 and a 0.7% billing fee per payment.">
+<meta property="og:url" content="https://feetally.com/substack-fee-calculator/">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#0f766e" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0d1220" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/site.css">
+
+
+
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "WebApplication", "name": "Substack Fee Calculator", "url": "https://feetally.com/substack-fee-calculator/", "applicationCategory": "FinanceApplication", "operatingSystem": "Any", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "description": "Substack fee calculator: 10% platform fee plus Stripe 2.9% + $0.30 and a 0.7% billing fee per payment.", "dateModified": "2026-09-29"}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How much does Substack take from a $5 subscription?", "acceptedAnswer": {"@type": "Answer", "text": "Substack keeps $0.50 (10%). Stripe takes about $0.45 (2.9% + $0.30) plus $0.04 (0.7% billing fee), so you keep roughly $4.01 of a $5 monthly payment."}}, {"@type": "Question", "name": "Does Substack charge a monthly fee?", "acceptedAnswer": {"@type": "Answer", "text": "No. Publishing is free no matter how many subscribers you have. Substack only takes 10% of paid subscription revenue, and Stripe charges per payment."}}, {"@type": "Question", "name": "Does Substack's 10% include Stripe fees?", "acceptedAnswer": {"@type": "Answer", "text": "No. Stripe's processing fees (2.9% + $0.30 per payment for US cards plus a 0.7% recurring billing fee) are charged on top of Substack's 10%."}}, {"@type": "Question", "name": "What percentage does Substack take in total?", "acceptedAnswer": {"@type": "Answer", "text": "About 13.6% + $0.30 per payment: 10% to Substack, 2.9% + $0.30 to Stripe for the card, and 0.7% to Stripe for recurring billing. The exact share depends on the price because of the fixed 30 cents."}}, {"@type": "Question", "name": "Does Substack take a fee on free subscribers?", "acceptedAnswer": {"@type": "Answer", "text": "No. Fees only apply to paid subscription payments. A publication with 10,000 free subscribers and no paid tier costs nothing."}}, {"@type": "Question", "name": "How are fees handled for iPhone app subscriptions?", "acceptedAnswer": {"@type": "Answer", "text": "Readers who subscribe through the iOS app pay via Apple. Substack's 10% is based on your web price, and you can choose to raise in-app prices to cover Apple's fees or keep them the same."}}, {"@type": "Question", "name": "Is there a fee for a custom domain on Substack?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, a one-time $50 charge. It is optional and separate from the per-payment fees."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://feetally.com/"}, {"@type": "ListItem", "position": 2, "name": "Creators & freelancers", "item": "https://feetally.com/creator-platforms/"}, {"@type": "ListItem", "position": 3, "name": "Substack fee calculator", "item": "https://feetally.com/substack-fee-calculator/"}]}]</script>
+
+</head>
+<body>
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="../" aria-label="FeeTally home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="2" y="2" width="28" height="28" rx="7" fill="#0f766e"/><path d="M9 11h14M9 16h10M9 21h7" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/><circle cx="23" cy="21" r="3" fill="#2dd4bf"/></svg>
+      <span>FeeTally</span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="../index.html#calculators">Calculators</a>
+      <a href="../compare/">Compare</a>
+      <a class="optional" href="../price-after-fees-calculator/">Price after fees</a>
+      <a class="optional" href="../about/">About</a>
+    </nav>
+  </div>
+</header>
+<main class="container">
+
+<div class="page-head">
+  <span class="eyebrow"><a href="../creator-platforms/">Creators &amp; freelancers</a></span>
+  <h1>Substack Fee Calculator (2026)</h1>
+  <p class="lead">Substack keeps 10% of paid subscription revenue. Stripe then charges 2.9% + $0.30 per payment for US cards plus a 0.7% recurring-billing fee. Free publications pay nothing.</p>
+  <div class="meta-line">
+    <span>Fees verified Sep 29, 2026</span>
+    <span>United States · USD</span>
+    <a href="#sources">Sources</a>
+  </div>
+</div>
+
+<div class="calc">
+  <form id="calc-form" class="card" autocomplete="off" onsubmit="return false;" aria-label="Substack fee calculator inputs"></form>
+  <div id="calc-results" class="card results" aria-live="polite">
+    <noscript><p>Turn on JavaScript to use the calculator. The fee schedule and a worked example are below.</p></noscript>
+  </div>
+</div>
+<p class="notice">Enter your numbers above; results update as you type. Sales tax collected from the buyer is not included unless the platform charges a fee on it and the calculator has a tax field.</p>
+
+
+
+<section class="section" id="fees">
+  <h2>Substack fees at a glance</h2>
+  <table class="fee-table">
+    <thead><tr><th>Fee</th><th>Rate</th><th>Applies to</th></tr></thead>
+    <tbody>
+    
+      <tr><td>Substack fee</td><td class="rate">10%</td><td>subscription payment. 10% of subscription revenue on every paid subscription payment.</td></tr>
+    
+      <tr><td>Stripe card processing</td><td class="rate">2.9% + $0.30</td><td>subscription payment. 2.9% + $0.30 per payment for US cards, charged by Stripe.</td></tr>
+    
+      <tr><td>Stripe recurring billing fee</td><td class="rate">0.7%</td><td>subscription payment. 0.7% of each recurring subscription payment (Stripe Billing, as of July 2024).</td></tr>
+    
+    </tbody>
+  </table>
+</section>
+
+<section class="section" id="example">
+  <h2>Worked example</h2>
+  <div class="example">
+    <div class="ex-nums">
+      <div><div class="k">Sale</div><div class="v">$8.00</div></div>
+      <div><div class="k">Fees</div><div class="v">$1.39</div></div>
+      <div><div class="k">You keep</div><div class="v">$6.61</div></div>
+    </div>
+    <p style="margin:0">An $8 monthly subscription pays Substack 10% ($0.80). Stripe takes 2.9% of $8 ($0.232) plus $0.30, which rounds to $0.53, and a 0.7% billing fee of $0.056, which rounds to $0.06. Total fees are $1.39, so you keep $6.61 per subscriber per month; with no cost, profit is $6.61.</p>
+  </div>
+</section>
+
+<section class="section" id="how">
+  <h2>How Substack fees work</h2>
+  <p>Substack is a newsletter and publishing platform. Writers, podcasters, and video creators post for free or behind a paywall, and readers pay a monthly or annual subscription through Stripe. Publishing is free at any subscriber count; Substack only earns when you do.</p><p>When you turn on paid subscriptions, Substack keeps 10% of subscription revenue. On top of that, Stripe, the payment processor Substack uses, charges 2.9% + $0.30 per payment for US cards and a 0.7% fee on recurring payments (the rate Substack cites as of July 2024). Together that is roughly 13.6% + $0.30 of every charge.</p><p>On an $8 monthly subscription, that works out to $0.80 for Substack and about $0.59 for Stripe, leaving $6.61. On an $80 annual subscription the fixed 30 cents is paid once instead of twelve times, so you keep about $68.82.</p><p>Two details matter for pricing. First, readers who subscribe inside the iOS app pay through Apple; Substack&#39;s 10% is still based on your web price, and you choose whether in-app prices go up to cover Apple&#39;s fees. Second, Stripe&#39;s fees depend on the country of your Stripe account and the payment method, so non-card methods and foreign cards can cost more.</p>
+  <ul>
+  <li>Substack platform fee: 10% of subscription revenue, taken from every paid subscription payment, monthly or annual. Free subscribers cost nothing, and there is no fee to publish.</li><li>Stripe card processing: 2.9% + $0.30 per payment for US cards. This is Stripe&#39;s charge, not Substack&#39;s, and is deducted from each payment before it reaches your Stripe balance.</li><li>Stripe recurring billing fee: 0.7% of each recurring payment, the rate Substack cites as of July 2024. Substack subscriptions bill automatically, so this applies to subscription charges.</li><li>Non-card payment methods: Stripe&#39;s rates vary by method and by the country of your Stripe account. Substack&#39;s examples for US accounts include iDEAL at 80 cents, Bancontact at 1.4% + 30 cents, and SEPA Direct Debit at 0.8% + 30 cents capped at $6.00.</li><li>Currency conversion: Stripe charges a 1% to 2% fee when a payment is converted into your payout currency.</li><li>iOS in-app purchases: Substack&#39;s 10% is based on your web price. You can choose &#34;Adjust prices for in-app purchases&#34; so that in-app prices rise to cover Apple&#39;s fees, or keep prices the same and absorb them.</li><li>Custom domain: an optional one-time $50 charge, separate from the per-payment fees.</li>
+  </ul>
+</section>
+
+
+
+<section class="section" id="tips">
+  <h2>Ways to keep more of each Substack sale</h2>
+  <ul>
+  <li>Push annual plans. A $50 annual subscription pays the $0.30 Stripe fixed fee once; twelve $5 monthly payments pay it twelve times ($3.60), so annual billing nets more per year at the same price.</li><li>Avoid very low monthly prices. On a $3 monthly subscription the fixed 30 cents alone is 10% of the price, so total fees run about 23.6%; at $8 they run about 17.4%.</li><li>Turn on &#34;Adjust prices for in-app purchases&#34; if many readers subscribe on iPhone, so Apple&#39;s cut is added to the in-app price instead of coming out of your payout.</li><li>Keep your Stripe account in the US. Stripe&#39;s rates for non-card methods and cross-border payments depend on where the account is registered, and US card rates are the ones Substack quotes.</li><li>Use the free tier as your funnel. Free subscribers cost nothing, so a large free list only costs you when readers convert.</li>
+  </ul>
+</section>
+
+<section class="section" id="faq">
+  <h2>Substack fee FAQ</h2>
+  
+  <details class="faq" open><summary>How much does Substack take from a $5 subscription?</summary><p>Substack keeps $0.50 (10%). Stripe takes about $0.45 (2.9% + $0.30) plus $0.04 (0.7% billing fee), so you keep roughly $4.01 of a $5 monthly payment.</p></details>
+  
+  <details class="faq"><summary>Does Substack charge a monthly fee?</summary><p>No. Publishing is free no matter how many subscribers you have. Substack only takes 10% of paid subscription revenue, and Stripe charges per payment.</p></details>
+  
+  <details class="faq"><summary>Does Substack&#39;s 10% include Stripe fees?</summary><p>No. Stripe&#39;s processing fees (2.9% + $0.30 per payment for US cards plus a 0.7% recurring billing fee) are charged on top of Substack&#39;s 10%.</p></details>
+  
+  <details class="faq"><summary>What percentage does Substack take in total?</summary><p>About 13.6% + $0.30 per payment: 10% to Substack, 2.9% + $0.30 to Stripe for the card, and 0.7% to Stripe for recurring billing. The exact share depends on the price because of the fixed 30 cents.</p></details>
+  
+  <details class="faq"><summary>Does Substack take a fee on free subscribers?</summary><p>No. Fees only apply to paid subscription payments. A publication with 10,000 free subscribers and no paid tier costs nothing.</p></details>
+  
+  <details class="faq"><summary>How are fees handled for iPhone app subscriptions?</summary><p>Readers who subscribe through the iOS app pay via Apple. Substack&#39;s 10% is based on your web price, and you can choose to raise in-app prices to cover Apple&#39;s fees or keep them the same.</p></details>
+  
+  <details class="faq"><summary>Is there a fee for a custom domain on Substack?</summary><p>Yes, a one-time $50 charge. It is optional and separate from the per-payment fees.</p></details>
+  
+</section>
+
+
+<section class="section" id="notes">
+  <h2>Good to know</h2>
+  <div class="callout">Stripe rates shown are for US cards and a US-registered Stripe account. Substack&#39;s cost article cites the Stripe recurring billing fee as 0.7% as of July 2024; an older Substack article on reader payment methods still lists 0.5%. Apple&#39;s in-app purchase fee percentage is not stated on Substack&#39;s help pages and is not modeled. Payout timing is handled by Stripe and was not verified here.</div>
+  
+  <h3>Recent fee changes</h3>
+  <ul class="changelog">
+  <li><span class="d">2024-07-01</span>Substack&#39;s cost article cites Stripe&#39;s recurring billing fee at 0.7% as of July 2024 (previously listed as 0.5%).</li>
+  </ul>
+  
+</section>
+
+
+<section class="section" id="sources">
+  <h2>Sources</h2>
+  <ul class="sources">
+  <li><a href="https://support.substack.com/hc/en-us/articles/360037607131-How-much-does-Substack-cost" rel="noopener" target="_blank">Substack Help: How much does Substack cost?</a> <small class="muted">(accessed Sep 29, 2026)</small></li><li><a href="https://support.substack.com/hc/en-us/articles/18687769631252-How-can-readers-pay-for-a-subscription-on-my-Substack-publication" rel="noopener" target="_blank">Substack Help: How can readers pay for a subscription on my Substack publication?</a> <small class="muted">(accessed Sep 29, 2026)</small></li>
+  </ul>
+  <p class="notice">Rates are read from the pages above and re-checked on a schedule. If you find a rate that has changed, <a href="../about/#contact">tell us</a> and we'll fix it.</p>
+</section>
+
+
+<section class="section" id="related">
+  <h2>Related calculators</h2>
+  <div class="grid">
+  
+    <a class="tile" href="../patreon-fee-calculator/"><span class="t-name">Patreon fee calculator</span><span class="t-sub">10% platform fee (or legacy 5%/8%/11%) plus 2.9% + $0.30 processing per pledge.</span></a>
+  
+    <a class="tile" href="../ko-fi-fee-calculator/"><span class="t-name">Ko-fi fee calculator</span><span class="t-sub">0% on one-time tips, 5% on shop, memberships and commissions, or 0% with Gold.</span></a>
+  
+    <a class="tile" href="../stripe-fee-calculator/"><span class="t-name">Stripe fee calculator</span><span class="t-sub">2.9% + 30¢ online, 2.7% + 5¢ in person, ACH 0.8% capped at $5. See your exact payout.</span></a>
+  
+    <a class="tile" href="../buy-me-a-coffee-fee-calculator/"><span class="t-name">Buy Me a Coffee fee calculator</span><span class="t-sub">5% platform fee plus Stripe 2.9% + $0.30, or let supporters cover it.</span></a>
+  
+    <a class="tile" href="../compare/#creator-platforms"><span class="t-name">Compare creators &amp; freelancers</span><span class="t-sub">Same sale, every platform side by side.</span></a>
+  </div>
+</section>
+
+
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <div>
+      <strong>FeeTally</strong><br>
+      <span class="fine">Free fee calculators for people who sell online. Every rate is checked against the platform's own fee page and dated. FeeTally is independent and not affiliated with any platform named on this site. Fees change; confirm with the platform before you rely on a number.</span>
+    </div>
+    <div>
+      <ul>
+        <li><a href="../marketplaces/">Marketplaces</a></li><li><a href="../resale-apps/">Resale apps</a></li><li><a href="../payment-processors/">Payment processors</a></li><li><a href="../creator-platforms/">Creators &amp; freelancers</a></li><li><a href="../gig-and-hosting/">Gig, hosting &amp; crowdfunding</a></li>
+        <li><a href="../compare/">Compare platforms</a></li>
+      </ul>
+    </div>
+    <div>
+      <ul>
+        <li><a href="../about/">About &amp; methodology</a></li>
+        <li><a href="../about/#contact">Contact</a></li>
+        <li><a href="../privacy/">Privacy policy</a></li>
+        <li><a href="../terms/">Terms of use</a></li>
+      </ul>
+      <span class="fine">&copy; 2026 FeeTally</span>
+    </div>
+  </div>
+</footer>
+
+<script type="application/json" id="platform-data">{"slug":"substack","name":"Substack","currency":"USD","inputs":[{"id":"sub_price","label":"Subscription payment","type":"money","role":"price","default":8,"help":"What one subscriber pays per charge: the monthly price, or the full annual price if they pay yearly."},{"id":"cost","label":"Your cost per subscriber","type":"money","role":"cost","default":0,"help":"Optional: tools, research, or perks you spend per subscriber per billing period."},{"id":"target_profit","label":"Target profit per payment","type":"money","role":"target_profit","default":5,"help":"We'll show the subscription price you need."}],"fees":[{"id":"platform","label":"Substack fee","basis":"price","pct":10,"note":"10% of subscription revenue on every paid subscription payment."},{"id":"stripe_card","label":"Stripe card processing","basis":"price","pct":2.9,"fixed":0.3,"note":"2.9% + $0.30 per payment for US cards, charged by Stripe."},{"id":"stripe_billing","label":"Stripe recurring billing fee","basis":"price","pct":0.7,"note":"0.7% of each recurring subscription payment (Stripe Billing, as of July 2024)."}]}</script>
+<script src="../assets/calc.js"></script>
+<script src="../assets/app.js"></script>
+
+</body>
+</html>

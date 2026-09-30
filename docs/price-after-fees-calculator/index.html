@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Price After Fees Calculator (2026) | FeeTally</title>
+<meta name="description" content="Work backwards from the amount you want to keep. Enter the fee percentage and any fixed fee, and get the price to charge.">
+<link rel="canonical" href="https://feetally.com/price-after-fees-calculator/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FeeTally">
+<meta property="og:title" content="Price After Fees Calculator (2026) | FeeTally">
+<meta property="og:description" content="Work backwards from the amount you want to keep. Enter the fee percentage and any fixed fee, and get the price to charge.">
+<meta property="og:url" content="https://feetally.com/price-after-fees-calculator/">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#0f766e" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0d1220" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/site.css">
+
+
+
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "WebApplication", "name": "Price After Fees Calculator", "url": "https://feetally.com/price-after-fees-calculator/", "applicationCategory": "FinanceApplication", "operatingSystem": "Any", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Why can't I just add the fee percentage to my price?", "acceptedAnswer": {"@type": "Answer", "text": "Because the fee is charged on the final price, not on your target. Adding 2.9% to $100 gives $102.90, but 2.9% of $102.90 is $2.98, plus the $0.30 flat fee, so you keep $99.62. Dividing by (1 − 2.9%) instead accounts for the fee on the fee."}}, {"@type": "Question", "name": "What if the platform has two percentage fees?", "acceptedAnswer": {"@type": "Answer", "text": "If both apply to the same base (the sale price), add them: Etsy's 6.5% transaction fee and 3% payment processing become 9.5%, and the fixed parts ($0.20 listing + $0.25 processing) become $0.45. If one fee applies to an amount after another fee, use that platform's calculator on this site, which models the order correctly."}}, {"@type": "Question", "name": "Does this include sales tax?", "acceptedAnswer": {"@type": "Answer", "text": "No. Sales tax is collected on top of your price and usually remitted by the platform. Some platforms (eBay, Etsy, Depop) charge their fee on the tax as well, which slightly raises the effective fee; their calculators note this."}}, {"@type": "Question", "name": "Can I use this for invoices to clients?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. If you invoice through Stripe, PayPal or Square and want the client to effectively cover the processing fee, this gives you the gross amount to bill. Check your state's rules and the processor's surcharging policy before labeling it as a surcharge on the invoice."}}, {"@type": "Question", "name": "Why does the result round up?", "acceptedAnswer": {"@type": "Answer", "text": "Fees are calculated to the cent and rounded by the platform. Rounding the price up guarantees you receive at least your target rather than a cent or two less."}}]}]</script>
+
+</head>
+<body>
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="../" aria-label="FeeTally home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="2" y="2" width="28" height="28" rx="7" fill="#0f766e"/><path d="M9 11h14M9 16h10M9 21h7" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/><circle cx="23" cy="21" r="3" fill="#2dd4bf"/></svg>
+      <span>FeeTally</span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="../index.html#calculators">Calculators</a>
+      <a href="../compare/">Compare</a>
+      <a class="optional" href="../price-after-fees-calculator/">Price after fees</a>
+      <a class="optional" href="../about/">About</a>
+    </nav>
+  </div>
+</header>
+<main class="container">
+
+<div class="page-head">
+  <span class="eyebrow"><a href="../">All calculators</a></span>
+  <h1>Price After Fees Calculator</h1>
+  <p class="lead">Work backwards from the amount you want to keep. Enter the fee percentage and any fixed fee, and get the price to charge.</p>
+</div>
+<div class="calc">
+  <form id="tool-form" class="card" autocomplete="off" onsubmit="return false;">
+    
+<div class="field"><label for="t-net">Amount you want to keep</label><div class="input-wrap"><span class="adorn">$</span><input type="number" inputmode="decimal" id="t-net" value="100" min="0" step="0.01"></div><span class="help">Your net after the platform or processor takes its cut.</span></div>
+<div class="field"><label for="t-pct">Fee percentage</label><div class="input-wrap"><input type="number" inputmode="decimal" id="t-pct" value="2.9" min="0" max="99.9" step="0.01"><span class="adorn suffix">%</span></div><span class="help">For example 2.9 for Stripe or PayPal cards, 13.6 for eBay, 6.5 for Etsy's transaction fee.</span></div>
+<div class="field"><label for="t-fixed">Fixed fee per sale</label><div class="input-wrap"><span class="adorn">$</span><input type="number" inputmode="decimal" id="t-fixed" value="0.30" min="0" step="0.01"></div><span class="help">The flat part, like $0.30 per transaction. Enter 0 if there is none.</span></div>
+
+  </form>
+  <div id="tool-results" class="card results" aria-live="polite"></div>
+</div>
+
+
+
+<section class="section">
+  <p>Most people get this backwards. If Stripe takes 2.9% + $0.30 and you want to keep $100, charging $103.20 does not work: the fee is taken from the new, higher price, so you end up with $99.91. The price you need is <strong>(target + fixed fee) ÷ (1 − fee%)</strong>, which is $103.30 here.</p><p>This calculator does that division for you and rounds up to the next cent. It works for any platform whose fee is a percentage plus an optional flat amount: card processors, marketplaces, payment apps and invoicing tools. If a platform stacks several fees (for example Etsy's 6.5% transaction fee plus 3% + $0.25 processing), add the percentages together and add the fixed parts together before entering them, or use that platform's own calculator, which handles the stacking exactly.</p><p>Remember that some platforms charge their percentage on shipping and sales tax too, not only the item price. In that case, treat the whole amount the buyer pays as the price.</p>
+</section>
+
+
+<section class="section">
+  <h2>The formula</h2>
+  <div class="example"><p style="margin:0"><code>price = (net_target + fixed_fee) ÷ (1 − fee_percent ÷ 100)</code></p></div>
+  <p>Example with a 2.9% + $0.30 fee and a $100 target: (100 + 0.30) ÷ (1 − 0.029) = 100.30 ÷ 0.971 = $103.30. The fee on $103.30 is $3.30, leaving exactly $100.</p>
+</section>
+
+
+<section class="section" id="faq">
+  <h2>FAQ</h2>
+  
+  <details class="faq" open><summary>Why can&#39;t I just add the fee percentage to my price?</summary><p>Because the fee is charged on the final price, not on your target. Adding 2.9% to $100 gives $102.90, but 2.9% of $102.90 is $2.98, plus the $0.30 flat fee, so you keep $99.62. Dividing by (1 − 2.9%) instead accounts for the fee on the fee.</p></details>
+  
+  <details class="faq"><summary>What if the platform has two percentage fees?</summary><p>If both apply to the same base (the sale price), add them: Etsy's 6.5% transaction fee and 3% payment processing become 9.5%, and the fixed parts ($0.20 listing + $0.25 processing) become $0.45. If one fee applies to an amount after another fee, use that platform's calculator on this site, which models the order correctly.</p></details>
+  
+  <details class="faq"><summary>Does this include sales tax?</summary><p>No. Sales tax is collected on top of your price and usually remitted by the platform. Some platforms (eBay, Etsy, Depop) charge their fee on the tax as well, which slightly raises the effective fee; their calculators note this.</p></details>
+  
+  <details class="faq"><summary>Can I use this for invoices to clients?</summary><p>Yes. If you invoice through Stripe, PayPal or Square and want the client to effectively cover the processing fee, this gives you the gross amount to bill. Check your state's rules and the processor's surcharging policy before labeling it as a surcharge on the invoice.</p></details>
+  
+  <details class="faq"><summary>Why does the result round up?</summary><p>Fees are calculated to the cent and rounded by the platform. Rounding the price up guarantees you receive at least your target rather than a cent or two less.</p></details>
+  
+</section>
+
+<section class="section">
+  <h2>Platform-specific calculators</h2>
+  <p>Fees are rarely a single percentage. For the real numbers, use the calculator for your platform:</p>
+  <div class="grid">
+  <a class="tile" href="../stripe-fee-calculator/"><span class="t-name">Stripe</span><span class="t-sub">2.9% + 30¢ online, 2.7% + 5¢ in person, ACH 0.8% capped at $5. See your exact payout.</span></a><a class="tile" href="../paypal-fee-calculator/"><span class="t-name">PayPal</span><span class="t-sub">3.49% + 49¢ checkout, 2.99% + 49¢ cards, 2.29% + 9¢ QR. See what you keep.</span></a><a class="tile" href="../square-fee-calculator/"><span class="t-name">Square</span><span class="t-sub">2.6% + 15¢ in person, 3.3% + 30¢ online, 3.5% + 15¢ keyed. See your exact payout.</span></a><a class="tile" href="../etsy-fee-calculator/"><span class="t-name">Etsy</span><span class="t-sub">$0.20 listing, 6.5% transaction, 3% + $0.25 processing and 12–15% Offsite Ads.</span></a><a class="tile" href="../ebay-fee-calculator/"><span class="t-name">eBay</span><span class="t-sub">13.6% final value fee plus $0.30–$0.40 per order, Store rates, ads and international fee.</span></a><a class="tile" href="../gumroad-fee-calculator/"><span class="t-name">Gumroad</span><span class="t-sub">10% + $0.50 on direct sales, 30% on Discover sales. See your exact payout.</span></a>
+  </div>
+</section>
+
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <div>
+      <strong>FeeTally</strong><br>
+      <span class="fine">Free fee calculators for people who sell online. Every rate is checked against the platform's own fee page and dated. FeeTally is independent and not affiliated with any platform named on this site. Fees change; confirm with the platform before you rely on a number.</span>
+    </div>
+    <div>
+      <ul>
+        <li><a href="../marketplaces/">Marketplaces</a></li><li><a href="../resale-apps/">Resale apps</a></li><li><a href="../payment-processors/">Payment processors</a></li><li><a href="../creator-platforms/">Creators &amp; freelancers</a></li><li><a href="../gig-and-hosting/">Gig, hosting &amp; crowdfunding</a></li>
+        <li><a href="../compare/">Compare platforms</a></li>
+      </ul>
+    </div>
+    <div>
+      <ul>
+        <li><a href="../about/">About &amp; methodology</a></li>
+        <li><a href="../about/#contact">Contact</a></li>
+        <li><a href="../privacy/">Privacy policy</a></li>
+        <li><a href="../terms/">Terms of use</a></li>
+      </ul>
+      <span class="fine">&copy; 2026 FeeTally</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){var n=document.getElementById('t-net'),p=document.getElementById('t-pct'),f=document.getElementById('t-fixed'),o=document.getElementById('tool-results');var fmt=new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'});
+function r(){var N=parseFloat(n.value)||0,P=parseFloat(p.value)||0,F=parseFloat(f.value)||0;if(P>=100){o.innerHTML='<p class="muted">The fee percentage must be under 100%.</p>';return;}
+var price=(N+F)/(1-P/100);price=Math.ceil(price*100)/100;var fee=price*P/100+F;var net=price-fee;var naive=N*(1+P/100)+F;var naiveNet=naive-(naive*P/100+F);
+o.innerHTML='<div class="headline"><div><div class="sub">Charge</div><div class="big">'+fmt.format(price)+'</div></div><div class="sub">to keep '+fmt.format(N)+'</div></div>'+
+'<div class="kpis"><div class="kpi"><div class="k">Fee taken</div><div class="v">'+fmt.format(fee)+'</div></div><div class="kpi"><div class="k">Effective fee</div><div class="v">'+(price>0?(fee/price*100).toFixed(2):'0')+'%</div></div></div>'+
+'<ul class="lines"><li><span class="n">Price charged</span><span class="amt">'+fmt.format(price)+'</span></li><li><span class="n">'+P+'% of price</span><span class="amt fee">−'+fmt.format(price*P/100)+'</span></li>'+(F?'<li><span class="n">Fixed fee</span><span class="amt fee">−'+fmt.format(F)+'</span></li>':'')+'<li class="total"><span class="n">You keep</span><span class="amt">'+fmt.format(net)+'</span></li></ul>'+
+'<p class="hint">Rounded up to the nearest cent so you never fall short. Simply adding '+P+'% and the fixed fee to your target ('+fmt.format(naive)+') would leave you '+fmt.format(Math.max(0,N-naiveNet))+' short.</p>';}
+[n,p,f].forEach(function(e){e.addEventListener('input',r);});r();})();
+</script>
+
+</body>
+</html>

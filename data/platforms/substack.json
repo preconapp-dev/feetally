@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "slug": "substack",
+  "name": "Substack",
+  "category": "creator-platform",
+  "region": "United States",
+  "currency": "USD",
+  "tagline": "Substack fee calculator: 10% platform fee plus Stripe 2.9% + $0.30 and a 0.7% billing fee per payment.",
+  "fee_summary": "Substack keeps 10% of paid subscription revenue. Stripe then charges 2.9% + $0.30 per payment for US cards plus a 0.7% recurring-billing fee. Free publications pay nothing.",
+  "last_verified": "2026-09-29",
+  "sources": [
+    {"title": "Substack Help: How much does Substack cost?", "url": "https://support.substack.com/hc/en-us/articles/360037607131-How-much-does-Substack-cost", "accessed": "2026-09-29"},
+    {"title": "Substack Help: How can readers pay for a subscription on my Substack publication?", "url": "https://support.substack.com/hc/en-us/articles/18687769631252-How-can-readers-pay-for-a-subscription-on-my-Substack-publication", "accessed": "2026-09-29"}
+  ],
+  "inputs": [
+    {"id": "sub_price", "label": "Subscription payment", "type": "money", "role": "price", "default": 8, "help": "What one subscriber pays per charge: the monthly price, or the full annual price if they pay yearly."},
+    {"id": "cost", "label": "Your cost per subscriber", "type": "money", "role": "cost", "default": 0, "help": "Optional: tools, research, or perks you spend per subscriber per billing period."},
+    {"id": "target_profit", "label": "Target profit per payment", "type": "money", "role": "target_profit", "default": 5, "help": "We'll show the subscription price you need."}
+  ],
+  "fees": [
+    {"id": "platform", "label": "Substack fee", "basis": "price", "pct": 10, "note": "10% of subscription revenue on every paid subscription payment."},
+    {"id": "stripe_card", "label": "Stripe card processing", "basis": "price", "pct": 2.9, "fixed": 0.30, "note": "2.9% + $0.30 per payment for US cards, charged by Stripe."},
+    {"id": "stripe_billing", "label": "Stripe recurring billing fee", "basis": "price", "pct": 0.7, "note": "0.7% of each recurring subscription payment (Stripe Billing, as of July 2024)."}
+  ],
+  "worked_example": {
+    "inputs": {"sub_price": 8, "cost": 0},
+    "expected": {"total_fees": 1.39, "net_payout": 6.61, "profit": 6.61},
+    "explanation": "An $8 monthly subscription pays Substack 10% ($0.80). Stripe takes 2.9% of $8 ($0.232) plus $0.30, which rounds to $0.53, and a 0.7% billing fee of $0.056, which rounds to $0.06. Total fees are $1.39, so you keep $6.61 per subscriber per month; with no cost, profit is $6.61."
+  },
+  "content": {
+    "intro": "Substack is a newsletter and publishing platform. Writers, podcasters, and video creators post for free or behind a paywall, and readers pay a monthly or annual subscription through Stripe. Publishing is free at any subscriber count; Substack only earns when you do.\n\nWhen you turn on paid subscriptions, Substack keeps 10% of subscription revenue. On top of that, Stripe, the payment processor Substack uses, charges 2.9% + $0.30 per payment for US cards and a 0.7% fee on recurring payments (the rate Substack cites as of July 2024). Together that is roughly 13.6% + $0.30 of every charge.\n\nOn an $8 monthly subscription, that works out to $0.80 for Substack and about $0.59 for Stripe, leaving $6.61. On an $80 annual subscription the fixed 30 cents is paid once instead of twelve times, so you keep about $68.82.\n\nTwo details matter for pricing. First, readers who subscribe inside the iOS app pay through Apple; Substack's 10% is still based on your web price, and you choose whether in-app prices go up to cover Apple's fees. Second, Stripe's fees depend on the country of your Stripe account and the payment method, so non-card methods and foreign cards can cost more.",
+    "how_fees_work": [
+      "Substack platform fee: 10% of subscription revenue, taken from every paid subscription payment, monthly or annual. Free subscribers cost nothing, and there is no fee to publish.",
+      "Stripe card processing: 2.9% + $0.30 per payment for US cards. This is Stripe's charge, not Substack's, and is deducted from each payment before it reaches your Stripe balance.",
+      "Stripe recurring billing fee: 0.7% of each recurring payment, the rate Substack cites as of July 2024. Substack subscriptions bill automatically, so this applies to subscription charges.",
+      "Non-card payment methods: Stripe's rates vary by method and by the country of your Stripe account. Substack's examples for US accounts include iDEAL at 80 cents, Bancontact at 1.4% + 30 cents, and SEPA Direct Debit at 0.8% + 30 cents capped at $6.00.",
+      "Currency conversion: Stripe charges a 1% to 2% fee when a payment is converted into your payout currency.",
+      "iOS in-app purchases: Substack's 10% is based on your web price. You can choose \"Adjust prices for in-app purchases\" so that in-app prices rise to cover Apple's fees, or keep prices the same and absorb them.",
+      "Custom domain: an optional one-time $50 charge, separate from the per-payment fees."
+    ],
+    "tips": [
+      "Push annual plans. A $50 annual subscription pays the $0.30 Stripe fixed fee once; twelve $5 monthly payments pay it twelve times ($3.60), so annual billing nets more per year at the same price.",
+      "Avoid very low monthly prices. On a $3 monthly subscription the fixed 30 cents alone is 10% of the price, so total fees run about 23.6%; at $8 they run about 17.4%.",
+      "Turn on \"Adjust prices for in-app purchases\" if many readers subscribe on iPhone, so Apple's cut is added to the in-app price instead of coming out of your payout.",
+      "Keep your Stripe account in the US. Stripe's rates for non-card methods and cross-border payments depend on where the account is registered, and US card rates are the ones Substack quotes.",
+      "Use the free tier as your funnel. Free subscribers cost nothing, so a large free list only costs you when readers convert."
+    ],
+    "faq": [
+      {"q": "How much does Substack take from a $5 subscription?", "a": "Substack keeps $0.50 (10%). Stripe takes about $0.45 (2.9% + $0.30) plus $0.04 (0.7% billing fee), so you keep roughly $4.01 of a $5 monthly payment."},
+      {"q": "Does Substack charge a monthly fee?", "a": "No. Publishing is free no matter how many subscribers you have. Substack only takes 10% of paid subscription revenue, and Stripe charges per payment."},
+      {"q": "Does Substack's 10% include Stripe fees?", "a": "No. Stripe's processing fees (2.9% + $0.30 per payment for US cards plus a 0.7% recurring billing fee) are charged on top of Substack's 10%."},
+      {"q": "What percentage does Substack take in total?", "a": "About 13.6% + $0.30 per payment: 10% to Substack, 2.9% + $0.30 to Stripe for the card, and 0.7% to Stripe for recurring billing. The exact share depends on the price because of the fixed 30 cents."},
+      {"q": "Does Substack take a fee on free subscribers?", "a": "No. Fees only apply to paid subscription payments. A publication with 10,000 free subscribers and no paid tier costs nothing."},
+      {"q": "How are fees handled for iPhone app subscriptions?", "a": "Readers who subscribe through the iOS app pay via Apple. Substack's 10% is based on your web price, and you can choose to raise in-app prices to cover Apple's fees or keep them the same."},
+      {"q": "Is there a fee for a custom domain on Substack?", "a": "Yes, a one-time $50 charge. It is optional and separate from the per-payment fees."}
+    ],
+    "notes": "Stripe rates shown are for US cards and a US-registered Stripe account. Substack's cost article cites the Stripe recurring billing fee as 0.7% as of July 2024; an older Substack article on reader payment methods still lists 0.5%. Apple's in-app purchase fee percentage is not stated on Substack's help pages and is not modeled. Payout timing is handled by Stripe and was not verified here.",
+    "changelog": [
+      {"date": "2024-07-01", "change": "Substack's cost article cites Stripe's recurring billing fee at 0.7% as of July 2024 (previously listed as 0.5%)."}
+    ]
+  },
+  "related": ["patreon", "ko-fi", "stripe", "buy-me-a-coffee"]
+}

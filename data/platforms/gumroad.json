@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "slug": "gumroad",
+  "name": "Gumroad",
+  "category": "creator-platform",
+  "region": "United States",
+  "currency": "USD",
+  "tagline": "Gumroad fee calculator: 10% + $0.50 on direct sales, 30% on Discover sales. See your exact payout.",
+  "fee_summary": "Gumroad keeps 10% + $0.50 on every sale that comes through your own links or profile, and a flat 30% when a new customer finds you through Gumroad Discover. There is no monthly fee; card and PayPal processing are not included in those figures.",
+  "last_verified": "2026-09-29",
+  "sources": [
+    {"title": "Gumroad Pricing", "url": "https://gumroad.com/pricing", "accessed": "2026-09-29"},
+    {"title": "Gumroad Help Center: Gumroad's fees", "url": "https://gumroad.com/help/article/66-gumroads-fees", "accessed": "2026-09-29"}
+  ],
+  "inputs": [
+    {"id": "sale_price", "label": "Sale price", "type": "money", "role": "price", "default": 30, "help": "What the customer pays for the product, before any sales tax Gumroad adds at checkout."},
+    {"id": "discover", "label": "Sale came through Gumroad Discover", "type": "toggle", "role": "other", "default": false, "help": "Turn on if a new customer found you in the Discover marketplace instead of your own link or profile."},
+    {"id": "item_cost", "label": "Your cost per sale", "type": "money", "role": "cost", "default": 0, "help": "Usually $0 for digital products. Enter printing or shipping cost for physical items."},
+    {"id": "target_profit", "label": "Target profit per sale", "type": "money", "role": "target_profit", "default": 20, "help": "We'll show the price you need to charge."}
+  ],
+  "fees": [
+    {"id": "gumroad_fee", "label": "Gumroad fee (direct sale)", "basis": "price", "pct": 10, "fixed": 0.50, "when": {"input": "discover", "equals": false}, "note": "10% + $0.50 per transaction on sales through your profile or direct links."},
+    {"id": "discover_fee", "label": "Gumroad Discover fee", "basis": "price", "pct": 30, "when": {"input": "discover", "equals": true}, "note": "Flat 30% per transaction when a new customer buys through the Discover marketplace; replaces the 10% + $0.50 fee."}
+  ],
+  "worked_example": {
+    "inputs": {"sale_price": 30, "discover": false, "item_cost": 0},
+    "expected": {"total_fees": 3.50, "net_payout": 26.50, "profit": 26.50},
+    "explanation": "A $30 sale through your own link pays Gumroad 10% ($3.00) plus $0.50, so $3.50 in fees. You keep $26.50 before any separate card or PayPal processing deduction. With no product cost, profit is $26.50."
+  },
+  "content": {
+    "intro": "Gumroad is a checkout and storefront service for creators. You upload a product, set a price, and share a link; Gumroad handles the payment, delivery, and (since 2025) sales tax. People use it for ebooks, courses, templates, presets, software, music, memberships, and some physical goods.\n\nThe fee is one line: 10% + $0.50 per transaction on sales that come through your own profile or direct links. A $10 product costs you $1.50 in fees; a $100 product costs $10.50. There is no monthly subscription and no listing fee, so a product that never sells costs nothing.\n\nSales that arrive through Gumroad Discover, the built-in marketplace where new customers browse and search, are charged a flat 30% instead. That is the price of the referral: Gumroad brought the buyer. Repeat purchases from your own links stay at 10% + $0.50.\n\nTwo things to know before you price. First, Gumroad's help center says the 10% + $0.50 fee does not include credit card processing or PayPal fees, so the real deduction is a little higher than the headline number. Second, as of January 1, 2025 Gumroad is the merchant of record: it charges, collects, and remits sales tax and VAT worldwide, so the tax added at checkout is not your money and not part of your fee base.",
+    "how_fees_work": [
+      "Direct sales: 10% of the sale price plus $0.50 per transaction. Applies to every sale through your profile, product links, and embeds. On a $25 sale that is $2.50 + $0.50 = $3.00.",
+      "Discover sales: a flat 30% of the sale price, charged instead of the 10% + $0.50 when a new customer finds and buys from you through the Discover marketplace. A $25 Discover sale costs $7.50.",
+      "Payment processing: Gumroad's fee page states the 10% + $0.50 fee \"does not include\" credit card processing or PayPal fees. Gumroad does not publish those rates on its pricing page, so this calculator leaves them out; budget for a separate processing deduction on each sale.",
+      "No monthly fee: Gumroad's pricing page says it does not charge a monthly fee. Fees are deducted from each sale, so an unsold product costs nothing.",
+      "Sales tax is outside the fee: since January 1, 2025 Gumroad is the merchant of record and handles sales tax and VAT collection and remittance. The tax charged to the buyer is passed to tax authorities, not counted in your sale price.",
+      "Payouts: Gumroad pays by direct deposit or PayPal depending on your country. The schedule and minimum balance are in the \"Getting paid\" help article."
+    ],
+    "tips": [
+      "Send your own traffic. A sale from your email list or social link costs 10% + $0.50; the same sale through Discover costs 30%. On a $50 product that is $5.50 versus $15.",
+      "Price to absorb the 50-cent fixed part. On a $2 product the $0.50 alone is 25% of the price; on a $20 product it is 2.5%. Bundling small items into one purchase cuts the number of $0.50 charges.",
+      "Treat Discover as paid acquisition. The extra 20 points only apply to the first purchase a new customer makes through Discover, so it can be worth it for products with follow-on sales or memberships.",
+      "Do not add sales tax to your price. Gumroad collects and remits it as merchant of record, so pricing in tax just makes your product look more expensive and raises the base Gumroad takes 10% of.",
+      "Check the payout details before launch. Payout method and timing vary by country, so confirm your bank or PayPal setup in Gumroad's Getting paid article."
+    ],
+    "faq": [
+      {"q": "How much does Gumroad take from a $10 sale?", "a": "$1.50 on a direct sale: 10% ($1.00) plus $0.50. You keep $8.50 before any separate card or PayPal processing fee. If the sale came through Discover, Gumroad keeps 30%, or $3.00."},
+      {"q": "Does Gumroad charge a monthly fee?", "a": "No. Gumroad's pricing page says it does not charge a monthly fee; it only takes a cut of each sale, so listing products is free."},
+      {"q": "What is the Gumroad Discover fee?", "a": "30% of the sale price, charged when a new customer finds and buys your product through the Discover marketplace. It replaces the normal 10% + $0.50 fee on that sale."},
+      {"q": "Does the Gumroad fee include payment processing?", "a": "No. Gumroad's fee help article says the 10% + $0.50 fee does not include credit card processing or PayPal fees, so those are deducted on top. Gumroad does not list the processing rate on its pricing page."},
+      {"q": "Does Gumroad handle sales tax?", "a": "Yes. As of January 1, 2025 Gumroad is the merchant of record and automatically collects and remits sales tax and VAT worldwide at no extra charge to you."},
+      {"q": "How much does Gumroad take from a $100 sale?", "a": "$10.50 on a direct sale (10% + $0.50), leaving $89.50 before processing. A $100 Discover sale costs $30, leaving $70."},
+      {"q": "Is Gumroad cheaper than selling with Stripe or Shopify?", "a": "Usually not on a per-sale basis: Stripe alone is 2.9% + $0.30, and Shopify charges a monthly plan plus processing. Gumroad trades a higher cut for no monthly fee, hosting, delivery, and tax handling built in."}
+    ],
+    "notes": "Card and PayPal processing rates are not published on Gumroad's pricing page and its help articles load only in a browser, so the processing deduction is not modeled here; Gumroad states it is separate from the 10% + $0.50 fee. Payout schedule and minimum payout balance were not verified for this page; see Gumroad's Getting paid help article. Discover fee applies to new customers who find you through the marketplace.",
+    "changelog": [
+      {"date": "2025-01-01", "change": "Gumroad became merchant of record, collecting and remitting sales tax and VAT worldwide on all sales at no extra cost to creators."}
+    ]
+  },
+  "related": ["ko-fi", "patreon", "stripe", "shopify"]
+}

@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "slug": "kick",
+  "name": "Kick",
+  "category": "creator-platform",
+  "region": "United States",
+  "currency": "USD",
+  "tagline": "Kick payout calculator: streamers keep 95% of subs and KICKs. A $5 sub pays $4.75 after the 5% processing fee.",
+  "fee_summary": "Kick keeps 5% of subscription and KICKs revenue as a processing fee and pays you 95%. Subscriptions are a flat $5 a month, so each one pays $4.75. Payouts go out through Stripe to your bank with no currency conversion fee.",
+  "last_verified": "2026-09-29",
+  "sources": [
+    {"title": "Kick Help Center: Understanding KICK's revenue split", "url": "https://help.kick.com/en/articles/15159722-understanding-kick-s-revenue-split", "accessed": "2026-09-29"},
+    {"title": "Kick Help Center: KICK payout schedule, thresholds, and methods", "url": "https://help.kick.com/en/articles/15159725-kick-payout-schedule-thresholds-and-methods", "accessed": "2026-09-29"}
+  ],
+  "inputs": [
+    {"id": "amount", "label": "Revenue amount", "type": "money", "role": "price", "default": 5, "help": "One $5 subscription, your monthly sub total, or the dollar value of KICKs received."},
+    {"id": "revenue_type", "label": "Revenue type", "type": "select", "role": "other", "default": "subs",
+     "options": [
+       {"id": "subs", "label": "Subscriptions ($5/month each)", "note": "You receive $4.75 per sub."},
+       {"id": "kicks", "label": "KICKs (virtual gifts)", "note": "You receive 95% of the value."}
+     ]},
+    {"id": "cost", "label": "Your cost for the period", "type": "money", "role": "cost", "default": 0, "help": "Optional: software, mods, gear, or other streaming costs."},
+    {"id": "target_profit", "label": "Target take-home", "type": "money", "role": "target_profit", "default": 100, "help": "We'll show the revenue you need."}
+  ],
+  "fees": [
+    {"id": "processing", "label": "Kick processing fee (5%)", "basis": "price",
+     "pct_by": {"input": "revenue_type", "values": {"subs": 5, "kicks": 5}, "default": 5},
+     "note": "You keep 95% of all revenue you receive; the other 5% is taken as a processing fee."}
+  ],
+  "worked_example": {
+    "inputs": {"amount": 5, "revenue_type": "subs", "cost": 0},
+    "expected": {"total_fees": 0.25, "net_payout": 4.75, "profit": 4.75},
+    "explanation": "A viewer subscribes at Kick's flat $5 per month. Kick keeps 5%, or $0.25, as a processing fee and you receive $4.75, exactly as Kick's help center states. With no costs entered, profit is $4.75 per sub."
+  },
+  "content": {
+    "intro": "Kick is a live-streaming platform built to compete with Twitch, and its main pitch to streamers is the split. Kick says you keep 95% of all revenue you receive and the other 5% is taken as a processing fee. That applies to subscriptions and to KICKs, the virtual gifts viewers send in chat.\n\nSubscriptions on Kick are a flat $5 per month. When a viewer subscribes, you receive $4.75 and Kick keeps $0.25. Ten subs pay $47.50; a hundred pay $475. On Twitch's standard 50/50 split the same hundred subs would pay you half of the net revenue instead.\n\nKICKs work the same way: when a viewer sends KICKs on your channel, you receive 95% of the value.\n\nGetting paid runs through Stripe. Kick delivers payouts directly to your bank account; verified streamers can choose weekly or monthly payouts, while non-verified streamers are paid monthly. US bank transfers arrive in 2 to 3 business days and US instant debit-card payouts arrive in minutes, with a $9,000 per-payout cap. Stripe processing fees apply where Stripe charges them, but Kick absorbs Stripe's 1.50% currency conversion fee, so international streamers receive their full payout at real-time rates.",
+    "how_fees_work": [
+      "Subscriptions: a flat $5 per month. You receive $4.75 (95%) and Kick keeps $0.25 (5%) as a processing fee, per Kick's own example.",
+      "KICKs (virtual gifts): you receive 95% of the value of KICKs sent on your channel; Kick keeps 5%.",
+      "Payout method: Kick uses Stripe to deliver payouts directly to your bank account. PayPal is available to viewers for paying subscriptions but not for streamer payouts.",
+      "Payout schedule: verified streamers choose weekly or monthly payouts; non-verified streamers are paid monthly. US ACH transfers take 2 to 3 business days, US instant debit-card payouts arrive in minutes (capped at $9,000 per payout), and international transfers take 3 to 7 business days.",
+      "Payout fees: Kick says Stripe processing fees apply where Stripe charges them. For currency conversion, Stripe's 1.50% fee is absorbed by Kick, so you receive the full converted amount.",
+      "No monthly or listing fees: the 5% is the only cost Kick's help center describes for subs and KICKs."
+    ],
+    "tips": [
+      "Count subs at $4.75 each when you set goals. 100 subs is $475 a month before any Stripe payout charges; 1,000 subs is $4,750.",
+      "Get verified if you want weekly money. Verified streamers can switch to weekly payouts; everyone else waits for the monthly cycle.",
+      "Use ACH rather than instant debit unless you need the cash now. Both are delivered through Stripe, and instant payouts are capped at $9,000 per payout.",
+      "Promote KICKs for one-off support. They pay the same 95% as subs, so a viewer who will not commit to $5 a month can still send you nearly all of what they spend.",
+      "Do not price around conversion fees. If you are paid in a non-USD currency, Kick absorbs Stripe's 1.50% conversion fee, so your payout is converted at real-time rates with nothing taken off."
+    ],
+    "faq": [
+      {"q": "How much does Kick take from subs?", "a": "5%. Subscriptions are $5 a month, you receive $4.75, and Kick keeps $0.25 as a processing fee."},
+      {"q": "Is the Kick split really 95/5?", "a": "Yes. Kick's help center says you keep 95% of all revenue you receive and the other 5% is taken as a processing fee, for both subscriptions and KICKs."},
+      {"q": "How much is a Kick sub worth to a streamer?", "a": "$4.75 per month per subscriber. Ten subs pay $47.50 and a hundred pay $475."},
+      {"q": "When does Kick pay streamers?", "a": "Verified streamers choose weekly or monthly payouts; non-verified streamers are paid monthly. Payouts go through Stripe to your bank: 2 to 3 business days by US ACH, minutes by US instant debit card (up to $9,000 per payout), and 3 to 7 business days internationally."},
+      {"q": "Does Kick charge payout or currency conversion fees?", "a": "Kick absorbs Stripe's 1.50% currency conversion fee, so international streamers get the full converted amount. Stripe processing fees apply only where Stripe charges them."},
+      {"q": "Can I get paid to PayPal on Kick?", "a": "No. PayPal is only available for viewers paying subscriptions; streamer payouts are delivered by Stripe to a bank account."}
+    ],
+    "notes": "Kick's revenue split article was last updated August 27, 2026 and describes the 5% as a processing fee; whether app-store purchases or taxes change the base was not addressed on the pages read. Kick does not publish a minimum payout threshold on its payout article. Gifted subs are not described separately; the calculator assumes they follow the same 95/5 split.",
+    "changelog": []
+  },
+  "related": ["twitch", "youtube", "patreon", "stripe"]
+}

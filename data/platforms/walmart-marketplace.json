@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "slug": "walmart-marketplace",
+  "name": "Walmart Marketplace",
+  "category": "marketplace",
+  "region": "United States",
+  "currency": "USD",
+  "tagline": "Walmart Marketplace fee calculator: referral fee by category (6%–15%), no monthly or setup fees.",
+  "fee_summary": "Walmart Marketplace charges only a referral fee: 15% of the item price plus shipping in most categories, lower in some (8% consumer electronics, 6% personal computers, 12% automotive) and tiered for apparel, beauty, baby and grocery. There is no monthly, setup or per-item fee.",
+  "last_verified": "2026-09-29",
+  "sources": [
+    {"title": "Walmart Marketplace: Pricing and referral fees", "url": "https://marketplace.walmart.com/pricing/", "accessed": "2026-09-29"}
+  ],
+  "inputs": [
+    {"id": "sale_price", "label": "Item price", "type": "money", "role": "price", "default": 60, "help": "The price the buyer pays for the item, before tax."},
+    {"id": "shipping_charged", "label": "Shipping charged to buyer", "type": "money", "role": "shipping_charged", "default": 0, "help": "The referral fee applies to shipping, handling and gift wrap charges too. Leave 0 for free shipping."},
+    {"id": "category", "label": "Category", "type": "select", "role": "other", "default": "everything_else",
+     "options": [
+       {"id": "everything_else", "label": "Everything else (most categories)", "note": "15%"},
+       {"id": "home_kitchen", "label": "Home, Kitchen, Decor & Garden", "note": "15%"},
+       {"id": "apparel", "label": "Apparel & Accessories", "note": "5% up to $15, 10% from $15.01 to $20, 15% over $20"},
+       {"id": "electronics", "label": "Consumer Electronics", "note": "8%"},
+       {"id": "personal_computers", "label": "Personal Computers", "note": "6%"},
+       {"id": "beauty_baby", "label": "Beauty, Health & Personal Care, or Baby", "note": "8% up to $10, 15% over $10"},
+       {"id": "grocery", "label": "Grocery", "note": "8% up to $15, 15% over $15"},
+       {"id": "toys_games", "label": "Toys & Games", "note": "15%"},
+       {"id": "automotive", "label": "Automotive & Powersports", "note": "12%"},
+       {"id": "collectibles", "label": "Collectibles", "note": "8%"}
+     ]},
+    {"id": "item_cost", "label": "What the item cost you", "type": "money", "role": "cost", "default": 25, "help": "Wholesale or sourcing cost per unit."},
+    {"id": "shipping_cost", "label": "Your shipping or fulfillment cost", "type": "money", "role": "shipping_cost", "default": 7, "help": "Your label cost, or the WFS fulfillment fee if Walmart ships it for you."},
+    {"id": "target_profit", "label": "Target profit", "type": "money", "role": "target_profit", "default": 20, "help": "We'll show the item price you need to hit this profit."}
+  ],
+  "fees": [
+    {"id": "referral", "label": "Referral fee", "basis": "price_plus_shipping",
+     "pct_by": {"input": "category", "values": {"everything_else": 15, "home_kitchen": 15, "electronics": 8, "personal_computers": 6, "toys_games": 15, "automotive": 12, "collectibles": 8}, "default": 15},
+     "when": {"input": "category", "in": ["everything_else", "home_kitchen", "electronics", "personal_computers", "toys_games", "automotive", "collectibles"]},
+     "note": "Percentage of the total sales price: item price plus shipping, handling and gift wrap."},
+    {"id": "referral_apparel", "label": "Referral fee (Apparel & Accessories)", "basis": "price_plus_shipping",
+     "tiers": [{"max": 15, "pct": 5}, {"min": 15.01, "max": 20, "pct": 10}, {"min": 20.01, "pct": 15}],
+     "when": {"input": "category", "equals": "apparel"},
+     "note": "5% when the total sales price is $15 or less, 10% between $15 and $20, 15% above $20."},
+    {"id": "referral_beauty_baby", "label": "Referral fee (Beauty, Health & Personal Care, Baby)", "basis": "price_plus_shipping",
+     "tiers": [{"max": 10, "pct": 8}, {"min": 10.01, "pct": 15}],
+     "when": {"input": "category", "equals": "beauty_baby"},
+     "note": "8% when the total sales price is $10 or less, 15% above $10."},
+    {"id": "referral_grocery", "label": "Referral fee (Grocery)", "basis": "price_plus_shipping",
+     "tiers": [{"max": 15, "pct": 8}, {"min": 15.01, "pct": 15}],
+     "when": {"input": "category", "equals": "grocery"},
+     "note": "8% when the total sales price is $15 or less, 15% above $15."}
+  ],
+  "worked_example": {
+    "inputs": {"sale_price": 60, "shipping_charged": 0, "category": "home_kitchen", "item_cost": 25, "shipping_cost": 7},
+    "expected": {"total_fees": 9.00, "net_payout": 51.00, "profit": 19.00},
+    "explanation": "A $60 Home, Kitchen, Decor & Garden item with free shipping has a total sales price of $60. Walmart's referral fee in that category is 15%, so the fee is $9.00 and there is nothing else to pay: no monthly fee, no per-item fee, no payment processing line. Walmart pays out $51.00. After the $25 unit cost and $7 to ship the order, profit is $19.00."
+  },
+  "content": {
+    "intro": "Walmart Marketplace lets third-party businesses sell on Walmart.com next to Walmart's own inventory. It is invitation-and-application based and aimed at established sellers with a US business, a track record on other marketplaces and fast, cheap shipping. Individuals clearing out a closet are not the audience; brands, wholesalers and private-label sellers are.\n\nThe fee structure is the simplest of the big marketplaces. There are no setup, monthly or per-item fees. Walmart charges one referral fee when an item sells, calculated on the total sales price, which includes shipping, handling and gift-wrap charges. The rate is 15% in most categories, including Home & Kitchen, Toys & Games, Books, Pet Supplies and Shoes & Handbags. Consumer Electronics, Cameras, Collectibles and Video Game Consoles pay 8%, Personal Computers 6%, Automotive and Musical Instruments 12%. Apparel is tiered at 5%, 10% or 15% depending on price, and low-priced Beauty, Baby and Grocery items pay 8% instead of 15%.\n\nWalmart Fulfillment Services (WFS) is optional: if Walmart stores and ships your inventory, fulfillment and storage fees apply on top of the referral fee. Those depend on size and weight and are not part of this calculator.",
+    "how_fees_work": [
+      "Referral fee: a percentage of the total sales price, which Walmart defines as the item price plus shipping and handling, gift wrap and other charges. It is 15% in most categories: Everything Else, Home, Kitchen, Decor & Garden, Toys & Games, Books, Music, Video & DVD, Pet Supplies, Tools & Home Improvement, Office Products, Luggage, Software & Video Games, and Shoes, Handbags, Backpacks & Sunglasses.",
+      "Lower flat rates: Consumer Electronics 8%, Camera & Photo 8%, Collectibles 8%, Video Game Consoles 8%, Major Appliances 8%, Personal Computers 6%, Automotive & Powersports 12%, Musical Instruments 12%, Base Power Tools 12%, Industrial & Scientific 12%, Tires & Wheels 10%, Plumbing, Heating, Cooling & Ventilation 10%.",
+      "Price-tiered rates (the whole sale pays one rate): Apparel & Accessories 5% at $15 or less, 10% between $15 and $20, 15% above $20. Beauty, Health & Personal Care and Baby Products 8% at $10 or less, 15% above. Grocery 8% at $15 or less, 15% above.",
+      "Split-rate categories not in this calculator: Electronics Accessories 15% on the first $100 of the price and 8% above; Indoor & Outdoor Furniture 15% on the first $200 and 10% above; Jewelry & Precious Metals 20% on the first $250 and 5% above; Watches 15% on the first $1,500 and 3% above; Compact Appliances 12% up to $300 and 8% above.",
+      "No other selling fees: Walmart's pricing page states there are zero setup, monthly or hidden fees, and there is no separate payment processing charge. The page lists no minimum referral fee.",
+      "Walmart Fulfillment Services (optional): if you use WFS, per-unit fulfillment fees and monthly storage fees apply in addition to the referral fee. They vary by size and weight and are not modeled here."
+    ],
+    "tips": [
+      "Compare the category rate before listing: a $50 product pays $7.50 in Home & Kitchen (15%) but $4.00 in Consumer Electronics (8%) and $3.00 in Personal Computers (6%). Make sure the item is categorized correctly.",
+      "Watch the apparel thresholds. A garment priced at $20.00 pays 10% but $20.01 pays 15%, and $15.00 pays only 5%. Pricing just under a threshold can save more than the price cut costs.",
+      "Free shipping does not cut the fee, because the referral percentage applies to shipping charged to the buyer as well. Fold shipping into the price and compare your own label cost against WFS rates.",
+      "There is no monthly fee, so low-volume or seasonal catalogs cost nothing to keep listed. Use that to test products on Walmart without the fixed cost of an Amazon Professional plan.",
+      "Walmart periodically offers new-seller referral fee discounts for the first months after approval. Check the current offer when you apply; none is stated on the pricing page."
+    ],
+    "faq": [
+      {"q": "Does Walmart Marketplace charge a fee on shipping?", "a": "Yes. The referral fee is calculated on the total sales price, which includes the item price plus shipping and handling, gift wrap and other charges you bill the customer."},
+      {"q": "Is there a monthly fee to sell on Walmart Marketplace?", "a": "No. Walmart states there are zero setup, monthly or hidden fees. You pay only the referral fee when an item sells."},
+      {"q": "When does Walmart take the referral fee?", "a": "When the order is completed. The fee is deducted from the sale proceeds before Walmart pays your balance out to your bank account on its regular payment cycle."},
+      {"q": "Does Walmart charge a payment processing fee?", "a": "No separate one. Payment handling is covered by the referral fee, unlike selling on your own site with a card processor."},
+      {"q": "What is the referral fee for clothing on Walmart?", "a": "5% if the total sales price is $15 or less, 10% between $15 and $20, and 15% above $20. Shoes, handbags, backpacks and sunglasses are a separate category at a flat 15%."},
+      {"q": "Are Walmart Fulfillment Services fees included here?", "a": "No. WFS fulfillment and storage fees depend on the item's size and weight and are charged in addition to the referral fee. Enter your WFS fulfillment fee in the shipping cost field to see the full picture."}
+    ],
+    "notes": "Rates are from Walmart Marketplace's US pricing page as of September 2026. The calculator models 10 common categories; split-rate categories (Electronics Accessories, Furniture, Jewelry, Watches, Compact Appliances) and item-specific exceptions (for example 8% on certain outdoor and sports items, 12% on printer cartridges) are not modeled. Sales tax is not part of the total sales price. WFS fulfillment and storage fees and any new-seller promotional discounts are not modeled. Payout timing is not stated on the pricing page; Walmart pays sellers on a recurring cycle after order completion (commonly every two weeks for new sellers, then weekly).",
+    "changelog": []
+  },
+  "related": ["amazon", "ebay", "shopify", "tiktok-shop"]
+}

@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "slug": "offerup",
+  "name": "OfferUp",
+  "category": "marketplace",
+  "region": "United States",
+  "currency": "USD",
+  "tagline": "OfferUp fee calculator: 0% on local sales since shipping ended in 2025; only optional promotions cost money.",
+  "fee_summary": "OfferUp charges no fees and takes no commission on in-person sales, and since October 2025 every sale is local because nationwide shipping (and its service fee) has ended. The only costs are optional: Promote Plus at $19.99 a month or $99.99 a year, single promotions, and paid listings in some categories.",
+  "last_verified": "2026-09-29",
+  "sources": [
+    {"title": "OfferUp Support: What is OfferUp?", "url": "https://help.offerup.com/hc/en-us/articles/360031989092-What-is-OfferUp", "accessed": "2026-09-29"},
+    {"title": "OfferUp Support: Nationwide shipping ending", "url": "https://help.offerup.com/hc/en-us/articles/41043186552980-Nationwide-shipping-ending", "accessed": "2026-09-29"},
+    {"title": "OfferUp Support: Promote Plus subscription", "url": "https://help.offerup.com/hc/en-us/articles/360052029431-Promote-Plus-subscription", "accessed": "2026-09-29"},
+    {"title": "OfferUp Support: For Sale listing subscriptions", "url": "https://help.offerup.com/hc/en-us/articles/16354037338900-For-Sale-listing-subscriptions", "accessed": "2026-09-29"}
+  ],
+  "inputs": [
+    {"id": "sale_price", "label": "Sale price", "type": "money", "role": "price", "default": 60, "help": "What the buyer pays you in person (cash or a payment app)."},
+    {"id": "promote", "label": "Promotion", "type": "select", "role": "other", "default": "none",
+     "options": [
+       {"id": "none", "label": "No paid promotion", "note": "Listing and selling locally are free"},
+       {"id": "plus_monthly", "label": "Promote Plus, $19.99/month", "note": "Keeps one item at the top of the feed; switch it between items any time"},
+       {"id": "plus_yearly", "label": "Promote Plus, $99.99/year", "note": "About $8.33 a month"}
+     ]},
+    {"id": "orders_per_month", "label": "Items you sell per month", "type": "number", "role": "orders_per_month", "default": 10, "help": "Used to spread a Promote Plus subscription across your sales."},
+    {"id": "item_cost", "label": "What the item cost you", "type": "money", "role": "cost", "default": 20, "help": "Purchase or sourcing cost. Enter 0 for things you already owned."},
+    {"id": "target_profit", "label": "Target profit", "type": "money", "role": "target_profit", "default": 30, "help": "We'll show the price you need to hit this profit."}
+  ],
+  "fees": [
+    {"id": "commission", "label": "OfferUp selling fee (local sale)", "basis": "price", "pct": 0,
+     "note": "OfferUp doesn't charge fees or take a commission from in-person transactions."},
+    {"id": "promote_plus", "label": "Promote Plus subscription (monthly, split per sale)", "basis": "none", "monthly": true,
+     "fixed_by": {"input": "promote", "values": {"none": 0, "plus_monthly": 19.99, "plus_yearly": 8.3325}, "default": 0},
+     "when": {"input": "promote", "in": ["plus_monthly", "plus_yearly"]},
+     "note": "$19.99 a month, or $99.99 a year (about $8.33 a month), divided by the items you sell per month."}
+  ],
+  "worked_example": {
+    "inputs": {"sale_price": 60, "promote": "plus_monthly", "orders_per_month": 10, "item_cost": 20},
+    "expected": {"total_fees": 2.00, "net_payout": 58.00, "profit": 38.00},
+    "explanation": "A seller meets a buyer locally and is paid $60. OfferUp takes nothing from in-person sales, so the selling fee is $0. The seller pays $19.99 a month for Promote Plus and sells about 10 items a month, so the subscription works out to $2.00 per sale. Net is $58.00, and after the $20 the item cost, profit is $38.00. Without Promote Plus the seller would keep the full $60."
+  },
+  "content": {
+    "intro": "OfferUp is a local buy-and-sell app: furniture, electronics, cars, tools, clothing and household goods listed by people near you, with in-app messaging to arrange a meetup. It is the biggest local marketplace app in the US outside Facebook Marketplace, and since late 2025 it is local only.\n\nThat matters for fees. OfferUp used to offer nationwide shipping with a service fee on shipped sales (12.9%, minimum $1.99). On September 23, 2025 sellers could no longer choose shipping on new listings, and on October 21, 2025 OfferUp removed the shipping option from every existing item. Today every sale is an in-person transaction, and OfferUp states plainly that it does not charge fees or take a commission on in-person transactions. The buyer pays you directly in cash or through whatever payment app you agree on.\n\nThe costs that remain are optional. Promote Plus keeps one item at the top of the feed for $19.99 a month or $99.99 a year, with a three-day free trial the first time. You can also buy single promotions, extra For Sale listings beyond the free monthly allotment (package pricing varies by category), OfferUp Premium for an ad-free experience, and paid listings for jobs and services. None of these are required to sell.",
+    "how_fees_work": [
+      "Selling fee: none. OfferUp does not charge fees or take a commission on in-person transactions, and all OfferUp sales are now in person. What the buyer hands you is what you keep.",
+      "Shipping service fee: ended. The former fee on shipped orders no longer applies because shipping was removed from new listings on September 23, 2025 and from all existing listings on October 21, 2025.",
+      "Promote Plus (optional): $19.99 a month or $99.99 a year to keep one item promoted at the top of the feed for as many days as you want, switchable between your active items. First-time subscribers get a 3-day free trial.",
+      "Single promotions and extra listings (optional): you can buy an individual promotion for one listing, and sellers who exceed the free monthly allotment of For Sale listings can buy additional listings or a subscription bundle. Package pricing varies by category and number of listings and is shown in the app.",
+      "Paid categories: posting jobs and some services carries a listing fee. OfferUp Premium is a paid subscription for an ad-free experience; it does not change selling costs.",
+      "Payment: OfferUp is not part of the payment on in-person sales. If you accept a payment app instead of cash, that app's own terms and fees apply, not OfferUp's."
+    ],
+    "tips": [
+      "Take cash or an instant-transfer payment app you already use; OfferUp does not process the payment, so there is no platform fee to price around.",
+      "Promote Plus at $19.99 a month only pays off if the boosted visibility sells items you would not otherwise move. Selling 10 items a month makes it $2 per sale; selling 2 makes it $10 per sale.",
+      "Try the 3-day Promote Plus trial on your highest-value listing rather than a $15 item, and switch the promotion to a new item as soon as one sells.",
+      "Stay inside the free monthly listing allotment by deleting sold or stale listings before posting new ones, since extra listings cost money by category.",
+      "Meet at a safe public spot and let the buyer inspect the item first; without OfferUp payments there is no platform refund process, so a completed handoff is final."
+    ],
+    "faq": [
+      {"q": "Does OfferUp charge seller fees?", "a": "Not on sales. OfferUp does not charge fees or take a commission on in-person transactions, and every OfferUp sale is now in person. Optional promotions and subscriptions are the only costs."},
+      {"q": "What happened to the OfferUp shipping fee?", "a": "It ended with shipping. OfferUp removed the shipping option from new listings on September 23, 2025 and from all existing items on October 21, 2025, so the service fee that applied to shipped orders (formerly 12.9%, minimum $1.99) is no longer charged."},
+      {"q": "Can I still ship items on OfferUp?", "a": "No. Shipping is no longer available for any listing. Sellers who want to ship use other platforms such as eBay, Mercari or Facebook Marketplace."},
+      {"q": "How much is Promote Plus on OfferUp?", "a": "$19.99 a month or $99.99 a year. It promotes one item at a time at the top of the feed, and you can move the promotion to any of your active items. First-time subscribers get a 3-day free trial."},
+      {"q": "Is it free to list on OfferUp?", "a": "Yes, within the free monthly allotment of For Sale listings. Extra listings and listings in paid categories such as jobs and services cost money, with pricing that varies by category."},
+      {"q": "How do I get paid on OfferUp?", "a": "Directly by the buyer when you meet: cash or a payment app you both agree on. OfferUp is not part of the payment and takes nothing from it."}
+    ],
+    "notes": "As of September 2026 from OfferUp's help center. The former shipped-sale service fee is not modeled because shipping ended in October 2025; the 12.9% / $1.99 figures are quoted for history only and were not re-verified on a current OfferUp page. Single promotion prices, extra-listing package prices and paid-category listing fees vary and are not published on the pages checked, so they are not modeled. The Promote Plus yearly option is shown as $99.99 divided by 12 months. If you accept payment apps, their fees are separate.",
+    "changelog": [
+      {"date": "2025-10-21", "change": "Shipping option removed from all existing listings; OfferUp becomes local-only and the shipped-sale service fee no longer applies."},
+      {"date": "2025-09-23", "change": "Sellers can no longer select shipping when posting new items."}
+    ]
+  },
+  "related": ["facebook-marketplace", "mercari", "poshmark", "ebay"]
+}

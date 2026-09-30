@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "slug": "twitch",
+  "name": "Twitch",
+  "category": "creator-platform",
+  "region": "United States",
+  "currency": "USD",
+  "tagline": "Twitch payout calculator: 50/50 subs by default, 60/40 or 70/30 in the Plus Program, 55% on ads.",
+  "fee_summary": "Twitch keeps 50% of net subscription revenue for most streamers. Plus Program streamers keep 60% at 100 Plus Points or 70% at 300 Plus Points, with no revenue cap. Ads pay creators 55% of the revenue for each ad, and Bits pay 1 cent each.",
+  "last_verified": "2026-09-29",
+  "sources": [
+    {"title": "Twitch Blog: A Letter from Twitch President Dan Clancy on Subscription Revenue Shares", "url": "https://blog.twitch.tv/en/2022/09/21/a-letter-from-twitch-president-dan-clancy-on-subscription-revenue-shares/", "accessed": "2026-09-29"},
+    {"title": "Twitch Blog: An Update to Several Streamer Payout Programs", "url": "https://blog.twitch.tv/en/2024/01/24/an-update-to-several-streamer-payout-programs/", "accessed": "2026-09-29"},
+    {"title": "Twitch Blog: The Partner Plus Program is Live!", "url": "https://blog.twitch.tv/en/2023/10/02/update-to-the-partner-plus-program/", "accessed": "2026-09-29"},
+    {"title": "Twitch Blog: Bigger ad payouts to more Creators: The Ad Revenue Upgrade", "url": "https://blog.twitch.tv/en/2022/06/14/bigger-ad-payouts-to-more-creators-the-ad-revenue-upgrade/", "accessed": "2026-09-29"},
+    {"title": "Twitch Blog: And now, something for our non-partnered streamers (Affiliate Program launch)", "url": "https://blog.twitch.tv/en/2017/04/21/and-now-something-for-our-non-partnered-streamers-53a36a863bca/", "accessed": "2026-09-29"}
+  ],
+  "inputs": [
+    {"id": "revenue", "label": "Revenue amount", "type": "money", "role": "price", "default": 100, "help": "Your monthly sub revenue, the price of a single sub, or your ad revenue for the period. Twitch's split applies to net revenue, so treat this as the amount after Twitch's deductions."},
+    {"id": "revenue_type", "label": "Revenue type and split", "type": "select", "role": "other", "default": "subs_standard",
+     "options": [
+       {"id": "subs_standard", "label": "Subscriptions, standard 50/50", "note": "Baseline split for Affiliates and Partners."},
+       {"id": "subs_plus60", "label": "Subscriptions, Plus Program 60/40", "note": "100 Plus Points for three consecutive months."},
+       {"id": "subs_plus70", "label": "Subscriptions, Plus Program 70/30", "note": "300 Plus Points for three consecutive months; no revenue cap."},
+       {"id": "ads", "label": "Ads, 55% creator share", "note": "Ads Incentive Program / Ads Manager at 3+ minutes per hour."}
+     ]},
+    {"id": "cost", "label": "Your monthly cost", "type": "money", "role": "cost", "default": 0, "help": "Optional: software, mods, equipment, or other streaming costs for the period."},
+    {"id": "target_profit", "label": "Target take-home", "type": "money", "role": "target_profit", "default": 100, "help": "We'll show the revenue you need to generate."}
+  ],
+  "fees": [
+    {"id": "twitch_share", "label": "Twitch's share", "basis": "price",
+     "pct_by": {"input": "revenue_type", "values": {"subs_standard": 50, "subs_plus60": 40, "subs_plus70": 30, "ads": 45}, "default": 50},
+     "note": "Twitch keeps 50% of net sub revenue (40% or 30% in the Plus Program) and 45% of ad revenue."}
+  ],
+  "worked_example": {
+    "inputs": {"revenue": 100, "revenue_type": "subs_standard", "cost": 0},
+    "expected": {"total_fees": 50.00, "net_payout": 50.00, "profit": 50.00},
+    "explanation": "With $100 of net subscription revenue on the standard 50/50 split, Twitch keeps $50.00 and you receive $50.00. In the Plus Program the same $100 would pay you $60.00 at the 60/40 level or $70.00 at 70/30. With no costs entered, profit equals the payout."
+  },
+  "content": {
+    "intro": "Twitch is the largest live-streaming platform for gaming, music, art, and chat. Streamers earn from paid subscriptions (Tier 1, 2, and 3), gifted subs, Bits cheered in chat, and ads that run on the stream. Affiliates and Partners share that money with Twitch.\n\nThe headline number is subscriptions. Twitch's baseline split is 50/50 on net subscription revenue, and Twitch says the vast majority of streamers are on those terms. The Plus Program raises your share: keep 100 Plus Points for three consecutive months and you move to 60/40 on paid and gifted subs; reach 300 Plus Points and you move to 70/30. Tier 1 subs are worth 1 point, Tier 2 subs 2 points, and Tier 3 subs 6 points. Since January 2024 there is no $100K cap on the 70/30 level.\n\nAds are separate. Twitch pays creators 55% of the revenue for each ad that runs on the stream, available to Partners through the Ads Incentive Program and to Affiliates who set Ads Manager to at least three minutes of ads per hour. Bits pay a flat 1 cent per Bit cheered.\n\nOne thing to keep in mind: the sub split applies to net revenue, which is what remains after Twitch's own deductions such as payment processing and taxes, so the dollars you see per sub are somewhat less than half the sticker price. Enter your net figure, or a sub price as an approximation, and pick your split.",
+    "how_fees_work": [
+      "Standard subscription split: Twitch keeps 50% of net revenue from paid and gifted subscriptions. This is the baseline for Affiliates and Partners; Twitch says the vast majority of streamers have these terms.",
+      "Plus Program 60/40: streamers who maintain 100 Plus Points for three consecutive months qualify for a 60/40 split on paid and gift subs, so Twitch's share drops to 40%.",
+      "Plus Program 70/30: maintaining 300 Plus Points (lowered from 350 in January 2024) for three consecutive months earns a 70/30 split; Twitch keeps 30%. The US$100K cap on net revenue at this level was removed in January 2024.",
+      "Plus Points: Tier 1 subs count as 1 point, Tier 2 subs as 2 points, and Tier 3 subs as 6 points toward the 100 and 300 thresholds. Twitch's October 2023 post says the higher split runs for 12 months once earned.",
+      "Ads: creators receive 55% of the revenue for each ad that runs on their stream, so Twitch keeps 45%. Partners access this through the Ads Incentive Program; Affiliates by running at least three minutes of ads per hour in Ads Manager.",
+      "Bits: Twitch pays 1 cent per Bit used to Cheer on your channel. Viewers pay more than a cent per Bit when they buy them, so Twitch's margin sits on the purchase side, not on your payout.",
+      "Net revenue: Twitch's sub splits apply to net subscription revenue, after Twitch's deductions for things like payment processing and taxes. Prime Gaming subs moved to a fixed-rate payout model on June 3, 2024."
+    ],
+    "tips": [
+      "Chase Plus Points, not just sub counts. A Tier 3 sub is worth 6 points, so 17 Tier 3 subs get you to the 100-point 60/40 level as fast as 100 Tier 1 subs.",
+      "Hold the level for three months. The Plus Program checks for three consecutive months at or above the threshold, so a one-month spike from a subathon does not qualify on its own.",
+      "Turn on ads if you are an Affiliate. Setting Ads Manager to three or more minutes per hour unlocks the 55% ad share and removes pre-rolls for your viewers.",
+      "Encourage subs over small Bit cheers for recurring support. A $5 tip in Bits nets you $5 worth of Bits at 1 cent each only if the viewer cheered 500 Bits, which cost them more than $5 to buy.",
+      "Track your effective rate, not the headline split. Because the split applies to net revenue, compare your actual monthly sub payout to your sub count to see what each sub is really worth to you."
+    ],
+    "faq": [
+      {"q": "How much does Twitch take from subscriptions?", "a": "50% of net subscription revenue for most streamers. Plus Program streamers keep 60% (100 Plus Points) or 70% (300 Plus Points) instead, with no revenue cap on the 70/30 level since January 2024."},
+      {"q": "How do I get the 70/30 split on Twitch?", "a": "Maintain 300 Plus Points for three consecutive months. Tier 1 subs count 1 point, Tier 2 subs 2 points, and Tier 3 subs 6 points. At 100 points for three months you get 60/40 first."},
+      {"q": "How much is a Bit worth to a streamer?", "a": "1 cent. Twitch pays Affiliates and Partners a share of Bits revenue equal to $0.01 per Bit used to Cheer on their channel, so 1,000 Bits pays $10."},
+      {"q": "What is Twitch's ad revenue share?", "a": "Creators get 55% of the revenue for each ad that runs on their stream. Partners use the Ads Incentive Program; Affiliates qualify by running at least three minutes of ads per hour."},
+      {"q": "Is there still a $100K cap on the Twitch Plus Program?", "a": "No. Twitch removed the US$100K cap on net revenue at the 70/30 level for all streamers in January 2024."},
+      {"q": "Does Twitch take 50% of a $5.99 sub?", "a": "Twitch takes 50% of the net revenue from the sub, which is the price minus Twitch's deductions such as payment processing and taxes, so your payout is a bit under half the sticker price on the standard split."},
+      {"q": "Do Affiliates and Partners get different sub splits?", "a": "Both start at the standard 50/50. The Plus Program's 60/40 and 70/30 levels are earned by Plus Points, not by Partner status."}
+    ],
+    "notes": "Twitch's splits apply to net subscription revenue as Twitch defines it; the exact deductions between the sub price and net revenue are not published on the pages read, so enter a net figure for the most accurate result. Current US Tier 1, 2, and 3 sub prices, the Prime Gaming fixed payout rate, and payout minimums and timing were not verified from an official page for this calculator. The 12-month duration of a Plus level comes from Twitch's October 2023 Partner Plus post. Regional and legacy Partner contracts may differ.",
+    "changelog": [
+      {"date": "2024-06-03", "change": "Prime Gaming subscriptions moved to a fixed-rate payout model."},
+      {"date": "2024-01-24", "change": "Plus Program: 70/30 threshold lowered from 350 to 300 Plus Points; US$100K cap on net revenue at the 70/30 level removed for all streamers; 60/40 level at 100 Plus Points."},
+      {"date": "2023-10-01", "change": "Partner Plus Program launched with a 70/30 split at 350 Plus Points for 12 months, capped at US$100K."},
+      {"date": "2023-06-01", "change": "Legacy premium 70/30 deals moved to 50/50 on subscription revenue above $100K per 12 months."}
+    ]
+  },
+  "related": ["kick", "youtube", "patreon", "ko-fi"]
+}

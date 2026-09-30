@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "slug": "poshmark",
+  "name": "Poshmark",
+  "category": "resale-app",
+  "region": "United States",
+  "currency": "USD",
+  "tagline": "Poshmark fee calculator: flat $2.95 under $15 or 20% at $15+, and your exact payout and profit.",
+  "fee_summary": "Poshmark keeps a flat $2.95 on sales under $15 and 20% of the sale price on sales of $15 or more. The buyer pays shipping and sales tax, so neither changes your fee.",
+  "last_verified": "2026-09-29",
+  "sources": [
+    {"title": "Poshmark Blog – FAQ: What are the fees for selling on Poshmark?", "url": "https://blog.poshmark.com/", "accessed": "2026-09-29"},
+    {"title": "Poshmark Blog – Simplified Lower-Priced Shipping and Commission Change (Mar 18, 2014)", "url": "https://blog.poshmark.com/2014/03/18/poshmark-update-for-sellers/", "accessed": "2026-09-29"},
+    {"title": "Poshmark Blog – FAQs: PoshPost Shipping, Commission Structure (Mar 17, 2014)", "url": "https://blog.poshmark.com/2014/03/17/faqs-poshpost-shipping-commission-update/", "accessed": "2026-09-29"},
+    {"title": "Poshmark Seller Fee Policy (Legal Center)", "url": "https://poshmark.com/fee_policy", "accessed": "2026-09-29"},
+    {"title": "TechCrunch – Poshmark reverses decision to lower selling fees (Oct 21, 2024)", "url": "https://techcrunch.com/2024/10/21/poshmark-reverses-decision-to-lower-selling-fees-after-sellers-experience-drop-in-sales", "accessed": "2026-09-29"}
+  ],
+  "inputs": [
+    {"id": "sale_price", "label": "Sale price", "type": "money", "role": "price", "default": 45, "help": "What the buyer pays for the item, before shipping and sales tax."},
+    {"id": "item_cost", "label": "What the item cost you", "type": "money", "role": "cost", "default": 15, "help": "Purchase price or sourcing cost, including any supplies."},
+    {"id": "shipping_discount", "label": "Shipping discount you offer", "type": "money", "role": "shipping_cost", "default": 0, "help": "Leave at 0 if the buyer pays full shipping. If you offer discounted or free shipping, enter the amount you cover."},
+    {"id": "target_profit", "label": "Target profit", "type": "money", "role": "target_profit", "default": 20, "help": "We'll show the price you need to list at to clear this much."}
+  ],
+  "fees": [
+    {"id": "commission", "label": "Poshmark commission", "basis": "price",
+     "tiers": [{"max": 14.99, "fixed": 2.95}, {"min": 15, "pct": 20}],
+     "note": "Flat $2.95 on sales under $15; 20% of the sale price at $15 and above. Charged on the item price only."}
+  ],
+  "worked_example": {
+    "inputs": {"sale_price": 45, "item_cost": 15},
+    "expected": {"total_fees": 9.00, "net_payout": 36.00, "profit": 21.00},
+    "explanation": "A $45 sale is $15 or more, so Poshmark takes 20% of $45 = $9.00. Your earnings are $45.00 − $9.00 = $36.00. After the $15 you paid for the item, profit is $21.00. Shipping and sales tax are paid by the buyer and do not change the fee."
+  },
+  "content": {
+    "intro": "Poshmark is a US resale app for clothing, shoes, accessories, beauty, and home goods. Most sellers are individuals clearing out closets or part-time resellers flipping thrifted and wholesale fashion. Listing is free and there is no monthly fee; you only pay when something sells.\n\nThe fee has two parts and only one applies to any sale. If the item sells for less than $15, Poshmark keeps a flat $2.95. If it sells for $15 or more, Poshmark keeps 20% of the sale price. That is the whole seller fee: there is no separate payment-processing charge, no listing fee, and nothing extra for using the prepaid shipping label.\n\nThe buyer pays a flat-rate shipping charge and any sales tax on top of your price, so neither affects what you owe. The only way shipping costs you money is if you choose to offer a shipping discount, in which case you cover the difference.\n\nIn October 2024 Poshmark briefly switched to a 5.99% seller fee plus a buyer fee, then reverted to the $2.95 / 20% structure after three weeks. That structure is what applies to US sales in 2026.",
+    "how_fees_work": [
+      "Sales under $15: a flat $2.95 commission. On a $12 sale you receive $9.05, which works out to about 25%.",
+      "Sales of $15 or more: 20% of the sale price. On a $45 sale the fee is $9.00 and you receive $36.00.",
+      "The fee is charged on the item price only. Buyer-paid shipping and sales tax are collected separately and are not part of the 20%.",
+      "No listing fees, no monthly subscription, and no separate payment-processing fee. The commission is the only deduction from a standard sale.",
+      "Shipping is a flat rate paid by the buyer via a prepaid label. If you offer a shipping discount, the amount you discount comes out of your earnings.",
+      "Offers you accept below your list price are charged at the same schedule: 20% of the accepted price, or $2.95 if the accepted price is under $15."
+    ],
+    "tips": [
+      "Price at $15 or more when you can. A $14.99 sale pays $12.04 after the $2.95 flat fee; a $15.00 sale pays $12.00. Between roughly $12 and $14.99, the flat fee takes a bigger share than 20% would.",
+      "Bundle cheap items. Three $8 items sold separately cost $2.95 each ($8.85 in fees); the same items sold as a $24 bundle cost $4.80.",
+      "Build the 20% into your list price. To clear a $20 profit on an item that cost you $15, you need to sell at $43.75 or more.",
+      "Treat shipping discounts as a fee. Offering $3 off shipping on a $30 sale is the same to your payout as raising your fee from 20% to 30%.",
+      "Counter lowball offers with the payout in mind: every $5 you drop the price costs you $4, not $5, because Poshmark's share drops too."
+    ],
+    "faq": [
+      {"q": "What are Poshmark's seller fees in 2026?", "a": "A flat $2.95 on sales under $15, and 20% of the sale price on sales of $15 or more. There are no listing or monthly fees."},
+      {"q": "Does Poshmark take a fee on shipping?", "a": "No. The buyer pays the flat-rate shipping label and Poshmark's commission is calculated on the item price only. If you offer a shipping discount, you cover that difference yourself."},
+      {"q": "Does Poshmark charge a fee on sales tax?", "a": "No. Poshmark collects sales tax from the buyer and remits it; it is not part of your sale price and no commission is taken on it."},
+      {"q": "Is there a payment processing fee on Poshmark?", "a": "No. Unlike Depop, Mercari, or Grailed, Poshmark does not add a separate processing percentage. The $2.95 or 20% commission is the only seller fee."},
+      {"q": "How much does Poshmark take on a $100 sale?", "a": "$20. The sale is over $15, so the fee is 20% of $100 and your earnings are $80 before what you paid for the item."},
+      {"q": "How does Poshmark pay sellers?", "a": "Earnings are credited to your Poshmark balance once the order is complete (after the buyer accepts the item or the return window closes). You can then redeem the balance to a bank account or other payout method. Check the Poshmark support site for current redemption options and any payout-method fees."},
+      {"q": "Did Poshmark change its fees?", "a": "Yes, briefly. In October 2024 Poshmark moved to a 5.99% seller fee plus a buyer fee, then reversed the change on October 24, 2024 and went back to $2.95 / 20%, which is still the structure in 2026."}
+    ],
+    "notes": "Fee amounts verified on Poshmark's official blog FAQ (blog.poshmark.com) and original 2014 commission announcement; the Fee Policy page in the Poshmark Legal Center is rendered client-side and could not be read directly. Payout timing (funds released after buyer acceptance or the return window) and current redemption methods were not re-verified on an official page for this update. Shipping label prices are set by Poshmark and paid by the buyer; the current label price is not stated here because it changes and does not affect the seller fee. Posh Shows (live selling) and Promoted Closet ads have their own terms and are not modeled.",
+    "changelog": [
+      {"date": "2024-10-24", "change": "Poshmark reverted to the $2.95 flat fee (under $15) and 20% commission ($15+) after a three-week trial of a 5.99% seller fee plus a buyer protection fee that began October 3, 2024."},
+      {"date": "2014-03-20", "change": "Flat $2.95 commission introduced for sales under $15; 20% commission for sales of $15 or more unchanged."}
+    ]
+  },
+  "related": ["mercari", "depop", "ebay", "vinted"]
+}

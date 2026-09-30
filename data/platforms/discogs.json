@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "slug": "discogs",
+  "name": "Discogs",
+  "category": "marketplace",
+  "region": "United States",
+  "currency": "USD",
+  "tagline": "Discogs fee calculator: 9% selling fee on item plus shipping (min $0.10, max $150) plus PayPal processing.",
+  "fee_summary": "Discogs charges a 9% selling fee on the item price plus shipping, with a $0.10 minimum and $150 maximum, deducted automatically when the buyer pays through PayPal. PayPal takes its own processing fee from the same payment (3.49% + $0.49 at PayPal's US Checkout rate).",
+  "last_verified": "2026-09-29",
+  "sources": [
+    {"title": "Discogs Support: What Are The Fees For Selling On Discogs?", "url": "https://support.discogs.com/hc/en-us/articles/360007521674-What-Are-The-Fees-For-Selling-On-Discogs", "accessed": "2026-09-29"},
+    {"title": "Discogs Support: Understanding The Discogs Selling Fee", "url": "https://support.discogs.com/hc/en-us/articles/7485742491789-Understanding-The-Discogs-Selling-Fee", "accessed": "2026-09-29"},
+    {"title": "Discogs Support: PayPal Payments Solution FAQ", "url": "https://support.discogs.com/hc/en-us/articles/4409783155981-PayPal-Payments-Solution-FAQ", "accessed": "2026-09-29"},
+    {"title": "Discogs: Frequently Asked Questions About the Discogs Selling Fee (2023)", "url": "https://www.discogs.com/selling/updates/selling-fee-faq-2023/", "accessed": "2026-09-29"},
+    {"title": "PayPal US merchant fees", "url": "https://www.paypal.com/us/webapps/mpp/merchant-fees", "accessed": "2026-09-29"}
+  ],
+  "inputs": [
+    {"id": "sale_price", "label": "Item price", "type": "money", "role": "price", "default": 30, "help": "What the buyer pays for the record, before shipping and tax."},
+    {"id": "shipping_charged", "label": "Shipping charged to buyer", "type": "money", "role": "shipping_charged", "default": 6, "help": "Both the Discogs fee and the PayPal fee apply to shipping."},
+    {"id": "item_cost", "label": "What the record cost you", "type": "money", "role": "cost", "default": 10, "help": "Purchase price or sourcing cost."},
+    {"id": "shipping_cost", "label": "Your shipping cost", "type": "money", "role": "shipping_cost", "default": 5, "help": "Mailer, postage and packing."},
+    {"id": "target_profit", "label": "Target profit", "type": "money", "role": "target_profit", "default": 10, "help": "We'll show the item price you need to hit this profit."}
+  ],
+  "fees": [
+    {"id": "selling", "label": "Discogs selling fee", "basis": "price_plus_shipping", "pct": 9, "min": 0.10, "max": 150,
+     "note": "9% of the item price plus shipping. Minimum $0.10, maximum $150 per item-and-shipping total. Not charged on sales tax."},
+    {"id": "paypal", "label": "PayPal processing fee", "basis": "price_plus_shipping", "pct": 3.49, "fixed": 0.49,
+     "note": "PayPal's US commercial rate for PayPal Checkout, taken from the gross payment. Discogs does not publish this rate; check your PayPal statement."}
+  ],
+  "worked_example": {
+    "inputs": {"sale_price": 30, "shipping_charged": 6, "item_cost": 10, "shipping_cost": 5},
+    "expected": {"total_fees": 4.99, "net_payout": 31.01, "profit": 16.01},
+    "explanation": "An LP sells for $30 with $6 shipping, so the buyer pays $36. Discogs takes 9% of $36 = $3.24, between the $0.10 minimum and $150 maximum. PayPal takes 3.49% of $36 plus $0.49 = $1.75 from the same payment. Total fees are $4.99 and $31.01 lands in your PayPal balance. After the $10 you paid for the record and $5 to ship it, profit is $16.01."
+  },
+  "content": {
+    "intro": "Discogs is the database and marketplace for physical music: vinyl, CDs, cassettes and other formats, matched to a catalog of specific pressings. Sellers are collectors thinning their shelves, record stores and full-time dealers, and buyers come for exact editions rather than bargains. Listing against the database is free and takes seconds once the release exists.\n\nThe fee is a single percentage. When an order is paid, Discogs charges 9% of the item price plus the shipping cost, with a minimum of $0.10 and a maximum of $150 per item-and-shipping total. The 9% does not apply to sales tax or to what other companies charge. Since Discogs moved to its PayPal Payments Solution, the selling fee is deducted automatically from the buyer's payment (it shows on your PayPal statement as a Partner Fee or Partner Commission), so there are no more monthly invoices.\n\nPayPal's own processing fee comes out of the same payment. Discogs does not state that rate; for a US seller receiving a PayPal Checkout payment it is PayPal's published commercial rate of 3.49% + $0.49 per transaction. On a $36 order the two fees together are about $4.99, roughly 14% of what the buyer paid, which is why cheap records with high shipping are hard to sell profitably here. The selling fee rose from 8% to 9% on May 22, 2023.",
+    "how_fees_work": [
+      "Selling fee: 9% of the item price plus the shipping cost, charged at the moment the buyer sends payment. Minimum $0.10 and maximum $150 per item-and-shipping total. Sales tax is not part of the base.",
+      "How it is collected: Discogs' fee and any associated taxes are removed from the buyer's PayPal payment automatically and directed to Discogs. It appears on your PayPal statement as Partner Fee or Partner Commission. Sellers on the PayPal Payments Solution no longer receive monthly selling fee invoices.",
+      "PayPal processing fee: PayPal deducts its processing fee from the gross payment and keeps it. Discogs does not publish the rate; PayPal's US merchant fee page lists 3.49% + $0.49 for PayPal Checkout commercial transactions (2.99% + $0.49 for standard card payments).",
+      "Listing fees: none. Listing items for sale is free, and unsold items cost nothing.",
+      "Refunds: if you refund an order, Discogs refunds the selling fee to your linked PayPal account according to its refund rules; PayPal's fixed fee is generally not returned."
+    ],
+    "tips": [
+      "Shipping is inside the 9%, so charge real postage and pick the cheapest safe service; every $1 of shipping costs $0.12 in Discogs and PayPal fees.",
+      "The $0.49 PayPal fixed fee makes $5 singles unprofitable on their own: fees on a $5 record with $4 shipping are about $1.61, 18% of the order. Encourage combined orders with a per-item shipping discount.",
+      "The 9% caps at $150, so a $2,000 rare pressing pays $150 to Discogs, not $180. PayPal's 3.49% has no cap, so high-value sales still cost about 11% all in.",
+      "Grade conservatively. Returns for grading disputes cost you the shipping both ways and PayPal keeps its fixed fee even when Discogs refunds its 9%.",
+      "Keep your PayPal statement: gross payment, Partner Commission and PayPal fee are separate lines, and you will need them for the fee deduction against your 1099-K."
+    ],
+    "faq": [
+      {"q": "How much does Discogs take from a sale?", "a": "9% of the item price plus shipping, with a $0.10 minimum and $150 maximum. On a $36 order that is $3.24. PayPal's processing fee (3.49% + $0.49 at its US Checkout rate) comes out of the same payment."},
+      {"q": "Does Discogs charge a fee on shipping?", "a": "Yes. Since May 22, 2023 the 9% selling fee applies to both the item price and the shipping cost. It does not apply to sales tax."},
+      {"q": "When does Discogs take its fee?", "a": "At the moment the buyer pays. Under the PayPal Payments Solution the fee is deducted from the buyer's payment automatically and sent to Discogs, so there is no monthly invoice to pay."},
+      {"q": "Is there a fee to list records on Discogs?", "a": "No. Listing is free, and you pay only when an item sells."},
+      {"q": "What are the PayPal fees on Discogs?", "a": "PayPal deducts its own processing fee from the gross payment before the money reaches your balance. Discogs does not publish the rate; PayPal's US merchant fees page lists 3.49% + $0.49 for PayPal Checkout commercial transactions. Payments from buyers in other countries cost more."},
+      {"q": "Do I get the Discogs fee back on a refund?", "a": "Discogs refunds the selling fee for refunded orders to your linked PayPal account under its refund rules. PayPal's own fees are governed by PayPal's refund policy and its fixed fee is generally not returned."}
+    ],
+    "notes": "The 9% rate, $0.10 minimum, $150 maximum and deduction-at-payment come from Discogs support pages as of September 2026 (fee article updated July 2026). Discogs does not publish PayPal's processing rate; this calculator uses PayPal's published US PayPal Checkout commercial rate of 3.49% + $0.49. Buyers paying by card through PayPal may be billed at PayPal's standard card rate (2.99% + $0.49), and international buyers add PayPal cross-border and currency fees; check your PayPal statement for the exact amount. Sales tax collected by Discogs is excluded from the 9%; whether PayPal's fee applies to the tax portion is not stated and is not modeled. The refund statement in the FAQ describes Discogs' general practice and was not verified against a specific refund policy page.",
+    "changelog": [
+      {"date": "2023-05-22", "change": "Selling fee increased from 8% to 9% and now applies to both the item price and the shipping cost."}
+    ]
+  },
+  "related": ["reverb", "ebay", "bandcamp", "paypal"]
+}

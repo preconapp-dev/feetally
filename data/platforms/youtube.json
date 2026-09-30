@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "slug": "youtube",
+  "name": "YouTube",
+  "category": "creator-platform",
+  "region": "United States",
+  "currency": "USD",
+  "tagline": "YouTube payout calculator: 55% of long-form ad revenue, 45% on Shorts, 70% of memberships and Super Chat.",
+  "fee_summary": "YouTube keeps 45% of net ad revenue on long-form videos, 55% of the Shorts revenue allocated to you, and 30% of net revenue from channel memberships, Super Chat, Super Stickers, and Super Thanks.",
+  "last_verified": "2026-09-29",
+  "sources": [
+    {"title": "YouTube Help: YouTube Partner Program overview & eligibility (revenue share terms)", "url": "https://support.google.com/youtube/answer/72902", "accessed": "2026-09-29"},
+    {"title": "YouTube Help: How to earn money on YouTube", "url": "https://support.google.com/youtube/answer/72857", "accessed": "2026-09-29"}
+  ],
+  "inputs": [
+    {"id": "revenue", "label": "Revenue before YouTube's share", "type": "money", "role": "price", "default": 1000, "help": "Net ad revenue from your videos, the Shorts revenue allocated to you, or the net amount fans paid for memberships or Super Chat."},
+    {"id": "revenue_type", "label": "Revenue type", "type": "select", "role": "other", "default": "ads_long",
+     "options": [
+       {"id": "ads_long", "label": "Long-form video ads (you keep 55%)", "note": "Ads displayed or streamed on your public videos."},
+       {"id": "shorts", "label": "Shorts ads (you keep 45%)", "note": "45% of the Creator Pool revenue allocated to you by share of views."},
+       {"id": "fan_funding", "label": "Memberships, Super Chat, Super Stickers, Super Thanks (you keep 70%)", "note": "Net revenue from fan funding features."}
+     ]},
+    {"id": "cost", "label": "Your cost for the period", "type": "money", "role": "cost", "default": 0, "help": "Optional: editing, gear, software, or other production cost you want to net out."},
+    {"id": "target_profit", "label": "Target take-home", "type": "money", "role": "target_profit", "default": 500, "help": "We'll show the revenue you need to generate."}
+  ],
+  "fees": [
+    {"id": "youtube_share", "label": "YouTube's share", "basis": "price",
+     "pct_by": {"input": "revenue_type", "values": {"ads_long": 45, "shorts": 55, "fan_funding": 30}, "default": 45},
+     "note": "YouTube keeps 45% of net long-form ad revenue, 55% of allocated Shorts revenue, and 30% of net fan funding revenue."}
+  ],
+  "worked_example": {
+    "inputs": {"revenue": 1000, "revenue_type": "ads_long", "cost": 0},
+    "expected": {"total_fees": 450.00, "net_payout": 550.00, "profit": 550.00},
+    "explanation": "On $1,000 of net ad revenue from long-form videos, YouTube keeps 45%, or $450.00, and pays you 55%, or $550.00. The same $1,000 from Shorts would pay $450.00, and $1,000 of memberships or Super Chat would pay $700.00. With no costs entered, profit equals the payout."
+  },
+  "content": {
+    "intro": "YouTube pays creators in the YouTube Partner Program (YPP) a share of the money their content earns. The share depends on where the money comes from: ads on regular videos, ads on Shorts, or fans paying directly through memberships and Super features.\n\nThe terms are spelled out in YouTube's Partner Program page. For ads displayed or streamed on your public long-form videos, YouTube pays 55% of net revenues and keeps 45%. For Shorts, ad revenue goes into a Creator Pool, YouTube allocates a portion to you based on your share of views, and pays 45% of that allocation. For channel memberships, Super Chat, Super Stickers, and Super Thanks, YouTube pays 70% of net revenues and keeps 30%.\n\nSo $1,000 of net long-form ad revenue nets you $550, $1,000 of allocated Shorts revenue nets you $450, and $1,000 of net fan funding nets you $700. There is no listing, upload, or monthly fee; YouTube's cut is the only cost of monetizing.\n\nTwo caveats. The percentages apply to net revenues as YouTube defines them, after its own deductions, so what you see in YouTube Analytics is already your side of the split. And ad revenue depends entirely on advertiser demand (RPM), which this calculator does not predict; enter the revenue you earned or expect and it shows the split.",
+    "how_fees_work": [
+      "Long-form video ads: YouTube pays you 55% of net revenues from ads displayed or streamed on your public videos, so its share is 45%. This is the Watch Page Monetization Module of the YPP terms.",
+      "Shorts ads: revenue from ads between Shorts is pooled, a portion is allocated to you based on your share of views, and YouTube pays 45% of that allocation. YouTube's effective share of your allocation is 55%.",
+      "Channel memberships, Super Chat, Super Stickers, Super Thanks: YouTube pays 70% of net revenues from these features and keeps 30%.",
+      "Net revenues: the percentages apply to net revenue as defined in YouTube's terms, after YouTube's applicable deductions. YouTube's help page does not itemize those deductions, and the figures in YouTube Analytics reflect your share.",
+      "No fixed fees: there is no cost to join YPP, upload, or list products. YouTube earns only its percentage of what your content makes.",
+      "Payouts run through AdSense for YouTube; the payment threshold and monthly payment window are on Google's AdSense payment pages and were not verified for this calculator."
+    ],
+    "tips": [
+      "Weight your effort toward long-form when RPMs are similar. You keep 55% of long-form ad revenue but 45% of Shorts revenue, so the same gross earns you about 22% more on a regular video.",
+      "Push memberships and Super Thanks. At 70%, fan funding is the highest-paying revenue type: $10 in Super Thanks pays $7, while $10 of ad revenue pays $5.50.",
+      "Read your Analytics revenue as your share. The estimated revenue YouTube shows is already after YouTube's cut, so do not subtract 45% again when planning.",
+      "Use the calculator backward to set goals. To take home $2,000 from long-form ads you need about $3,636 of net ad revenue; from memberships you need about $2,857.",
+      "Track revenue by type. YouTube Analytics separates ad revenue from Shorts and fan funding, which makes it easy to see where your 55%, 45%, and 70% dollars come from."
+    ],
+    "faq": [
+      {"q": "How much does YouTube take from creators?", "a": "45% of net ad revenue on long-form videos, 55% of the Shorts revenue allocated to you, and 30% of net revenue from memberships, Super Chat, Super Stickers, and Super Thanks."},
+      {"q": "What is the YouTube Shorts revenue share?", "a": "YouTube pays creators 45% of the revenue allocated to them from the Shorts Creator Pool, based on their share of views. YouTube keeps the other 55%."},
+      {"q": "How much does YouTube take from Super Chat?", "a": "30%. YouTube pays 70% of net revenues from Super Chat, Super Stickers, Super Thanks, and channel memberships."},
+      {"q": "Does YouTube charge a monthly fee to monetize?", "a": "No. Joining the YouTube Partner Program is free; YouTube only takes its percentage of the revenue your content generates."},
+      {"q": "How much do I keep from $1,000 of YouTube ad revenue?", "a": "$550 if it is net ad revenue from long-form videos (55%), $450 if it is Shorts revenue allocated to you (45%), and $700 if it is membership or Super Chat revenue (70%)."},
+      {"q": "Is the 55% based on what advertisers pay?", "a": "It is 55% of net revenues as defined in YouTube's terms, after YouTube's applicable deductions, not necessarily 55% of the advertiser's gross spend."}
+    ],
+    "notes": "The percentages apply to net revenues as defined in the YouTube Partner Program terms; YouTube's help page does not itemize deductions. Revenue from YouTube Premium, Shopping, and BrandConnect is not shown with a percentage on the page read and is not modeled. The AdSense payment threshold and payout dates were not verified from an official page for this calculator.",
+    "changelog": []
+  },
+  "related": ["twitch", "kick", "patreon", "tiktok-shop"]
+}

@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "slug": "goat",
+  "name": "GOAT",
+  "category": "resale-app",
+  "region": "United States",
+  "currency": "USD",
+  "tagline": "GOAT seller fee calculator: 9.5% commission, $0–$5 seller fee, and 2.9% cash-out fee, with your real payout.",
+  "fee_summary": "GOAT deducts a 9.5% commission from the listing price (higher if your seller rating drops below 90) plus a flat seller fee of $5 for prepaid shipping or $0 for drop-off in the US. Cashing out to a bank or PayPal costs another 2.9% of your earnings.",
+  "last_verified": "2026-09-29",
+  "sources": [
+    {"title": "GOAT – Fee Policy (Last Updated August 1, 2026)", "url": "https://www.goat.com/fees", "accessed": "2026-09-29"},
+    {"title": "GOAT Support – What are the commissions for selling on GOAT?", "url": "https://support.goat.com/hc/en-us/articles/115004770888-What-are-the-commissions-for-selling-on-GOAT", "accessed": "2026-09-29"},
+    {"title": "GOAT Support – What is my Seller Fee?", "url": "https://support.goat.com/hc/en-us/articles/360003037832-What-is-my-Seller-Fee", "accessed": "2026-09-29"}
+  ],
+  "inputs": [
+    {"id": "sale_price", "label": "Listing price", "type": "money", "role": "price", "default": 180, "help": "The price your item sells for on GOAT."},
+    {"id": "rating", "label": "Seller rating", "type": "select", "role": "other", "default": "good",
+     "options": [
+       {"id": "good", "label": "90 or above – 9.5% commission", "note": "Seller in good standing"},
+       {"id": "mid", "label": "70 to 89 – 15% commission"},
+       {"id": "low", "label": "50 to 69 – 20% commission"},
+       {"id": "lowest", "label": "Below 50 – 25% commission"}
+     ]},
+    {"id": "submission", "label": "How you send it to GOAT", "type": "select", "role": "other", "default": "prepaid",
+     "options": [
+       {"id": "prepaid", "label": "Prepaid shipping label – $5 seller fee"},
+       {"id": "dropoff", "label": "Drop-off at a GOAT location – $0 seller fee"}
+     ]},
+    {"id": "cash_out", "label": "Cash out to bank or PayPal (2.9% fee)", "type": "toggle", "role": "other", "default": true},
+    {"id": "item_cost", "label": "What the item cost you", "type": "money", "role": "cost", "default": 120, "help": "Retail price you paid, or your sourcing cost, including tax."},
+    {"id": "target_profit", "label": "Target profit", "type": "money", "role": "target_profit", "default": 30, "help": "We'll show the listing price you need to clear this much."}
+  ],
+  "fees": [
+    {"id": "commission", "label": "Commission", "basis": "price",
+     "pct_by": {"input": "rating", "values": {"good": 9.5, "mid": 15, "low": 20, "lowest": 25}, "default": 9.5},
+     "note": "9.5% of the listing price for a seller rating of 90 or above; 15% for 70–89; 20% for 50–69; 25% below 50."},
+    {"id": "seller_fee", "label": "Seller fee", "basis": "none",
+     "fixed_by": {"input": "submission", "values": {"prepaid": 5, "dropoff": 0}, "default": 5},
+     "note": "Flat fee per sale for US sellers: $5 with a prepaid shipping label, $0 for drop-off."},
+    {"id": "cashout", "label": "Cash-out fee (2.9% of earnings)", "basis": "price",
+     "pct_by": {"input": "rating", "values": {"good": 2.6245, "mid": 2.465, "low": 2.32, "lowest": 2.175}, "default": 2.6245},
+     "fixed_by": {"input": "submission", "values": {"prepaid": -0.145, "dropoff": 0}, "default": -0.145},
+     "when": {"input": "cash_out", "equals": true},
+     "note": "2.9% of the amount you cash out, i.e. of the listing price minus commission and seller fee. Expressed here as 2.9% × (100% − commission rate) of the price, minus 2.9% of the seller fee, so the result equals 2.9% of your earnings to the cent."}
+  ],
+  "worked_example": {
+    "inputs": {"sale_price": 180, "rating": "good", "submission": "prepaid", "cash_out": true, "item_cost": 120},
+    "expected": {"total_fees": 26.68, "net_payout": 153.32, "profit": 33.32},
+    "explanation": "A pair sells for $180 from a seller rated 90 or above who mails it in with GOAT's prepaid label. Commission is 9.5% of $180 = $17.10 and the seller fee is $5.00, so earnings are $157.90. Cashing out to a bank account costs 2.9% of $157.90 = $4.58. Total fees are $26.68 and $153.32 lands in the bank. After the $120 paid at retail, profit is $33.32."
+  },
+  "content": {
+    "intro": "GOAT is a resale marketplace for sneakers, apparel, and accessories, both new and used. Sellers list an item at their own price, and when it sells they send it to GOAT for verification before it goes to the buyer. Most sellers are individuals and small resellers flipping limited releases.\n\nThree fees apply to a US sale. First, a commission of 9.5% is deducted from the listing price for sellers with a rating of 90 or above. The rate climbs to 15% for ratings of 70 to 89, 20% for 50 to 69, and 25% below 50, driven by cancellations and verification problems. Second, a flat seller fee per sale: $5 if you mail the item with GOAT's prepaid shipping label, or $0 if you drop it off at a GOAT location. Third, a 2.9% cash-out fee when you move earnings to a bank account by ACH or to PayPal; you need more than $25 in earnings to cash out.\n\nOn a $180 pair with a good rating and prepaid shipping, that is $17.10 commission, $5.00 seller fee, and $4.58 to cash out, for a net $153.32. The buyer pays shipping and any sales tax on top of your price.\n\nGOAT's fee policy was last updated August 1, 2026, and accounts inactive for two years are charged a $1 monthly maintenance fee.",
+    "how_fees_work": [
+      "Commission: 9.5% of the listing price for a seller rating of 90 or above, charged only when the item sells. Canadian sellers pay 12.4%.",
+      "Higher commission for low ratings: 15% at a rating of 70–89, 20% at 50–69, and 25% below 50. Ratings fall with cancellations and items that fail verification.",
+      "Seller fee: a flat amount per sale based on your location and how you submit the item. In the US it is $5 with a prepaid shipping label or $0 for drop-off. It is deducted along with the commission.",
+      "Cash-out fee: 2.9% of the earnings you withdraw through ACH direct deposit or PayPal. Earnings must exceed $25 to cash out. The calculator applies it to the listing price minus commission and seller fee.",
+      "Shipping and tax: the buyer pays shipping and any sales tax at checkout, so they are not part of your fee base.",
+      "Maintenance fee: $1 per month charged to the account balance after two years with no registered account activity."
+    ],
+    "tips": [
+      "Protect your rating. Dropping from 90+ to 89 raises commission from 9.5% to 15%, which costs an extra $9.90 on a $180 sale. Do not list what you cannot ship, and check condition before listing.",
+      "Drop off if you can. Skipping the $5 prepaid label on ten sales saves $50 plus the 2.9% cash-out fee on that $50.",
+      "Batch cash-outs do not save money (the fee is a flat 2.9%), but leaving earnings as GOAT credit avoids the fee only if you would spend it on GOAT anyway.",
+      "Price with all three fees in mind. To clear $30 profit on a $120 pair with prepaid shipping, list at $176.22 or higher.",
+      "Compare with StockX per sale: at a 90+ rating GOAT takes roughly 12.4% plus $5 on a $180 sale; StockX takes 12% at Level 1 with a $5 minimum, so the two are close until your StockX level rises."
+    ],
+    "faq": [
+      {"q": "What are GOAT's seller fees in 2026?", "a": "A 9.5% commission on the listing price (for a seller rating of 90+), a flat seller fee of $5 (prepaid shipping) or $0 (drop-off) in the US, and a 2.9% fee when you cash out to a bank or PayPal."},
+      {"q": "Does GOAT charge sellers for shipping?", "a": "The buyer pays shipping to themselves. Sending the item to GOAT costs the $5 seller fee if you use GOAT's prepaid label, or nothing if you drop it off at a GOAT location."},
+      {"q": "How much does GOAT take on a $200 sale?", "a": "With a 90+ rating and prepaid shipping: $19.00 commission + $5.00 seller fee = $24.00, leaving $176.00 in earnings. Cashing out costs 2.9% of that, $5.10, so $170.90 reaches your bank."},
+      {"q": "Why is my GOAT commission higher than 9.5%?", "a": "Your seller rating dropped. GOAT charges 15% at a rating of 70–89, 20% at 50–69, and 25% below 50, mainly because of cancellations and verification issues."},
+      {"q": "What is the GOAT cash-out fee?", "a": "2.9% of the amount withdrawn by ACH direct deposit or PayPal. You can cash out once total earnings are above $25."},
+      {"q": "Does GOAT charge a listing fee?", "a": "No. Listing is free and the commission is charged only when an item sells."},
+      {"q": "Does GOAT charge fees on sales tax?", "a": "Sales tax is collected from the buyer at checkout and is not part of your listing price, so no commission is taken on it."}
+    ],
+    "notes": "All figures are from GOAT's Fee Policy (last updated August 1, 2026) and Support Center. The cash-out fee is modeled as 2.9% of earnings after commission and the seller fee, which is why the rule stores 2.9% × (100% − commission rate) with a small negative fixed part; the displayed amount equals 2.9% of what you actually withdraw. GOAT's pages do not say whether the cash-out percentage is applied per withdrawal or per sale; withdrawing several sales at once gives the same total. Payout timing after verification and the list of GOAT drop-off locations were not verified for this update. Canadian sellers pay 12.4% base commission and different seller fees.",
+    "changelog": [
+      {"date": "2026-08-01", "change": "GOAT Fee Policy updated: US seller fee listed as $0 for drop-off and $5 for prepaid shipping; 9.5% base commission and 2.9% cash-out fee unchanged."}
+    ]
+  },
+  "related": ["stockx", "grailed", "ebay", "whatnot"]
+}

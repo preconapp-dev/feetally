@@ -1,0 +1,189 @@
+{
+  "schema_version": 1,
+  "slug": "stockx",
+  "name": "StockX",
+  "category": "resale-app",
+  "region": "United States",
+  "currency": "USD",
+  "tagline": "StockX seller fee calculator: 9% to 7% transaction fee by seller level plus 3% processing, and payout.",
+  "fee_summary": "StockX charges a transaction fee of 9% (Level 1) down to 7% (Level 5) of the final sale price, with a $5 minimum, plus a 3% payment processing fee. The buyer pays shipping, so it does not affect your fee.",
+  "last_verified": "2026-09-29",
+  "sources": [
+    {
+      "title": "StockX Help – What are StockX's fees for sellers?",
+      "url": "https://stockx.com/help/articles/what-are-stockxs-fees-for-sellers",
+      "accessed": "2026-09-29"
+    },
+    {
+      "title": "StockX Help – What is the StockX Seller Program? What are Seller Levels?",
+      "url": "https://stockx.com/help/articles/what-is-the-stockx-seller-program-what-are-seller-levels",
+      "accessed": "2026-09-29"
+    },
+    {
+      "title": "StockX News – Lower Base Fees for All Sellers (Jun 1, 2023)",
+      "url": "https://stockx.com/news/stockx-seller-program/",
+      "accessed": "2026-09-29"
+    }
+  ],
+  "inputs": [
+    {
+      "id": "sale_price",
+      "label": "Sale price",
+      "type": "money",
+      "role": "price",
+      "default": 180,
+      "help": "The final sale price: your Ask, or the Bid you sold to."
+    },
+    {
+      "id": "seller_level",
+      "label": "Seller level",
+      "type": "select",
+      "role": "other",
+      "default": "level1",
+      "options": [
+        {
+          "id": "level1",
+          "label": "Level 1 – 9%",
+          "note": "Default level, no quarterly sales requirement"
+        },
+        {
+          "id": "level2",
+          "label": "Level 2 – 8.5%",
+          "note": "12 sales or $1,500 in a quarter"
+        },
+        {
+          "id": "level3",
+          "label": "Level 3 – 8%",
+          "note": "40 sales or $5,000 in a quarter"
+        },
+        {
+          "id": "level4",
+          "label": "Level 4 – 7.5%",
+          "note": "200 sales or $25,000 in a quarter"
+        },
+        {
+          "id": "level5",
+          "label": "Level 5 – 7%",
+          "note": "800 sales or $100,000 in a quarter"
+        }
+      ]
+    },
+    {
+      "id": "item_cost",
+      "label": "What the item cost you",
+      "type": "money",
+      "role": "cost",
+      "default": 120,
+      "help": "Retail price you paid, or your sourcing cost, including tax."
+    },
+    {
+      "id": "target_profit",
+      "label": "Target profit",
+      "type": "money",
+      "role": "target_profit",
+      "default": 30,
+      "help": "We'll show the sale price you need to clear this much."
+    }
+  ],
+  "fees": [
+    {
+      "id": "transaction_fee",
+      "label": "Transaction fee",
+      "basis": "price",
+      "pct_by": {
+        "input": "seller_level",
+        "values": {
+          "level1": 9,
+          "level2": 8.5,
+          "level3": 8,
+          "level4": 7.5,
+          "level5": 7
+        },
+        "default": 9
+      },
+      "min": 5,
+      "note": "9% at Level 1, 8.5% at Level 2, 8% at Level 3, 7.5% at Level 4, 7% at Level 5, calculated on the final sale price. Minimum $5.00 for US sellers."
+    },
+    {
+      "id": "processing",
+      "label": "Payment processing fee",
+      "basis": "price",
+      "pct": 3,
+      "note": "3% of the final sale price on the Verified Marketplace, at every seller level."
+    }
+  ],
+  "worked_example": {
+    "inputs": {
+      "sale_price": 180,
+      "seller_level": "level1",
+      "item_cost": 120
+    },
+    "expected": {
+      "total_fees": 21.6,
+      "net_payout": 158.4,
+      "profit": 38.4
+    },
+    "explanation": "A pair of sneakers sells for $180 to a Level 1 seller. The transaction fee is 9% of $180 = $16.20 (above the $5 minimum) and payment processing is 3% of $180 = $5.40, so fees total $21.60. The payout is $180.00 − $21.60 = $158.40. After the $120 the seller paid at retail, profit is $38.40. The buyer pays shipping separately."
+  },
+  "content": {
+    "intro": "StockX is a bid/ask marketplace for sneakers, streetwear, trading cards, collectibles, and electronics. Sellers list an Ask or accept a Bid, ship the item to StockX for verification, and StockX forwards it to the buyer. Sellers range from people flipping a single retail pair to high-volume resellers moving hundreds of pairs a quarter.\n\nTwo fees come out of every Verified Marketplace sale. The transaction fee depends on your seller level: 9% at Level 1, 8.5% at Level 2, 8% at Level 3, 7.5% at Level 4, and 7% at Level 5, with a $5.00 minimum for US sellers. Levels are earned by quarterly volume: Level 2 needs 12 sales or $1,500, Level 3 needs 40 sales or $5,000, Level 4 needs 200 sales or $25,000, and Level 5 needs 800 sales or $100,000. Once you reach a level, you keep it through the current quarter and the following one.\n\nThe second fee is 3% payment processing, charged at every level. Both fees are calculated on the final sale price. Shipping is paid by the buyer and sales tax is handled by StockX, so neither changes your payout.\n\nOn a $180 pair at Level 1, fees are $16.20 plus $5.40, and you receive $158.40. The same sale at Level 5 pays $162.00. StockX's newer Listings Marketplace and StockX Live charged sellers no standard selling or processing fees at launch, with buyers covering those costs instead.",
+    "how_fees_work": [
+      "Transaction fee: a percentage of the final sale price set by your seller level. Level 1 is 9%, Level 2 is 8.5%, Level 3 is 8%, Level 4 is 7.5%, Level 5 is 7%.",
+      "Minimum transaction fee: $5.00 for US sellers. It only matters on cheap items: below about $56 at Level 1, the $5 minimum is more than 9%.",
+      "Payment processing fee: 3% of the final sale price, charged on every Verified Marketplace sale regardless of level.",
+      "Seller levels: earned on a calendar-quarter basis by either sales count or dollar volume (Level 2: 12 sales or $1,500; Level 3: 40 or $5,000; Level 4: 200 or $25,000; Level 5: 800 or $100,000). A level you reach applies for the rest of that quarter and the next one.",
+      "Shipping and tax: the buyer pays shipping and any sales tax at checkout; they are not part of your fee base. You ship the item to a StockX verification center.",
+      "Listings Marketplace and StockX Live: at launch, StockX charged sellers no standard selling or processing fees on these formats; the buyer covers the processing fee and shipping. Penalty and return-related fees can still apply."
+    ],
+    "tips": [
+      "Chase the next level near quarter end. Going from Level 1 to Level 2 saves 0.5% on every sale for the rest of that quarter and all of the next; on $5,000 of quarterly sales that is $25.",
+      "Watch the $5 minimum on low-value items. A $30 sale pays a $5.00 transaction fee (16.7%) plus $0.90 processing, so cheap accessories and cards lose a large share to fees.",
+      "Price Asks with the full 12% in mind at Level 1. To clear a $30 profit on a $120 retail pair, your Ask needs to be $170.45 or higher.",
+      "Compare with GOAT before you list. GOAT's 9.5% commission plus a $5 mailing fee and 2.9% cash-out fee often comes out close to StockX's 12%, but the ranking flips as your StockX level rises.",
+      "Sell to existing Bids when the spread is small. The fee percentage is the same either way, and selling now avoids the risk of the market dropping while your Ask sits."
+    ],
+    "faq": [
+      {
+        "q": "What are StockX seller fees in 2026?",
+        "a": "A transaction fee of 9% (Level 1), 8.5% (Level 2), 8% (Level 3), 7.5% (Level 4), or 7% (Level 5) of the sale price, with a $5 minimum, plus a 3% payment processing fee."
+      },
+      {
+        "q": "Does StockX charge sellers for shipping?",
+        "a": "The buyer pays shipping at checkout, and the seller's fees are calculated on the sale price only. You ship the item to StockX for verification; check the Help Center for label details in your region."
+      },
+      {
+        "q": "How much does StockX take on a $200 sale?",
+        "a": "At Level 1, 9% ($18.00) plus 3% ($6.00) = $24.00, leaving $176.00. At Level 3 it is $22.00 in fees and a $178.00 payout."
+      },
+      {
+        "q": "What is the minimum StockX seller fee?",
+        "a": "$5.00 for US sellers. If your level's percentage of the sale price is less than $5, you pay $5 for the transaction fee; the 3% processing fee is added on top."
+      },
+      {
+        "q": "How do I get a lower fee on StockX?",
+        "a": "Move up seller levels. Level 2 needs 12 sales or $1,500 in a calendar quarter, Level 3 needs 40 sales or $5,000, Level 4 needs 200 sales or $25,000, and Level 5 needs 800 sales or $100,000."
+      },
+      {
+        "q": "Does StockX charge a fee to buyers?",
+        "a": "Yes, buyers pay a processing fee and shipping at checkout. Those are separate from the seller's transaction and processing fees."
+      },
+      {
+        "q": "When does StockX pay sellers?",
+        "a": "Payouts are released after the item passes verification at a StockX facility and are sent to your linked payout method; the exact timing depends on the payout method and is listed in the StockX Help Center."
+      }
+    ],
+    "notes": "Fee percentages and level requirements verified on the StockX Help Center. The $5.00 US minimum is described there as a 'minimum seller fee' and is applied here to the transaction fee. The Help Center page carries no update date; the level fees shown differ from the 2023 announcement (which listed 9% base with bonus reductions), so treat the Help Center figures as current. Shipping-label costs for sellers and payout timing were not verified on an official page for this update. Listings Marketplace and StockX Live fee statements are 'at launch' and may change; this calculator models the Verified Marketplace only. Occasional promotions (for example, limited-time 0% processing) are not modeled.",
+    "changelog": [
+      {
+        "date": "2023-07-01",
+        "change": "StockX lowered the base transaction fee by 1% across all seller levels, to 9% at Level 1 (announced June 1, 2023)."
+      }
+    ]
+  },
+  "related": [
+    "goat",
+    "grailed",
+    "ebay",
+    "whatnot"
+  ]
+}

@@ -1,0 +1,219 @@
+{
+  "schema_version": 1,
+  "slug": "tcgplayer",
+  "name": "TCGplayer",
+  "category": "marketplace",
+  "region": "United States",
+  "currency": "USD",
+  "tagline": "TCGplayer seller fee calculator: 10.75% commission plus 2.5% + $0.30 processing, and your exact payout.",
+  "fee_summary": "Standard TCGplayer sellers pay a 10.75% marketplace commission on the item price plus shipping (capped at $75 per product), and a 2.5% + $0.30 transaction fee on the order total including shipping and tax. Pro sellers pay 9.25% commission plus a 2.5% Pro fee.",
+  "last_verified": "2026-09-29",
+  "sources": [
+    {
+      "title": "TCGplayer Help – TCGplayer Fees",
+      "url": "https://help.tcgplayer.com/hc/en-us/articles/201357836-TCGplayer-Fees",
+      "accessed": "2026-09-29"
+    },
+    {
+      "title": "TCGplayer Help – Fee Calculation Examples",
+      "url": "https://help.tcgplayer.com/hc/en-us/articles/360047732673-Fee-Calculation-Examples",
+      "accessed": "2026-09-29"
+    },
+    {
+      "title": "TCGplayer Help – Marketplace Fee Cap Increase FAQ",
+      "url": "https://help.tcgplayer.com/hc/en-us/articles/37531606328727-Marketplace-Fee-Cap-Increase-FAQ",
+      "accessed": "2026-09-29"
+    }
+  ],
+  "inputs": [
+    {
+      "id": "sale_price",
+      "label": "Card price",
+      "type": "money",
+      "role": "price",
+      "default": 25,
+      "help": "The listed price the card sells for, before shipping and tax."
+    },
+    {
+      "id": "shipping_charged",
+      "label": "Shipping the buyer pays",
+      "type": "money",
+      "role": "shipping_charged",
+      "default": 0.99,
+      "help": "Shipping charged on the order. Both the commission and the transaction fee apply to it. Enter 0 for free shipping."
+    },
+    {
+      "id": "sales_tax",
+      "label": "Sales tax collected",
+      "type": "money",
+      "role": "other",
+      "default": 0,
+      "help": "Optional. The 2.5% transaction fee also applies to tax on the order. Leave at 0 if you don't know it."
+    },
+    {
+      "id": "seller_type",
+      "label": "Seller type",
+      "type": "select",
+      "role": "other",
+      "default": "standard",
+      "options": [
+        {
+          "id": "standard",
+          "label": "Standard seller (Level 1–4) – 10.75%"
+        },
+        {
+          "id": "pro",
+          "label": "Pro seller (non-Direct) – 9.25% + 2.5% Pro fee"
+        }
+      ]
+    },
+    {
+      "id": "item_cost",
+      "label": "What the card cost you",
+      "type": "money",
+      "role": "cost",
+      "default": 12,
+      "help": "Your buy price or pull cost."
+    },
+    {
+      "id": "shipping_cost",
+      "label": "What shipping costs you",
+      "type": "money",
+      "role": "shipping_cost",
+      "default": 1,
+      "help": "Postage, envelope, sleeve, and top loader."
+    },
+    {
+      "id": "target_profit",
+      "label": "Target profit",
+      "type": "money",
+      "role": "target_profit",
+      "default": 5,
+      "help": "We'll show the card price you need to clear this much."
+    }
+  ],
+  "fees": [
+    {
+      "id": "commission",
+      "label": "Marketplace commission",
+      "basis": "price_plus_shipping",
+      "pct_by": {
+        "input": "seller_type",
+        "values": {
+          "standard": 10.75,
+          "pro": 9.25
+        },
+        "default": 10.75
+      },
+      "max": 75,
+      "note": "10.75% for standard (Level 1–4) sellers, 9.25% for Pro sellers, on the item price plus shipping. Capped at $75 per product sold."
+    },
+    {
+      "id": "pro_fee",
+      "label": "Pro fee",
+      "basis": "price_plus_shipping",
+      "pct": 2.5,
+      "max": 75,
+      "when": {
+        "input": "seller_type",
+        "equals": "pro"
+      },
+      "note": "2.5% of the item price plus shipping for Pro sellers, capped at $75 per product sold."
+    },
+    {
+      "id": "transaction_fee",
+      "label": "Transaction fee",
+      "basis": "price_plus_shipping",
+      "pct": 2.5,
+      "fixed": 0.3,
+      "note": "2.5% + $0.30 per order on the order total (items + shipping + tax) for US orders; 3.5% + $0.30 for international orders."
+    },
+    {
+      "id": "transaction_fee_tax",
+      "label": "Transaction fee on sales tax",
+      "basis": "input:sales_tax",
+      "pct": 2.5,
+      "when": {
+        "input": "sales_tax",
+        "gt": 0
+      },
+      "note": "The 2.5% transaction rate also applies to the sales tax collected on the order."
+    }
+  ],
+  "worked_example": {
+    "inputs": {
+      "sale_price": 25,
+      "shipping_charged": 0.99,
+      "seller_type": "standard",
+      "item_cost": 12,
+      "shipping_cost": 1
+    },
+    "expected": {
+      "total_fees": 3.74,
+      "net_payout": 22.25,
+      "profit": 9.25
+    },
+    "explanation": "A standard seller sells a $25 card with $0.99 shipping, so the buyer pays $25.99 before tax. The marketplace commission is 10.75% of $25.99 = $2.79. The transaction fee is 2.5% of $25.99 = $0.65 plus $0.30 = $0.95. Fees total $3.74 and the payout is $25.99 − $3.74 = $22.25. After the $12 the card cost and $1 of postage and supplies, profit is $9.25."
+  },
+  "content": {
+    "intro": "TCGplayer is the largest US marketplace for trading card games: Magic: The Gathering, Pokémon, Yu-Gi-Oh!, Lorcana, One Piece, and more, plus sealed product and accessories. Sellers range from players flipping a few pulls to local game stores syncing thousands of listings, and the marketplace is owned by eBay.\n\nA standard seller (Level 1 through 4) pays two fees on every order. The marketplace commission is 10.75% of the item price plus shipping, capped at $75 per product sold. The transaction fee is 2.5% + $0.30 per order, calculated on the full order total including shipping and sales tax. On a $25 card with $0.99 shipping, that is $2.79 plus $0.95, leaving $22.25 before postage.\n\nPro sellers, who get the Pro storefront and tools, pay a lower 9.25% commission but add a 2.5% Pro fee, both also capped at $75 per product, so their marketplace-side rate is 11.75% versus 10.75% for standard sellers. Sellers who sync inventory through Crystal Commerce, BinderPOS, or Ion pay 9.25% with no Pro fee.\n\nTCGplayer Direct sellers, who ship inventory to TCGplayer for fulfillment, pay 8.95% commission, a 2.5% transaction fee on items only, and per-card Direct fees. Direct is not modeled here; see the notes.",
+    "how_fees_work": [
+      "Marketplace commission (standard sellers): 10.75% of the item price and of the shipping charged, capped at $75 per product sold. TCGplayer's own example shows the commission applied separately to the card price and the shipping.",
+      "Transaction fee: 2.5% of the order total (items + shipping + tax) plus $0.30 per order for US orders. International orders are charged 3.5% + $0.30.",
+      "Pro sellers (non-Direct): 9.25% marketplace commission plus a 2.5% Pro fee, each capped at $75 per product, with the same 2.5% + $0.30 transaction fee.",
+      "Sync sellers (Crystal Commerce, BinderPOS, Ion): 9.25% commission, no Pro fee, same transaction fee. Sync provider fees are set by the provider.",
+      "Direct sellers: 8.95% commission (plus 2.5% Pro fee on Pro accounts), a 2.5% transaction fee on items only, and Direct fees of $1.12 per card above $2.49 or 50% of the card value for cards at $2.49 or less.",
+      "The $0.30 is per order, not per card, so multi-card orders spread it across every card in the package."
+    ],
+    "tips": [
+      "Encourage bigger orders. The $0.30 fixed fee is per order, so a $2 single with $0.99 shipping loses about 23% to fees while a $50 order of ten singles loses about 14%.",
+      "Price shipping realistically. Both the 10.75% commission and the 2.5% transaction fee apply to shipping, so charging $3.99 for an envelope costs you about $0.53 in fees on the shipping alone.",
+      "Standard sellers pay 1% less than Pro on the marketplace side (10.75% vs 11.75%). Only move to Pro if the storefront, buylist, or tools earn back that point.",
+      "For high-value cards the $75 cap kicks in above about $697 at 10.75%: a $1,000 card pays $75 commission (7.5%), not $107.50.",
+      "Keep supplies cheap. On a $25 card, a $1 penny sleeve, top loader, and envelope combo is a bigger cost than the $0.30 fixed fee."
+    ],
+    "faq": [
+      {
+        "q": "What are TCGplayer's seller fees in 2026?",
+        "a": "Standard sellers pay a 10.75% marketplace commission on the item price plus shipping (capped at $75 per product) and a 2.5% + $0.30 transaction fee on the order total including tax. Pro sellers pay 9.25% plus a 2.5% Pro fee."
+      },
+      {
+        "q": "Does TCGplayer charge fees on shipping?",
+        "a": "Yes. Both the marketplace commission and the 2.5% transaction fee apply to the shipping charged to the buyer, and the transaction fee also applies to sales tax on the order."
+      },
+      {
+        "q": "How much does TCGplayer take on a $100 sale?",
+        "a": "With $0.99 shipping and no tax, a standard seller pays 10.75% of $100.99 = $10.86 commission plus 2.5% of $100.99 + $0.30 = $2.82, so $13.68 in fees and a payout of $87.31."
+      },
+      {
+        "q": "What is the TCGplayer fee cap?",
+        "a": "Marketplace commission and Pro fees are capped at $75 per product sold. The 2.5% + $0.30 transaction fee is not capped."
+      },
+      {
+        "q": "Is TCGplayer Pro cheaper than a standard account?",
+        "a": "Not on fees alone. Pro pays 9.25% commission plus a 2.5% Pro fee (11.75% total) versus 10.75% for standard sellers. Pro adds a storefront, buylist, and tools rather than a discount."
+      },
+      {
+        "q": "Does TCGplayer charge a listing or monthly fee?",
+        "a": "No. Listing is free and fees are charged only when an order is placed. Certain Pro tiers and sync providers have their own subscription costs."
+      },
+      {
+        "q": "When does TCGplayer pay sellers?",
+        "a": "Order proceeds are credited to your seller balance after fees, and payouts follow TCGplayer's payment schedule (typically weekly by direct deposit). Check the seller help center for current payout timing."
+      }
+    ],
+    "notes": "Fee percentages and the $75 per-product cap are from the TCGplayer Fees page (last updated for clarity 8/20/25) and the Fee Calculation Examples page (updated 4/24/26). Direct sellers, Sync sellers, and international orders (3.5% + $0.30) are described in the fee table but not modeled; Direct also carries per-card fees and a minimum-price requirement for Direct-fulfilled inventory (enforced by February 10, 2026). This calculator rounds each fee line separately, so totals can differ from TCGplayer's own examples by a cent. The per-product cap is applied here to a single product; multi-quantity orders are capped per product, not per order. Payout timing was not verified on an official page for this update. TCGplayer's help center does not state a date for the move to 10.75% for standard sellers.",
+    "changelog": [
+      {
+        "date": "2026-02-10",
+        "change": "Direct minimum price requirement enforced for all Direct-fulfilled inventory (Direct Seller Agreement updated January 22, 2026)."
+      }
+    ]
+  },
+  "related": [
+    "ebay",
+    "whatnot",
+    "mercari",
+    "shopify"
+  ]
+}

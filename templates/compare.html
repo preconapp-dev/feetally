@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block head %}
+<script type="application/ld+json">{{ jsonld|safe }}</script>
+{% endblock %}
+{% block content %}
+<div class="page-head">
+  <span class="eyebrow"><a href="{{ rel('') }}">All calculators</a></span>
+  <h1>Compare Platform Fees Side by Side</h1>
+  <p class="lead">Enter one sale and see what each platform would leave you with, using each platform's default plan and category. Open any row for the full calculator.</p>
+</div>
+<div class="card">
+  <div class="compare-controls">
+    <div class="field"><label for="cmp-hub">Platform group</label><div class="input-wrap"><select id="cmp-hub">{% for hub in hubs %}<option value="{{ hub.slug }}">{{ hub.short }}</option>{% endfor %}</select></div></div>
+    <div class="field"><label for="cmp-price">Sale price / amount</label><div class="input-wrap"><span class="adorn">$</span><input type="number" inputmode="decimal" id="cmp-price" value="50" min="0" step="0.01"></div></div>
+    <div class="field" id="cmp-ship-field"><label for="cmp-ship">Shipping charged to buyer</label><div class="input-wrap"><span class="adorn">$</span><input type="number" inputmode="decimal" id="cmp-ship" value="0" min="0" step="0.01"></div><span class="help">Used only where the platform charges fees on shipping.</span></div>
+    <div class="field"><label for="cmp-cost">Your cost (optional)</label><div class="input-wrap"><span class="adorn">$</span><input type="number" inputmode="decimal" id="cmp-cost" value="0" min="0" step="0.01"></div></div>
+  </div>
+  <div id="cmp-out"></div>
+  <p class="notice" id="cmp-note"></p>
+</div>
+
+{{ ad('top')|safe }}
+
+<section class="section">
+  <h2>How to read this table</h2>
+  <p>"You keep" is the sale price plus any shipping you charged, minus every seller-side fee at that platform's default settings: no store subscription, the most common category, standard payment method, no optional ads. Platforms whose fees depend heavily on a plan or category (Amazon, Shopify, StockX) can look better or worse than this once you pick your own options, so treat the table as a first cut and open the calculator that matters to you.</p>
+  <p>Buyer-paid fees (Vinted's buyer protection, Mercari's buyer fee, Airbnb's guest fee) are not subtracted from what you keep, but they raise the buyer's total and can affect how competitive your price is.</p>
+</section>
+{% endblock %}
+{% block scripts %}
+<script src="{{ rel('assets/calc.js') }}"></script>
+<script>
+(function(){
+  var DATA_URL='{{ rel('assets/compare-data.json') }}';
+  var hubSel=document.getElementById('cmp-hub'),price=document.getElementById('cmp-price'),ship=document.getElementById('cmp-ship'),cost=document.getElementById('cmp-cost'),out=document.getElementById('cmp-out'),note=document.getElementById('cmp-note');
+  var fmt=new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'});
+  var all=null;
+  function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+  function byRole(p,role){for(var i=0;i<p.inputs.length;i++)if(p.inputs[i].role===role)return p.inputs[i];return null;}
+  function render(){
+    if(!all)return;
+    var hub=hubSel.value,P=parseFloat(price.value)||0,S=parseFloat(ship.value)||0,C=parseFloat(cost.value)||0;
+    var rows=[];
+    all.filter(function(p){return p.hub===hub;}).forEach(function(p){
+      var v={};var pi=byRole(p,'price');if(!pi)return;v[pi.id]=P;
+      var si=byRole(p,'shipping_charged');if(si)v[si.id]=S;
+      var ci=byRole(p,'cost');if(ci)v[ci.id]=C;
+      var sc=byRole(p,'shipping_cost');if(sc)v[sc.id]=0;
+      var r=FeeCalc.compute(p,v);
+      var opts=p.inputs.filter(function(i){return i.type==='select';}).map(function(i){var o=i.options.filter(function(x){return x.id===r.values[i.id];})[0];return o?o.label:'';}).filter(Boolean);
+      rows.push({p:p,r:r,opts:opts.join(' · ')});
+    });
+    rows.sort(function(a,b){return b.r.net_payout-a.r.net_payout;});
+    if(!rows.length){out.innerHTML='<p class="muted">No platforms in this group yet.</p>';return;}
+    var h='<table class="fee-table compare-table"><thead><tr><th>Platform</th><th class="opt">Assumes</th><th class="num">Fees</th><th class="num">Effective</th><th class="num">You keep</th>'+(C>0?'<th class="num">Profit</th>':'')+'</tr></thead><tbody>';
+    var best=rows[0].r.net_payout;
+    rows.forEach(function(x){
+      h+='<tr'+(x.r.net_payout===best?' class="best"':'')+'><td><a href="'+esc(x.p.url)+'">'+esc(x.p.name)+'</a>'+(x.r.buyer_fees>0?'<span class="sub">+ '+fmt.format(x.r.buyer_fees)+' buyer fee</span>':'')+'</td><td class="opt"><small class="muted">'+esc(x.opts||'—')+'</small></td><td class="num">'+fmt.format(x.r.total_fees)+'</td><td class="num">'+x.r.effective_fee_pct.toFixed(1)+'%</td><td class="num"><strong>'+fmt.format(x.r.net_payout)+'</strong></td>'+(C>0?'<td class="num">'+fmt.format(x.r.profit)+'</td>':'')+'</tr>';
+    });
+    h+='</tbody></table>';out.innerHTML=h;
+    note.textContent='Defaults: no subscription, most common category, standard payment method, no ads. Sorted by what you keep.';
+  }
+  function load(){
+    var x=new XMLHttpRequest();x.open('GET',DATA_URL);x.onload=function(){try{all=JSON.parse(x.responseText);}catch(e){out.innerHTML='<p class="muted">Could not load platform data.</p>';return;}
+      var hash=location.hash.replace('#','');if(hash&&[].some.call(hubSel.options,function(o){return o.value===hash;}))hubSel.value=hash;render();};
+    x.onerror=function(){out.innerHTML='<p class="muted">Could not load platform data.</p>';};x.send();
+  }
+  [hubSel,price,ship,cost].forEach(function(el){el.addEventListener('input',render);el.addEventListener('change',render);});
+  hubSel.addEventListener('change',function(){try{history.replaceState(null,'',location.pathname+'#'+hubSel.value);}catch(e){}});
+  load();
+})();
+</script>
+{% endblock %}

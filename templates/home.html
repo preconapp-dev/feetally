@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block head %}
+<script type="application/ld+json">{{ jsonld|safe }}</script>
+{% endblock %}
+{% block content %}
+<section class="hero">
+  <h1>What will you actually keep after fees?</h1>
+  <p>Free fee calculators for {{ count }} selling and payment platforms. Type a price, see the fees, your profit and the price you need to charge — no signup, no spreadsheet.</p>
+  <div class="search">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5" stroke-linecap="round"/></svg>
+    <input type="search" id="site-search" placeholder="Search a platform, e.g. eBay, Stripe, Poshmark" aria-label="Search calculators">
+  </div>
+  <p class="notice">Every rate is taken from the platform's own fee page, dated, and linked on each calculator.</p>
+</section>
+
+<div id="calculators">
+{% for hub in hubs %}
+<section class="hub-section" data-hub="{{ hub.slug }}">
+  <div class="hub-head"><h2>{{ hub.short }}</h2><a href="{{ rel(hub.slug ~ '/') }}">All {{ hub.short|lower }} →</a></div>
+  <p class="muted" style="margin-top:4px">{{ hub.blurb }}</p>
+  <div class="grid">
+  {% for p in hub.platforms %}
+    <a class="tile" data-name="{{ p.name|lower }} {{ p.slug }}" href="{{ rel(p.slug ~ '-fee-calculator/') }}"><span class="t-name">{{ p.name }}</span><span class="t-sub">{{ p.short }}</span></a>
+  {% endfor %}
+  </div>
+</section>
+{% endfor %}
+<section class="hub-section" data-hub="tools">
+  <div class="hub-head"><h2>General pricing tools</h2></div>
+  <div class="grid">
+  {% for t in tools %}
+    <a class="tile" data-name="{{ t.title|lower }}" href="{{ rel(t.slug ~ '/') }}"><span class="t-name">{{ t.title }}</span><span class="t-sub">{{ t.short }}</span></a>
+  {% endfor %}
+  </div>
+</section>
+<p id="no-results" class="notice hidden">No calculator matches that search yet. <a href="{{ rel('about/#contact') }}">Request one</a>.</p>
+</div>
+
+<section class="section">
+  <h2>How these calculators work</h2>
+  <div class="how">
+    <div class="card"><h3>Official rates only</h3><p class="muted" style="margin:0">Each calculator is built from the platform's published fee schedule and links to the exact page. No rounded "about 10%" guesses.</p></div>
+    <div class="card"><h3>Dated and re-checked</h3><p class="muted" style="margin:0">Every page shows when its fees were last verified. Recent changes are logged so you can see what moved.</p></div>
+    <div class="card"><h3>Profit, not just fees</h3><p class="muted" style="margin:0">Add what the item cost you and see profit, margin, break-even price and the price you'd need for a target profit.</p></div>
+  </div>
+</section>
+{% endblock %}
+{% block scripts %}
+<script>
+(function(){
+  var q=document.getElementById('site-search');if(!q)return;
+  var tiles=[].slice.call(document.querySelectorAll('#calculators .tile'));
+  var sections=[].slice.call(document.querySelectorAll('#calculators .hub-section'));
+  var none=document.getElementById('no-results');
+  q.addEventListener('input',function(){
+    var s=q.value.trim().toLowerCase();var any=false;
+    tiles.forEach(function(t){var hit=!s||t.getAttribute('data-name').indexOf(s)>-1;t.classList.toggle('hidden',!hit);if(hit)any=true;});
+    sections.forEach(function(sec){var vis=sec.querySelectorAll('.tile:not(.hidden)').length>0;sec.classList.toggle('hidden',!vis);});
+    none.classList.toggle('hidden',any);
+  });
+})();
+</script>
+{% endblock %}

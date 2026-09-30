@@ -1,0 +1,356 @@
+{
+  "schema_version": 1,
+  "slug": "whatnot",
+  "name": "Whatnot",
+  "category": "resale-app",
+  "region": "United States",
+  "currency": "USD",
+  "tagline": "Whatnot seller fee calculator: 8% commission (less with volume) plus 2.9% + $0.30 processing, and payout.",
+  "fee_summary": "Whatnot charges an 8% commission on the item sale price for most categories (4% for coins), falling as low as 3.5%–6.5% once your 28-day sales pass $15,000, plus a 2.9% + $0.30 payment processing fee on the full order total including buyer-paid shipping and tax.",
+  "last_verified": "2026-09-29",
+  "sources": [
+    {
+      "title": "Whatnot Help Center – Whatnot Seller Fees and Commissions Schedule",
+      "url": "https://help.whatnot.com/hc/en-us/articles/4847069165965-Whatnot-Seller-Fees-and-Commissions-Schedule",
+      "accessed": "2026-09-29"
+    }
+  ],
+  "inputs": [
+    {
+      "id": "sale_price",
+      "label": "Item sale price",
+      "type": "money",
+      "role": "price",
+      "default": 50,
+      "help": "The winning bid or buy-it-now price, before shipping and tax."
+    },
+    {
+      "id": "shipping_charged",
+      "label": "Shipping the buyer pays",
+      "type": "money",
+      "role": "shipping_charged",
+      "default": 6,
+      "help": "Shipping charged to the buyer on this order. Processing is charged on it; commission is not."
+    },
+    {
+      "id": "category",
+      "label": "Category",
+      "type": "select",
+      "role": "other",
+      "default": "sports",
+      "options": [
+        {
+          "id": "sports",
+          "label": "Sports cards & memorabilia"
+        },
+        {
+          "id": "tcg",
+          "label": "Trading card games (TCG)"
+        },
+        {
+          "id": "fashion",
+          "label": "Fashion"
+        },
+        {
+          "id": "collectibles",
+          "label": "Other collectibles"
+        },
+        {
+          "id": "coins",
+          "label": "Coins & money"
+        },
+        {
+          "id": "other",
+          "label": "Everything else"
+        }
+      ]
+    },
+    {
+      "id": "volume_tier",
+      "label": "Your 28-day sales tier",
+      "type": "select",
+      "role": "other",
+      "default": "standard",
+      "options": [
+        {
+          "id": "standard",
+          "label": "Standard – under $15,000",
+          "note": "8% on most categories, 4% on coins"
+        },
+        {
+          "id": "tier1",
+          "label": "Tier 1 – $15,000 to $34,999"
+        },
+        {
+          "id": "tier2",
+          "label": "Tier 2 – $35,000 to $49,999"
+        },
+        {
+          "id": "tier3",
+          "label": "Tier 3 – $50,000 to $99,999"
+        },
+        {
+          "id": "tier4",
+          "label": "Tier 4 – $100,000 to $249,999"
+        },
+        {
+          "id": "tier5",
+          "label": "Tier 5 – $250,000 to $499,999"
+        },
+        {
+          "id": "tier6",
+          "label": "Tier 6 – $500,000 and up"
+        }
+      ]
+    },
+    {
+      "id": "item_cost",
+      "label": "What the item cost you",
+      "type": "money",
+      "role": "cost",
+      "default": 20,
+      "help": "Purchase or sourcing cost of the item."
+    },
+    {
+      "id": "shipping_cost",
+      "label": "What the label costs you",
+      "type": "money",
+      "role": "shipping_cost",
+      "default": 6,
+      "help": "Your shipping label and packaging cost for this order."
+    },
+    {
+      "id": "target_profit",
+      "label": "Target profit",
+      "type": "money",
+      "role": "target_profit",
+      "default": 20,
+      "help": "We'll show the sale price you need to clear this much."
+    }
+  ],
+  "fees": [
+    {
+      "id": "commission_sports",
+      "label": "Whatnot commission",
+      "basis": "price",
+      "when": {
+        "input": "category",
+        "equals": "sports"
+      },
+      "pct_by": {
+        "input": "volume_tier",
+        "values": {
+          "standard": 8,
+          "tier1": 7.75,
+          "tier2": 7.5,
+          "tier3": 7.25,
+          "tier4": 7,
+          "tier5": 6.75,
+          "tier6": 6.5
+        },
+        "default": 8
+      },
+      "note": "Sports: 8% standard, then 7.75%, 7.5%, 7.25%, 7%, 6.75%, 6.5% by 28-day sales tier. Charged on the item price only."
+    },
+    {
+      "id": "commission_tcg",
+      "label": "Whatnot commission",
+      "basis": "price",
+      "when": {
+        "input": "category",
+        "equals": "tcg"
+      },
+      "pct_by": {
+        "input": "volume_tier",
+        "values": {
+          "standard": 8,
+          "tier1": 7.75,
+          "tier2": 7.5,
+          "tier3": 7.25,
+          "tier4": 7,
+          "tier5": 6.75,
+          "tier6": 6.5
+        },
+        "default": 8
+      },
+      "note": "TCG: 8% standard, then 7.75%, 7.5%, 7.25%, 7%, 6.75%, 6.5% by 28-day sales tier. Charged on the item price only."
+    },
+    {
+      "id": "commission_fashion",
+      "label": "Whatnot commission",
+      "basis": "price",
+      "when": {
+        "input": "category",
+        "equals": "fashion"
+      },
+      "pct_by": {
+        "input": "volume_tier",
+        "values": {
+          "standard": 8,
+          "tier1": 7,
+          "tier2": 6.5,
+          "tier3": 5.5,
+          "tier4": 5,
+          "tier5": 4.5,
+          "tier6": 4.5
+        },
+        "default": 8
+      },
+      "note": "Fashion: 8% standard, then 7%, 6.5%, 5.5%, 5%, 4.5%, 4.5% by 28-day sales tier. Charged on the item price only."
+    },
+    {
+      "id": "commission_collectibles",
+      "label": "Whatnot commission",
+      "basis": "price",
+      "when": {
+        "input": "category",
+        "equals": "collectibles"
+      },
+      "pct_by": {
+        "input": "volume_tier",
+        "values": {
+          "standard": 8,
+          "tier1": 7.25,
+          "tier2": 6.5,
+          "tier3": 6,
+          "tier4": 5,
+          "tier5": 5,
+          "tier6": 5
+        },
+        "default": 8
+      },
+      "note": "Other collectibles: 8% standard, then 7.25%, 6.5%, 6%, 5%, 5%, 5% by 28-day sales tier. Charged on the item price only."
+    },
+    {
+      "id": "commission_coins",
+      "label": "Whatnot commission",
+      "basis": "price",
+      "when": {
+        "input": "category",
+        "equals": "coins"
+      },
+      "pct_by": {
+        "input": "volume_tier",
+        "values": {
+          "standard": 4,
+          "tier1": 3.9,
+          "tier2": 3.8,
+          "tier3": 3.7,
+          "tier4": 3.6,
+          "tier5": 3.55,
+          "tier6": 3.5
+        },
+        "default": 4
+      },
+      "note": "Coins & money: 4% standard, then 3.9%, 3.8%, 3.7%, 3.6%, 3.55%, 3.5% by 28-day sales tier. Charged on the item price only."
+    },
+    {
+      "id": "commission_other",
+      "label": "Whatnot commission",
+      "basis": "price",
+      "when": {
+        "input": "category",
+        "equals": "other"
+      },
+      "pct_by": {
+        "input": "volume_tier",
+        "values": {
+          "standard": 8,
+          "tier1": 7,
+          "tier2": 6.5,
+          "tier3": 5.5,
+          "tier4": 4,
+          "tier5": 4,
+          "tier6": 4
+        },
+        "default": 8
+      },
+      "note": "Other categories: 8% standard, then 7%, 6.5%, 5.5%, 4%, 4%, 4% by 28-day sales tier. Charged on the item price only."
+    },
+    {
+      "id": "processing",
+      "label": "Payment processing fee",
+      "basis": "price_plus_shipping",
+      "pct": 2.9,
+      "fixed": 0.3,
+      "note": "2.9% + $0.30 per transaction on the total the buyer pays: item price, buyer-paid shipping, and taxes. Tax is not included in this calculator's total, so add 2.9% of any tax collected."
+    }
+  ],
+  "worked_example": {
+    "inputs": {
+      "sale_price": 50,
+      "shipping_charged": 6,
+      "category": "sports",
+      "volume_tier": "standard",
+      "item_cost": 20,
+      "shipping_cost": 6
+    },
+    "expected": {
+      "total_fees": 5.92,
+      "net_payout": 50.08,
+      "profit": 24.08
+    },
+    "explanation": "A sports card sells in a live show for $50 and the buyer pays $6 shipping. At the standard tier, commission is 8% of the $50 item price = $4.00. Payment processing is 2.9% of the $56 order total = $1.62 plus $0.30 = $1.92. Fees total $5.92, so the payout is $56.00 − $5.92 = $50.08. After the $20 card cost and the $6 label, profit is $24.08."
+  },
+  "content": {
+    "intro": "Whatnot is a live-shopping marketplace where sellers run auctions and buy-it-now sales on video, plus a standard marketplace for fixed-price listings. Sports cards, trading card games, coins, collectibles, and fashion are the biggest categories, and sellers range from hobbyists streaming on weekends to full-time card shops.\n\nSince September 21, 2026, Whatnot's commission depends on your category and your total sales over the previous 28 days. The standard rate, for anyone under $15,000 in that window, is 8% of the item sale price in every category except coins, which is 4%. Above $15,000 the rate steps down through six tiers: sports and TCG bottom out at 6.5% past $500,000, fashion at 4.5%, other collectibles at 5%, coins at 3.5%, and everything else at 4%. Your rate is locked for each four-week period, and cancelled orders are subtracted from your total.\n\nEvery order also pays a 2.9% + $0.30 payment processing fee, charged on the full amount the buyer pays, including shipping and sales tax. Commission itself is charged on the item price only.\n\nFor a $50 card with $6 buyer-paid shipping at the standard tier, that works out to $4.00 commission and $1.92 processing, leaving $50.08 before your label and product cost.",
+    "how_fees_work": [
+      "Commission, standard tier (under $15,000 in sales over the 28-day period): 8% of the item sale price in sports, TCG, fashion, other collectibles, and all other categories; 4% for coins and money.",
+      "Volume tiers: your combined sales across all categories, live shows and marketplace, over a four-week (28-day) period set your tier for the next period. Tier 1 starts at $15,000, Tier 2 at $35,000, Tier 3 at $50,000, Tier 4 at $100,000, Tier 5 at $250,000, and Tier 6 at $500,000.",
+      "Tiered rates by category: sports and TCG go 7.75%, 7.5%, 7.25%, 7%, 6.75%, 6.5% from Tier 1 to Tier 6; fashion 7%, 6.5%, 5.5%, 5%, 4.5%, 4.5%; other collectibles 7.25%, 6.5%, 6%, 5%, 5%, 5%; coins 3.9%, 3.8%, 3.7%, 3.6%, 3.55%, 3.5%; everything else 7%, 6.5%, 5.5%, 4%, 4%, 4%.",
+      "What commission is charged on: the item sale price (gross merchandise value). Shipping and taxes paid by the buyer are not included.",
+      "Payment processing: 2.9% + $0.30 per transaction in the US, calculated on the total order value the buyer pays, including item price, buyer-paid shipping, and taxes.",
+      "Cancelled orders are subtracted from your sales total for the period they were placed in, so they do not help you reach a tier."
+    ],
+    "tips": [
+      "Watch the $0.30 on cheap lots. A $2 card with $4 shipping pays $0.16 commission but $0.47 processing, about a quarter of the item price. Bundle low-value cards into bigger lots.",
+      "Coins are the cheapest category to sell at 4% standard. Do not tag coin lots as 'other collectibles' and pay 8%.",
+      "If you are close to $15,000 in a 28-day window, a strong final show can lift the whole next four weeks to Tier 1: 7.75% instead of 8% on sports and TCG, or 7% on fashion.",
+      "Buyer-paid shipping is not fee-free. It escapes commission but still pays 2.9% processing, so on a $6 label the fee is about $0.17.",
+      "Price for the combined bite: at the standard tier, roughly 10.9% of the item price plus $0.30 and 2.9% of shipping leaves your account on every sports-card sale."
+    ],
+    "faq": [
+      {
+        "q": "What are Whatnot's seller fees in 2026?",
+        "a": "An 8% commission on the item sale price for most categories (4% for coins), reduced in tiers once your 28-day sales exceed $15,000, plus 2.9% + $0.30 payment processing on the total order value."
+      },
+      {
+        "q": "Does Whatnot charge commission on shipping?",
+        "a": "No. Commission is calculated on the item price only. The 2.9% + $0.30 processing fee, however, is charged on the full order total including buyer-paid shipping and taxes."
+      },
+      {
+        "q": "How much does Whatnot take on a $100 sale?",
+        "a": "At the standard tier with $8 buyer-paid shipping: $8.00 commission plus 2.9% of $108 + $0.30 = $3.43 processing, so $11.43 in fees and a payout of $96.57 before your label cost."
+      },
+      {
+        "q": "How do Whatnot's volume tiers work?",
+        "a": "Your total completed sales across every category and format over a 28-day period set your commission tier for the next 28-day period. Under $15,000 is the standard rate; Tier 1 starts at $15,000 and Tier 6 at $500,000. The rate is locked for the full period."
+      },
+      {
+        "q": "Did Whatnot change its fees?",
+        "a": "Yes. A new tiered commission structure took effect September 21, 2026 for existing sellers. Sellers who joined after that date start on the new structure the following Monday."
+      },
+      {
+        "q": "Does Whatnot charge a fee on canceled orders?",
+        "a": "Cancelled orders are subtracted from your sales total for the period. Refund and cancellation fee handling is covered in Whatnot's help center; it is not modeled here."
+      },
+      {
+        "q": "Is there a listing or monthly fee on Whatnot?",
+        "a": "No. Whatnot's published schedule is commission plus payment processing; there is no listing fee or subscription."
+      }
+    ],
+    "notes": "The commission table and processing fee are from Whatnot's US fee schedule as updated for the September 21, 2026 tier structure. Processing is charged on taxes the buyer pays; this calculator does not include tax, so the processing line is slightly low on taxable orders (add 2.9% of the tax). Whatnot runs periodic reduced-commission promotions (for example on electronics, coins, or high-value orders) that are not modeled. Shipping-label pricing, giveaway shipping, and payout timing were not verified on the fee schedule page. Whether a tiered rate is also applied to sellers with the seller-level promotions active is not stated.",
+    "changelog": [
+      {
+        "date": "2026-09-21",
+        "change": "Commission moved to a category-by-volume tier table: 8% standard (4% coins), stepping down to 3.5%–6.5% above $500,000 in 28-day sales. Payment processing stays 2.9% + $0.30."
+      }
+    ]
+  },
+  "related": [
+    "ebay",
+    "tcgplayer",
+    "stockx",
+    "mercari"
+  ]
+}

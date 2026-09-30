@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "slug": "mercari",
+  "name": "Mercari",
+  "category": "resale-app",
+  "region": "United States",
+  "currency": "USD",
+  "tagline": "Mercari fee calculator (2026): flat 10% selling fee on item price plus buyer-paid shipping, no processing fee.",
+  "fee_summary": "Since January 6, 2025 Mercari charges sellers a flat 10% of the item price plus buyer-paid shipping, with no separate payment processing fee. Buyers pay a 3.6% Buyer Protection fee on top of the price. Direct deposit is free; Instant Pay costs $3.",
+  "last_verified": "2026-09-29",
+  "sources": [
+    {"title": "Mercari Help: Fees on Mercari", "url": "https://www.mercari.com/us/help_center/article/169/", "accessed": "2026-09-29"},
+    {"title": "Mercari Help: Changes to our fee structure", "url": "https://www.mercari.com/us/help_center/article/2517/", "accessed": "2026-09-29"},
+    {"title": "Mercari Help: FAQs about our new fee structure", "url": "https://www.mercari.com/us/help_center/article/2518/", "accessed": "2026-09-29"}
+  ],
+  "inputs": [
+    {"id": "sale_price", "label": "Item price", "type": "money", "role": "price", "default": 40, "help": "The completed item price, before the buyer's 3.6% fee, shipping and tax."},
+    {"id": "shipping_charged", "label": "Shipping paid by buyer", "type": "money", "role": "shipping_charged", "default": 0, "help": "If the buyer pays for shipping, enter the amount; Mercari's 10% applies to it. Leave 0 if you offer free shipping."},
+    {"id": "instant_pay", "label": "Cash out with Instant Pay ($3)", "type": "toggle", "role": "other", "default": false},
+    {"id": "item_cost", "label": "What the item cost you", "type": "money", "role": "cost", "default": 15, "help": "Purchase or sourcing cost."},
+    {"id": "shipping_cost", "label": "Your shipping cost", "type": "money", "role": "shipping_cost", "default": 6, "help": "The label cost you pay when you offer free shipping. Enter 0 if the buyer pays shipping."},
+    {"id": "target_profit", "label": "Target profit", "type": "money", "role": "target_profit", "default": 15, "help": "We'll show the item price you need to hit this profit."}
+  ],
+  "fees": [
+    {"id": "selling", "label": "Selling fee", "basis": "price_plus_shipping", "pct": 10,
+     "note": "10% of the combined item price and buyer-paid shipping, deducted from your earnings when the sale completes."},
+    {"id": "buyer_protection", "label": "Buyer Protection fee (paid by buyer)", "basis": "price_plus_shipping", "pct": 3.6, "paid_by": "buyer",
+     "note": "3.6% of the item price plus buyer-paid shipping, added to what the buyer pays. It does not come out of your payout."},
+    {"id": "instant_pay", "label": "Instant Pay fee", "basis": "none", "fixed": 3,
+     "when": {"input": "instant_pay", "equals": true},
+     "note": "$3 per Instant Pay transfer to a debit card. Standard direct deposit is free."}
+  ],
+  "worked_example": {
+    "inputs": {"sale_price": 40, "shipping_charged": 0, "instant_pay": false, "item_cost": 15, "shipping_cost": 6},
+    "expected": {"total_fees": 4.00, "net_payout": 36.00, "profit": 15.00},
+    "explanation": "An item sells for $40 with free shipping, so buyer-paid shipping is $0. Mercari's selling fee is 10% of $40 = $4.00, and there is no payment processing fee. The buyer separately pays a 3.6% Buyer Protection fee of $1.44, which does not affect your payout. You receive $36.00 by free direct deposit. After the $15 you paid for the item and the $6 shipping label you covered, profit is $15.00."
+  },
+  "content": {
+    "intro": "Mercari is a US resale app for everyday secondhand goods: clothing, electronics, toys, collectibles, home items and beauty. Sellers are mostly individuals decluttering or flipping thrift finds, and the app handles listing, prepaid shipping labels and payouts. Everything is fixed price with offers, and both sides rate each other to complete the sale.\n\nMercari's fees changed twice in less than a year. In March 2024 it dropped the selling fee to zero and moved the cost onto buyers. Starting January 6, 2025 it reversed course: sellers now pay a flat 10% of the completed item price plus buyer-paid shipping, and there is no separate payment processing fee (the old 2.9% + $0.50 processing fee only lingers on listings that were never updated after that date). Buyers pay a 3.6% Buyer Protection fee, also calculated on the item price plus buyer-paid shipping, on top of the listed price.\n\nGetting paid is free by direct deposit; Instant Pay to a debit card costs $3 per transfer, and a failed direct deposit costs $2. Sellers who cancel frequently can be charged 5% of the item price, up to $25. On a $40 free-shipping sale you keep $36, which makes Mercari one of the cheapest resale apps for the seller, with the buyer covering the rest.",
+    "how_fees_work": [
+      "Selling fee: 10% of the combined item price and buyer-paid shipping, charged to the seller when the transaction completes. It applies to listings created or updated on or after January 6, 2025, which by now is nearly all of them.",
+      "Payment processing: none for sellers or buyers under the current structure. Listings that were created before January 6, 2025 and never edited still use the legacy structure (a buyer-paid fee plus a 2.9% + $0.50 payment processing fee) until they are updated.",
+      "Buyer Protection fee: 3.6% of the item price plus buyer-paid shipping, paid by the buyer at checkout in addition to the price. It does not reduce your payout, but buyers see it in the total, which affects what they are willing to offer.",
+      "Payout fees: direct deposit to a bank account is free for completed transfers; a failed direct deposit costs a non-refundable $2. Instant Pay to a debit card costs $3 per transfer.",
+      "Cancellation fee: if a seller cancels frequently, Mercari may charge 5% of the item price, up to $25 per cancellation, and may remove listings or limit the account.",
+      "Shipping: if you choose a Mercari prepaid label and offer free shipping, the label cost is deducted from your earnings; if the buyer pays shipping, that amount is part of the 10% fee base."
+    ],
+    "tips": [
+      "Buyer-paid shipping is inside the 10%, so a $9 shipping charge costs you $0.90 in fees and the buyer $0.32 more in their 3.6% fee. Compare with building the label cost into a free-shipping price.",
+      "Price with the buyer's 3.6% in mind: a $40 listing shows the buyer $41.44 plus shipping and tax before they even make an offer. Offers tend to arrive lower to compensate.",
+      "Skip Instant Pay unless you need the money today. Three $3 transfers a month is $108 a year; standard direct deposit is free.",
+      "Edit any listing older than January 2025 you still have live. Untouched legacy listings keep the old buyer fee and 2.9% + $0.50 processing fee, which makes them look more expensive to buyers.",
+      "Avoid cancellations. Repeated cancels can trigger a 5% fee (up to $25) and account limits, which is more than the selling fee on most items."
+    ],
+    "faq": [
+      {"q": "What are Mercari's seller fees in 2026?", "a": "A flat 10% of the item price plus buyer-paid shipping, with no payment processing fee. This structure has applied since January 6, 2025. Direct deposit is free and Instant Pay costs $3."},
+      {"q": "Does Mercari charge a fee on shipping?", "a": "Only on shipping the buyer pays. The 10% selling fee is calculated on the combined item price and buyer-paid shipping. If you offer free shipping, the fee is 10% of the item price and the label cost is deducted from your earnings separately."},
+      {"q": "Does the buyer pay a fee on Mercari?", "a": "Yes. Buyers pay a 3.6% Buyer Protection fee on the item price plus buyer-paid shipping, added at checkout. It does not come out of the seller's payout."},
+      {"q": "When does Mercari take its fee?", "a": "When the transaction completes, which is after the buyer rates you or the rating window closes. The fee is deducted from the sale amount before the earnings land in your Mercari balance."},
+      {"q": "Is there a payment processing fee on Mercari?", "a": "Not anymore. The 2.9% + $0.50 processing fee was removed for listings created or updated on or after January 6, 2025. Only untouched legacy listings still carry it."},
+      {"q": "How much does it cost to cash out on Mercari?", "a": "Direct deposit to your bank is free. Instant Pay to a debit card is $3 per transfer, and a failed direct deposit is charged a non-refundable $2."},
+      {"q": "Did Mercari's fees change in 2025?", "a": "Yes. After charging sellers 0% from March 2024, Mercari introduced the current 10% seller fee and 3.6% buyer fee on January 6, 2025 and dropped the separate payment processing fee."}
+    ],
+    "notes": "Rates are from Mercari's help center as of September 2026 (Fees on Mercari article updated May 2026). Sales tax is collected from the buyer by Mercari and is not part of the fee base as described; it is not modeled. Legacy listings created before January 6, 2025 and never edited use the older structure and are not modeled. Mercari's Seller Tiers page could not be read when checked, so any tier benefits are not modeled. Mercari Local and other delivery options are not modeled. Funds become available in your balance after the sale completes (buyer rating or the end of the rating window), and standard direct deposits take a few business days.",
+    "changelog": [
+      {"date": "2025-01-06", "change": "New fee structure: sellers pay a flat 10% on item price plus buyer-paid shipping, buyers pay a 3.6% Buyer Protection fee, and the separate payment processing fee and direct deposit fee are removed."},
+      {"date": "2024-03-27", "change": "Selling fee dropped to 0%; buyers began paying a service fee plus a 2.9% + $0.50 payment processing fee (structure now retired except on untouched legacy listings)."}
+    ]
+  },
+  "related": ["poshmark", "depop", "ebay", "offerup"]
+}

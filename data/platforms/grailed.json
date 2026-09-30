@@ -1,0 +1,233 @@
+{
+  "schema_version": 1,
+  "slug": "grailed",
+  "name": "Grailed",
+  "category": "resale-app",
+  "region": "United States",
+  "currency": "USD",
+  "tagline": "Grailed fee calculator: 9% (or 6% under $120) commission plus 3.49% + $0.49 processing, and your payout.",
+  "fee_summary": "Grailed takes 9% commission on sales of $120 or more and 6% (minimum $1.99) on sales under $120, plus a payment processing fee of 3.49% + $0.49 for US buyers (4.99% + $0.49 international). With a Grailed Label, commission is on the item price only; otherwise it includes shipping.",
+  "last_verified": "2026-09-29",
+  "sources": [
+    {
+      "title": "Grailed Help Center – What are the fees?",
+      "url": "https://support.grailed.com/hc/en-us/articles/30282580172045-What-are-the-fees",
+      "accessed": "2026-09-29"
+    },
+    {
+      "title": "Grailed Help Center – Does Grailed charge a payment processing fee?",
+      "url": "https://support.grailed.com/hc/en-us/articles/30299544492301-Does-Grailed-charge-a-payment-processing-fee",
+      "accessed": "2026-09-29"
+    },
+    {
+      "title": "Grailed Help Center – When do I get paid?",
+      "url": "https://support.grailed.com/hc/en-us/articles/30298995312653-When-do-I-get-paid",
+      "accessed": "2026-09-29"
+    }
+  ],
+  "inputs": [
+    {
+      "id": "sale_price",
+      "label": "Sale price",
+      "type": "money",
+      "role": "price",
+      "default": 150,
+      "help": "The listing price the item sells for (after any accepted offer), before shipping and tax."
+    },
+    {
+      "id": "shipping_charged",
+      "label": "Shipping the buyer pays",
+      "type": "money",
+      "role": "shipping_charged",
+      "default": 10,
+      "help": "The shipping amount the buyer pays at checkout. Enter 0 for free shipping."
+    },
+    {
+      "id": "grailed_label",
+      "label": "Using a Grailed Label",
+      "type": "toggle",
+      "role": "other",
+      "default": true
+    },
+    {
+      "id": "buyer_location",
+      "label": "Buyer location",
+      "type": "select",
+      "role": "other",
+      "default": "domestic",
+      "options": [
+        {
+          "id": "domestic",
+          "label": "United States (domestic)",
+          "note": "3.49% + $0.49 processing"
+        },
+        {
+          "id": "international",
+          "label": "International",
+          "note": "4.99% + $0.49 processing"
+        }
+      ]
+    },
+    {
+      "id": "item_cost",
+      "label": "What the item cost you",
+      "type": "money",
+      "role": "cost",
+      "default": 60,
+      "help": "Purchase price or sourcing cost."
+    },
+    {
+      "id": "shipping_cost",
+      "label": "What shipping costs you",
+      "type": "money",
+      "role": "shipping_cost",
+      "default": 10,
+      "help": "Your Grailed Label or postage cost."
+    },
+    {
+      "id": "target_profit",
+      "label": "Target profit",
+      "type": "money",
+      "role": "target_profit",
+      "default": 25,
+      "help": "We'll show the sale price you need to clear this much."
+    }
+  ],
+  "fees": [
+    {
+      "id": "commission_label",
+      "label": "Grailed commission",
+      "basis": "price",
+      "tiers": [
+        {
+          "max": 119.99,
+          "pct": 6
+        },
+        {
+          "min": 120,
+          "pct": 9
+        }
+      ],
+      "min": 1.99,
+      "when": {
+        "input": "grailed_label",
+        "equals": true
+      },
+      "note": "9% on sales of $120 and above; 6% (minimum $1.99) under $120. With a Grailed Label the commission is based on the listing price only."
+    },
+    {
+      "id": "commission_own_shipping",
+      "label": "Grailed commission (incl. shipping)",
+      "basis": "price_plus_shipping",
+      "tiers": [
+        {
+          "max": 119.99,
+          "pct": 6
+        },
+        {
+          "min": 120,
+          "pct": 9
+        }
+      ],
+      "min": 1.99,
+      "when": {
+        "input": "grailed_label",
+        "equals": false
+      },
+      "note": "Without a Grailed Label, the sale price for commission purposes includes the shipping charged to the buyer."
+    },
+    {
+      "id": "processing",
+      "label": "Payment processing",
+      "basis": "price_plus_shipping",
+      "pct_by": {
+        "input": "buyer_location",
+        "values": {
+          "domestic": 3.49,
+          "international": 4.99
+        },
+        "default": 3.49
+      },
+      "fixed": 0.49,
+      "note": "3.49% + $0.49 for US domestic sales, 4.99% + $0.49 for international, for sellers onboarded with Grailed Payments (Stripe)."
+    }
+  ],
+  "worked_example": {
+    "inputs": {
+      "sale_price": 150,
+      "shipping_charged": 10,
+      "grailed_label": true,
+      "buyer_location": "domestic",
+      "item_cost": 60,
+      "shipping_cost": 10
+    },
+    "expected": {
+      "total_fees": 19.57,
+      "net_payout": 140.43,
+      "profit": 70.43
+    },
+    "explanation": "A $150 sale is $120 or more, so commission is 9% of $150 = $13.50 (the Grailed Label means shipping is left out of the commission). The buyer paid $160 including $10 shipping, so processing is 3.49% of $160 = $5.58 plus $0.49 = $6.07. Total fees are $19.57 and you receive $140.43. After the $60 you paid for the item and the $10 label, profit is $70.43."
+  },
+  "content": {
+    "intro": "Grailed is a peer-to-peer marketplace for menswear, streetwear, designer, and vintage clothing, sneakers, and accessories. Sellers are mostly individual collectors and resellers moving mid- to high-priced pieces, and buyers negotiate through offers before checkout.\n\nThere are two seller fees. The commission depends on the sale price: 9% on sales of $120 or more, and 6% with a $1.99 minimum on sales under $120 (the reduced tier applies to sales on or after May 20, 2026). If you ship with a Grailed Label, the commission is calculated on the listing price only; if you ship on your own, the shipping you charge the buyer is included in the base.\n\nOn top of that, Grailed Payments (run on Stripe) charges a payment processing fee: 3.49% + $0.49 when the buyer is in the US, or 4.99% + $0.49 for an international buyer, for sellers who have completed Stripe onboarding. Sellers in a Stripe-supported country who have not finished onboarding pay a higher $0.99 fixed fee.\n\nBuyers pay nothing extra to Grailed. On a typical $150 sale with $10 shipping, a US seller pays $19.57 in total and receives $140.43, released to their bank account within 3 calendar days of delivery.",
+    "how_fees_work": [
+      "Commission, $120 and above: 9% of the sale price. On a $150 sale that is $13.50.",
+      "Commission, under $120: 6% of the sale price with a $1.99 minimum, for sales on or after May 20, 2026. On an $80 sale that is $4.80; on a $25 sale the $1.99 minimum applies.",
+      "What counts as the sale price: the listing price your item sells for, plus any shipping you charge the buyer if you do not use a Grailed Label. With a Grailed Label, only the listing price counts.",
+      "Payment processing (Grailed Payments via Stripe): 3.49% + $0.49 per sale for a US buyer, 4.99% + $0.49 for an international buyer. This calculator applies it to the item price plus shipping, which is what the buyer is charged.",
+      "Not yet onboarded with Stripe: the fixed part rises to $0.99 (3.49% + $0.99 domestic, 5.49% + $0.99 international). Finish onboarding before you sell.",
+      "Buyers pay no Grailed fee. Sales tax is collected from the buyer by Grailed and is not part of your commission base.",
+      "Payout: Grailed releases funds to your bank account within 3 calendar days of the item showing as delivered, then your bank takes 2 to 3 business days."
+    ],
+    "tips": [
+      "Use a Grailed Label when you charge for shipping. Without it, a $150 sale with $15 shipping is commissioned on $165 instead of $150, which costs an extra $1.35.",
+      "Mind the $120 line. A $119 sale pays 6% ($7.14); a $121 sale pays 9% ($10.89). If an offer lands just above $120, countering slightly lower can leave you with more.",
+      "Finish Stripe onboarding before listing. The unonboarded rate adds $0.50 per sale on domestic orders and a full point plus $0.50 on international ones.",
+      "Price for offers. Grailed buyers expect to negotiate, and a $10 drop on a $150 sale only costs you about $8.75 in payout because the 9% and 3.49% shrink with it.",
+      "Free shipping with a higher price and free shipping with a lower price and a shipping charge are not equal: with a Grailed Label, shipping escapes the 9% commission but still pays 3.49% processing."
+    ],
+    "faq": [
+      {
+        "q": "What are Grailed's seller fees in 2026?",
+        "a": "9% commission on sales of $120 or more, 6% (minimum $1.99) on sales under $120, plus payment processing of 3.49% + $0.49 for US buyers or 4.99% + $0.49 for international buyers."
+      },
+      {
+        "q": "Does Grailed charge commission on shipping?",
+        "a": "Only if you ship without a Grailed Label. With a Grailed Label, commission is calculated on the listing price alone; otherwise the shipping you charge the buyer is included."
+      },
+      {
+        "q": "Does Grailed still use PayPal?",
+        "a": "Grailed's current fee page lists only Grailed Payments, which runs on Stripe, with payouts to a bank account. PayPal is not mentioned as a payment or payout option on the official fee pages."
+      },
+      {
+        "q": "How much does Grailed take on a $200 sale?",
+        "a": "With $10 shipping and a Grailed Label: 9% of $200 = $18.00 commission plus 3.49% of $210 + $0.49 = $7.82 processing, so $25.82 in fees and a $184.18 payout."
+      },
+      {
+        "q": "When does Grailed pay sellers?",
+        "a": "Funds are released to your bank account within 3 calendar days of the tracking showing delivered. US banks then take 2 to 3 business days to post it."
+      },
+      {
+        "q": "Are there Grailed fees for buyers?",
+        "a": "No. Grailed is free for buyers; the buyer pays the item price, shipping, and any sales tax."
+      },
+      {
+        "q": "Does Grailed charge a fee if my item doesn't sell?",
+        "a": "No. Listing is free and both the commission and processing fee are charged only when an item sells."
+      }
+    ],
+    "notes": "The 6% / $1.99-minimum tier for sales under $120 is stated on Grailed's fee page as applicable to sales on or after May 20, 2026; sales before that date were charged 9% across the board. Grailed's processing-fee page does not state whether the 3.49% + $0.49 is calculated on the item price alone or on the item price plus shipping; this calculator uses item price plus shipping (the amount the buyer is charged), so the processing line may be a few cents high if Grailed excludes shipping. Rates shown are for sellers onboarded with Grailed Payments (Stripe); unonboarded sellers pay $0.99 fixed instead of $0.49. Grailed reserves the right to modify all fees at any time.",
+    "changelog": [
+      {
+        "date": "2026-05-20",
+        "change": "Reduced 6% commission tier (minimum $1.99) applies to sales under $120; 9% continues for sales of $120 and above."
+      }
+    ]
+  },
+  "related": [
+    "depop",
+    "stockx",
+    "goat",
+    "ebay"
+  ]
+}

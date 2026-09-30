@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "slug": "vinted",
+  "name": "Vinted",
+  "category": "resale-app",
+  "region": "United States",
+  "currency": "USD",
+  "tagline": "Vinted fee calculator: US sellers pay 0% and keep the full sale price; buyers pay a 5% + $0.70 protection fee.",
+  "fee_summary": "Vinted charges US sellers nothing to list or sell: you keep 100% of the item price. The buyer pays shipping plus a Buyer Protection fee of $0.70 + 5% of the item price, which is added on top of your price and never comes out of your payout.",
+  "last_verified": "2026-09-29",
+  "sources": [
+    {"title": "Vinted – Pricelist (United States)", "url": "https://www.vinted.com/pricelist", "accessed": "2026-09-29"},
+    {"title": "Vinted Help – Buyer Protection fee on Vinted", "url": "https://www.vinted.com/help/342-buyer-protection-fee-on-vinted", "accessed": "2026-09-29"},
+    {"title": "Vinted – How it works", "url": "https://www.vinted.com/how_it_works", "accessed": "2026-09-29"}
+  ],
+  "inputs": [
+    {"id": "sale_price", "label": "Item price", "type": "money", "role": "price", "default": 25, "help": "The price the buyer agrees to pay for the item (or bundle), before shipping and the buyer's protection fee."},
+    {"id": "item_cost", "label": "What the item cost you", "type": "money", "role": "cost", "default": 8, "help": "Purchase price or sourcing cost. Enter 0 for things you already owned."},
+    {"id": "target_profit", "label": "Target profit", "type": "money", "role": "target_profit", "default": 15, "help": "We'll show the price you need to list at to clear this much."}
+  ],
+  "fees": [
+    {"id": "selling_fee", "label": "Vinted selling fee", "basis": "price", "pct": 0,
+     "note": "Vinted charges US sellers no listing fee and no selling fee. You keep 100% of the item price."},
+    {"id": "buyer_protection", "label": "Buyer Protection fee (paid by buyer)", "paid_by": "buyer", "basis": "price", "pct": 5, "fixed": 0.70,
+     "note": "$0.70 plus 5% of the item price, added to the buyer's total at checkout. Informational: it does not reduce your payout."}
+  ],
+  "worked_example": {
+    "inputs": {"sale_price": 25, "item_cost": 8},
+    "expected": {"total_fees": 0.00, "net_payout": 25.00, "profit": 17.00},
+    "explanation": "You sell a jacket for $25. Vinted takes no selling fee from US sellers, so your payout is the full $25.00. After the $8 you paid for the jacket, profit is $17.00. The buyer separately pays a Buyer Protection fee of $0.70 + 5% of $25 = $1.95, plus shipping, on top of your price; none of that comes out of your $25."
+  },
+  "content": {
+    "intro": "Vinted is a secondhand marketplace for clothing, shoes, accessories, kids' items, and some home goods. Its US pitch is simple: selling is free. Most US sellers are people clearing out closets, alongside a growing number of resellers who prefer a 0% fee to Poshmark's 20% or eBay's roughly 13%.\n\nThere is no listing fee, no selling fee, and no payment processing fee for sellers. If your item sells for $25, $25 lands in your Vinted balance. Shipping is paid by the buyer, who chooses a carrier option at checkout; you print the prepaid label and drop the package off.\n\nVinted funds itself on the buyer side. Every order carries a mandatory Buyer Protection fee of $0.70 plus 5% of the item price, added automatically at checkout on top of your price, shipping, and any sales tax. On a $25 item that is $1.95. It covers refunds if an item never arrives or is not as described.\n\nBecause buyers see your price plus that fee plus shipping, a $25 listing might show as roughly $32 to $35 delivered. Keep that in mind when you price against other apps, and remember that the only optional costs on your side are paid promotions: item bumps and Wardrobe Spotlight, priced in the app before you confirm.",
+    "how_fees_work": [
+      "Selling fee: 0%. Vinted's US pricelist has no listing fee, no commission, and no payment processing fee for sellers. What the buyer pays for the item is what you receive.",
+      "Buyer Protection fee (paid by the buyer): $0.70 plus 5% of the item price, or of the combined bundle price, added automatically to every order at checkout. It does not touch your payout.",
+      "Shipping: paid by the buyer, who picks a delivery option at checkout. You get a prepaid label to print. There is no fee to you for the label.",
+      "Sales tax: collected from the buyer where required and handled by Vinted; it is not deducted from your price.",
+      "Optional promotions: item bumps (3 or 7 days) and Wardrobe Spotlight are the only seller-paid features. The price is shown in the app before you confirm each order and is not a percentage of sales.",
+      "Payout: proceeds go to your Vinted balance after the buyer confirms everything is OK (or the inspection window passes), and you can transfer the balance to your bank account."
+    ],
+    "tips": [
+      "Price for the buyer's real total. A $25 item costs the buyer $26.95 before shipping because of the $0.70 + 5% protection fee, so match competitors on the delivered price, not the sticker.",
+      "Accept offers freely. With no percentage fee, every dollar you knock off is exactly one dollar less in your pocket, and nothing is lost to commission math.",
+      "Bundles help buyers more than you might expect: the $0.70 fixed part of the protection fee and shipping are paid once for the whole bundle, so a bundle discount can still leave the buyer paying less per item.",
+      "Compare before you cross-list. The same $25 sale nets $25.00 on Vinted, $20.00 on Poshmark, and $23.72 on Depop after its 3.3% + $0.45 processing fee.",
+      "Use bumps only for items with proven demand. A bump is a flat charge you pay whether or not the item sells, so it is the one way to lose money on a fee-free platform."
+    ],
+    "faq": [
+      {"q": "Does Vinted charge sellers a fee?", "a": "No. US sellers pay no listing fee, no selling fee, and no payment processing fee. You keep 100% of the item price."},
+      {"q": "What is the Vinted Buyer Protection fee?", "a": "A mandatory fee the buyer pays at checkout: $0.70 plus 5% of the item price. It is added on top of the seller's price and does not reduce the seller's payout."},
+      {"q": "Who pays shipping on Vinted?", "a": "The buyer. They choose a shipping option at checkout and pay for it; the seller prints a prepaid label."},
+      {"q": "How much does Vinted take from a $50 sale?", "a": "Nothing. You receive $50.00. The buyer pays $50 plus a $3.20 protection fee ($0.70 + 5%), plus shipping and any sales tax."},
+      {"q": "Why is my Vinted listing price different from what buyers see?", "a": "Buyers see your price plus the Buyer Protection fee, shipping, and any sales tax. A $25 item shows as $26.95 before shipping."},
+      {"q": "Is there a fee to withdraw money from Vinted?", "a": "Vinted's US pricelist does not list a withdrawal fee. Proceeds sit in your Vinted balance and can be transferred to your bank account; check the app for the current transfer timing."},
+      {"q": "Does Vinted charge sales tax to sellers?", "a": "No. Where sales tax applies, Vinted collects it from the buyer at checkout as a marketplace facilitator. It is separate from your price."}
+    ],
+    "notes": "Fee figures come from Vinted's US pricelist (stated as effective July 1, 2024) and the Buyer Protection fee help article, which describes the fee as 'usually 5% + $0.70'; certain categories (for example electronics) may carry a different buyer fee. Bump and Wardrobe Spotlight prices vary and are shown in the app before purchase, so they are not modeled. Payout timing and bank-transfer details were not verified on an official page for this update. Fees differ in other Vinted countries.",
+    "changelog": []
+  },
+  "related": ["poshmark", "depop", "mercari", "thredup"]
+}

@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "slug": "amazon-pay",
+  "name": "Amazon Pay",
+  "category": "payment-processor",
+  "region": "United States",
+  "currency": "USD",
+  "tagline": "Amazon Pay fee calculator: 2.9% + 30¢ domestic, 3.9% + 30¢ cross-border. See what you keep per order.",
+  "fee_summary": "Amazon Pay charges a 2.9% processing fee on payments made with a US-issued payment method, or 3.9% when the payment method was issued outside the US, plus a $0.30 authorization fee on every transaction. There are no monthly or setup fees.",
+  "last_verified": "2026-09-29",
+  "sources": [
+    {"title": "Amazon Pay Help: Fees (US)", "url": "https://pay.amazon.com/help/201212280", "accessed": "2026-09-29"}
+  ],
+  "inputs": [
+    {"id": "amount", "label": "Transaction amount", "type": "money", "role": "price", "default": 100, "help": "What the shopper pays at checkout on your site."},
+    {"id": "txn_type", "label": "Where the payment method was issued", "type": "select", "role": "other", "default": "domestic",
+     "options": [
+       {"id": "domestic", "label": "United States (domestic)", "note": "2.9% + 30¢"},
+       {"id": "cross_border", "label": "Outside the US (cross-border)", "note": "3.9% + 30¢"}
+     ]},
+    {"id": "cost", "label": "Your cost of goods", "type": "money", "role": "cost", "default": 0, "help": "Optional. What the product cost you, to see profit."},
+    {"id": "target_profit", "label": "Target profit", "type": "money", "role": "target_profit", "default": 50, "help": "We'll show the amount to charge so you net this much."}
+  ],
+  "fees": [
+    {"id": "processing", "label": "Processing fee", "basis": "price",
+     "pct_by": {"input": "txn_type", "values": {"domestic": 2.9, "cross_border": 3.9}},
+     "note": "2.9% for US-issued payment methods, 3.9% for cross-border. Refunded if you refund the order."},
+    {"id": "authorization", "label": "Authorization fee", "basis": "none", "fixed": 0.30,
+     "note": "$0.30 per transaction, charged when the payment is processed or the authorization closes or expires. Non-refundable."}
+  ],
+  "worked_example": {
+    "inputs": {"amount": 100, "txn_type": "domestic", "cost": 40},
+    "expected": {"total_fees": 3.20, "net_payout": 96.80, "profit": 56.80},
+    "explanation": "A $100 order paid with a US-issued card through Amazon Pay costs a 2.9% processing fee ($2.90) plus a $0.30 authorization fee, so Amazon keeps $3.20 and you receive $96.80. After the $40 the product cost you, profit is $56.80."
+  },
+  "content": {
+    "intro": "Amazon Pay lets shoppers check out on your own website using the address and card already saved in their Amazon account. It is popular with Shopify, BigCommerce and Magento stores that want a one-click option for the millions of people who already trust Amazon with their payment details. You are not selling on Amazon's marketplace; you are using Amazon as the payment processor on your site.\n\nThe fee has two parts. A processing fee of 2.9% of the transaction applies when the shopper's payment method was issued in the US, or 3.9% when it was issued outside the US (a cross-border transaction). On top of that, Amazon charges a $0.30 authorization fee per transaction, collected when the payment is processed or when the authorization closes or expires.\n\nThe processing fee comes back to you when you refund a customer, but the 30¢ authorization fee does not. Disputed chargebacks that are not covered by Amazon's Payment Protection Policy cost $20.00 plus tax where applicable. There are no monthly, setup or minimum fees. If you use Amazon Pay through Shopify Payments, Shopify's own fee schedule applies and there is no extra third-party transaction fee.",
+    "how_fees_work": [
+      "Domestic processing fee: 2.9% of the transaction when the payment method was issued in the US. On $100 that is $2.90.",
+      "Cross-border processing fee: 3.9% when the payment method was issued outside the US. On $100 that is $3.90.",
+      "Authorization fee: $0.30 per transaction, charged on every successful payment and also when an authorization closes or expires without being captured. It is non-refundable.",
+      "Refunds: the 2.9% or 3.9% processing fee is returned to you when you refund, but the $0.30 authorization fee is kept.",
+      "Chargebacks: $20.00 plus tax where applicable for disputed chargebacks not covered by the Payment Protection Policy. Non-refundable.",
+      "No monthly, setup or minimum fees. Through Shopify Payments there are no additional third-party transaction fees; Shopify's own schedule applies."
+    ],
+    "tips": [
+      "Treat Amazon Pay as an extra checkout button, not your only processor. Its 2.9% + 30¢ matches Stripe's online rate, so it costs nothing extra to offer both.",
+      "Watch cross-border orders. A foreign-issued payment method adds a full point (3.9%), so on a $200 order that is $2 more than a US card.",
+      "Capture or void authorizations promptly. The 30¢ authorization fee is charged even when an authorization expires without capture.",
+      "Ship to the address Amazon provides and keep tracking. Chargebacks outside the Payment Protection Policy cost $20 each.",
+      "On Shopify, use Amazon Pay through Shopify Payments to avoid third-party transaction fees."
+    ],
+    "faq": [
+      {"q": "How much does Amazon Pay take from $100?", "a": "$3.20 for a US-issued payment method (2.9% + $0.30 authorization fee), leaving $96.80. For a cross-border payment it is $4.20."},
+      {"q": "Does Amazon Pay have a monthly fee?", "a": "No. There are no monthly, setup or minimum fees; you pay per transaction."},
+      {"q": "What is the Amazon Pay cross-border fee?", "a": "3.9% plus the $0.30 authorization fee when the customer's payment method was issued outside the US."},
+      {"q": "Are Amazon Pay fees refunded when I issue a refund?", "a": "The percentage processing fee is refunded; the $0.30 authorization fee is not."},
+      {"q": "How much is an Amazon Pay chargeback fee?", "a": "$20.00 plus tax where applicable, for disputed chargebacks not covered by Amazon's Payment Protection Policy."},
+      {"q": "Is Amazon Pay the same as selling on Amazon?", "a": "No. Amazon Pay is a checkout option on your own website and charges processing fees only. Selling on the Amazon marketplace has its own referral fees; see our Amazon seller calculator."}
+    ],
+    "notes": "Rates are from Amazon Pay's US fees help page. No Alexa or voice-purchase rate is listed on that page, so none is included. Payout timing is not stated on the fees page. Chargeback fees are not modeled in the calculator.",
+    "changelog": []
+  },
+  "related": ["amazon", "shopify", "stripe", "paypal"]
+}

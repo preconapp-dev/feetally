@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "slug": "uber-eats",
+  "name": "Uber Eats (Merchants)",
+  "category": "gig",
+  "region": "United States",
+  "currency": "USD",
+  "tagline": "Uber Eats merchant fee calculator: Lite 20%, Plus 25%, Premium 30%, 7% pickup, and your payout per order.",
+  "fee_summary": "Uber Eats charges restaurants a marketplace fee per delivery order of 20% on Lite (as low as 15% in select cities), 25% on Plus, 30% on Premium and 15% on the Self-delivery plan. Pickup orders are 7% with validated in-store pricing, otherwise 10%.",
+  "last_verified": "2026-09-29",
+  "sources": [
+    {"title": "Uber Eats for Merchants: Pricing (US)", "url": "https://merchants.ubereats.com/us/en/pricing/", "accessed": "2026-09-29"}
+  ],
+  "inputs": [
+    {"id": "order_subtotal", "label": "Order subtotal", "type": "money", "role": "price", "default": 40, "help": "Menu items only, before tax, tip and customer fees."},
+    {"id": "plan", "label": "Pricing plan", "type": "select", "role": "other", "default": "lite",
+     "options": [
+       {"id": "lite", "label": "Lite (20% delivery)", "note": "Reduced to as low as 15% in select cities such as Portland, NYC, LA and San Francisco."},
+       {"id": "plus", "label": "Plus (25% delivery)", "note": "0% intro rate for 30 days. Optional extra 5% on Uber One orders."},
+       {"id": "premium", "label": "Premium (30% delivery)", "note": "0% intro rate for 30 days; Uber One included."},
+       {"id": "self_delivery", "label": "Self-delivery (15%)", "note": "Your own drivers. 25% when you use Uber's network for a delivery."}
+     ]},
+    {"id": "order_type", "label": "Order type", "type": "select", "role": "other", "default": "delivery",
+     "options": [
+       {"id": "delivery", "label": "Delivery"},
+       {"id": "pickup_validated", "label": "Pickup, validated in-store pricing (7%)"},
+       {"id": "pickup_unvalidated", "label": "Pickup, pricing not validated (10%)"}
+     ]},
+    {"id": "food_cost", "label": "Food and packaging cost", "type": "money", "role": "cost", "default": 12, "help": "Your cost of goods for the order, so the page can show profit."},
+    {"id": "target_profit", "label": "Target profit", "type": "money", "role": "target_profit", "default": 15, "help": "We'll show the subtotal you need to clear this."}
+  ],
+  "fees": [
+    {"id": "marketplace_fee", "label": "Uber Eats marketplace fee (delivery)", "basis": "price",
+     "pct_by": {"input": "plan", "values": {"lite": 20, "plus": 25, "premium": 30, "self_delivery": 15}},
+     "when": {"input": "order_type", "equals": "delivery"},
+     "note": "Percentage of the order on delivery orders: 20% Lite, 25% Plus, 30% Premium, 15% Self-delivery."},
+    {"id": "pickup_fee", "label": "Uber Eats pickup fee", "basis": "price",
+     "pct_by": {"input": "order_type", "values": {"pickup_validated": 7, "pickup_unvalidated": 10, "delivery": 0}},
+     "when": {"input": "order_type", "in": ["pickup_validated", "pickup_unvalidated"]},
+     "note": "7% when you have submitted proof that in-app pickup prices match in-store prices; otherwise 10%."}
+  ],
+  "worked_example": {
+    "inputs": {"order_subtotal": 40, "plan": "lite", "order_type": "delivery", "food_cost": 12},
+    "expected": {"total_fees": 8.00, "net_payout": 32.00, "profit": 20.00},
+    "explanation": "A $40 delivery order on the Lite plan pays Uber Eats 20%, which is $8.00, leaving $32.00 for the restaurant. After $12 of food and packaging cost the order earns $20.00. On Plus the fee is $10.00 and on Premium $12.00; a validated pickup order pays only $2.80."
+  },
+  "content": {
+    "intro": "Uber Eats is the second-largest food delivery marketplace in the United States and runs on the same app as Uber rides. Restaurants list a menu, Uber Eats handles ordering and payment, and couriers deliver. Merchants pay a percentage of each order rather than a subscription.\n\nUber Eats sells four plans. Lite charges a 20% marketplace fee on delivery orders, though Uber's page says the Lite rate is reduced in select cities such as Portland, New York, Los Angeles and San Francisco, starting as low as 15%. Plus charges 25% and Premium charges 30%; both start with a 0% introductory rate for 30 days, and Premium includes visibility to Uber One members at no extra cost while Plus offers it for an additional 5% on Uber One orders. Premium also promises 0% fees for the first 6 months in any month you receive fewer than 20 orders. If you deliver with your own drivers, the Self-delivery plan is 15%, rising to 25% on any order you hand to Uber's courier network.\n\nPickup orders are cheaper on every plan: 7% once you submit proof that your in-app pickup prices match your in-store prices, and 10% until you do. Uber also offers Webshop online ordering at a 2.5% order processing fee plus $0.29 per order, and Uber Direct courier delivery from your own channels starting at $7.99 per delivery.",
+    "how_fees_work": [
+      "Lite plan: 20% marketplace fee on delivery orders. Uber's page says Lite is reduced in select cities, with delivery fees starting as low as 15%.",
+      "Plus plan: 25% marketplace fee on delivery orders after a 0% introductory rate for 30 days. Reaching Uber One members costs an additional 5% on Uber One orders.",
+      "Premium plan: 30% marketplace fee on delivery orders after a 0% introductory rate for 30 days. Uber One visibility is included, and Uber charges 0% in any of the first 6 months in which you get fewer than 20 orders.",
+      "Self-delivery plan: 15% fee on orders you deliver with your own staff. Orders you pass to Uber's courier network, such as farther-away deliveries, are charged 25%.",
+      "Pickup orders: 7% on every plan with validated in-store pricing. Without submitting proof that in-app pickup prices match in-store prices, the pickup fee is 10%.",
+      "Webshop and Uber Direct: Webshop orders on your own site carry a 2.5% order processing fee plus $0.29 per order. Uber Direct on-demand delivery from your own channels starts at $7.99 per delivery.",
+      "Fee basis: the calculator applies the percentage to the order subtotal (menu items before tax and tip). Uber's pricing page does not spell out the base, so confirm it in your merchant agreement."
+    ],
+    "tips": [
+      "Validate your in-store pricing. It cuts the pickup fee from 10% to 7% on every plan, and pickup already avoids the 20%–30% delivery fee.",
+      "If you are in a reduced-rate Lite city, ask Uber for the local rate in writing; the page says it starts at 15% rather than 20%.",
+      "Use the 30-day 0% period on Plus or Premium to measure the extra orders before paying 25% or 30% for the bigger radius.",
+      "On Plus, only turn on the Uber One boost if those orders are worth an extra 5% to you; on Premium it is already included.",
+      "Restaurants with their own drivers save the most on Self-delivery at 15%, but watch how many orders fall back to Uber's network at 25%."
+    ],
+    "faq": [
+      {"q": "What percentage does Uber Eats take from restaurants?", "a": "20% on Lite (as low as 15% in select cities), 25% on Plus and 30% on Premium for delivery orders. Self-delivery is 15%, and pickup orders are 7% with validated in-store pricing or 10% without."},
+      {"q": "Is the Uber Eats fee charged on tax and tips?", "a": "The fee is a percentage of the order; the calculator applies it to the menu subtotal before tax and tip. Uber's pricing page does not spell out the base, so check your merchant agreement."},
+      {"q": "Does Uber Eats charge a monthly fee?", "a": "No monthly fee is listed on Uber's merchant pricing page. Plus and Premium include a 0% introductory rate for 30 days."},
+      {"q": "What is the Uber Eats pickup fee?", "a": "7% per pickup order on all plans if you have validated that your in-app pickup prices match in-store, otherwise 10%."},
+      {"q": "How much does Uber Eats take on a $40 delivery order?", "a": "$8.00 on Lite, $10.00 on Plus, $12.00 on Premium and $6.00 on Self-delivery. A validated pickup order pays $2.80."},
+      {"q": "Does Uber Eats charge extra for Uber One orders?", "a": "On the Plus plan, reaching Uber One members costs an additional 5% on those orders. On Premium it is included at no additional cost."}
+    ],
+    "notes": "Rates are from Uber Eats's US merchant pricing page, read 2026-09-29; the page shows no effective date. Uber lists the Lite plan at 20% and says select cities (Portland, NYC, LA, San Francisco and others) start as low as 15%; the calculator uses 20%. The optional 5% Uber One surcharge on Plus, the Premium 6-month low-volume guarantee and the Self-delivery fallback to 25% are not modeled. Whether the percentage is applied to the subtotal or a larger base is not stated on the page. Payout timing is not modeled.",
+    "changelog": []
+  },
+  "related": ["doordash", "toast", "square"]
+}

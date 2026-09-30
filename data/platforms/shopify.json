@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "slug": "shopify",
+  "name": "Shopify",
+  "category": "marketplace",
+  "region": "United States",
+  "currency": "USD",
+  "tagline": "Shopify fee calculator: Basic, Grow and Advanced plan costs plus 2.9%, 2.7% or 2.5% + 30¢ card fees per order.",
+  "fee_summary": "Shopify charges a monthly subscription ($39 Basic, $105 Grow, $399 Advanced billed monthly) and, with Shopify Payments, an online card fee of 2.9% + 30¢, 2.7% + 30¢ or 2.5% + 30¢ per order. If you use a third-party payment provider instead, Shopify adds a 2%, 1% or 0.6% transaction fee on top of that provider's own charges.",
+  "last_verified": "2026-09-29",
+  "sources": [
+    {"title": "Shopify Pricing (United States)", "url": "https://www.shopify.com/pricing", "accessed": "2026-09-29"}
+  ],
+  "inputs": [
+    {"id": "sale_price", "label": "Order subtotal", "type": "money", "role": "price", "default": 80, "help": "The product total the customer pays, before shipping and tax."},
+    {"id": "shipping_charged", "label": "Shipping charged to customer", "type": "money", "role": "shipping_charged", "default": 8, "help": "Card fees apply to the full amount charged, including shipping. Enter 0 for free shipping."},
+    {"id": "plan", "label": "Shopify plan", "type": "select", "role": "other", "default": "basic",
+     "options": [
+       {"id": "basic", "label": "Basic ($39/month billed monthly)", "note": "$29/month billed yearly. Online cards 2.9% + 30¢."},
+       {"id": "grow", "label": "Grow ($105/month billed monthly)", "note": "$79/month billed yearly. Online cards 2.7% + 30¢."},
+       {"id": "advanced", "label": "Advanced ($399/month billed monthly)", "note": "$299/month billed yearly. Online cards 2.5% + 30¢."}
+     ]},
+    {"id": "orders_per_month", "label": "Orders per month", "type": "number", "role": "orders_per_month", "default": 60, "help": "Used to spread the subscription across your orders."},
+    {"id": "third_party", "label": "Using a third-party payment provider (not Shopify Payments)", "type": "toggle", "role": "other", "default": false},
+    {"id": "provider_rate", "label": "Your provider's rate (%)", "type": "percent", "role": "other", "default": 2.9, "help": "Only used when the third-party toggle is on. PayPal, Stripe, Authorize.net and others each set their own rate."},
+    {"id": "provider_fixed", "label": "Your provider's fixed fee per order ($)", "type": "money", "role": "other", "default": 0.30, "help": "Only used when the third-party toggle is on."},
+    {"id": "item_cost", "label": "Cost of goods in the order", "type": "money", "role": "cost", "default": 30, "help": "What the products in this order cost you."},
+    {"id": "shipping_cost", "label": "Your shipping cost", "type": "money", "role": "shipping_cost", "default": 7, "help": "Label and packaging for this order."},
+    {"id": "target_profit", "label": "Target profit", "type": "money", "role": "target_profit", "default": 25, "help": "We'll show the order subtotal you need to hit this profit."}
+  ],
+  "fees": [
+    {"id": "subscription", "label": "Plan subscription (monthly, split per order)", "basis": "none", "monthly": true,
+     "fixed_by": {"input": "plan", "values": {"basic": 39, "grow": 105, "advanced": 399}, "default": 39},
+     "note": "Monthly-billing price divided by your orders per month. Yearly billing is about 25% cheaper."},
+    {"id": "card_fee", "label": "Shopify Payments online card fee", "basis": "price_plus_shipping",
+     "pct_by": {"input": "plan", "values": {"basic": 2.9, "grow": 2.7, "advanced": 2.5}, "default": 2.9},
+     "fixed": 0.30,
+     "when": {"input": "third_party", "equals": false},
+     "note": "2.9% + 30¢ on Basic, 2.7% + 30¢ on Grow, 2.5% + 30¢ on Advanced for domestic online card payments. International cards add 1%."},
+    {"id": "third_party_fee", "label": "Shopify third-party transaction fee", "basis": "price_plus_shipping",
+     "pct_by": {"input": "plan", "values": {"basic": 2, "grow": 1, "advanced": 0.6}, "default": 2},
+     "when": {"input": "third_party", "equals": true},
+     "note": "Charged by Shopify when you use a payment provider other than Shopify Payments: 2% on Basic, 1% on Grow, 0.6% on Advanced."},
+    {"id": "provider_fee", "label": "Your payment provider's fee", "basis": "price_plus_shipping",
+     "pct_input": "provider_rate",
+     "per_unit": {"input": "provider_fixed", "rate": 1},
+     "when": {"input": "third_party", "equals": true},
+     "note": "The rate and fixed fee you entered for your own processor, charged in addition to Shopify's transaction fee."}
+  ],
+  "worked_example": {
+    "inputs": {"sale_price": 80, "shipping_charged": 8, "plan": "basic", "orders_per_month": 60, "third_party": false, "item_cost": 30, "shipping_cost": 7},
+    "expected": {"total_fees": 3.50, "net_payout": 84.50, "profit": 47.50},
+    "explanation": "A customer pays $80 for products plus $8 shipping, $88 in total, on a store using the Basic plan and Shopify Payments. The online card fee is 2.9% of $88 plus 30¢ = $2.85. The $39 monthly Basic subscription spread over 60 orders adds $0.65 per order. Total fees are $3.50, leaving $84.50. After $30 in cost of goods and $7 to ship, profit on the order is $47.50."
+  },
+  "content": {
+    "intro": "Shopify is not a marketplace: it is the software you use to run your own online store, with your own domain, checkout and customer list. Sellers range from one-person brands to large retailers, and unlike eBay or Amazon nobody takes a commission on each sale. Instead you pay a subscription plus payment processing.\n\nThere are three core plans. Basic is $39 a month billed monthly or $29 a month billed yearly; Grow (the plan formerly called \"Shopify\") is $105 or $79; Advanced is $399 or $299. Shopify Plus for high-volume brands starts at $2,300 a month. Each step up lowers your card rate. With Shopify Payments, online card payments cost 2.9% + 30¢ on Basic, 2.7% + 30¢ on Grow and 2.5% + 30¢ on Advanced, and in-person tap-and-chip payments cost 2.6%, 2.5% or 2.4% + 10¢. International cards add 1%.\n\nIf you route payments through a third-party provider such as PayPal or Authorize.net instead of Shopify Payments, that provider charges its own processing fee and Shopify adds a transaction fee of 2% on Basic, 1% on Grow or 0.6% on Advanced. For most US stores Shopify Payments is the cheaper path. Apps, themes, shipping labels and marketing are extra costs that depend entirely on how you build the store.",
+    "how_fees_work": [
+      "Plan subscription: Basic $39 a month, Grow $105, Advanced $399 when billed monthly; $29, $79 and $299 a month when billed yearly. Shopify Plus starts at $2,300 a month. The subscription is the same whether you sell 5 or 5,000 orders, so its per-order cost falls as volume grows.",
+      "Shopify Payments online card fee: 2.9% + 30¢ per transaction on Basic, 2.7% + 30¢ on Grow, 2.5% + 30¢ on Advanced, 2.25% + 30¢ on Plus. It is charged on the full amount the customer pays, including shipping and tax, and deducted before payout.",
+      "In-person (Shopify POS) card fee: 2.6% + 10¢ on Basic, 2.5% + 10¢ on Grow, 2.4% + 10¢ on Advanced, 2.3% + 10¢ on Plus. Not included in this calculator.",
+      "International cards: add 1% to the online rate on every plan when the customer's card was issued outside the US. Premium cards and alternative payment methods such as PayPal-through-Shopify have their own rates listed on the pricing page.",
+      "Third-party payment provider transaction fee: if you do not use Shopify Payments, Shopify charges 2% of the order on Basic, 1% on Grow, 0.6% on Advanced and 0.2% on Plus, on top of whatever your provider charges (PayPal, Stripe, Authorize.net, etc.). Stores using Shopify Payments pay no transaction fee.",
+      "No per-sale commission, no listing fees. Chargebacks, currency conversion, shipping labels, apps and themes are charged separately and depend on usage."
+    ],
+    "tips": [
+      "Use Shopify Payments unless you have a specific reason not to. On Basic a third-party gateway costs 2% extra on every order: $2.00 on a $100 sale, before the provider's own fee.",
+      "Pay yearly once the store is proven. Basic drops from $39 to $29 a month, saving $120 a year; Grow saves $312 and Advanced saves $1,200.",
+      "Upgrade by the math, not the feature list. Moving from Basic to Grow costs $66 more a month billed monthly and saves 0.2% per order, so it pays for itself only above about $33,000 a month in card sales, unless you need Grow's staff accounts or reports.",
+      "The 30¢ fixed fee is fixed per transaction, not per item. Bundles and free-shipping thresholds that raise average order value cut your effective rate.",
+      "Fees apply to shipping and tax collected too, because the card fee is charged on the total the customer pays. Price shipping to cover the label plus roughly 3%."
+    ],
+    "faq": [
+      {"q": "Does Shopify take a percentage of sales?", "a": "Not as a commission. You pay a monthly plan fee plus payment processing: 2.9% + 30¢ per online card transaction on Basic with Shopify Payments. Shopify only adds a percentage transaction fee (2%, 1% or 0.6%) if you use a third-party payment provider instead of Shopify Payments."},
+      {"q": "How much is Shopify per month?", "a": "Basic is $39 a month billed monthly or $29 a month billed yearly. Grow is $105 or $79, Advanced is $399 or $299, and Shopify Plus starts at $2,300 a month."},
+      {"q": "Does Shopify charge fees on shipping?", "a": "The card processing fee is charged on the total amount the customer pays, which includes shipping and sales tax. There is no separate fee on shipping, but the 2.9% applies to it."},
+      {"q": "When does Shopify pay out?", "a": "Shopify Payments deposits sales, minus fees, to your bank account on a rolling schedule; for US stores funds from a sale typically arrive within a few business days. You can see the exact schedule and each payout's fee breakdown under Finances in your admin."},
+      {"q": "What is the Shopify transaction fee?", "a": "A fee Shopify charges only when you accept payments through a provider other than Shopify Payments: 2% on Basic, 1% on Grow, 0.6% on Advanced, 0.2% on Plus. It is in addition to that provider's own processing fee."},
+      {"q": "Is there a free Shopify plan?", "a": "No ongoing free plan. Shopify offers a free trial, after which the regular plan fee applies. The US pricing page lists Basic ($39 a month, or $29 billed yearly) as the lowest tier."}
+    ],
+    "notes": "Prices and rates are from Shopify's US pricing page as of September 2026. The calculator uses monthly-billing plan prices; yearly billing is cheaper ($29, $79, $299). Shopify Plus, in-person rates, international card surcharges, premium card rates and alternative payment methods are not modeled. Sales tax is not modeled even though card fees apply to it. When the third-party toggle is on, the calculator uses the provider rate and fixed fee you enter; check your own provider's pricing. Payout timing in the FAQ is a general description; check your Shopify Payments payout schedule for exact timing. The Grow plan was previously named \"Shopify\".",
+    "changelog": []
+  },
+  "related": ["stripe", "paypal", "square", "etsy"]
+}

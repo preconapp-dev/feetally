@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block head %}
+<script type="application/ld+json">{{ jsonld|safe }}</script>
+{% endblock %}
+{% block content %}
+<div class="page-head">
+  <span class="eyebrow"><a href="{{ rel('') }}">All calculators</a></span>
+  <h1>{{ tool.h1 }}</h1>
+  <p class="lead">{{ tool.lead }}</p>
+</div>
+<div class="calc">
+  <form id="tool-form" class="card" autocomplete="off" onsubmit="return false;">
+    {{ tool.form|safe }}
+  </form>
+  <div id="tool-results" class="card results" aria-live="polite"></div>
+</div>
+
+{{ ad('top')|safe }}
+
+<section class="section">
+  {% for para in tool.body %}<p>{{ para|safe }}</p>{% endfor %}
+</section>
+
+{% if tool.formula %}
+<section class="section">
+  <h2>The formula</h2>
+  <div class="example"><p style="margin:0"><code>{{ tool.formula }}</code></p></div>
+  {% for para in tool.formula_notes %}<p>{{ para|safe }}</p>{% endfor %}
+</section>
+{% endif %}
+
+<section class="section" id="faq">
+  <h2>FAQ</h2>
+  {% for f in tool.faq %}
+  <details class="faq"{% if loop.first %} open{% endif %}><summary>{{ f.q }}</summary><p>{{ f.a|safe }}</p></details>
+  {% endfor %}
+</section>
+
+<section class="section">
+  <h2>Platform-specific calculators</h2>
+  <p>Fees are rarely a single percentage. For the real numbers, use the calculator for your platform:</p>
+  <div class="grid">
+  {% for p in featured %}<a class="tile" href="{{ rel(p.slug ~ '-fee-calculator/') }}"><span class="t-name">{{ p.name }}</span><span class="t-sub">{{ p.short }}</span></a>{% endfor %}
+  </div>
+</section>
+{% endblock %}
+{% block scripts %}
+<script>{{ tool.js|safe }}</script>
+{% endblock %}

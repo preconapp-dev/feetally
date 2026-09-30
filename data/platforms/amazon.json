@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "slug": "amazon",
+  "name": "Amazon",
+  "category": "marketplace",
+  "region": "United States",
+  "currency": "USD",
+  "tagline": "Amazon fee calculator: referral fee by category (8%–17%), $0.99 per item or $39.99/month, $1.80 media fee.",
+  "fee_summary": "Amazon charges a referral fee on the item price plus shipping, 15% in most categories (8% for electronics, 5%–17% for clothing), with a $0.30 minimum per item. On top of that you pay $0.99 per item on the Individual plan or $39.99 a month on the Professional plan, and media items carry a $1.80 closing fee.",
+  "last_verified": "2026-09-29",
+  "sources": [
+    {"title": "Amazon: Pricing for selling on Amazon (selling plans and referral fees)", "url": "https://sell.amazon.com/pricing", "accessed": "2026-09-29"}
+  ],
+  "inputs": [
+    {"id": "sale_price", "label": "Item price", "type": "money", "role": "price", "default": 45, "help": "The listed price the buyer pays for the item."},
+    {"id": "shipping_charged", "label": "Shipping charged to buyer", "type": "money", "role": "shipping_charged", "default": 0, "help": "Amazon's referral fee applies to shipping and gift wrap charges too. Leave 0 for free shipping or FBA."},
+    {"id": "plan", "label": "Selling plan", "type": "select", "role": "other", "default": "individual",
+     "options": [
+       {"id": "individual", "label": "Individual ($0.99 per item sold)", "note": "No monthly fee. Meant for fewer than 40 sales a month."},
+       {"id": "professional", "label": "Professional ($39.99 per month)", "note": "Flat monthly fee, no per-item fee."}
+     ]},
+    {"id": "category", "label": "Category", "type": "select", "role": "other", "default": "everything_else",
+     "options": [
+       {"id": "everything_else", "label": "Everything else (most categories)", "note": "15%"},
+       {"id": "home_kitchen", "label": "Home & Kitchen", "note": "15%"},
+       {"id": "clothing", "label": "Clothing & Accessories", "note": "5% up to $15, 10% from $15.01 to $20, 17% over $20"},
+       {"id": "electronics", "label": "Consumer Electronics", "note": "8%"},
+       {"id": "beauty_health", "label": "Beauty, Health & Personal Care", "note": "8% up to $10, 15% over $10"},
+       {"id": "toys_games", "label": "Toys & Games", "note": "15%"},
+       {"id": "sports_outdoors", "label": "Sports & Outdoors", "note": "15%"},
+       {"id": "grocery", "label": "Grocery & Gourmet", "note": "8% up to $15, 15% over $15; no minimum fee"},
+       {"id": "automotive", "label": "Automotive & Powersports", "note": "12%"},
+       {"id": "media", "label": "Books, DVD, Music, Software, Video (media)", "note": "15% plus a $1.80 closing fee per item"}
+     ]},
+    {"id": "orders_per_month", "label": "Items sold per month", "type": "number", "role": "orders_per_month", "default": 50, "help": "Used to spread the $39.99 Professional plan fee across your sales."},
+    {"id": "item_cost", "label": "What the item cost you", "type": "money", "role": "cost", "default": 15, "help": "Wholesale or sourcing cost per unit."},
+    {"id": "shipping_cost", "label": "Your shipping or fulfillment cost", "type": "money", "role": "shipping_cost", "default": 5, "help": "Your label cost if you ship it yourself, or the FBA fulfillment fee for the item's size tier."},
+    {"id": "target_profit", "label": "Target profit", "type": "money", "role": "target_profit", "default": 20, "help": "We'll show the item price you need to hit this profit."}
+  ],
+  "fees": [
+    {"id": "referral", "label": "Referral fee", "basis": "price_plus_shipping",
+     "pct_by": {"input": "category", "values": {"everything_else": 15, "home_kitchen": 15, "electronics": 8, "toys_games": 15, "sports_outdoors": 15, "automotive": 12}, "default": 15},
+     "min": 0.30,
+     "when": {"input": "category", "in": ["everything_else", "home_kitchen", "electronics", "toys_games", "sports_outdoors", "automotive"]},
+     "note": "Percentage of the total sales price (item price + shipping + gift wrap) or $0.30, whichever is greater."},
+    {"id": "referral_clothing", "label": "Referral fee (Clothing & Accessories)", "basis": "price_plus_shipping",
+     "tiers": [{"max": 15, "pct": 5}, {"min": 15.01, "max": 20, "pct": 10}, {"min": 20.01, "pct": 17}],
+     "min": 0.30,
+     "when": {"input": "category", "equals": "clothing"},
+     "note": "5% when the total sales price is $15 or less, 10% from $15.01 to $20, 17% above $20. Minimum $0.30."},
+    {"id": "referral_beauty", "label": "Referral fee (Beauty, Health & Personal Care)", "basis": "price_plus_shipping",
+     "tiers": [{"max": 10, "pct": 8}, {"min": 10.01, "pct": 15}],
+     "min": 0.30,
+     "when": {"input": "category", "equals": "beauty_health"},
+     "note": "8% when the total sales price is $10 or less, 15% above $10. Minimum $0.30."},
+    {"id": "referral_grocery", "label": "Referral fee (Grocery & Gourmet)", "basis": "price_plus_shipping",
+     "tiers": [{"max": 15, "pct": 8}, {"min": 15.01, "pct": 15}],
+     "when": {"input": "category", "equals": "grocery"},
+     "note": "8% when the total sales price is $15 or less, 15% above $15. No minimum referral fee in this category."},
+    {"id": "referral_media", "label": "Referral fee (media)", "basis": "price_plus_shipping", "pct": 15,
+     "when": {"input": "category", "equals": "media"},
+     "note": "15% of the total sales price for books, DVDs, music, software and video."},
+    {"id": "closing_media", "label": "Media closing fee", "basis": "none", "fixed": 1.80,
+     "when": {"input": "category", "equals": "media"},
+     "note": "$1.80 per media item sold, in addition to the referral fee."},
+    {"id": "individual_fee", "label": "Individual plan per-item fee", "basis": "none", "fixed": 0.99,
+     "when": {"input": "plan", "equals": "individual"},
+     "note": "$0.99 for every item sold on the Individual plan."},
+    {"id": "professional_fee", "label": "Professional plan ($39.99/month, split per item)", "basis": "none", "fixed": 39.99, "monthly": true,
+     "when": {"input": "plan", "equals": "professional"},
+     "note": "$39.99 a month divided by the items you sell per month."}
+  ],
+  "worked_example": {
+    "inputs": {"sale_price": 45, "shipping_charged": 0, "plan": "professional", "category": "home_kitchen", "orders_per_month": 100, "item_cost": 15, "shipping_cost": 5},
+    "expected": {"total_fees": 7.15, "net_payout": 37.85, "profit": 17.85},
+    "explanation": "A $45 Home & Kitchen item with free shipping has a total sales price of $45. The referral fee is 15% of $45 = $6.75, well above the $0.30 minimum. On the Professional plan the $39.99 monthly fee spread over 100 items sold is $0.40 per item, and there is no per-item fee. Total fees are $7.15, so Amazon pays out $37.85. After the $15 unit cost and $5 to ship it, profit is $17.85."
+  },
+  "content": {
+    "intro": "Amazon is the largest US online retailer, and roughly 60% of what it sells comes from third-party sellers: brands, private-label businesses, wholesalers, arbitrage sellers and individuals clearing out books and electronics. You can ship orders yourself (FBM) or send inventory to Amazon warehouses (FBA), which adds fulfillment fees on top of the selling fees below.\n\nEvery sale pays a referral fee, Amazon's commission. It is 15% in most categories, including Home & Kitchen, Toys & Games and Sports & Outdoors, but 8% for Consumer Electronics and Computers, 12% for Automotive, and tiered for Clothing (5% up to $15, 10% up to $20, then 17%), Beauty and Grocery (8% on low-priced items, 15% above $10 or $15). The percentage applies to the total sales price, meaning the item price plus any shipping and gift-wrap charges, with a $0.30 minimum per item in most categories.\n\nYou also choose a selling plan. The Individual plan has no monthly fee but charges $0.99 for each item sold; the Professional plan costs $39.99 a month with no per-item fee, so it wins once you sell more than about 40 items a month. Media items (books, DVDs, music, software, video) carry an extra $1.80 closing fee per item. FBA fulfillment, storage and advertising are separate and depend on size, weight and season.",
+    "how_fees_work": [
+      "Referral fee: a percentage of the total sales price (item price + shipping charged + gift wrap) or $0.30 per item, whichever is greater. 15% in most categories, including Home & Kitchen, Toys & Games, Sports & Outdoors, Office Products, Tools & Home Improvement and Pet Supplies (22% for veterinary diets).",
+      "Lower and tiered referral rates: Consumer Electronics 8%; Computers 8%; Automotive & Powersports 12%; Clothing & Accessories 5% when the total sales price is $15 or less, 10% from $15.01 to $20, 17% above $20; Beauty, Health & Personal Care and Baby Products 8% at $10 or less, 15% above; Grocery & Gourmet 8% at $15 or less, 15% above (no minimum fee).",
+      "Categories with split rates not in this calculator: Jewelry 20% on the first $250 of the price and 5% above; Watches 16% on the first $1,500 and 3% above; Furniture 15% on the first $200 and 10% above; Electronics Accessories 15% on the first $100 and 8% above; Amazon Device Accessories 45%; full-size appliances 8%.",
+      "Selling plan: Individual costs $0.99 per item sold and nothing monthly. Professional costs $39.99 a month with no per-item fee and unlocks bulk listing tools, advertising and restricted categories. The two plans pay the same referral fees.",
+      "Media closing fee: $1.80 per item on books, DVDs, music, software and video, charged in addition to the 15% referral fee.",
+      "FBA fees (not modeled): if Amazon stores and ships your inventory, each unit also pays a fulfillment fee based on size tier and weight, plus monthly storage fees and possible inbound placement, low-inventory and aged-inventory fees. Use Amazon's Revenue Calculator for your exact SKU.",
+      "Sales tax is collected and remitted by Amazon and is not part of the total sales price, so the referral fee is not charged on it."
+    ],
+    "tips": [
+      "Switch to the Professional plan once you consistently sell more than 40 items a month: 41 × $0.99 = $40.59, already more than the $39.99 subscription.",
+      "Check the referral rate before you source. The same $30 product pays $4.50 in Home & Kitchen (15%) but only $2.40 in Consumer Electronics (8%), and clothing priced at $20.00 pays 10% while $20.01 pays 17%.",
+      "Charging shipping does not dodge the fee: the referral percentage applies to the shipping charge too. Build the shipping cost into the item price and compare with FBA fulfillment fees for your size tier.",
+      "For used books and media, remember the $1.80 closing fee plus $0.99 on the Individual plan: a $12 book nets you about $7.41 before your own costs, so price low-value media accordingly or sell it in lots elsewhere.",
+      "New sellers should look at Amazon's new-seller incentives (referral fee credits and bonuses on branded sales) before launching, since they can offset the first year of fees."
+    ],
+    "faq": [
+      {"q": "Does Amazon charge a referral fee on shipping?", "a": "Yes. The referral fee is calculated on the total sales price, which Amazon defines as the item's list price plus shipping costs and any gift-wrapping charges. It is not charged on sales tax."},
+      {"q": "When does Amazon take its fees?", "a": "At the time of the sale. Referral fees, closing fees and the $0.99 Individual fee are deducted from the order proceeds in your seller account before Amazon disburses your balance, which for most sellers happens on a rolling 14-day settlement cycle."},
+      {"q": "Is there a monthly fee to sell on Amazon?", "a": "Only on the Professional plan, which costs $39.99 a month. The Individual plan has no monthly fee but charges $0.99 per item sold. Professional is cheaper once you sell more than about 40 items a month."},
+      {"q": "What is the minimum referral fee?", "a": "$0.30 per item in most categories. If 15% of your price comes to less than $0.30 (an item under $2), Amazon charges $0.30 instead. Media, grocery and video games have no minimum."},
+      {"q": "Do I pay a payment processing fee on Amazon?", "a": "No. There is no separate card-processing charge; payment handling is covered by the referral fee."},
+      {"q": "Are FBA fees included in this calculator?", "a": "No. FBA fulfillment fees depend on the product's size tier and weight, and storage fees depend on volume and season, so they are left out. Enter your FBA fulfillment fee in the shipping cost field to see the full picture."},
+      {"q": "Do I get the referral fee back on a refund?", "a": "Amazon credits back the referral fee when you refund the customer but keeps a refund administration fee; the current amount is listed in Amazon's fee schedule in Seller Central. Closing fees and plan fees are handled separately."}
+    ],
+    "notes": "Rates are from Amazon's US pricing page as of September 2026 and apply to the United States store. The calculator covers 10 common categories; categories with split-rate schedules (Jewelry, Watches, Furniture, Electronics Accessories) and other specialized categories are not modeled and differ. FBA fulfillment, storage, inbound placement and advertising fees are not modeled. The refund administration fee is not modeled. Amazon typically settles seller accounts every 14 days and may hold a reserve for returns and claims.",
+    "changelog": []
+  },
+  "related": ["ebay", "walmart-marketplace", "shopify", "etsy"]
+}

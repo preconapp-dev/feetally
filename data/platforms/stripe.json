@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "slug": "stripe",
+  "name": "Stripe",
+  "category": "payment-processor",
+  "region": "United States",
+  "currency": "USD",
+  "tagline": "Stripe fee calculator: 2.9% + 30¢ online, 2.7% + 5¢ in person, ACH 0.8% capped at $5. See your exact payout.",
+  "fee_summary": "Stripe charges 2.9% + 30¢ per online card payment and 2.7% + 5¢ in person, with surcharges of +0.5% for keyed cards, +1.5% for international cards and +1% for currency conversion. ACH Direct Debit is 0.8% capped at $5.",
+  "last_verified": "2026-09-29",
+  "sources": [
+    {"title": "Stripe Pricing (US)", "url": "https://stripe.com/pricing", "accessed": "2026-09-29"}
+  ],
+  "inputs": [
+    {"id": "amount", "label": "Transaction amount", "type": "money", "role": "price", "default": 100, "help": "What the customer pays, before Stripe's fee."},
+    {"id": "txn_type", "label": "Transaction type", "type": "select", "role": "other", "default": "online",
+     "options": [
+       {"id": "online", "label": "Online card payment", "note": "2.9% + 30¢"},
+       {"id": "in_person", "label": "In person (Stripe Terminal)", "note": "2.7% + 5¢"},
+       {"id": "keyed", "label": "Manually entered card", "note": "2.9% + 30¢ plus 0.5%"},
+       {"id": "ach", "label": "ACH Direct Debit", "note": "0.8%, capped at $5"}
+     ]},
+    {"id": "international", "label": "Card issued outside the US", "type": "toggle", "role": "other", "default": false, "help": "Adds 1.5% on card payments."},
+    {"id": "currency_conversion", "label": "Currency conversion needed", "type": "toggle", "role": "other", "default": false, "help": "Adds 1% when Stripe converts the payment to USD."},
+    {"id": "cost", "label": "Your cost of goods", "type": "money", "role": "cost", "default": 0, "help": "Optional. What the product or job cost you, to see profit."},
+    {"id": "target_profit", "label": "Target profit", "type": "money", "role": "target_profit", "default": 50, "help": "We'll show the amount to charge so you net this much."}
+  ],
+  "fees": [
+    {"id": "processing", "label": "Card processing fee", "basis": "price",
+     "pct_by": {"input": "txn_type", "values": {"online": 2.9, "in_person": 2.7, "keyed": 2.9}, "default": 0},
+     "fixed_by": {"input": "txn_type", "values": {"online": 0.30, "in_person": 0.05, "keyed": 0.30}, "default": 0},
+     "when": {"input": "txn_type", "in": ["online", "in_person", "keyed"]},
+     "note": "2.9% + 30¢ online, 2.7% + 5¢ with Terminal, per successful domestic-card transaction."},
+    {"id": "keyed_surcharge", "label": "Manual entry surcharge", "basis": "price", "pct": 0.5,
+     "when": {"input": "txn_type", "equals": "keyed"},
+     "note": "Extra 0.5% for manually entered cards."},
+    {"id": "ach", "label": "ACH Direct Debit fee", "basis": "price", "pct": 0.8, "max": 5,
+     "when": {"input": "txn_type", "equals": "ach"},
+     "note": "0.8% of the payment, capped at $5.00."},
+    {"id": "intl", "label": "International card surcharge", "basis": "price",
+     "pct_by": {"input": "txn_type", "values": {"online": 1.5, "in_person": 1.5, "keyed": 1.5, "ach": 0}, "default": 0},
+     "when": {"input": "international", "equals": true},
+     "note": "Extra 1.5% for cards issued outside the US (does not apply to ACH)."},
+    {"id": "fx", "label": "Currency conversion surcharge", "basis": "price",
+     "pct_by": {"input": "txn_type", "values": {"online": 1, "in_person": 1, "keyed": 1, "ach": 0}, "default": 0},
+     "when": {"input": "currency_conversion", "equals": true},
+     "note": "Extra 1% when currency conversion is required (does not apply to ACH)."}
+  ],
+  "worked_example": {
+    "inputs": {"amount": 100, "txn_type": "online", "cost": 40},
+    "expected": {"total_fees": 3.20, "net_payout": 96.80, "profit": 56.80},
+    "explanation": "A $100 online payment with a US card costs 2.9% ($2.90) plus 30¢, so Stripe takes $3.20 and pays out $96.80. After the $40 the product cost you, profit is $56.80."
+  },
+  "content": {
+    "intro": "Stripe is the payment processor behind a large share of online checkouts, subscription apps and marketplaces. If you sell through your own website, take card payments in an app, bill clients with Stripe Invoicing or run a Stripe Terminal reader at the counter, Stripe takes a cut of every successful payment. There is no monthly fee and no setup fee on standard pricing; you pay only when you get paid.\n\nThe headline rate for a US business is 2.9% + 30¢ per successful online card payment with a domestic card. In-person payments through Stripe Terminal cost 2.7% + 5¢. Two surcharges stack on top of the card rate: an extra 0.5% when you type a card number in manually, and an extra 1.5% when the card was issued outside the United States. If Stripe has to convert the payment into US dollars, add another 1%.\n\nACH Direct Debit is the cheap option for large invoices: 0.8% of the amount, capped at $5.00. On a $2,000 invoice that is $5 instead of $58.30 by card. This calculator applies Stripe's published pay-as-you-go rates; if you negotiate custom pricing with Stripe, your numbers will differ.",
+    "how_fees_work": [
+      "Online card payments: 2.9% + 30¢ per successful transaction with a US-issued card. A $100 payment costs $3.20.",
+      "In person with Stripe Terminal: 2.7% + 5¢ per successful transaction. A $100 tap or dip costs $2.75.",
+      "Manually entered cards: an extra 0.5% on top of the online rate, so 3.4% + 30¢ in total when you key a card number into the Dashboard or a virtual terminal.",
+      "International cards: an extra 1.5% whenever the card was issued outside the US. Stripe lists this for both online and Terminal payments.",
+      "Currency conversion: an extra 1% when Stripe converts the payment into your settlement currency.",
+      "ACH Direct Debit: 0.8% of the payment, capped at $5.00. The cap kicks in at $625, so anything larger costs a flat $5.",
+      "Disputes: $15.00 for each dispute you receive, and another $15.00 if you counter it manually. Instant Payouts cost 1.5% of the payout with a 50¢ minimum; standard payouts are free."
+    ],
+    "tips": [
+      "Offer ACH Direct Debit on invoices over a few hundred dollars. A $1,000 invoice costs $5 by ACH versus $29.30 by card.",
+      "Avoid keying card numbers by hand. Send a Stripe payment link or invoice instead and you skip the 0.5% manual-entry surcharge.",
+      "Price and settle in USD when you can. Letting Stripe convert currency adds 1% on top of the 1.5% international-card fee, so a foreign order can cost 5.4% + 30¢.",
+      "Use Stripe Terminal for walk-in customers. 2.7% + 5¢ beats the online rate on every ticket, and the gap is widest on small amounts.",
+      "Turn on Link for returning customers. Link card payments cost the same 2.9% + 30¢, and Link instant bank payments are 2.6% + 30¢."
+    ],
+    "faq": [
+      {"q": "How much does Stripe take from $100?", "a": "$3.20 for an online payment with a US card (2.9% + 30¢), leaving you $96.80. In person through Terminal it is $2.75. Online with an international card it is $4.70."},
+      {"q": "Does Stripe charge a monthly fee?", "a": "No. Stripe's standard pricing has no setup or monthly fees; you pay per successful transaction. Add-on products such as Sigma, Billing and Tax have their own monthly prices."},
+      {"q": "What is Stripe's fee for ACH payments?", "a": "0.8% of the payment, capped at $5.00. A $500 ACH debit costs $4; anything of $625 or more costs $5."},
+      {"q": "How much does Stripe charge for international cards?", "a": "An extra 1.5% on top of the base rate, plus 1% more if currency conversion is needed. A $100 online payment with a non-US card costs $4.70, or $5.70 with conversion."},
+      {"q": "What does Stripe charge for a chargeback?", "a": "$15.00 for each dispute you receive, and a further $15.00 if you respond to it manually."},
+      {"q": "How much is a Stripe instant payout?", "a": "1.5% of the payout amount with a 50¢ minimum. Standard payouts to your bank account are free."},
+      {"q": "Is Stripe cheaper than PayPal?", "a": "For online payments, yes: Stripe charges 2.9% + 30¢ versus PayPal's 3.49% + 49¢ for PayPal Checkout. PayPal's standard card rate of 2.99% + 49¢ is closer, but still 28¢ more on a $100 sale."}
+    ],
+    "notes": "Rates are Stripe's published US pay-as-you-go pricing; high-volume businesses negotiate custom pricing. The 0.5% manual-entry surcharge and the 1% currency-conversion surcharge are listed under online card payments; Terminal lists the 1.5% international surcharge. Link card payments cost the same as regular cards; Link instant bank payments are 2.6% + 30¢ and stablecoin payments 1.5%. Standard payouts are free, but the pricing page does not state payout timing, which depends on your account's payout schedule. Dispute fees ($15 received, $15 countered) are not modeled in the calculator.",
+    "changelog": []
+  },
+  "related": ["paypal", "square", "braintree", "shopify"]
+}

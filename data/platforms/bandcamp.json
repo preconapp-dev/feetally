@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "slug": "bandcamp",
+  "name": "Bandcamp",
+  "category": "creator-platform",
+  "region": "United States",
+  "currency": "USD",
+  "tagline": "Bandcamp fee calculator: 15% on digital (10% after $5,000), 10% on merch, plus PayPal or card processing.",
+  "fee_summary": "Bandcamp's revenue share is 15% on digital sales, dropping to 10% once you reach $5,000 in sales, and 10% on physical items (shipping and tax excluded). Payment processing is separate: 1.9% + $0.30 for PayPal or 2.2% + $0.30 for cards on transactions of $8.07 or more, and 5% + $0.05 below that. Revenue share is waived on Bandcamp Fridays.",
+  "last_verified": "2026-09-29",
+  "sources": [
+    {"title": "Bandcamp Help: What are Bandcamp's fees?", "url": "https://get.bandcamp.help/hc/en-us/articles/23020665520663-What-are-Bandcamp-s-fees", "accessed": "2026-09-29"},
+    {"title": "Bandcamp Help: How much are payment processor fees for digital sales?", "url": "https://get.bandcamp.help/en/articles/15263218-how-much-are-payment-processor-fees-for-digital-sales", "accessed": "2026-09-29"},
+    {"title": "Bandcamp Help: How much are payment processor fees for physical sales?", "url": "https://get.bandcamp.help/en/articles/15263264-how-much-are-payment-processor-fees-for-physical-sales", "accessed": "2026-09-29"},
+    {"title": "Bandcamp Help: How do I get paid on Bandcamp, and how often?", "url": "https://get.bandcamp.help/en/articles/15263080-how-do-i-get-paid-on-bandcamp-and-how-often", "accessed": "2026-09-29"},
+    {"title": "Bandcamp Help: Bandcamp Friday Help", "url": "https://get.bandcamp.help/hc/en-us/articles/23006342800407-Bandcamp-Friday-Help", "accessed": "2026-09-29"}
+  ],
+  "inputs": [
+    {"id": "price", "label": "Item price", "type": "money", "role": "price", "default": 10, "help": "What the fan pays for the album, track, or merch item, not counting shipping. Include any extra the fan adds; Bandcamp takes revenue share on that too."},
+    {"id": "sale_type", "label": "Sale type", "type": "select", "role": "other", "default": "digital",
+     "options": [
+       {"id": "digital", "label": "Digital, 15% (under $5,000 in sales)"},
+       {"id": "digital_10", "label": "Digital, 10% (reached $5,000 in past 12 months)"},
+       {"id": "physical", "label": "Physical merch, 10%", "note": "Shipping and tax are excluded from the revenue share."},
+       {"id": "friday", "label": "Bandcamp Friday (revenue share waived)", "note": "Processing fees still apply."}
+     ]},
+    {"id": "shipping_charged", "label": "Shipping charged to the fan", "type": "money", "role": "shipping_charged", "default": 0, "help": "For merch. Bandcamp takes no revenue share on shipping, but the payment processor's fee applies to the whole charge."},
+    {"id": "payment_method", "label": "How the fan pays", "type": "select", "role": "other", "default": "paypal",
+     "options": [
+       {"id": "paypal", "label": "PayPal (1.9% + $0.30)"},
+       {"id": "card", "label": "Credit or debit card (2.2% + $0.30)"},
+       {"id": "gift_card", "label": "Bandcamp gift card (2.9% + $0.30)"}
+     ]},
+    {"id": "shipping_cost", "label": "What shipping costs you", "type": "money", "role": "shipping_cost", "default": 0, "help": "Postage and packaging for merch orders."},
+    {"id": "cost", "label": "Your cost per item", "type": "money", "role": "cost", "default": 0, "help": "Pressing, printing, or other cost per unit. Usually $0 for digital."},
+    {"id": "target_profit", "label": "Target profit per sale", "type": "money", "role": "target_profit", "default": 8, "help": "We'll show the price you need to set."}
+  ],
+  "fees": [
+    {"id": "share_digital", "label": "Bandcamp revenue share (15%)", "basis": "price", "pct": 15, "max": 15,
+     "when": {"input": "sale_type", "equals": "digital"},
+     "note": "15% of the item price until you reach $5,000 in sales; applies to the first $100 of an item only."},
+    {"id": "share_digital_10", "label": "Bandcamp revenue share (10%)", "basis": "price", "pct": 10, "max": 10,
+     "when": {"input": "sale_type", "equals": "digital_10"},
+     "note": "10% once you have reached $5,000 in sales and keep at least $5,000 in the past 12 months; first $100 of an item only."},
+    {"id": "share_physical", "label": "Bandcamp revenue share (10%)", "basis": "price", "pct": 10, "max": 10,
+     "when": {"input": "sale_type", "equals": "physical"},
+     "note": "10% of the item price, excluding shipping and tax; first $100 of an item only."},
+    {"id": "proc_paypal", "label": "PayPal processing", "basis": "price_plus_shipping",
+     "tiers": [{"max": 8.06, "pct": 5, "fixed": 0.05}, {"min": 8.07, "pct": 1.9, "fixed": 0.30}],
+     "when": {"input": "payment_method", "equals": "paypal"},
+     "note": "1.9% + $0.30 per transaction of $8.07 or more; 5% + $0.05 under $8.07."},
+    {"id": "proc_card", "label": "Card processing", "basis": "price_plus_shipping",
+     "tiers": [{"max": 8.06, "pct": 5, "fixed": 0.05}, {"min": 8.07, "pct": 2.2, "fixed": 0.30}],
+     "when": {"input": "payment_method", "equals": "card"},
+     "note": "2.2% + $0.30 per transaction of $8.07 or more; 5% + $0.05 under $8.07."},
+    {"id": "proc_gift", "label": "Gift card processing", "basis": "price_plus_shipping",
+     "tiers": [{"max": 8.06, "pct": 5, "fixed": 0.05}, {"min": 8.07, "pct": 2.9, "fixed": 0.30}],
+     "when": {"input": "payment_method", "equals": "gift_card"},
+     "note": "2.9% + $0.30 per transaction of $8.07 or more; 5% + $0.05 under $8.07."}
+  ],
+  "worked_example": {
+    "inputs": {"price": 10, "sale_type": "digital", "shipping_charged": 0, "payment_method": "paypal", "shipping_cost": 0, "cost": 0},
+    "expected": {"total_fees": 1.99, "net_payout": 8.01, "profit": 8.01},
+    "explanation": "A fan buys a $10 digital album with PayPal. Bandcamp's revenue share is 15%, or $1.50. PayPal's processing fee on a transaction of $8.07 or more is 1.9% of $10 ($0.19) plus $0.30, or $0.49. Total fees are $1.99, so you receive $8.01; with no cost per item, profit is $8.01."
+  },
+  "content": {
+    "intro": "Bandcamp is a music store where artists and labels sell digital albums and tracks, vinyl, CDs, cassettes, and merch directly to fans, and where fans can pay more than the asking price. There are no listing or monthly fees for a standard artist account; Bandcamp takes a revenue share on each sale.\n\nFor digital items the revenue share is 15%. It drops to 10% as soon as you reach $5,000 in sales and stays there as long as you have made at least $5,000 in the past 12 months. For physical items it is 10%, with shipping and tax excluded from the calculation. On any item, the share applies only to the first $100 of the price. If a fan pays extra, Bandcamp still takes its share on that contribution.\n\nPayment processing is separate and depends on how the fan pays. On transactions of $8.07 or more, PayPal costs 1.9% + $0.30, a credit or debit card 2.2% + $0.30, and a Bandcamp gift card 2.9% + $0.30. Under $8.07 the rate switches to 5% + $0.05, which is cheaper on small purchases. Bandcamp says processing typically works out to 4% to 6%.\n\nA $10 digital album paid with PayPal costs $1.50 in revenue share and $0.49 in processing, leaving $8.01. On Bandcamp Fridays (eight dates in 2026) Bandcamp waives its revenue share entirely, though processing fees still apply. Payouts go to your PayPal account 24 to 48 hours after a sale, or monthly on the 1st if you prefer.",
+    "how_fees_work": [
+      "Digital revenue share: 15% of the item price. It drops to 10% as soon as you reach $5,000 USD in sales and stays at 10% provided you have made at least $5,000 in the past 12 months.",
+      "Physical revenue share: 10% of the item price. Shipping and tax are not included when calculating the fee.",
+      "First $100 rule: the revenue share applies to the first $100 of an item only (or to the total when more than one of that item is bought). A $150 box set pays $10 in share at 10%, not $15.",
+      "Fan contributions: if a fan pays more than your price, the extra is treated as a tip and is not taxed, but Bandcamp still collects revenue share on the first $100 of it.",
+      "Payment processing, per transaction of $8.07 or more: PayPal 1.9% + $0.30; credit or debit card 2.2% + $0.30; Bandcamp gift card 2.9% + $0.30. Under $8.07 an alternate rate of 5% + $0.05 applies. Rates can vary by location, and Enhanced Payments accounts pay the same rates on merch as on digital.",
+      "Bandcamp Friday: Bandcamp waives its revenue share on sales during each Bandcamp Friday window (midnight to midnight Pacific). Payment processor fees still apply. 2026 dates: February 6, March 6, May 1, August 7, September 4, October 2, November 6, and December 4.",
+      "Payouts: sales are paid to your connected PayPal account 24 to 48 hours after processing, or in bulk on the 1st of each month if you choose monthly payouts. PayPal charges 1% of each payout, capped at $1, so monthly payouts can reduce that fee. High-value purchases (such as a $500 track) are reviewed manually and may take up to 14 days."
+    ],
+    "tips": [
+      "Push releases and preorders onto Bandcamp Fridays. With the revenue share waived, a $10 digital album nets $9.51 by PayPal instead of $8.01.",
+      "Get to $5,000 in sales. Digital share drops from 15% to 10% at that point, which is $0.50 more on every $10 album; keep annual sales above $5,000 to stay there.",
+      "Choose monthly payouts if you make many small sales. PayPal's 1% payout fee is capped at $1 per payout, so one monthly payout costs at most $1 while daily payouts can each cost up to $1.",
+      "Price merch with shipping listed separately. Bandcamp takes no revenue share on shipping or tax, so folding postage into the item price only raises the amount the 10% applies to.",
+      "Encourage fans to pay with PayPal. At 1.9% + $0.30 it is the cheapest processing option; gift cards cost 2.9% + $0.30 on the same sale."
+    ],
+    "faq": [
+      {"q": "What percentage does Bandcamp take?", "a": "15% on digital sales (10% once you have reached $5,000 in sales) and 10% on physical merch, excluding shipping and tax. Payment processing of roughly 4% to 6% is separate."},
+      {"q": "How much does Bandcamp take from a $10 album?", "a": "$1.50 in revenue share at the 15% digital rate, plus $0.49 in PayPal processing (1.9% + $0.30), so you keep $8.01. At the 10% rate you keep $8.51."},
+      {"q": "Does Bandcamp take a cut on Bandcamp Friday?", "a": "No. Bandcamp waives its revenue share during each Bandcamp Friday window, but the payment processor's fee still applies."},
+      {"q": "When does Bandcamp's digital fee drop to 10%?", "a": "As soon as you reach $5,000 USD in sales. It stays at 10% as long as you have made at least $5,000 in the past 12 months."},
+      {"q": "Does Bandcamp charge fees on shipping?", "a": "Not in its revenue share; shipping and tax are excluded. The payment processor's percentage still applies to the full amount the fan is charged."},
+      {"q": "How and when does Bandcamp pay artists?", "a": "Through your connected PayPal account, 24 to 48 hours after a sale is processed, or monthly on the 1st if you select that option. PayPal takes 1% of each payout, capped at $1."},
+      {"q": "Does Bandcamp charge a monthly fee?", "a": "No. Standard artist accounts have no listing or subscription fee; Bandcamp earns its revenue share only when something sells."}
+    ],
+    "notes": "The 5% + $0.05 rate on transactions under $8.07 is applied to all three payment methods here; Bandcamp's article states the switch without listing methods separately. Processing is calculated on the full transaction (price plus shipping) in this calculator. The first-$100 cap assumes one unit per item. PayPal's 1% payout fee (capped at $1) is charged per payout, not per sale, and is not modeled. Bandcamp Pro and label accounts, and rates in other currencies, are not covered.",
+    "changelog": []
+  },
+  "related": ["gumroad", "discogs", "reverb", "paypal"]
+}

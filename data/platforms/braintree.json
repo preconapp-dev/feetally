@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "slug": "braintree",
+  "name": "Braintree",
+  "category": "payment-processor",
+  "region": "United States",
+  "currency": "USD",
+  "tagline": "Braintree fee calculator: 2.89% + 29¢ cards and wallets, 3.49% + 49¢ Venmo, ACH 0.75% capped at $5.",
+  "fee_summary": "PayPal Braintree charges 2.89% + 29¢ per card or digital-wallet transaction, 3.49% + 49¢ for Venmo, and 0.75% capped at $5 for ACH Direct Debit. Cards issued outside the US add 1%, and non-USD transactions add another 1%.",
+  "last_verified": "2026-09-29",
+  "sources": [
+    {"title": "PayPal Braintree Fees (US), last updated May 7, 2026", "url": "https://www.paypal.com/us/enterprise/paypal-braintree-fees", "accessed": "2026-09-29"},
+    {"title": "PayPal Merchant Fees (US), for PayPal transactions through Braintree", "url": "https://www.paypal.com/us/webapps/mpp/merchant-fees", "accessed": "2026-09-29"}
+  ],
+  "inputs": [
+    {"id": "amount", "label": "Transaction amount", "type": "money", "role": "price", "default": 100, "help": "What the customer pays, before Braintree's fee."},
+    {"id": "txn_type", "label": "Payment method", "type": "select", "role": "other", "default": "card",
+     "options": [
+       {"id": "card", "label": "Card or digital wallet (Apple Pay, Google Pay)", "note": "2.89% + 29¢"},
+       {"id": "venmo", "label": "Venmo", "note": "3.49% + 49¢"},
+       {"id": "paypal", "label": "PayPal Checkout", "note": "3.49% + 49¢ (PayPal merchant fees apply)"},
+       {"id": "ach", "label": "ACH Direct Debit (standard)", "note": "0.75%, capped at $5"},
+       {"id": "ach_same_day", "label": "ACH Direct Debit (same day)", "note": "1.5% + 10¢"}
+     ]},
+    {"id": "international", "label": "Card issued outside the US", "type": "toggle", "role": "other", "default": false, "help": "Adds 1% on card transactions."},
+    {"id": "currency_conversion", "label": "Transaction not in USD", "type": "toggle", "role": "other", "default": false, "help": "Adds 1% on card transactions in a currency other than USD."},
+    {"id": "cost", "label": "Your cost of goods", "type": "money", "role": "cost", "default": 0, "help": "Optional. What the product or job cost you, to see profit."},
+    {"id": "target_profit", "label": "Target profit", "type": "money", "role": "target_profit", "default": 50, "help": "We'll show the amount to charge so you net this much."}
+  ],
+  "fees": [
+    {"id": "processing", "label": "Braintree transaction fee", "basis": "price",
+     "pct_by": {"input": "txn_type", "values": {"card": 2.89, "venmo": 3.49, "paypal": 3.49, "ach_same_day": 1.5}, "default": 0},
+     "fixed_by": {"input": "txn_type", "values": {"card": 0.29, "venmo": 0.49, "paypal": 0.49, "ach_same_day": 0.10}, "default": 0},
+     "when": {"input": "txn_type", "in": ["card", "venmo", "paypal", "ach_same_day"]},
+     "note": "Standard published rate; custom flat and interchange-plus pricing is available by volume."},
+    {"id": "ach", "label": "ACH Direct Debit fee", "basis": "price", "pct": 0.75, "max": 5,
+     "when": {"input": "txn_type", "equals": "ach"},
+     "note": "0.75% of the payment, capped at $5.00 per transaction."},
+    {"id": "intl", "label": "International card surcharge", "basis": "price",
+     "pct_by": {"input": "txn_type", "values": {"card": 1, "venmo": 0, "paypal": 0, "ach": 0, "ach_same_day": 0}, "default": 0},
+     "when": {"input": "international", "equals": true},
+     "note": "Additional 1% for cards issued outside the United States."},
+    {"id": "fx", "label": "Non-USD currency surcharge", "basis": "price",
+     "pct_by": {"input": "txn_type", "values": {"card": 1, "venmo": 0, "paypal": 0, "ach": 0, "ach_same_day": 0}, "default": 0},
+     "when": {"input": "currency_conversion", "equals": true},
+     "note": "Additional 1% when the transaction is in a currency other than USD."}
+  ],
+  "worked_example": {
+    "inputs": {"amount": 100, "txn_type": "card", "cost": 40},
+    "expected": {"total_fees": 3.18, "net_payout": 96.82, "profit": 56.82},
+    "explanation": "A $100 card payment through Braintree costs 2.89% ($2.89) plus 29¢, so Braintree keeps $3.18 and you receive $96.82. After the $40 the product cost you, profit is $56.82."
+  },
+  "content": {
+    "intro": "Braintree is PayPal's developer-focused processor. It is the engine behind checkout for many apps, marketplaces and subscription businesses that want one integration for cards, Apple Pay, Google Pay, PayPal and Venmo. Unlike a standard PayPal business account, Braintree gives you a full merchant account and gateway, but there is still no monthly or setup fee on standard pricing.\n\nThe standard rate for cards and digital wallets is 2.89% + 29¢ per transaction. Venmo payments through Braintree cost 3.49% + 49¢, and PayPal payments are billed at PayPal's normal merchant rates, which is 3.49% + 49¢ for PayPal Checkout. ACH Direct Debit is 0.75%, capped at $5.00 per transaction, or 1.5% + 10¢ if you want same-day processing.\n\nTwo 1% surcharges can apply to card payments: one when the card was issued outside the US, and one when the transaction is in a currency other than USD. Chargebacks cost $15. Verified 501(c)(3) charities pay 2.19% + 29¢ on cards, and established businesses with volume can ask for custom flat rates or interchange-plus pricing.",
+    "how_fees_work": [
+      "Cards and digital wallets (Visa, Mastercard, Discover, Apple Pay, Google Pay): 2.89% + 29¢ per transaction. On $100 that is $3.18.",
+      "Venmo: 3.49% + 49¢ per transaction.",
+      "PayPal through Braintree: PayPal's merchant fees apply. PayPal Checkout is 3.49% + 49¢ per domestic transaction.",
+      "ACH Direct Debit: 0.75% capped at $5.00 per transaction for standard processing, or 1.5% + 10¢ for same-day processing. ACH returns and disputes cost $5.00.",
+      "International cards: an additional 1% on cards issued outside the United States. Non-USD currency: an additional 1% when the transaction is not in US dollars.",
+      "American Express pass-through: if you hold your own Amex merchant agreement, Braintree charges 15¢ per Amex transaction with no percentage.",
+      "Chargebacks: $15.00 each. Optional Chargeback Protection starts at 0.4% per transaction and Fraud Protection Lite costs 5¢ per inquiry."
+    ],
+    "tips": [
+      "Push large B2B payments to ACH. The $5 cap means a $5,000 invoice costs $5 instead of $144.79 by card.",
+      "Bill in USD. Presenting prices in another currency adds 1%, and a foreign-issued card adds another 1%.",
+      "Once you are processing serious volume, ask Braintree about interchange-plus pricing; the fee page says custom flat rates and interchange-plus are available based on volume.",
+      "Steer customers toward cards or wallets rather than Venmo or PayPal at checkout when you can; the difference is 0.6 points plus 20¢ on every order.",
+      "If you already have an Amex agreement, use pass-through: 15¢ per Amex transaction is far less than 2.89% + 29¢."
+    ],
+    "faq": [
+      {"q": "How much does Braintree take from $100?", "a": "$3.18 for a card or digital-wallet payment (2.89% + 29¢), leaving $96.82. A Venmo or PayPal payment costs $3.98."},
+      {"q": "Does Braintree charge a monthly fee?", "a": "No. Standard Braintree pricing lists no monthly, setup or gateway fees; you pay per transaction."},
+      {"q": "What is the Braintree rate for PayPal payments?", "a": "PayPal transactions through Braintree are charged at PayPal's merchant fees, which is 3.49% + 49¢ for PayPal Checkout in the US."},
+      {"q": "Is Braintree cheaper than Stripe?", "a": "Slightly, at published rates: 2.89% + 29¢ versus Stripe's 2.9% + 30¢, about 2¢ less on a $100 sale. Braintree's international surcharge is 1% versus Stripe's 1.5%."},
+      {"q": "How much is Braintree's ACH fee?", "a": "0.75% of the payment, capped at $5.00. Same-day ACH is 1.5% + 10¢."},
+      {"q": "What does Braintree charge for a chargeback?", "a": "$15.00 per chargeback. ACH returns or disputes cost $5.00."}
+    ],
+    "notes": "Rates are from PayPal's Braintree fee page, which shows 'Last Updated: May 7, 2026'. Older articles quote 2.59% + 49¢ for Braintree; the current official page lists 2.89% + 29¢. The 1% international and 1% non-USD surcharges are listed for card transactions, so the calculator applies them only to the card option. Verified 501(c)(3) charities pay 2.19% + 29¢. Payout timing is not stated on the fee page. Chargeback fees are not modeled.",
+    "changelog": [
+      {"date": "2026-05-07", "change": "PayPal's Braintree fee page shows 'Last Updated: May 7, 2026'. Standard cards and digital wallets are listed at 2.89% + 29¢ in that version."}
+    ]
+  },
+  "related": ["paypal", "stripe", "authorize-net", "venmo"]
+}

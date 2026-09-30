@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "slug": "venmo",
+  "name": "Venmo",
+  "category": "payment-processor",
+  "region": "United States",
+  "currency": "USD",
+  "tagline": "Venmo fee calculator: 1.9% + 10¢ business profile, 2.99% goods and services, 1.75% instant transfer.",
+  "fee_summary": "Venmo takes 1.9% + 10¢ on payments to a business profile (2.29% + 9¢ with Tap to Pay) and 2.99% on personal-profile payments marked as goods and services. Instant transfers to your bank cost 1.75% (25¢ minimum, $25 maximum); standard transfers are free.",
+  "last_verified": "2026-09-29",
+  "sources": [
+    {"title": "Venmo Fees (official fees page)", "url": "https://venmo.com/resources/our-fees/", "accessed": "2026-09-29"},
+    {"title": "Venmo Help: Business Profile Transaction Fees", "url": "https://help.venmo.com/cs/articles/business-profile-transaction-fees-vhel221", "accessed": "2026-09-29"},
+    {"title": "Venmo Help: Instant Bank Transfer FAQ", "url": "https://help.venmo.com/cs/articles/instant-bank-transfer-faq-vhel302", "accessed": "2026-09-29"},
+    {"title": "Venmo Help: Bank Transfer Timeline", "url": "https://help.venmo.com/cs/articles/bank-transfer-timeline-vhel288", "accessed": "2026-09-29"}
+  ],
+  "inputs": [
+    {"id": "amount", "label": "Payment amount", "type": "money", "role": "price", "default": 100, "help": "What the customer sends you."},
+    {"id": "txn_type", "label": "How you get paid", "type": "select", "role": "other", "default": "business",
+     "options": [
+       {"id": "business", "label": "Payment to your business profile (app or QR code)", "note": "1.9% + 10¢"},
+       {"id": "tap_to_pay", "label": "Tap to Pay on your business profile", "note": "2.29% + 9¢"},
+       {"id": "goods_services", "label": "Personal profile, marked as goods and services", "note": "2.99%, no fixed fee"}
+     ]},
+    {"id": "instant_transfer", "label": "Instant transfer to bank or debit card", "type": "toggle", "role": "other", "default": false, "help": "1.75% of the transfer, minimum 25¢, maximum $25. Standard transfers are free."},
+    {"id": "cost", "label": "Your cost of goods", "type": "money", "role": "cost", "default": 0, "help": "Optional. What the product or job cost you, to see profit."},
+    {"id": "target_profit", "label": "Target profit", "type": "money", "role": "target_profit", "default": 50, "help": "We'll show the amount to charge so you net this much."}
+  ],
+  "fees": [
+    {"id": "seller_fee", "label": "Venmo seller transaction fee", "basis": "price",
+     "pct_by": {"input": "txn_type", "values": {"business": 1.9, "tap_to_pay": 2.29, "goods_services": 2.99}},
+     "fixed_by": {"input": "txn_type", "values": {"business": 0.10, "tap_to_pay": 0.09, "goods_services": 0}},
+     "note": "Deducted automatically from each payment of $1.00 or more."},
+    {"id": "instant_transfer", "label": "Instant transfer fee", "basis": "price", "pct": 1.75, "min": 0.25, "max": 25,
+     "when": {"input": "instant_transfer", "equals": true},
+     "note": "1.75% of the amount transferred, minimum 25¢, maximum $25. Estimated on the payment amount."}
+  ],
+  "worked_example": {
+    "inputs": {"amount": 100, "txn_type": "business", "cost": 40},
+    "expected": {"total_fees": 2.00, "net_payout": 98.00, "profit": 58.00},
+    "explanation": "A customer sends $100 to your Venmo business profile. Venmo deducts 1.9% ($1.90) plus 10¢, a total of $2.00, so $98.00 lands in your balance. After the $40 the item cost you, profit is $58.00."
+  },
+  "content": {
+    "intro": "Venmo started as a way to split dinner, and for a lot of freelancers, market vendors and side hustlers it is still the easiest way to get paid. Venmo is owned by PayPal, and once money changes hands for a product or service, a seller fee applies.\n\nIf you set up a business profile, every payment of $1.00 or more that lands on it costs 1.9% + 10¢, deducted automatically before the money reaches your balance. Take a contactless payment in person with Tap to Pay on iPhone or Android and the rate is 2.29% + 9¢. If you keep using a personal profile and the customer marks the payment as being for goods and services, Venmo charges you 2.99% with no fixed fee.\n\nMoving money to your bank is free with a standard transfer, which typically completes within one business day and can take up to three. An instant transfer to an eligible bank account or debit card costs 1.75% of the amount, with a 25¢ minimum and a $25 cap. There are no monthly fees for a business profile, and customers who pay a business profile with a credit card are exempt from Venmo's usual 3% credit-card fee.",
+    "how_fees_work": [
+      "Business profile payments: 1.9% + 10¢ on every payment of $1.00 or more sent to your business profile through the app or your QR code. On $100 that is $2.00.",
+      "Tap to Pay: 2.29% + 9¢ when you accept a contactless card or phone in person through Tap to Pay on iPhone or Android on a business profile.",
+      "Goods and services on a personal profile: 2.99% (no fixed fee) when the sender identifies the payment as being for goods and services.",
+      "Standard bank transfer: free. Funds typically arrive within one business day and can take up to three business days.",
+      "Instant transfer: 1.75% of the amount, minimum 25¢, maximum $25. The cap means any transfer of about $1,429 or more costs a flat $25.",
+      "Customers paying a business profile with a credit card do not pay Venmo's usual 3% credit-card sending fee; your seller fee is the only charge on the payment."
+    ],
+    "tips": [
+      "Switch to a business profile if you sell regularly: 1.9% + 10¢ beats the 2.99% personal goods-and-services rate on anything over about $9.",
+      "Use standard transfers. On a $500 payout, instant costs $8.75; waiting a business day costs nothing.",
+      "Put a QR code at the register. A QR or username payment to your business profile (1.9% + 10¢) is cheaper than Tap to Pay (2.29% + 9¢) on anything over about $3.",
+      "Let customers tag payments as goods and services. The tag is what triggers the fee, but it is also what gives them purchase protection and keeps your account in good standing.",
+      "Batch your transfers. If you must use instant transfer, one $1,000 transfer costs $17.50; the $25 cap only helps above about $1,429."
+    ],
+    "faq": [
+      {"q": "How much does Venmo take from $100 on a business profile?", "a": "$2.00 (1.9% + 10¢), so you receive $98.00. If you then instant-transfer the $98 to your bank, another $1.72 (1.75%) comes off."},
+      {"q": "Does Venmo charge a fee for goods and services?", "a": "Yes. On a personal profile the seller pays 2.99% when the sender marks the payment as goods and services. On a business profile the fee is 1.9% + 10¢."},
+      {"q": "Is there a monthly fee for a Venmo business profile?", "a": "No. You pay per transaction only."},
+      {"q": "How much is the Venmo instant transfer fee?", "a": "1.75% of the transfer, with a 25¢ minimum and a $25 maximum. Standard transfers are free and typically arrive within one business day, up to three."},
+      {"q": "What is the Venmo Tap to Pay fee?", "a": "2.29% + 9¢ per payment on a business profile, slightly more than the 1.9% + 10¢ for app or QR code payments."},
+      {"q": "Does the customer pay a fee to pay my business on Venmo?", "a": "No. Venmo's 3% credit-card sending fee is waived for payments to business profiles, and bank or balance payments are free to send. The seller fee comes out of your side."}
+    ],
+    "notes": "Venmo's official fees page lists Tap to Pay at 2.29% + $0.09; a Venmo help-center article on business profile fees says 2.29% + $0.10. This calculator uses the fees page figure; the difference is one cent. The instant transfer fee is charged on the amount you transfer, which is usually your net balance after the seller fee, so the calculator's estimate (based on the payment amount) can run a cent or two high. Charity profiles pay 1.9% + 10¢. Venmo is US-only, so there is no international or currency surcharge.",
+    "changelog": []
+  },
+  "related": ["paypal", "zettle", "square", "stripe"]
+}

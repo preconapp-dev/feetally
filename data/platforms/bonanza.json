@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "slug": "bonanza",
+  "name": "Bonanza",
+  "category": "marketplace",
+  "region": "United States",
+  "currency": "USD",
+  "tagline": "Bonanza fee calculator: 3.5% base fee, 9%–30% advertising tiers, $0.25 per sale plus PayPal or Stripe fees.",
+  "fee_summary": "Bonanza charges a $0.25 transaction fee plus a final value fee of 3.5% at the Economy level, rising to 9%, 13%, 19% or 30% if you opt into its advertising program. Payments go through PayPal or Stripe, which take their own processing fee (3.49% + $0.49 or 2.9% + $0.30).",
+  "last_verified": "2026-09-29",
+  "sources": [
+    {"title": "Bonanza Help Center: Bonanza Advertising FAQ", "url": "https://support.bonanza.com/hc/en-us/articles/360000606772-Bonanza-Advertising-FAQ", "accessed": "2026-09-29"},
+    {"title": "Bonanza blog: Advertising fees and top categories", "url": "https://www.bonanza.com/blog/main/bonanza_bulletin__advertising_fees_and_top_categories", "accessed": "2026-09-29"},
+    {"title": "PayPal US merchant fees", "url": "https://www.paypal.com/us/webapps/mpp/merchant-fees", "accessed": "2026-09-29"},
+    {"title": "Stripe pricing (US)", "url": "https://stripe.com/pricing", "accessed": "2026-09-29"}
+  ],
+  "inputs": [
+    {"id": "sale_price", "label": "Item price", "type": "money", "role": "price", "default": 40, "help": "The final offer value of the item, before shipping."},
+    {"id": "shipping_charged", "label": "Shipping charged to buyer", "type": "money", "role": "shipping_charged", "default": 6, "help": "Your payment processor's fee applies to shipping. Bonanza's final value fee is modeled on the item price only."},
+    {"id": "advertising", "label": "Advertising level", "type": "select", "role": "other", "default": "economy",
+     "options": [
+       {"id": "economy", "label": "Economy (no advertising)", "note": "3.5% final value fee"},
+       {"id": "basic", "label": "Basic advertising", "note": "9%: Google Shopping, affiliate network and Bonanza Promotions"},
+       {"id": "standard", "label": "Standard advertising", "note": "13%: Basic plus publishing to eBay"},
+       {"id": "superior", "label": "Superior advertising", "note": "19%: Standard plus Bing Ads"},
+       {"id": "elite", "label": "Elite advertising", "note": "30%: Superior plus a higher ad spend"}
+     ]},
+    {"id": "processor", "label": "How you get paid", "type": "select", "role": "other", "default": "paypal",
+     "options": [
+       {"id": "paypal", "label": "PayPal Checkout (3.49% + $0.49)", "note": "PayPal's US commercial transaction rate"},
+       {"id": "stripe", "label": "Stripe (2.9% + $0.30)", "note": "Stripe's US domestic card rate"}
+     ]},
+    {"id": "item_cost", "label": "What the item cost you", "type": "money", "role": "cost", "default": 12, "help": "Purchase or sourcing cost."},
+    {"id": "shipping_cost", "label": "Your shipping cost", "type": "money", "role": "shipping_cost", "default": 5, "help": "Label and packaging."},
+    {"id": "target_profit", "label": "Target profit", "type": "money", "role": "target_profit", "default": 15, "help": "We'll show the item price you need to hit this profit."}
+  ],
+  "fees": [
+    {"id": "fvf", "label": "Final value fee", "basis": "price",
+     "pct_by": {"input": "advertising", "values": {"economy": 3.5, "basic": 9, "standard": 13, "superior": 19, "elite": 30}, "default": 3.5},
+     "note": "3.5% at Economy; up to the advertising percentage you selected on sales made while your items were advertised."},
+    {"id": "transaction", "label": "Bonanza transaction fee", "basis": "none", "fixed": 0.25,
+     "note": "$0.25 on every sale, in addition to the final value fee."},
+    {"id": "processing", "label": "Payment processing (PayPal or Stripe)", "basis": "price_plus_shipping",
+     "pct_by": {"input": "processor", "values": {"paypal": 3.49, "stripe": 2.9}, "default": 3.49},
+     "fixed_by": {"input": "processor", "values": {"paypal": 0.49, "stripe": 0.30}, "default": 0.49},
+     "note": "Charged by your payment processor on the full amount the buyer pays, not by Bonanza."}
+  ],
+  "worked_example": {
+    "inputs": {"sale_price": 40, "shipping_charged": 6, "advertising": "economy", "processor": "paypal", "item_cost": 12, "shipping_cost": 5},
+    "expected": {"total_fees": 3.75, "net_payout": 42.25, "profit": 25.25},
+    "explanation": "A $40 item with $6 shipping sells at the Economy level with no advertising. Bonanza's final value fee is 3.5% of $40 = $1.40, plus the $0.25 transaction fee. The buyer paid $46 through PayPal Checkout, which takes 3.49% of $46 plus $0.49 = $2.10. Total fees are $3.75, so you keep $42.25. After the $12 item cost and $5 shipping label, profit is $25.25."
+  },
+  "content": {
+    "intro": "Bonanza is a smaller general marketplace that positions itself as a low-fee alternative to eBay. Most sellers are eBay and Etsy veterans who import their listings with Bonanza's tools and use it as an extra sales channel for collectibles, fashion, home goods and crafts. Traffic is far lower than on eBay, which is why Bonanza's fee structure is built around paying for advertising.\n\nEvery sale pays a $0.25 transaction fee plus a final value fee. At the Economy level, with no advertising, that fee is 3.5% of the item price. If you opt into the Broadcaster advertising program you choose a maximum fee: 9% (Basic: Google Shopping, affiliate bloggers and Bonanza promotions), 13% (Standard, adds publishing to eBay), 19% (Superior, adds Bing Ads) or 30% (Elite, the highest ad spend). Bonanza pays for the ad clicks and bills the higher percentage on sales made while your items were advertised.\n\nBonanza does not process payments. Buyers pay through PayPal (required) or Stripe, and those providers deduct their own fees before the money reaches you: PayPal Checkout is 3.49% + $0.49 per transaction and Stripe is 2.9% + $0.30. Sales that come from your own referral links or customer-marketing coupons are free of final value fees, which is the cheapest way to sell here.",
+    "how_fees_work": [
+      "Final value fee: 3.5% of the item's final offer value at the Economy (no advertising) level. It is billed on your monthly Bonanza statement rather than deducted from the payment.",
+      "Advertising tiers: when you opt in, you set the maximum fee you are willing to pay and Bonanza spends it on ads. Basic is 9%, Standard 13%, Superior 19% and Elite 30%. Your monthly bill reflects final value fees at that rate on sales made during the time your items were advertised.",
+      "Transaction fee: $0.25 per sale, charged in addition to the final value fee at every level.",
+      "Payment processing: Bonanza does not take a cut for payments. PayPal Checkout charges 3.49% + $0.49 per US commercial transaction and Stripe charges 2.9% + $0.30 for domestic cards, calculated on the full amount the buyer pays including shipping. Sellers must accept PayPal; Stripe and Amazon Pay are optional additions.",
+      "Fee-free sales: purchases made in the same session by a buyer who arrived through your Bonanza referral link, and sales that result from a customer marketing (coupon) campaign, carry no final value fee.",
+      "Optional membership plans and fees on very high-value sales are described in Bonanza's pricing article, which requires a login; they are not modeled here."
+    ],
+    "tips": [
+      "Stay at Economy unless the advertising is measurably bringing sales. The jump from 3.5% to 9% on a $40 item is $2.20 more per sale, and 30% Elite takes $12.",
+      "Share your own referral link on social media and in your packaging. Buyers who come through it and purchase in that session cost you only the $0.25 transaction fee plus processing.",
+      "PayPal's 3.49% + $0.49 is usually your biggest fee on Bonanza. On a $46 total it is $2.10, more than Bonanza's own $1.65; adding Stripe (2.9% + $0.30) gives buyers a cheaper option for you.",
+      "Bonanza bills fees monthly instead of deducting them from each payout, so set aside the fee percentage from every sale or the monthly invoice will surprise you.",
+      "Because the base fee is a flat 3.5%, higher-priced items are proportionally cheaper to sell here than on eBay (13.6%); use Bonanza for your pricier inventory."
+    ],
+    "faq": [
+      {"q": "How much does Bonanza charge to sell?", "a": "3.5% of the item's final offer value plus a $0.25 transaction fee per sale when you are not advertising. If you opt into Bonanza's advertising program, the final value fee rises to the level you choose: 9%, 13%, 19% or 30%."},
+      {"q": "Does Bonanza charge a fee on shipping?", "a": "Bonanza's advertising FAQ does not spell out how shipping is treated in the final offer value, so this calculator applies the final value fee to the item price only. Your payment processor's fee does apply to shipping, since it is charged on the total the buyer pays."},
+      {"q": "When does Bonanza take its fees?", "a": "Bonanza bills you monthly for final value fees and transaction fees on the previous month's sales. Payment processing fees are deducted immediately by PayPal or Stripe when the buyer pays."},
+      {"q": "Is there a monthly fee or listing fee on Bonanza?", "a": "No listing fees and no required monthly fee. Optional membership plans exist for sellers who want extra tools, but you can list and sell without one."},
+      {"q": "Does Bonanza charge payment processing fees?", "a": "Not directly. Buyers pay through PayPal or Stripe, and those companies charge their standard rates: PayPal Checkout 3.49% + $0.49 and Stripe 2.9% + $0.30 per transaction."},
+      {"q": "Are there sales with no final value fee?", "a": "Yes. If a buyer arrives through your Bonanza referral link and buys in that session, or the sale results from a customer marketing coupon campaign, Bonanza waives the final value fee."}
+    ],
+    "notes": "Bonanza's percentage tiers and the $0.25 transaction fee come from its Advertising FAQ and blog as of September 2026. Bonanza's full pricing article and A-Z selling guide redirect to a login page for automated access, so two details could not be verified and are not modeled: how shipping charged to the buyer counts toward the final offer value, and any additional percentage on the portion of a sale above a high-value threshold. The final value fee here is applied to the item price only, which may slightly understate the fee on orders with large shipping charges. Membership plans are not modeled. Processing rates are PayPal's and Stripe's published US rates; international cards and currency conversion cost more.",
+    "changelog": []
+  },
+  "related": ["ebay", "etsy", "mercari", "paypal"]
+}

@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "slug": "teachable",
+  "name": "Teachable",
+  "category": "creator-platform",
+  "region": "United States",
+  "currency": "USD",
+  "tagline": "Teachable fee calculator: plan prices, the 7.5% Starter transaction fee, and processing per sale.",
+  "fee_summary": "Teachable is a paid subscription: Starter $39/month ($29 billed annually) with a 7.5% transaction fee, Builder $89 ($69 annually) and Growth $189 ($139 annually) with 0% transaction fees. Every sale also pays payment processing, 2.9% + 30¢ for US cards.",
+  "last_verified": "2026-09-29",
+  "sources": [
+    {"title": "Teachable: Pricing", "url": "https://teachable.com/pricing", "accessed": "2026-09-29"}
+  ],
+  "inputs": [
+    {"id": "sale_price", "label": "Course or product price", "type": "money", "role": "price", "default": 100, "help": "What the student pays for one sale."},
+    {"id": "plan", "label": "Plan", "type": "select", "role": "other", "default": "starter",
+     "options": [
+       {"id": "starter", "label": "Starter ($39/mo or $29/mo annual, 7.5% fee)"},
+       {"id": "builder", "label": "Builder ($89/mo or $69/mo annual, 0% fee)"},
+       {"id": "growth", "label": "Growth ($189/mo or $139/mo annual, 0% fee)"}
+     ]},
+    {"id": "annual", "label": "Billed annually", "type": "toggle", "role": "other", "default": true},
+    {"id": "payment_method", "label": "How the student pays", "type": "select", "role": "other", "default": "us_card",
+     "options": [
+       {"id": "us_card", "label": "US credit or debit card (2.9% + 30¢)"},
+       {"id": "intl_card", "label": "International card (3.9% + 30¢)"},
+       {"id": "us_paypal", "label": "US PayPal (3.49% + 49¢)"},
+       {"id": "intl_paypal", "label": "International PayPal (4.99% + 49¢)"}
+     ]},
+    {"id": "sales_per_month", "label": "Sales per month", "type": "number", "role": "orders_per_month", "default": 20, "step": 1, "min": 1, "help": "Used to spread the monthly plan price across your sales."},
+    {"id": "sale_cost", "label": "Your cost per sale", "type": "money", "role": "cost", "default": 0, "help": "Affiliate payout, materials or support cost per sale. Optional."},
+    {"id": "target_profit", "label": "Target profit per sale", "type": "money", "role": "target_profit", "default": 50, "help": "We'll show the price you need to charge."}
+  ],
+  "fees": [
+    {"id": "transaction_fee", "label": "Teachable transaction fee", "basis": "price",
+     "pct_by": {"input": "plan", "values": {"starter": 7.5, "builder": 0, "growth": 0}},
+     "note": "7.5% of each sale on Starter. 0% on Builder and Growth when you use teachable:pay or the Monthly Payment Gateway."},
+    {"id": "processing", "label": "Payment processing", "basis": "price",
+     "pct_by": {"input": "payment_method", "values": {"us_card": 2.9, "intl_card": 3.9, "us_paypal": 3.49, "intl_paypal": 4.99}},
+     "fixed_by": {"input": "payment_method", "values": {"us_card": 0.30, "intl_card": 0.30, "us_paypal": 0.49, "intl_paypal": 0.49}},
+     "note": "Teachable's standard processing rates, charged on every plan."},
+    {"id": "subscription_annual", "label": "Plan price, billed annually (per sale)", "basis": "none", "monthly": true,
+     "fixed_by": {"input": "plan", "values": {"starter": 29, "builder": 69, "growth": 139}},
+     "when": {"input": "annual", "equals": true},
+     "note": "$29, $69 or $139 a month when paid yearly, divided by your sales per month."},
+    {"id": "subscription_monthly", "label": "Plan price, billed monthly (per sale)", "basis": "none", "monthly": true,
+     "fixed_by": {"input": "plan", "values": {"starter": 39, "builder": 89, "growth": 189}},
+     "when": {"input": "annual", "equals": false},
+     "note": "$39, $89 or $189 a month when paid month to month, divided by your sales per month."}
+  ],
+  "worked_example": {
+    "inputs": {"sale_price": 100, "plan": "starter", "annual": true, "payment_method": "us_card", "sales_per_month": 20, "sale_cost": 0},
+    "expected": {"total_fees": 12.15, "net_payout": 87.85, "profit": 87.85},
+    "explanation": "A $100 course sold on the Starter plan (billed annually at $29 a month) to a US card pays a 7.5% transaction fee of $7.50 and processing of 2.9% + 30¢, which is $3.20. Spread over 20 sales a month, the $29 plan adds $1.45 per sale. Total cost per sale is $12.15 and the creator keeps $87.85. On Builder the transaction fee disappears but the plan is $69, so at 20 sales a month the same sale nets $93.35."
+  },
+  "content": {
+    "intro": "Teachable is a hosted platform for selling online courses, coaching and digital downloads. You build the course pages, Teachable handles checkout, hosting, student accounts and payouts, and you pay a monthly plan plus per-sale fees.\n\nThere is no free plan: Teachable's pricing page says it is a paid service with a 7-day free trial and a 30-day money-back guarantee. Three plans are listed. Starter is $39 a month, or $29 a month billed annually, and takes a 7.5% transaction fee on every sale. Builder is $89 a month ($69 annually) and Growth is $189 a month ($139 annually); both have a 0% transaction fee when you use teachable:pay or the Monthly Payment Gateway. A Custom plan is priced by sales. Annual billing is about 22% cheaper than monthly.\n\nOn top of the plan, every sale pays payment processing at Teachable's standard rates: 2.9% + 30¢ for US credit and debit cards, 3.9% + 30¢ for international cards, 3.49% + 49¢ for US PayPal and 4.99% + 49¢ for international PayPal, plus a $15 fee per chargeback. The calculator spreads the plan price across your monthly sales so you can see the true cost per sale and the point where Builder's $40 higher price beats Starter's 7.5%.",
+    "how_fees_work": [
+      "Starter plan: $39 a month billed monthly or $29 a month billed annually, plus a 7.5% transaction fee on every sale.",
+      "Builder plan: $89 a month billed monthly or $69 a month billed annually, with a 0% transaction fee when using teachable:pay or the Monthly Payment Gateway.",
+      "Growth plan: $189 a month billed monthly or $139 a month billed annually, with the same 0% transaction fee.",
+      "Payment processing, charged on all plans: US cards 2.9% + 30¢; international cards 3.9% + 30¢; US PayPal 3.49% + 49¢; international PayPal 4.99% + 49¢.",
+      "Chargebacks: $15 per chargeback.",
+      "Plan price per sale: the calculator divides the monthly plan price by your sales per month. At 20 sales a month, Starter annual adds $1.45 per sale and Builder annual adds $3.45.",
+      "Trial and refunds: 7-day free trial and a 30-day money-back guarantee on all plans. No free tier is listed."
+    ],
+    "tips": [
+      "Move from Starter to Builder once you sell about $533 a month on annual billing: 7.5% of $533 is $40, the price difference between the two plans.",
+      "Pay annually if you expect to sell for a year. Starter drops from $39 to $29 a month, saving $120, and the transaction fee is unchanged.",
+      "Steer students to card checkout where you can; PayPal costs 3.49% + 49¢ versus 2.9% + 30¢ on US cards, 78¢ more on a $100 sale.",
+      "Price to cover the flat parts. On a $20 product the 30¢ processing and the amortized plan price are a bigger share than on a $200 course.",
+      "Use the sales-per-month field honestly; a $139 Growth plan at 5 sales a month costs $27.80 per sale, more than the 7.5% Starter fee on most course prices."
+    ],
+    "faq": [
+      {"q": "Does Teachable take a percentage of sales?", "a": "Only on the Starter plan, which charges 7.5% per sale. Builder and Growth have a 0% transaction fee. All plans pay payment processing, 2.9% + 30¢ on US cards."},
+      {"q": "How much does Teachable cost per month?", "a": "Starter is $39 a month ($29 billed annually), Builder $89 ($69 annually) and Growth $189 ($139 annually). Custom plans are quoted by sales."},
+      {"q": "Is there a free Teachable plan?", "a": "No. Teachable says it is a paid service with a 7-day free trial and a 30-day money-back guarantee."},
+      {"q": "What are Teachable's payment processing fees?", "a": "2.9% + 30¢ for US credit and debit cards, 3.9% + 30¢ for international cards, 3.49% + 49¢ for US PayPal and 4.99% + 49¢ for international PayPal, plus $15 per chargeback."},
+      {"q": "How much do I keep from a $100 course sale on Teachable?", "a": "$89.30 after the 7.5% fee and US card processing on Starter, before the plan price; spreading a $29 annual Starter plan over 20 monthly sales brings it to $87.85. On Builder it is $96.80 before the plan price."},
+      {"q": "When is Builder cheaper than Starter?", "a": "When 7.5% of your monthly sales exceeds the $40 difference in annual plan price, which happens at about $533 in monthly sales ($50 more per month, or $667 in sales, on monthly billing)."}
+    ],
+    "notes": "Prices and fees are from Teachable's pricing page, read 2026-09-29, which lists Starter, Builder, Growth and Custom; no free plan or $1 + 10% fee appears on the page any longer. Teachable states the 0% transaction fee on Builder and Growth applies when using teachable:pay or the Monthly Payment Gateway; other gateway setups are not modeled. Processing rates are Teachable's standard rates and can differ if you connect your own gateway. Sales tax handling and payout schedules are not modeled.",
+    "changelog": []
+  },
+  "related": ["gumroad", "patreon", "substack", "stripe"]
+}

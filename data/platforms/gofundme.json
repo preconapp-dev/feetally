@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "slug": "gofundme",
+  "name": "GoFundMe",
+  "category": "crowdfunding",
+  "region": "United States",
+  "currency": "USD",
+  "tagline": "GoFundMe fee calculator: 0% platform fee, 2.9% + $0.30 per donation, and what you actually receive.",
+  "fee_summary": "GoFundMe charges no platform fee to start or run a fundraiser. Each donation carries a transaction fee of 2.9% + $0.30 (2.2% + $0.30 for certified nonprofits), deducted automatically. Donors may add an optional tip to GoFundMe, which does not affect your total.",
+  "last_verified": "2026-09-29",
+  "sources": [
+    {"title": "GoFundMe: Pricing and fees", "url": "https://www.gofundme.com/c/pricing", "accessed": "2026-09-29"}
+  ],
+  "inputs": [
+    {"id": "donation", "label": "Donation amount", "type": "money", "role": "price", "default": 100, "help": "A single donation. Fees are charged per donation, so run typical gift sizes."},
+    {"id": "fundraiser_type", "label": "Fundraiser type", "type": "select", "role": "other", "default": "personal",
+     "options": [
+       {"id": "personal", "label": "Individual or business (2.9% + $0.30)"},
+       {"id": "charity", "label": "Certified nonprofit (2.2% + $0.30)", "note": "Charity fundraisers where funds go to a certified nonprofit."}
+     ]},
+    {"id": "recurring", "label": "Recurring monthly donation", "type": "toggle", "role": "other", "default": false},
+    {"id": "expense", "label": "Costs you're covering", "type": "money", "role": "cost", "default": 0, "help": "Optional: the bill or expense this donation goes toward, to see what is left."},
+    {"id": "target_profit", "label": "Amount you need to receive", "type": "money", "role": "target_profit", "default": 100, "help": "We'll show the donation size that nets this after fees."}
+  ],
+  "fees": [
+    {"id": "transaction_fee", "label": "Transaction fee", "basis": "price",
+     "pct_by": {"input": "fundraiser_type", "values": {"personal": 2.9, "charity": 2.2}}, "fixed": 0.30,
+     "note": "2.9% + $0.30 per donation for individuals and businesses; 2.2% + $0.30 for certified nonprofits. Deducted automatically from each donation."},
+    {"id": "recurring_fee", "label": "Recurring donation fee (paid by the supporter)", "paid_by": "buyer", "basis": "price", "pct": 5,
+     "when": {"input": "recurring", "equals": true},
+     "note": "Supporters who set up a recurring donation pay a 5% fee per donation."}
+  ],
+  "worked_example": {
+    "inputs": {"donation": 100, "fundraiser_type": "personal", "expense": 0},
+    "expected": {"total_fees": 3.20, "net_payout": 96.80, "profit": 96.80},
+    "explanation": "A $100 donation to a personal fundraiser is charged the transaction fee of 2.9% ($2.90) plus $0.30, so $3.20 in total. The fundraiser receives $96.80. There is no platform fee. The same $100 given to a certified nonprofit's fundraiser would be charged $2.50 and net $97.50."
+  },
+  "content": {
+    "intro": "GoFundMe is the largest personal crowdfunding platform in the United States, used for medical bills, emergencies, memorials, community projects and charity drives. Unlike rewards crowdfunding, there is no goal to hit: you can withdraw what has been raised at any time.\n\nThe fee stack is short. GoFundMe says there is no fee to start or manage a fundraiser, so the 0% platform fee is real. What you pay is a transaction fee on each donation: 2.9% plus $0.30 for fundraisers run by individuals and businesses, or 2.2% plus $0.30 when the money goes to a certified nonprofit. The fee is deducted automatically from each donation, so a $100 gift arrives as $96.80.\n\nGoFundMe covers its own costs by asking donors for an optional tip at checkout. The tip is never required, is paid on top of the donation, and does not reduce what you receive. Supporters who set up a recurring donation pay a 5% fee per donation, and international transaction and currency conversion fees may apply depending on the payment method. Because the $0.30 is charged per donation, many small gifts cost proportionally more than a few large ones.",
+    "how_fees_work": [
+      "Platform fee: 0%. GoFundMe charges nothing to start, run or share a fundraiser.",
+      "Transaction fee, individuals and businesses: 2.9% of each donation plus $0.30, deducted automatically. A $25 donation nets $23.97; a $100 donation nets $96.80.",
+      "Transaction fee, certified nonprofits: 2.2% of each donation plus $0.30. A $100 donation to a charity fundraiser nets $97.50.",
+      "Donor tips: at checkout donors can add an optional contribution to GoFundMe. It is paid on top of the donation and never comes out of your funds.",
+      "Recurring donations: supporters who choose a recurring donation to an individual or charity pay a 5% fee per donation.",
+      "International: transaction and currency conversion fees may apply based on the donor's payment method."
+    ],
+    "tips": [
+      "Ask for fewer, larger gifts where you can. The $0.30 per donation is 1.2% of a $25 gift but 0.3% of a $100 gift.",
+      "If the beneficiary is a certified nonprofit, run a charity fundraiser: the rate drops from 2.9% to 2.2%, saving $0.70 per $100.",
+      "Set your goal about 3.3% above what you actually need so the transaction fees are covered; the calculator's target field does this for a single donation.",
+      "Tell donors the tip to GoFundMe is optional and separate from their gift, so it does not confuse people who think it comes out of your total.",
+      "Withdraw as you go; there is no waiting for a goal and no fee on withdrawals listed on the pricing page."
+    ],
+    "faq": [
+      {"q": "Does GoFundMe take a percentage of donations?", "a": "GoFundMe charges no platform fee, but each donation carries a transaction fee of 2.9% + $0.30 (2.2% + $0.30 for certified nonprofits), which is deducted automatically."},
+      {"q": "What is the GoFundMe fee on a $100 donation?", "a": "$3.20 for an individual or business fundraiser, leaving $96.80. For a certified nonprofit it is $2.50, leaving $97.50."},
+      {"q": "Is GoFundMe free to use?", "a": "There is no fee to start or manage a fundraiser. The only cost is the per-donation transaction fee."},
+      {"q": "What is the GoFundMe tip and who pays it?", "a": "An optional contribution donors can add at checkout to support GoFundMe. It is paid on top of the donation and does not reduce the amount you receive."},
+      {"q": "Are GoFundMe fees taken from each donation or when I withdraw?", "a": "From each donation. GoFundMe says the transaction fee is automatically deducted, so your balance already reflects it."},
+      {"q": "Does GoFundMe charge extra for recurring donations?", "a": "Supporters who set up a recurring donation pay a 5% fee per donation, on their side."}
+    ],
+    "notes": "Fees are from GoFundMe's US pricing page, read 2026-09-29; the page gives no effective date. Fees differ in other countries. Whether the recurring-donation 5% fee is charged in addition to the standard transaction fee is not spelled out on the page; the calculator shows it as a supporter-side charge. Payout timing and bank transfer times are not modeled; see GoFundMe's withdrawals help articles.",
+    "changelog": []
+  },
+  "related": ["kickstarter", "indiegogo", "ko-fi"]
+}

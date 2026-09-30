@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Compare Seller Fees Across 54 Platforms (2026) | FeeTally</title>
+<meta name="description" content="Enter one sale and see what eBay, Etsy, Mercari, Poshmark, Stripe, PayPal and 48 other platforms would leave you with, side by side.">
+<link rel="canonical" href="https://feetally.com/compare/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FeeTally">
+<meta property="og:title" content="Compare Seller Fees Across 54 Platforms (2026) | FeeTally">
+<meta property="og:description" content="Enter one sale and see what eBay, Etsy, Mercari, Poshmark, Stripe, PayPal and 48 other platforms would leave you with, side by side.">
+<meta property="og:url" content="https://feetally.com/compare/">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#0f766e" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0d1220" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/site.css">
+
+
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Platform Fee Comparison", "url": "https://feetally.com/compare/", "applicationCategory": "FinanceApplication", "operatingSystem": "Any", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}</script>
+
+</head>
+<body>
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="../" aria-label="FeeTally home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="2" y="2" width="28" height="28" rx="7" fill="#0f766e"/><path d="M9 11h14M9 16h10M9 21h7" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/><circle cx="23" cy="21" r="3" fill="#2dd4bf"/></svg>
+      <span>FeeTally</span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="../index.html#calculators">Calculators</a>
+      <a href="../compare/">Compare</a>
+      <a class="optional" href="../price-after-fees-calculator/">Price after fees</a>
+      <a class="optional" href="../about/">About</a>
+    </nav>
+  </div>
+</header>
+<main class="container">
+
+<div class="page-head">
+  <span class="eyebrow"><a href="../">All calculators</a></span>
+  <h1>Compare Platform Fees Side by Side</h1>
+  <p class="lead">Enter one sale and see what each platform would leave you with, using each platform's default plan and category. Open any row for the full calculator.</p>
+</div>
+<div class="card">
+  <div class="compare-controls">
+    <div class="field"><label for="cmp-hub">Platform group</label><div class="input-wrap"><select id="cmp-hub"><option value="marketplaces">Marketplaces</option><option value="resale-apps">Resale apps</option><option value="payment-processors">Payment processors</option><option value="creator-platforms">Creators &amp; freelancers</option><option value="gig-and-hosting">Gig, hosting &amp; crowdfunding</option></select></div></div>
+    <div class="field"><label for="cmp-price">Sale price / amount</label><div class="input-wrap"><span class="adorn">$</span><input type="number" inputmode="decimal" id="cmp-price" value="50" min="0" step="0.01"></div></div>
+    <div class="field" id="cmp-ship-field"><label for="cmp-ship">Shipping charged to buyer</label><div class="input-wrap"><span class="adorn">$</span><input type="number" inputmode="decimal" id="cmp-ship" value="0" min="0" step="0.01"></div><span class="help">Used only where the platform charges fees on shipping.</span></div>
+    <div class="field"><label for="cmp-cost">Your cost (optional)</label><div class="input-wrap"><span class="adorn">$</span><input type="number" inputmode="decimal" id="cmp-cost" value="0" min="0" step="0.01"></div></div>
+  </div>
+  <div id="cmp-out"></div>
+  <p class="notice" id="cmp-note"></p>
+</div>
+
+
+
+<section class="section">
+  <h2>How to read this table</h2>
+  <p>"You keep" is the sale price plus any shipping you charged, minus every seller-side fee at that platform's default settings: no store subscription, the most common category, standard payment method, no optional ads. Platforms whose fees depend heavily on a plan or category (Amazon, Shopify, StockX) can look better or worse than this once you pick your own options, so treat the table as a first cut and open the calculator that matters to you.</p>
+  <p>Buyer-paid fees (Vinted's buyer protection, Mercari's buyer fee, Airbnb's guest fee) are not subtracted from what you keep, but they raise the buyer's total and can affect how competitive your price is.</p>
+</section>
+
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <div>
+      <strong>FeeTally</strong><br>
+      <span class="fine">Free fee calculators for people who sell online. Every rate is checked against the platform's own fee page and dated. FeeTally is independent and not affiliated with any platform named on this site. Fees change; confirm with the platform before you rely on a number.</span>
+    </div>
+    <div>
+      <ul>
+        <li><a href="../marketplaces/">Marketplaces</a></li><li><a href="../resale-apps/">Resale apps</a></li><li><a href="../payment-processors/">Payment processors</a></li><li><a href="../creator-platforms/">Creators &amp; freelancers</a></li><li><a href="../gig-and-hosting/">Gig, hosting &amp; crowdfunding</a></li>
+        <li><a href="../compare/">Compare platforms</a></li>
+      </ul>
+    </div>
+    <div>
+      <ul>
+        <li><a href="../about/">About &amp; methodology</a></li>
+        <li><a href="../about/#contact">Contact</a></li>
+        <li><a href="../privacy/">Privacy policy</a></li>
+        <li><a href="../terms/">Terms of use</a></li>
+      </ul>
+      <span class="fine">&copy; 2026 FeeTally</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/calc.js"></script>
+<script>
+(function(){
+  var DATA_URL='../assets/compare-data.json';
+  var hubSel=document.getElementById('cmp-hub'),price=document.getElementById('cmp-price'),ship=document.getElementById('cmp-ship'),cost=document.getElementById('cmp-cost'),out=document.getElementById('cmp-out'),note=document.getElementById('cmp-note');
+  var fmt=new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'});
+  var all=null;
+  function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+  function byRole(p,role){for(var i=0;i<p.inputs.length;i++)if(p.inputs[i].role===role)return p.inputs[i];return null;}
+  function render(){
+    if(!all)return;
+    var hub=hubSel.value,P=parseFloat(price.value)||0,S=parseFloat(ship.value)||0,C=parseFloat(cost.value)||0;
+    var rows=[];
+    all.filter(function(p){return p.hub===hub;}).forEach(function(p){
+      var v={};var pi=byRole(p,'price');if(!pi)return;v[pi.id]=P;
+      var si=byRole(p,'shipping_charged');if(si)v[si.id]=S;
+      var ci=byRole(p,'cost');if(ci)v[ci.id]=C;
+      var sc=byRole(p,'shipping_cost');if(sc)v[sc.id]=0;
+      var r=FeeCalc.compute(p,v);
+      var opts=p.inputs.filter(function(i){return i.type==='select';}).map(function(i){var o=i.options.filter(function(x){return x.id===r.values[i.id];})[0];return o?o.label:'';}).filter(Boolean);
+      rows.push({p:p,r:r,opts:opts.join(' · ')});
+    });
+    rows.sort(function(a,b){return b.r.net_payout-a.r.net_payout;});
+    if(!rows.length){out.innerHTML='<p class="muted">No platforms in this group yet.</p>';return;}
+    var h='<table class="fee-table compare-table"><thead><tr><th>Platform</th><th class="opt">Assumes</th><th class="num">Fees</th><th class="num">Effective</th><th class="num">You keep</th>'+(C>0?'<th class="num">Profit</th>':'')+'</tr></thead><tbody>';
+    var best=rows[0].r.net_payout;
+    rows.forEach(function(x){
+      h+='<tr'+(x.r.net_payout===best?' class="best"':'')+'><td><a href="'+esc(x.p.url)+'">'+esc(x.p.name)+'</a>'+(x.r.buyer_fees>0?'<span class="sub">+ '+fmt.format(x.r.buyer_fees)+' buyer fee</span>':'')+'</td><td class="opt"><small class="muted">'+esc(x.opts||'—')+'</small></td><td class="num">'+fmt.format(x.r.total_fees)+'</td><td class="num">'+x.r.effective_fee_pct.toFixed(1)+'%</td><td class="num"><strong>'+fmt.format(x.r.net_payout)+'</strong></td>'+(C>0?'<td class="num">'+fmt.format(x.r.profit)+'</td>':'')+'</tr>';
+    });
+    h+='</tbody></table>';out.innerHTML=h;
+    note.textContent='Defaults: no subscription, most common category, standard payment method, no ads. Sorted by what you keep.';
+  }
+  function load(){
+    var x=new XMLHttpRequest();x.open('GET',DATA_URL);x.onload=function(){try{all=JSON.parse(x.responseText);}catch(e){out.innerHTML='<p class="muted">Could not load platform data.</p>';return;}
+      var hash=location.hash.replace('#','');if(hash&&[].some.call(hubSel.options,function(o){return o.value===hash;}))hubSel.value=hash;render();};
+    x.onerror=function(){out.innerHTML='<p class="muted">Could not load platform data.</p>';};x.send();
+  }
+  [hubSel,price,ship,cost].forEach(function(el){el.addEventListener('input',render);el.addEventListener('change',render);});
+  hubSel.addEventListener('change',function(){try{history.replaceState(null,'',location.pathname+'#'+hubSel.value);}catch(e){}});
+  load();
+})();
+</script>
+
+</body>
+</html>

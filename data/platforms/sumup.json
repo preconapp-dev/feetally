@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "slug": "sumup",
+  "name": "SumUp",
+  "category": "payment-processor",
+  "region": "United States",
+  "currency": "USD",
+  "tagline": "SumUp fee calculator: 2.6% + 10¢ in person, 3.5% + 15¢ online or keyed. No monthly fee on the free plan.",
+  "fee_summary": "SumUp charges 2.6% + 10¢ for in-person transactions on its readers and 3.5% + 15¢ for online or manually entered transactions. There is no monthly fee on the free plan; paid software plans start at $49 a month and do not change the processing rate.",
+  "last_verified": "2026-09-29",
+  "sources": [
+    {"title": "SumUp Pricing (US)", "url": "https://www.sumup.com/en-us/pricing/", "accessed": "2026-09-29"}
+  ],
+  "inputs": [
+    {"id": "amount", "label": "Sale amount", "type": "money", "role": "price", "default": 100, "help": "What the customer pays, before SumUp's fee."},
+    {"id": "txn_type", "label": "Transaction type", "type": "select", "role": "other", "default": "in_person",
+     "options": [
+       {"id": "in_person", "label": "In person (tap, dip or swipe on a SumUp reader)", "note": "2.6% + 10¢"},
+       {"id": "online", "label": "Online or manual entry (payment links, invoices, keyed cards)", "note": "3.5% + 15¢"}
+     ]},
+    {"id": "cost", "label": "Your cost of goods", "type": "money", "role": "cost", "default": 0, "help": "Optional. What the product or job cost you, to see profit."},
+    {"id": "target_profit", "label": "Target profit", "type": "money", "role": "target_profit", "default": 50, "help": "We'll show the amount to charge so you net this much."}
+  ],
+  "fees": [
+    {"id": "processing", "label": "SumUp transaction fee", "basis": "price",
+     "pct_by": {"input": "txn_type", "values": {"in_person": 2.6, "online": 3.5}},
+     "fixed_by": {"input": "txn_type", "values": {"in_person": 0.10, "online": 0.15}},
+     "note": "Same rates on the free plan and on paid software plans."}
+  ],
+  "worked_example": {
+    "inputs": {"amount": 100, "txn_type": "in_person", "cost": 40},
+    "expected": {"total_fees": 2.70, "net_payout": 97.30, "profit": 57.30},
+    "explanation": "A $100 card tapped on a SumUp reader costs 2.6% ($2.60) plus 10¢, so SumUp keeps $2.70 and pays out $97.30. After the $40 the goods cost you, profit is $57.30."
+  },
+  "content": {
+    "intro": "SumUp is a low-cost card reader company that has become popular with food trucks, farmers-market stalls, tradespeople and small shops. You buy a reader once, there is no monthly fee on the free plan, and you pay a flat rate on each sale. It competes head-on with Square and PayPal Zettle.\n\nIn the US, SumUp charges 2.6% + 10¢ for in-person transactions, which covers tap, dip and swipe on any of its readers or POS devices. What SumUp labels online or manual entry transactions, which is where payment links, invoices and cards you type in by hand fall, cost 3.5% + 15¢. Those are the only two rates on SumUp's US pricing page; there is no separate invoice, QR or international rate listed.\n\nSumUp also sells software plans: POS Plus at $49 a month, SumUp POS starting at $99 a month, and Connect Plus and Connect Pro at $269 and $349 a month for larger operations. The pricing page does not show different processing rates for those plans, so this calculator applies the same 2.6% + 10¢ and 3.5% + 15¢ whichever plan you are on. The free plan's only cost beyond processing is the one-time hardware purchase.",
+    "how_fees_work": [
+      "In-person transactions: 2.6% + 10¢ per sale on any SumUp reader or POS device. On $100 that is $2.70.",
+      "Online or manual entry transactions (payment links, invoices, keyed-in cards): 3.5% + 15¢. On $100 that is $3.65.",
+      "No monthly fee on the free plan. You pay a one-time hardware cost for the reader.",
+      "Paid software plans: POS Plus $49 a month, SumUp POS from $99 a month, Connect Plus $269 a month, Connect Pro $349 a month. No different processing rates are listed for them.",
+      "No monthly minimums, hardware rentals or hidden fees, according to SumUp's pricing page."
+    ],
+    "tips": [
+      "Keep sales in person. The gap between 2.6% + 10¢ and 3.5% + 15¢ is 95¢ on a $100 sale.",
+      "SumUp's 10¢ fixed fee makes it slightly cheaper than Square's free plan (15¢) on small tickets: a $5 coffee costs 23¢ on SumUp and 28¢ on Square.",
+      "Skip the paid plans unless you need the software features; they do not lower the processing rate.",
+      "For big jobs, take payment by bank transfer through another provider. SumUp's US pricing page lists only card rates, and 3.5% + 15¢ on a $3,000 invoice is $105.15."
+    ],
+    "faq": [
+      {"q": "What is SumUp's transaction fee in the US?", "a": "2.6% + 10¢ for in-person payments and 3.5% + 15¢ for online or manually entered payments."},
+      {"q": "How much does SumUp take from $100?", "a": "$2.70 in person, leaving $97.30. Online or keyed in, it is $3.65."},
+      {"q": "Does SumUp have a monthly fee?", "a": "Not on the free plan. Optional software plans run from $49 to $349 a month."},
+      {"q": "Is SumUp cheaper than Square?", "a": "Slightly, in person: 2.6% + 10¢ versus Square's free-plan 2.6% + 15¢, a 5¢ difference on every sale. Online, SumUp's 3.5% + 15¢ is cheaper than Square's 3.3% + 30¢ below $75 and more expensive above it."},
+      {"q": "Does SumUp charge extra for international cards?", "a": "No international surcharge is listed on SumUp's US pricing page."},
+      {"q": "Does SumUp charge for payment links or invoices?", "a": "Yes. They fall under the online or manual entry rate of 3.5% + 15¢."}
+    ],
+    "notes": "Rates are from SumUp's US pricing page, which lists exactly two transaction rates: 'In-person transactions' at 2.6% + 10¢ and 'Online or manual entry transactions' at 3.5% + 15¢. Grouping payment links and invoices under the online rate is our reading of that label. Hardware prices, chargeback fees, instant payout fees and payout timing are not listed on the pricing page and are not modeled.",
+    "changelog": []
+  },
+  "related": ["square", "zettle", "stripe", "paypal"]
+}

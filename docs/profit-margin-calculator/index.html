@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Profit Margin Calculator (2026) | FeeTally</title>
+<meta name="description" content="Enter what an item costs you and what you sell it for. See gross profit, margin and markup, plus the price that hits a target margin.">
+<link rel="canonical" href="https://feetally.com/profit-margin-calculator/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FeeTally">
+<meta property="og:title" content="Profit Margin Calculator (2026) | FeeTally">
+<meta property="og:description" content="Enter what an item costs you and what you sell it for. See gross profit, margin and markup, plus the price that hits a target margin.">
+<meta property="og:url" content="https://feetally.com/profit-margin-calculator/">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#0f766e" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0d1220" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/site.css">
+
+
+
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "WebApplication", "name": "Profit Margin Calculator", "url": "https://feetally.com/profit-margin-calculator/", "applicationCategory": "FinanceApplication", "operatingSystem": "Any", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is a good profit margin for reselling?", "acceptedAnswer": {"@type": "Answer", "text": "Most experienced resellers of used clothing, collectibles and electronics target a net margin of at least 40% after platform fees and shipping, because a share of items never sell or get returned. Lower margins can work for fast-moving, low-risk items."}}, {"@type": "Question", "name": "Is margin calculated on the price with or without shipping?", "acceptedAnswer": {"@type": "Answer", "text": "Use whatever the buyer pays you in total if the platform charges fees on shipping (eBay, Etsy, Whatnot do). If you charge shipping at cost and the platform doesn't fee it, leave it out of both price and cost."}}, {"@type": "Question", "name": "How do I convert markup to margin?", "acceptedAnswer": {"@type": "Answer", "text": "margin = markup ÷ (1 + markup). A 100% markup is a 50% margin; a 50% markup is a 33.3% margin; a 25% markup is a 20% margin."}}, {"@type": "Question", "name": "Should I include my time as a cost?", "acceptedAnswer": {"@type": "Answer", "text": "For a fair picture, yes. If sourcing, photographing, listing and shipping an item takes 30 minutes and you value your time at $20 an hour, add $10 to the cost. Many part-time sellers skip this, which is why the hourly rate of reselling is often lower than it feels."}}]}]</script>
+
+</head>
+<body>
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="../" aria-label="FeeTally home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="2" y="2" width="28" height="28" rx="7" fill="#0f766e"/><path d="M9 11h14M9 16h10M9 21h7" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/><circle cx="23" cy="21" r="3" fill="#2dd4bf"/></svg>
+      <span>FeeTally</span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="../index.html#calculators">Calculators</a>
+      <a href="../compare/">Compare</a>
+      <a class="optional" href="../price-after-fees-calculator/">Price after fees</a>
+      <a class="optional" href="../about/">About</a>
+    </nav>
+  </div>
+</header>
+<main class="container">
+
+<div class="page-head">
+  <span class="eyebrow"><a href="../">All calculators</a></span>
+  <h1>Profit Margin Calculator</h1>
+  <p class="lead">Enter what an item costs you and what you sell it for. See gross profit, margin and markup, plus the price that hits a target margin.</p>
+</div>
+<div class="calc">
+  <form id="tool-form" class="card" autocomplete="off" onsubmit="return false;">
+    
+<div class="field"><label for="m-cost">Cost per item</label><div class="input-wrap"><span class="adorn">$</span><input type="number" inputmode="decimal" id="m-cost" value="20" min="0" step="0.01"></div><span class="help">Everything it costs you to have one unit ready to sell: purchase price, inbound shipping, packaging.</span></div>
+<div class="field"><label for="m-price">Selling price</label><div class="input-wrap"><span class="adorn">$</span><input type="number" inputmode="decimal" id="m-price" value="50" min="0" step="0.01"></div></div>
+<div class="field"><label for="m-fees">Fees per sale (optional)</label><div class="input-wrap"><span class="adorn">$</span><input type="number" inputmode="decimal" id="m-fees" value="0" min="0" step="0.01"></div><span class="help">Platform and payment fees on this sale, if you want net margin instead of gross. Get the number from a platform calculator.</span></div>
+<div class="field"><label for="m-target">Target margin</label><div class="input-wrap"><input type="number" inputmode="decimal" id="m-target" value="40" min="0" max="99.9" step="0.1"><span class="adorn suffix">%</span></div><span class="help">We'll show the price that achieves this margin after the fees above.</span></div>
+
+  </form>
+  <div id="tool-results" class="card results" aria-live="polite"></div>
+</div>
+
+
+
+<section class="section">
+  <p>Margin and markup describe the same profit from two directions. <strong>Margin</strong> is profit as a share of the selling price; <strong>markup</strong> is profit as a share of cost. A $20 item sold for $50 has a 60% margin and a 150% markup. Sellers who confuse the two usually underprice: a "40% markup" on $20 is $28, which is only a 28.6% margin.</p><p>Fees change the picture. Marketplaces typically take 10–15% of the sale, payment processors around 3%, and both come out of your price, not your cost. Enter the fee amount from your platform's calculator in the optional fees field to see the margin you actually keep, and the price you'd need for a target margin after fees.</p><p>As a rule of thumb, resellers of used goods aim for a net margin of 40–60% to absorb returns, unsold inventory and their own time; retail arbitrage on new goods often runs at 15–30%; digital products and services can exceed 80% because there is no cost of goods.</p>
+</section>
+
+
+<section class="section">
+  <h2>The formula</h2>
+  <div class="example"><p style="margin:0"><code>margin % = (price − cost − fees) ÷ price × 100    ·    markup % = (price − cost) ÷ cost × 100    ·    price for target margin = (cost + fees) ÷ (1 − margin)</code></p></div>
+  
+</section>
+
+
+<section class="section" id="faq">
+  <h2>FAQ</h2>
+  
+  <details class="faq" open><summary>What is a good profit margin for reselling?</summary><p>Most experienced resellers of used clothing, collectibles and electronics target a net margin of at least 40% after platform fees and shipping, because a share of items never sell or get returned. Lower margins can work for fast-moving, low-risk items.</p></details>
+  
+  <details class="faq"><summary>Is margin calculated on the price with or without shipping?</summary><p>Use whatever the buyer pays you in total if the platform charges fees on shipping (eBay, Etsy, Whatnot do). If you charge shipping at cost and the platform doesn't fee it, leave it out of both price and cost.</p></details>
+  
+  <details class="faq"><summary>How do I convert markup to margin?</summary><p>margin = markup ÷ (1 + markup). A 100% markup is a 50% margin; a 50% markup is a 33.3% margin; a 25% markup is a 20% margin.</p></details>
+  
+  <details class="faq"><summary>Should I include my time as a cost?</summary><p>For a fair picture, yes. If sourcing, photographing, listing and shipping an item takes 30 minutes and you value your time at $20 an hour, add $10 to the cost. Many part-time sellers skip this, which is why the hourly rate of reselling is often lower than it feels.</p></details>
+  
+</section>
+
+<section class="section">
+  <h2>Platform-specific calculators</h2>
+  <p>Fees are rarely a single percentage. For the real numbers, use the calculator for your platform:</p>
+  <div class="grid">
+  <a class="tile" href="../ebay-fee-calculator/"><span class="t-name">eBay</span><span class="t-sub">13.6% final value fee plus $0.30–$0.40 per order, Store rates, ads and international fee.</span></a><a class="tile" href="../poshmark-fee-calculator/"><span class="t-name">Poshmark</span><span class="t-sub">Flat $2.95 under $15 or 20% at $15+, and your exact payout and profit.</span></a><a class="tile" href="../mercari-fee-calculator/"><span class="t-name">Mercari</span><span class="t-sub">Flat 10% selling fee on item price plus buyer-paid shipping, no processing fee.</span></a><a class="tile" href="../amazon-fee-calculator/"><span class="t-name">Amazon</span><span class="t-sub">Referral fee by category (8%–17%), $0.99 per item or $39.99/month, $1.80 media fee.</span></a><a class="tile" href="../etsy-fee-calculator/"><span class="t-name">Etsy</span><span class="t-sub">$0.20 listing, 6.5% transaction, 3% + $0.25 processing and 12–15% Offsite Ads.</span></a><a class="tile" href="../whatnot-fee-calculator/"><span class="t-name">Whatnot</span><span class="t-sub">8% commission (less with volume) plus 2.9% + $0.30 processing, and payout.</span></a>
+  </div>
+</section>
+
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <div>
+      <strong>FeeTally</strong><br>
+      <span class="fine">Free fee calculators for people who sell online. Every rate is checked against the platform's own fee page and dated. FeeTally is independent and not affiliated with any platform named on this site. Fees change; confirm with the platform before you rely on a number.</span>
+    </div>
+    <div>
+      <ul>
+        <li><a href="../marketplaces/">Marketplaces</a></li><li><a href="../resale-apps/">Resale apps</a></li><li><a href="../payment-processors/">Payment processors</a></li><li><a href="../creator-platforms/">Creators &amp; freelancers</a></li><li><a href="../gig-and-hosting/">Gig, hosting &amp; crowdfunding</a></li>
+        <li><a href="../compare/">Compare platforms</a></li>
+      </ul>
+    </div>
+    <div>
+      <ul>
+        <li><a href="../about/">About &amp; methodology</a></li>
+        <li><a href="../about/#contact">Contact</a></li>
+        <li><a href="../privacy/">Privacy policy</a></li>
+        <li><a href="../terms/">Terms of use</a></li>
+      </ul>
+      <span class="fine">&copy; 2026 FeeTally</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){var c=document.getElementById('m-cost'),p=document.getElementById('m-price'),f=document.getElementById('m-fees'),t=document.getElementById('m-target'),o=document.getElementById('tool-results');var fmt=new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'});
+function r(){var C=parseFloat(c.value)||0,P=parseFloat(p.value)||0,F=parseFloat(f.value)||0,T=parseFloat(t.value)||0;var profit=P-C-F;var margin=P>0?profit/P*100:0;var markup=C>0?(P-C)/C*100:0;var tp=T<100?(C+F)/(1-T/100):0;
+o.innerHTML='<div class="headline"><div><div class="sub">Profit per sale</div><div class="big'+(profit<0?' neg':'')+'">'+fmt.format(profit)+'</div></div><div class="sub">on a '+fmt.format(P)+' sale</div></div>'+
+'<div class="kpis"><div class="kpi"><div class="k">'+(F?'Net margin':'Gross margin')+'</div><div class="v'+(margin<0?' neg':'')+'">'+margin.toFixed(1)+'%</div></div><div class="kpi"><div class="k">Markup on cost</div><div class="v">'+markup.toFixed(1)+'%</div></div></div>'+
+'<ul class="lines"><li><span class="n">Selling price</span><span class="amt">'+fmt.format(P)+'</span></li><li><span class="n">Cost</span><span class="amt fee">−'+fmt.format(C)+'</span></li>'+(F?'<li><span class="n">Fees</span><span class="amt fee">−'+fmt.format(F)+'</span></li>':'')+'<li class="total"><span class="n">Profit</span><span class="amt'+(profit<0?' fee':'')+'">'+fmt.format(profit)+'</span></li></ul>'+
+(tp?'<p class="hint">For a '+T+'% margin'+(F?' after fees':'')+', price at <strong>'+fmt.format(Math.ceil(tp*100)/100)+'</strong>.</p>':'');}
+[c,p,f,t].forEach(function(e){e.addEventListener('input',r);});r();})();
+</script>
+
+</body>
+</html>

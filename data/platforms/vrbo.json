@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "slug": "vrbo",
+  "name": "Vrbo",
+  "category": "hosting",
+  "region": "United States",
+  "currency": "USD",
+  "tagline": "Vrbo host fee calculator: the 12% pay-per-booking commission plus 3% payment processing, and your net payout.",
+  "fee_summary": "Vrbo's pay-per-booking model charges a flat 12% commission on the rental amount and any fees you charge travelers, plus a 3% payment processing fee on the total payment including taxes and refundable deposits. The commission was 5% before Vrbo's 2026 change.",
+  "last_verified": "2026-09-29",
+  "sources": [
+    {"title": "Vrbo Help: About pay-per-booking fees", "url": "https://help.vrbo.com/articles/How-is-the-booking-fee-calculated", "accessed": "2026-09-29"},
+    {"title": "Skift (news report): Vrbo to Double Commissions as It Plays Catch-Up to Airbnb", "url": "https://skift.com/2026/09/29/vrbo-to-double-commissions-as-it-plays-catch-up-to-airbnb/", "accessed": "2026-09-29"}
+  ],
+  "inputs": [
+    {"id": "rental_amount", "label": "Rental amount plus your fees", "type": "money", "role": "price", "default": 1000, "help": "Nightly rate × nights plus cleaning, pet or other fees you charge the traveler. Leave out taxes and deposits."},
+    {"id": "taxes_deposit", "label": "Taxes and refundable deposit collected", "type": "money", "role": "other", "default": 0, "help": "Optional. Vrbo charges 3% processing on these but no commission. Processing on a refunded deposit is reimbursed."},
+    {"id": "commission_schedule", "label": "Commission schedule", "type": "select", "role": "other", "default": "flat_12",
+     "options": [
+       {"id": "flat_12", "label": "Flat 12% commission (current help center)", "note": "What Vrbo's help center lists now. Reported to take effect October 29, 2026."},
+       {"id": "legacy_5", "label": "Legacy 5% commission (before the change)", "note": "The long-standing pay-per-booking rate: 5% commission + 3% processing = 8%."}
+     ]},
+    {"id": "booking_cost", "label": "Your costs for this booking", "type": "money", "role": "cost", "default": 80, "help": "Cleaning, supplies, utilities or anything else the stay costs you."},
+    {"id": "target_profit", "label": "Target profit", "type": "money", "role": "target_profit", "default": 500, "help": "We'll show the rental amount you need to clear this."}
+  ],
+  "fees": [
+    {"id": "commission", "label": "Vrbo commission", "basis": "price",
+     "pct_by": {"input": "commission_schedule", "values": {"flat_12": 12, "legacy_5": 5}},
+     "note": "Charged on the rental amount and any fees you charge the traveler (cleaning, pet, boat). Not charged on taxes or refundable damage deposits."},
+    {"id": "processing", "label": "Payment processing (3%)", "basis": "price", "pct": 3,
+     "note": "3% of the payment you receive from the guest."},
+    {"id": "processing_taxes", "label": "Payment processing on taxes and deposit (3%)", "basis": "input:taxes_deposit", "pct": 3,
+     "note": "Taxes and refundable deposits carry the 3% processing fee but no commission. Processing on a refunded deposit is reimbursed to you."}
+  ],
+  "worked_example": {
+    "inputs": {"rental_amount": 1000, "taxes_deposit": 100, "commission_schedule": "flat_12", "booking_cost": 80},
+    "expected": {"total_fees": 153.00, "net_payout": 847.00, "profit": 767.00},
+    "explanation": "A booking with $1,000 of rent and cleaning fees plus $100 of lodging tax: the 12% commission applies to the $1,000 only, so $120.00. The 3% payment processing fee applies to the whole $1,100 the guest paid, so $30.00 on the rental and $3.00 on the tax. Total fees are $153.00 and the payout on the rental is $847.00 (the $100 tax is remitted separately). After $80 of cleaning costs, profit is $767.00. On the legacy 5% schedule the commission would be $50.00 and the payout $917.00."
+  },
+  "content": {
+    "intro": "Vrbo, part of Expedia Group, is the second-largest vacation rental marketplace in the United States and lists whole homes rather than shared rooms. Most US hosts use the pay-per-booking model, where Vrbo takes a cut of each reservation instead of an annual listing fee.\n\nVrbo's help center now lists the pay-per-booking fee as a flat 12% commission charged on the rental amount and any fees you charge the traveler, such as cleaning, pet and boat fees, plus a 3% payment processing fee charged on the total payment you receive, including taxes and refundable damage deposits. Taxes and deposits carry the 3% processing fee but not the commission. Bookings that come through Vrbo's expanded distribution partners may carry higher fees.\n\nThis is a big change. For years the pay-per-booking commission was 5%, so hosts paid 8% in total with processing. The same help page still mentions the 5% commission in its VAT note, and Skift reported on September 29, 2026 that the flat 12% rate applies from October 29, 2026 to all hosts and property managers, including those on the legacy annual subscription. The calculator lets you pick either schedule so you can check a booking made before or after the switch.",
+    "how_fees_work": [
+      "Commission: 12% of the rental amount plus any fees you charge the traveler (cleaning, pet, boat). Vrbo calls it a flat, all-in commission. On the legacy schedule this was 5%.",
+      "Payment processing: 3% of the total payment you receive from the guest. This includes taxes and refundable damage deposits, so a $1,000 rental with $100 of tax pays $33.00 in processing.",
+      "Taxes and security deposits: subject to the 3% processing fee but not the commission. If you refund a traveler's damage deposit, Vrbo reimburses the processing fee charged on that deposit.",
+      "Not charged on: Property Damage Protection and Trip Cancellation Protection (travel insurance) sold to the traveler.",
+      "Property management software: hosts who connect through a PMS are charged the 12% commission on bookings made through Vrbo's sites (12%–15% in some regions such as Europe, Australia and New Zealand). Reservations that come from Vrbo but are not booked through its checkout carry a 10% booking fee on the rental amount, mandatory fees and withheld deposits, excluding taxes and refundable deposits.",
+      "Traveler service fee: Vrbo also charges the guest a separate service fee at checkout. It does not reduce your payout, but it raises the total the guest sees."
+    ],
+    "tips": [
+      "Fold the fee into your nightly rate rather than the cleaning fee. Both are commissionable, so a higher cleaning fee does not reduce what Vrbo takes.",
+      "Collect refundable damage deposits only if you need them. Vrbo charges 3% processing on the deposit and refunds that fee only if you release the deposit.",
+      "If you list on both Vrbo and Airbnb, compare payouts on the same subtotal: Vrbo's 12% + 3% is close to Airbnb's 15.5% host-only fee, so price them together rather than copying the same number and hoping.",
+      "Check your Owner Dashboard for the rate on your listing. Vrbo says distribution-partner bookings and some regions carry higher fees than the standard 12%.",
+      "Use the target-profit field to price from your costs up. A $500 profit target on an $80-cost stay needs about $683 in rent on the 12% schedule."
+    ],
+    "faq": [
+      {"q": "What percentage does Vrbo take from hosts?", "a": "Vrbo's help center lists a flat 12% commission plus a 3% payment processing fee on pay-per-booking listings, about 15% in total. Before the 2026 change the commission was 5%, or 8% with processing."},
+      {"q": "Is the 3% payment processing fee in addition to the 12% commission?", "a": "Yes. Vrbo describes them as two fees: the 12% commission on the rental amount and your fees, and the 3% processing fee on the total payment including taxes and deposits."},
+      {"q": "Does Vrbo charge fees on taxes and damage deposits?", "a": "Only the 3% processing fee. Taxes and refundable deposits are not subject to the commission, and processing on a refunded deposit is reimbursed."},
+      {"q": "Does Vrbo charge commission on cleaning fees?", "a": "Yes. The commission applies to the rental amount and any fees you charge the traveler, including cleaning, pet and boat fees."},
+      {"q": "Does Vrbo still offer an annual subscription instead of commission?", "a": "Vrbo has offered a legacy annual subscription for some hosts, but Skift reports those hosts move to the 12% pay-per-booking rate from October 29, 2026. Vrbo's subscription help page was unavailable when we checked, so we do not list a price."},
+      {"q": "When did Vrbo change to a 12% commission?", "a": "Vrbo's help center shows the 12% rate without a date. Skift reported on September 29, 2026 that it takes effect October 29, 2026 for all hosts and property managers, replacing the 5% (property managers) and 8% (hosts) rates."},
+      {"q": "How much does Vrbo take on a $1,000 booking?", "a": "$150.00 with the 12% commission and 3% processing on the rental, plus 3% of any taxes collected. On the legacy 5% schedule it is $80.00."}
+    ],
+    "notes": "Fee percentages are from Vrbo's help article \"About pay-per-booking fees\", read 2026-09-29, which lists a flat 12% commission and a 3% payment processing fee. The article gives no effective date; its VAT note still refers to a 5% commission, and the October 29, 2026 effective date and the previous 5%/8% rates come from a Skift news report of 2026-09-29, not from Vrbo. Vrbo's help pages for the pay-per-booking model and the annual subscription returned an error when checked, so the subscription price is not listed here. The traveler service fee is not modeled because Vrbo's host fee page does not state a percentage. Payout timing is not modeled.",
+    "changelog": []
+  },
+  "related": ["airbnb", "turo", "rover"]
+}

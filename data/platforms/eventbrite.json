@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "slug": "eventbrite",
+  "name": "Eventbrite",
+  "category": "events",
+  "region": "United States",
+  "currency": "USD",
+  "tagline": "Eventbrite fee calculator: 3.7% + $1.79 per paid ticket plus 2.9% processing, absorbed or passed on.",
+  "fee_summary": "Eventbrite charges a service fee of 3.7% + $1.79 per paid ticket and a payment processing fee of 2.9% of the order. Free tickets carry no fees. Attendees pay the fees by default, or you can absorb them and have them deducted from your payout.",
+  "last_verified": "2026-09-29",
+  "sources": [
+    {"title": "Eventbrite: Organizer pricing", "url": "https://www.eventbrite.com/organizer/pricing/", "accessed": "2026-09-29"},
+    {"title": "Eventbrite Help Center: Eventbrite's ticketing fees", "url": "https://www.eventbrite.com/help/en-us/articles/755615/how-much-does-it-cost-for-organizers-to-use-eventbrite/", "accessed": "2026-09-29"}
+  ],
+  "inputs": [
+    {"id": "ticket_price", "label": "Ticket price", "type": "money", "role": "price", "default": 50, "help": "The face value you set for one paid ticket. Enter 0 for a free ticket."},
+    {"id": "who_pays", "label": "Who pays the fees", "type": "select", "role": "other", "default": "absorb",
+     "options": [
+       {"id": "absorb", "label": "I absorb the fees (deducted from my payout)", "note": "Attendee pays the ticket price only."},
+       {"id": "pass", "label": "Attendee pays the fees on top", "note": "Eventbrite's default setting. Your payout is the full ticket price."}
+     ]},
+    {"id": "ticket_cost", "label": "Your cost per ticket", "type": "money", "role": "cost", "default": 0, "help": "Venue, staff or supplies divided by expected tickets. Optional."},
+    {"id": "target_profit", "label": "Target profit per ticket", "type": "money", "role": "target_profit", "default": 30, "help": "We'll show the ticket price you need."}
+  ],
+  "fees": [
+    {"id": "service_fee_absorbed", "label": "Eventbrite service fee", "basis": "price",
+     "tiers": [{"max": 0, "pct": 0, "fixed": 0}, {"min": 0.01, "pct": 3.7, "fixed": 1.79}],
+     "when": {"input": "who_pays", "equals": "absorb"},
+     "note": "3.7% + $1.79 per paid ticket, deducted from your payout when you absorb fees. Free tickets pay nothing."},
+    {"id": "processing_absorbed", "label": "Payment processing fee", "basis": "price", "pct": 2.9,
+     "when": {"input": "who_pays", "equals": "absorb"},
+     "note": "2.9% of the order, deducted from your payout when you absorb fees."},
+    {"id": "service_fee_passed", "label": "Eventbrite service fee (paid by attendee)", "paid_by": "buyer", "basis": "price",
+     "tiers": [{"max": 0, "pct": 0, "fixed": 0}, {"min": 0.01, "pct": 3.7, "fixed": 1.79}],
+     "when": {"input": "who_pays", "equals": "pass"},
+     "note": "3.7% + $1.79 per paid ticket, added to the attendee's checkout total."},
+    {"id": "processing_passed", "label": "Payment processing fee (paid by attendee)", "paid_by": "buyer", "basis": "price", "pct": 2.9,
+     "when": {"input": "who_pays", "equals": "pass"},
+     "note": "2.9% of the total order. Eventbrite applies it to the order including the service fee, so the attendee's actual amount is a few cents higher than 2.9% of the ticket price shown here."}
+  ],
+  "worked_example": {
+    "inputs": {"ticket_price": 50, "who_pays": "absorb", "ticket_cost": 0},
+    "expected": {"total_fees": 5.09, "net_payout": 44.91, "profit": 44.91},
+    "explanation": "On a $50 ticket where the organizer absorbs fees, the service fee is 3.7% of $50 ($1.85) plus $1.79, which is $3.64, and payment processing is 2.9% of $50, which is $1.45. Total fees are $5.09 and the organizer is paid $44.91 per ticket. If the fees are passed on instead, the attendee pays about $55.09 and the organizer keeps the full $50.00."
+  },
+  "content": {
+    "intro": "Eventbrite is the most widely used self-service ticketing platform in the United States, covering everything from free meetups to paid concerts, classes and conferences. Organizers create an event page, set ticket types and prices, and Eventbrite sells the tickets, collects payment and pays the organizer.\n\nThe US fee schedule has two parts. The service fee is 3.7% of the ticket price plus $1.79 per paid ticket. The payment processing fee is 2.9% of the total order. Free tickets pay nothing: Eventbrite says you can publish unlimited free events at no cost, and neither you nor your ticket buyers pay ticketing fees on free tickets.\n\nWho pays is your choice, set per ticket type. By default the fees are added on top of the ticket price and the attendee pays them at checkout, so a $50 ticket costs the buyer about $55 and you receive $50. If you tick \"Absorb fees\", the price you set is what the buyer pays and Eventbrite deducts $5.09 from a $50 ticket at payout. Eventbrite changed its organizer pricing more than once between 2023 and 2025; the figures here are the current published schedule.",
+    "how_fees_work": [
+      "Service fee: 3.7% of the ticket price plus $1.79 for every paid ticket sold. On a $20 ticket that is $2.53; on a $100 ticket it is $5.49.",
+      "Payment processing fee: 2.9% of the total order. When you absorb fees the order total is the ticket price, so it is 2.9% of the price; when attendees pay the fees, Eventbrite applies the 2.9% to the order including the service fee.",
+      "Free tickets: no service fee and no processing fee, for you or the attendee. Eventbrite lets you publish unlimited free events at no cost.",
+      "Passing fees on (default): leave \"Absorb fees\" unchecked and the attendee pays the ticket price plus both fees at checkout. Your payout is the full ticket price.",
+      "Absorbing fees: check \"Absorb fees\" and the fees are included in the price you set and deducted from your sales at payout. A $50 ticket pays you $44.91.",
+      "No subscription: the ticketing fees are the only cost of selling tickets. Eventbrite Pro, at $15 a month, is a separate optional email marketing product and is not needed to sell tickets."
+    ],
+    "tips": [
+      "Pass fees to attendees unless your audience is price-sensitive. It is Eventbrite's default and keeps your payout at the full ticket price.",
+      "If you absorb fees, price in the $1.79 flat part: it is 9% of a $20 ticket but under 2% of a $100 ticket, so cheap tickets lose the most.",
+      "Use free tickets for RSVPs, workshops or community events; Eventbrite charges nothing on them.",
+      "Bundle add-ons into a higher-priced ticket instead of several cheap ones, since the $1.79 applies per ticket, not per order.",
+      "Check the Absorb fees box per ticket type; you can pass fees on for general admission and absorb them on a VIP tier where the percentage matters less."
+    ],
+    "faq": [
+      {"q": "How much does Eventbrite charge per ticket?", "a": "3.7% of the ticket price plus $1.79 per paid ticket in service fees, plus a 2.9% payment processing fee on the order. A $50 ticket carries $5.09 in fees."},
+      {"q": "Does Eventbrite charge for free events?", "a": "No. Free tickets carry no service or processing fees, and Eventbrite says you can publish unlimited free events at no cost."},
+      {"q": "Who pays Eventbrite fees, the organizer or the attendee?", "a": "By default the attendee pays the fees on top of the ticket price. You can choose to absorb them per ticket type, in which case they are deducted from your payout."},
+      {"q": "What does Eventbrite take on a $50 ticket?", "a": "$3.64 in service fee and $1.45 in payment processing, $5.09 total, if you absorb fees. If you pass them on, the attendee pays about $55.09 and you receive $50.00."},
+      {"q": "Is the 2.9% processing fee charged on the service fee too?", "a": "Eventbrite says the processing fee is 2.9% of the total order. When attendees pay the fees, that order total includes the service fee; when you absorb fees, the order total is just the ticket price."},
+      {"q": "Does Eventbrite have a monthly fee?", "a": "No. Selling tickets costs only the per-ticket fees. Eventbrite Pro at $15 a month is an optional email marketing add-on."}
+    ],
+    "notes": "Fees are from Eventbrite's US organizer pricing page and its help center article on ticketing fees, read 2026-09-29; neither page shows an effective date. The calculator applies the 2.9% processing fee to the ticket price; when fees are passed to the attendee, Eventbrite calculates it on the order total including the service fee, so the buyer-side amount shown is a few cents low. Sales tax on tickets or on fees, refunds of fees on refunded orders, and payout timing are not modeled. Fees differ outside the US.",
+    "changelog": []
+  },
+  "related": ["stripe", "square", "paypal"]
+}

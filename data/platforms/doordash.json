@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "slug": "doordash",
+  "name": "DoorDash (Merchants)",
+  "category": "gig",
+  "region": "United States",
+  "currency": "USD",
+  "tagline": "DoorDash merchant fee calculator: Basic 15%, Plus 25%, Premier 30%, 6% pickup, and your payout per order.",
+  "fee_summary": "DoorDash Marketplace charges restaurants a commission on each order's subtotal: 15% on Basic, 25% on Plus and 30% on Premier for delivery orders, and 6% on pickup orders on every plan. There are no activation, subscription or software fees.",
+  "last_verified": "2026-09-29",
+  "sources": [
+    {"title": "DoorDash for Merchants: Pricing", "url": "https://merchants.doordash.com/en-us/pricing", "accessed": "2026-09-29"}
+  ],
+  "inputs": [
+    {"id": "order_subtotal", "label": "Order subtotal", "type": "money", "role": "price", "default": 40, "help": "Menu items only, before tax, tip and customer fees. DoorDash charges commission on this."},
+    {"id": "plan", "label": "Partnership plan", "type": "select", "role": "other", "default": "basic",
+     "options": [
+       {"id": "basic", "label": "Basic (15% delivery)", "note": "0% intro rate for 7 days."},
+       {"id": "plus", "label": "Plus (25% delivery)", "note": "0% intro rate for 30 days."},
+       {"id": "premier", "label": "Premier (30% delivery)", "note": "0% intro rate for 30 days."}
+     ]},
+    {"id": "order_type", "label": "Order type", "type": "select", "role": "other", "default": "delivery",
+     "options": [
+       {"id": "delivery", "label": "Delivery"},
+       {"id": "pickup", "label": "Pickup (6% on all plans)"}
+     ]},
+    {"id": "food_cost", "label": "Food and packaging cost", "type": "money", "role": "cost", "default": 12, "help": "Your cost of goods for the order, so the page can show profit."},
+    {"id": "target_profit", "label": "Target profit", "type": "money", "role": "target_profit", "default": 15, "help": "We'll show the subtotal you need to clear this."}
+  ],
+  "fees": [
+    {"id": "delivery_commission", "label": "DoorDash commission (delivery)", "basis": "price",
+     "pct_by": {"input": "plan", "values": {"basic": 15, "plus": 25, "premier": 30}},
+     "when": {"input": "order_type", "equals": "delivery"},
+     "note": "Percentage of the order subtotal. 15% Basic, 25% Plus, 30% Premier."},
+    {"id": "pickup_commission", "label": "DoorDash commission (pickup)", "basis": "price", "pct": 6,
+     "when": {"input": "order_type", "equals": "pickup"},
+     "note": "6% of the order subtotal on every plan."}
+  ],
+  "worked_example": {
+    "inputs": {"order_subtotal": 40, "plan": "basic", "order_type": "delivery", "food_cost": 12},
+    "expected": {"total_fees": 6.00, "net_payout": 34.00, "profit": 22.00},
+    "explanation": "A $40 delivery order on the Basic plan pays DoorDash 15% of the subtotal, which is $6.00, so the restaurant receives $34.00. With $12 of food and packaging cost, the order earns $22.00. The same order on Plus pays $10.00 in commission and on Premier $12.00; as a pickup order it pays only $2.40."
+  },
+  "content": {
+    "intro": "DoorDash is the largest food delivery marketplace in the United States. Restaurants and other merchants list a menu, DoorDash markets it to customers in the app, and Dashers deliver. The merchant's cost is a commission on each order, not a subscription.\n\nDoorDash sells three Marketplace plans. Basic charges 15% of the order subtotal on delivery orders, Plus charges 25% and Premier charges 30%; the higher tiers buy a larger delivery area and more visibility, such as inclusion in DashPass. Pickup orders are 6% on every plan. The commission is charged on the subtotal, meaning the menu items, so tax, tip and the customer's delivery and service fees are not part of the base. DoorDash states there are no activation, subscription, software or cancellation fees, and each plan starts with a 0% introductory rate: 7 days on Basic, 30 days on Plus and Premier.\n\nTwo optional costs exist: a DoorDash tablet at $6 a week after the trial, and marketing tools like Promotions and Sponsored Listings. DoorDash's Online Ordering (Storefront), available on all plans, is commission-free but carries a payment processing fee that the pricing page does not quantify.",
+    "how_fees_work": [
+      "Basic plan: 15% of the order subtotal on delivery orders. 0% introductory rate for the first 7 days.",
+      "Plus plan: 25% of the order subtotal on delivery orders. 0% introductory rate for the first 30 days.",
+      "Premier plan: 30% of the order subtotal on delivery orders. 0% introductory rate for the first 30 days.",
+      "Pickup orders: 6% of the order subtotal on all three plans.",
+      "Fee basis: DoorDash says you pay a percentage of each order's subtotal and nothing else, so tax and customer tips are not commissioned, and there is no separate payment processing line on Marketplace orders.",
+      "No fixed fees: no activation, subscription, software or cancellation fees. A DoorDash tablet costs $6 a week after its trial, and Promotions and Sponsored Listings are optional paid marketing.",
+      "Online Ordering (Storefront): orders through your own DoorDash-powered site are commission-free but carry a payment processing fee. DoorDash does not state the rate on its pricing page."
+    ],
+    "tips": [
+      "Start on Basic unless you need the wider delivery radius. On a $40 order the jump from Basic to Premier costs $6 more per order; the extra volume has to cover that.",
+      "Push pickup. A $40 pickup order costs $2.40 in commission instead of $6.00 to $12.00, and you keep the customer relationship.",
+      "Use the introductory 0% period to test which plan's radius actually brings orders before committing.",
+      "Set DoorDash menu prices with the commission built in. A 15% commission needs about an 18% markup to get back to your in-store margin; 30% needs about 43%.",
+      "Route repeat customers to Online Ordering by DoorDash, which is commission-free apart from payment processing."
+    ],
+    "faq": [
+      {"q": "What percentage does DoorDash take from restaurants?", "a": "15%, 25% or 30% of the order subtotal on delivery orders, depending on whether you are on the Basic, Plus or Premier plan. Pickup orders are 6% on all plans."},
+      {"q": "Is the DoorDash commission charged on tax and tips?", "a": "No. DoorDash says you pay a percentage of each order's subtotal, which is the menu items only."},
+      {"q": "Does DoorDash charge restaurants a monthly fee?", "a": "No. DoorDash lists no activation, subscription, software or cancellation fees. The only fixed cost is an optional tablet at $6 a week after the trial."},
+      {"q": "Does DoorDash charge a payment processing fee?", "a": "Not on Marketplace orders; the commission is the only charge. Online Ordering (Storefront) is commission-free but does carry a payment processing fee that DoorDash does not quantify on its pricing page."},
+      {"q": "What does DoorDash take on a $40 delivery order?", "a": "$6.00 on Basic, $10.00 on Plus and $12.00 on Premier. As a pickup order it is $2.40."},
+      {"q": "Is there a free trial for DoorDash merchants?", "a": "Each plan has a 0% introductory commission: 7 days on Basic and 30 days on Plus and Premier."}
+    ],
+    "notes": "Rates are from DoorDash's US merchant pricing page, read 2026-09-29; the page shows no effective date. Plan features beyond the commission (delivery radius, DashPass inclusion) are summarized from the same page and are not part of the calculation. The payment processing rate for Online Ordering (Storefront) is not published on the pricing page and is not modeled. DoorDash's payout schedule is not modeled.",
+    "changelog": []
+  },
+  "related": ["uber-eats", "toast", "square"]
+}

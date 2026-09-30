@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "slug": "patreon",
+  "name": "Patreon",
+  "category": "creator-platform",
+  "region": "United States",
+  "currency": "USD",
+  "tagline": "Patreon fee calculator: 10% platform fee (or legacy 5%/8%/11%) plus 2.9% + $0.30 processing per pledge.",
+  "fee_summary": "Creators who launched after August 4, 2025 pay Patreon 10% of earnings plus payment processing of 2.9% + $0.30 per payment. Legacy Founders (5%), Pro (8%) and Pro + Merch (11%) plans keep their rates, with 5% + $0.10 processing on tiers of $3 or less.",
+  "last_verified": "2026-09-29",
+  "sources": [
+    {"title": "Patreon Pricing", "url": "https://www.patreon.com/pricing", "accessed": "2026-09-29"},
+    {"title": "Patreon Help Center: Understanding Patreon's fees", "url": "https://support.patreon.com/hc/en-us/articles/11111747095181-Understanding-Patreon-s-fees", "accessed": "2026-09-29"}
+  ],
+  "inputs": [
+    {"id": "pledge", "label": "Membership price or pledge", "type": "money", "role": "price", "default": 5, "help": "What one member pays per month (or per post, or for a one-time purchase), before any sales tax Patreon adds."},
+    {"id": "plan", "label": "Your Patreon plan", "type": "select", "role": "other", "default": "standard",
+     "options": [
+       {"id": "standard", "label": "Standard 10% (launched after Aug 4, 2025)", "note": "10% platform fee; 2.9% + $0.30 processing on any amount."},
+       {"id": "pro", "label": "Legacy Pro 8%", "note": "Creators who launched before Aug 4, 2025 and stayed published."},
+       {"id": "pro_merch", "label": "Legacy Pro + Merch 11%", "note": "Legacy plan with merch fulfillment."},
+       {"id": "founders", "label": "Legacy Founders 5%", "note": "Joined before May 7, 2019 and never changed plan."}
+     ]},
+    {"id": "currency_conversion", "label": "Member pays in a non-USD currency", "type": "toggle", "role": "other", "default": false, "help": "Adds Patreon's 2.5% currency conversion fee when the payment currency differs from your USD payout currency."},
+    {"id": "cost", "label": "Your cost per member", "type": "money", "role": "cost", "default": 0, "help": "Optional: cost of rewards, shipping, or software per member per month."},
+    {"id": "target_profit", "label": "Target profit per member", "type": "money", "role": "target_profit", "default": 5, "help": "We'll show the tier price you need."}
+  ],
+  "fees": [
+    {"id": "platform", "label": "Patreon platform fee", "basis": "price",
+     "pct_by": {"input": "plan", "values": {"standard": 10, "pro": 8, "pro_merch": 11, "founders": 5}, "default": 10},
+     "note": "Percentage of the income you earn on Patreon; 10% for creators who published after August 4, 2025."},
+    {"id": "processing_standard", "label": "Payment processing", "basis": "price", "pct": 2.9, "fixed": 0.30,
+     "when": {"input": "plan", "equals": "standard"},
+     "note": "2.9% + $0.30 per payment (credit card, Apple Pay, US PayPal/Venmo) on the standard plan."},
+    {"id": "processing_legacy", "label": "Payment processing", "basis": "price",
+     "tiers": [{"max": 3, "pct": 5, "fixed": 0.10}, {"pct": 2.9, "fixed": 0.30}],
+     "when": {"input": "plan", "in": ["pro", "pro_merch", "founders"]},
+     "note": "Legacy plans: 5% + $0.10 on tiers priced $3 or less; 2.9% + $0.30 above $3."},
+    {"id": "fx", "label": "Currency conversion fee", "basis": "price", "pct": 2.5,
+     "when": {"input": "currency_conversion", "equals": true},
+     "note": "2.5% when a member pays in a currency different from your payout currency."}
+  ],
+  "worked_example": {
+    "inputs": {"pledge": 5, "plan": "standard", "currency_conversion": false, "cost": 0},
+    "expected": {"total_fees": 0.95, "net_payout": 4.05, "profit": 4.05},
+    "explanation": "A $5 monthly pledge on the standard plan pays Patreon 10% ($0.50) plus processing of 2.9% of $5 ($0.145) + $0.30 = $0.445, which rounds to $0.45. Total fees are $0.95, so $4.05 lands in your balance; with no cost per member, profit is $4.05."
+  },
+  "content": {
+    "intro": "Patreon is a membership platform: fans pay a monthly (or per-post) amount for access to your posts, community, and perks, and Patreon bills them, delivers the content, and pays you. It is used by podcasters, YouTubers, musicians, writers, artists, and anyone with an audience willing to pay a few dollars a month.\n\nPatreon's fee has two layers. The platform fee is 10% of the income you earn if you published your creator page after August 4, 2025. Creators who launched before that date keep their legacy rate as long as the page stays published: Pro at 8%, Pro + Merch at 11%, or Founders at 5% for pages from before May 7, 2019 that never changed plan. Unpublishing a legacy page moves it to the standard 10%.\n\nThe second layer is payment processing. On the standard plan it is 2.9% + $0.30 per payment for cards, Apple Pay, and US PayPal or Venmo (3.9% + $0.30 for PayPal or Venmo from outside the US). Legacy plans pay 5% + $0.10 on tiers priced at $3 or less and 2.9% + $0.30 above that. A 2.5% currency conversion fee applies when a member pays in a currency other than your payout currency.\n\nA $5 pledge on the standard plan nets $4.05: $0.50 platform fee and $0.45 processing. Payout fees (25 cents for US direct deposit) come out when you withdraw, not per pledge.",
+    "how_fees_work": [
+      "Platform fee: 10% of the income you earn on Patreon for creators who published their page after August 4, 2025. Legacy plans: Founders 5% (joined before May 7, 2019, never changed plan), Pro 8%, Pro + Merch 11%. Legacy rates survive only while the page stays continuously published.",
+      "Payment processing, standard plan: 2.9% + $0.30 per payment for credit cards, Apple Pay, and US PayPal or Venmo, at any payment amount. PayPal or Venmo payments from outside the US are 3.9% + $0.30.",
+      "Payment processing, legacy plans: tiers priced at $3 or less use micropayment rates of 5% + $0.10 per payment (6% + $0.10 for non-US PayPal/Venmo). Tiers above $3 pay 2.9% + $0.30.",
+      "Currency conversion: 2.5% of any payment made in a currency different from your payout currency. A US creator paid in USD owes this only on members who pay in another currency.",
+      "Payout fees, charged per withdrawal rather than per pledge: $0.25 per payout by US direct deposit; 1% for PayPal (minimum $0.25, capped at $20); $1.00 per payout to Payoneer.",
+      "One-time purchases (digital products, commissions) carry the same platform and processing fees as memberships. Memberships bought inside the iOS app through Apple's in-app purchase system carry Apple's 30% App Store fee.",
+      "Your balance already reflects the platform fee, processing fees, and currency conversion. Sales tax and VAT that Patreon adds at checkout are paid by the member and are not part of your fee base."
+    ],
+    "tips": [
+      "Keep a legacy page published. A Pro creator pays 8% instead of 10%; on $2,000 a month that is $40 saved every month, and unpublishing the page forfeits the rate for good.",
+      "On legacy plans, price tiers above $3. A $3 tier pays 5% + $0.10 in processing ($0.25); a $4 tier pays 2.9% + $0.30 ($0.42) but brings in a dollar more. On the standard plan there is no micropayment rate, so a $1 tier still costs $0.30 + 2.9% plus the 10% fee.",
+      "Offer annual memberships. One yearly payment carries one $0.30 fixed processing charge instead of twelve, which matters most on $3 to $5 tiers.",
+      "Choose direct deposit for payouts. It costs $0.25 per payout versus 1% (up to $20) for PayPal; on a $1,500 payout that is $0.25 versus $15.",
+      "Point iOS members to your Patreon page in a browser. Memberships purchased through Apple in-app purchase carry Apple's 30% App Store fee on top of Patreon's."
+    ],
+    "faq": [
+      {"q": "How much does Patreon take from $5?", "a": "On the standard 10% plan, $0.95: a $0.50 platform fee plus $0.45 in processing (2.9% + $0.30). You keep $4.05. A legacy Pro creator pays $0.40 + $0.45 = $0.85 and keeps $4.15."},
+      {"q": "What percentage does Patreon take in 2026?", "a": "10% of earnings for creators who published after August 4, 2025, plus 2.9% + $0.30 payment processing per payment. Creators who launched earlier keep 5%, 8%, or 11% legacy rates while their page stays published."},
+      {"q": "Does Patreon charge a monthly fee?", "a": "No. Patreon takes a percentage of what you earn plus per-payment processing; there is no subscription or setup fee for creators."},
+      {"q": "How much does Patreon take from a $1 pledge?", "a": "On the standard plan, $0.10 platform fee plus $0.33 processing (2.9% + $0.30), so about $0.43 of the dollar. Legacy plans use the $3-and-under micropayment rate: $0.05 + $0.10 = $0.15 processing plus the plan percentage."},
+      {"q": "What are Patreon's payout fees?", "a": "$0.25 per payout by direct deposit for US creators, 1% (minimum $0.25, capped at $20) for PayPal, and $1.00 per payout to Payoneer. These are charged when you withdraw, not on each pledge."},
+      {"q": "Does Patreon charge a currency conversion fee?", "a": "Yes, 2.5% on any payment made in a currency different from your payout currency. Members paying in USD to a USD-payout creator are not charged it."},
+      {"q": "Does Patreon take 30% on iPhone memberships?", "a": "Memberships purchased through Apple's in-app purchase system in the iOS app carry Apple's 30% App Store fee, according to Patreon's fee article. Memberships started on the web do not."}
+    ],
+    "notes": "Rates shown are for USD payouts. Non-US PayPal/Venmo payments are 3.9% + $0.30 (6% + $0.10 for legacy micropayments). Non-USD processing and payout rates differ by currency; see the fee article. The exact date Apple's 30% in-app purchase fee began applying was not verified here. Payout fees and Apple's fee are not modeled per pledge.",
+    "changelog": [
+      {"date": "2025-08-04", "change": "Creators who publish a page after this date are on the standard 10% platform fee plan; Pro (8%) and Pro + Merch (11%) closed to new creators."},
+      {"date": "2019-05-07", "change": "Founders 5% plan closed to new creators; existing Founders keep 5% if they never change plan."}
+    ]
+  },
+  "related": ["ko-fi", "buy-me-a-coffee", "substack", "youtube"]
+}

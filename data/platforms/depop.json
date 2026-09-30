@@ -1,0 +1,216 @@
+{
+  "schema_version": 1,
+  "slug": "depop",
+  "name": "Depop",
+  "category": "resale-app",
+  "region": "United States",
+  "currency": "USD",
+  "tagline": "Depop fee calculator for US sellers: 0% selling fee, 3.3% + $0.45 payment processing, and your exact payout.",
+  "fee_summary": "US sellers pay no Depop selling fee; the only standard deduction is a 3.3% + $0.45 payment processing fee on the item price plus shipping and any sales tax. Buyers pay a separate marketplace fee of up to 5% + $1, and boosted listings cost the seller 12% of the sale price.",
+  "last_verified": "2026-09-29",
+  "sources": [
+    {
+      "title": "Depop Help Centre – Seller fees and charges",
+      "url": "https://depophelp.zendesk.com/hc/en-gb/articles/360001791127-Seller-fees-and-charges",
+      "accessed": "2026-09-29"
+    },
+    {
+      "title": "Depop Help Centre – What is the Marketplace fee?",
+      "url": "https://depophelp.zendesk.com/hc/en-gb/articles/21752555753361-What-is-the-Marketplace-fee",
+      "accessed": "2026-09-29"
+    },
+    {
+      "title": "Depop Newsroom – Depop removes selling fees in the United States (Jul 15, 2024)",
+      "url": "https://news.depop.com/company-news/depop-removes-selling-fees-in-the-united-states-evolves-fee-structure/",
+      "accessed": "2026-09-29"
+    }
+  ],
+  "inputs": [
+    {
+      "id": "sale_price",
+      "label": "Item price",
+      "type": "money",
+      "role": "price",
+      "default": 40,
+      "help": "What the buyer pays for the item, before shipping, tax, and the buyer's marketplace fee."
+    },
+    {
+      "id": "shipping_charged",
+      "label": "Shipping the buyer pays",
+      "type": "money",
+      "role": "shipping_charged",
+      "default": 6,
+      "help": "The shipping amount added to the buyer's order. Processing is charged on it. Enter 0 if you offer free shipping."
+    },
+    {
+      "id": "sales_tax",
+      "label": "Sales tax collected from buyer",
+      "type": "money",
+      "role": "other",
+      "default": 0,
+      "help": "Optional. Depop charges the 3.3% processing rate on tax too. Leave at 0 if you don't know it."
+    },
+    {
+      "id": "boosted",
+      "label": "Boosted listing",
+      "type": "toggle",
+      "role": "other",
+      "default": false
+    },
+    {
+      "id": "item_cost",
+      "label": "What the item cost you",
+      "type": "money",
+      "role": "cost",
+      "default": 12,
+      "help": "Purchase price or sourcing cost."
+    },
+    {
+      "id": "shipping_cost",
+      "label": "What shipping costs you",
+      "type": "money",
+      "role": "shipping_cost",
+      "default": 6,
+      "help": "Your label cost (a Depop Shipping label or your own postage)."
+    },
+    {
+      "id": "target_profit",
+      "label": "Target profit",
+      "type": "money",
+      "role": "target_profit",
+      "default": 20,
+      "help": "We'll show the item price you need to clear this much."
+    }
+  ],
+  "fees": [
+    {
+      "id": "selling_fee",
+      "label": "Depop selling fee",
+      "basis": "price",
+      "pct": 0,
+      "note": "0% for sellers based in the US (removed July 15, 2024)."
+    },
+    {
+      "id": "processing",
+      "label": "Payment processing (Depop Payments)",
+      "basis": "price_plus_shipping",
+      "pct": 3.3,
+      "fixed": 0.45,
+      "note": "3.3% + $0.45 on the item price plus shipping (and any sales tax, added below)."
+    },
+    {
+      "id": "processing_tax",
+      "label": "Payment processing on sales tax",
+      "basis": "input:sales_tax",
+      "pct": 3.3,
+      "when": {
+        "input": "sales_tax",
+        "gt": 0
+      },
+      "note": "The 3.3% rate also applies to sales tax collected from the buyer."
+    },
+    {
+      "id": "boost",
+      "label": "Boosted listing fee",
+      "basis": "price",
+      "pct": 12,
+      "when": {
+        "input": "boosted",
+        "equals": true
+      },
+      "note": "12% of the item price (excluding tax) for boosted listings created from March 23, 2026. If you don't use a Depop Shipping label, the 12% also applies to the shipping cost."
+    },
+    {
+      "id": "marketplace_fee",
+      "label": "Marketplace fee (paid by buyer)",
+      "paid_by": "buyer",
+      "basis": "price",
+      "pct": 5,
+      "fixed": 1,
+      "note": "Up to 5% of the item price plus up to $1, added to the buyer's total. Shown at the maximum; it does not reduce your payout."
+    }
+  ],
+  "worked_example": {
+    "inputs": {
+      "sale_price": 40,
+      "shipping_charged": 6,
+      "item_cost": 12,
+      "shipping_cost": 6
+    },
+    "expected": {
+      "total_fees": 1.97,
+      "net_payout": 44.03,
+      "profit": 26.03
+    },
+    "explanation": "The buyer pays $40 for the item plus $6 shipping, $46 in total. Depop's selling fee for US sellers is 0%. Payment processing is 3.3% of $46 = $1.52 plus $0.45 = $1.97. You receive $46.00 − $1.97 = $44.03. After the $12 item cost and the $6 label, profit is $26.03. The buyer's marketplace fee (up to $3.00 here) is paid on top by the buyer and does not change your payout."
+  },
+  "content": {
+    "intro": "Depop is a resale app for secondhand and vintage fashion, streetwear, and handmade pieces, with a young, style-driven buyer base. Sellers range from teenagers clearing closets to full-time vintage dealers running shops with thousands of listings.\n\nSince July 15, 2024, Depop charges US sellers no selling fee. The only standard deduction is payment processing through Depop Payments (run on Stripe): 3.3% plus $0.45 per sale, calculated on the item price plus shipping and any sales tax the buyer paid. On a $40 item with $6 shipping that is $1.97, so you keep $44.03 of the $46 the buyer paid for the item and shipping.\n\nBuyers pay their own marketplace fee at checkout, up to 5% of the item price plus up to $1. It is added on top of your price and does not come out of your payout, but it does raise what buyers see, which is worth remembering when you price.\n\nThe one optional seller fee is Boosted Listings: 12% of the sale price for listings created from March 23, 2026, charged only if the boosted listing sells. Sellers outside the US and UK still pay a 10% selling fee, so guides written for other countries will overstate US costs.",
+    "how_fees_work": [
+      "Selling fee: 0% for sellers based in the United States. Depop removed the previous 10% fee on July 15, 2024.",
+      "Payment processing: 3.3% + $0.45 per sale through Depop Payments (Stripe). It is charged on the item price plus shipping costs plus any applicable sales tax, and deducted before your payout.",
+      "Marketplace fee (buyer pays): up to 5% of the item price plus a fixed amount of up to $1, excluding tax and shipping. Added to the buyer's total at checkout since July 18, 2024; refunded to the buyer if the order is refunded.",
+      "Boosted Listings: 12% of the item sale price (excluding tax) for boosted listings created from March 23, 2026, charged only when the item sells. If you ship without a Depop Shipping label, the 12% also applies to the shipping cost.",
+      "Shipping: the buyer pays the shipping price shown on the listing. Whether you use a Depop Shipping label or your own postage, the label cost is yours, so it shows up in profit rather than in fees.",
+      "All fees are deducted before the sale proceeds are paid to your bank account, so the amount that lands is already net."
+    ],
+    "tips": [
+      "Skip Boost unless a listing is stalling. A boosted $40 sale costs $4.80 on top of processing; that is more than most sellers' entire fee on other platforms.",
+      "Remember the buyer's fee when you compare prices. Your $40 listing shows up as roughly $43 to the buyer before shipping and tax, so undercutting a competitor by $1 may not register.",
+      "Free shipping is not free of fees. If you fold $6 of shipping into a $46 item price, processing is the same ($1.97) but a boosted-listing fee would rise, and the buyer's percentage fee rises too.",
+      "The $0.45 fixed charge hurts small sales most. On a $5 sticker with $1 shipping the processing fee is $0.65, about 11%; on a $60 jacket it is under 4%.",
+      "Bundles cost one processing fee, not several. Two $20 items sold together pay $0.45 once instead of twice."
+    ],
+    "faq": [
+      {
+        "q": "Does Depop charge a selling fee in the US?",
+        "a": "No. Since July 15, 2024, sellers based in the US pay 0% selling fee. Sellers outside the US, UK, and Australia still pay 10%."
+      },
+      {
+        "q": "What is the Depop payment processing fee?",
+        "a": "3.3% + $0.45 per transaction for Depop Payments, charged on the item price plus shipping and any sales tax. It is the only fee on a standard US sale."
+      },
+      {
+        "q": "Does Depop take a fee on shipping?",
+        "a": "Yes, partly. There is no selling fee on shipping, but the 3.3% processing rate applies to the shipping amount the buyer pays. On $6 shipping that adds about $0.20."
+      },
+      {
+        "q": "Who pays the Depop marketplace fee?",
+        "a": "The buyer. It is up to 5% of the item price plus up to $1, added at checkout. It does not reduce the seller's payout."
+      },
+      {
+        "q": "How much does Depop take on a $100 sale?",
+        "a": "With $8 shipping, processing is 3.3% of $108 plus $0.45 = $4.01. You receive $103.99 of the $108 the buyer paid for item and shipping, before your label cost."
+      },
+      {
+        "q": "How much does it cost to boost a listing on Depop?",
+        "a": "12% of the item sale price, charged only if the boosted listing sells (for US listings created from March 23, 2026). The percentage also applies to shipping if you don't use a Depop Shipping label."
+      },
+      {
+        "q": "How and when does Depop pay sellers?",
+        "a": "Depop Payments deducts all fees and then pays the net proceeds to your linked bank account. Payout timing depends on when the order is marked shipped and Stripe's transfer schedule; check the Depop Help Centre for the current timeline."
+      }
+    ],
+    "notes": "Depop's help page states the boosted-listing fee as 12% for new listings from March 23, 2026; listings boosted before that date may still be charged at the previous rate (8%), which the page also shows for non-US/UK sellers. The buyer marketplace fee is stated as 'up to' 5% + $1; this calculator shows the maximum. The calculator applies the 12% boost fee to the item price only; add shipping to the item price if you ship without a Depop label and want the exact boosted amount. Payout timing was not verified on an official page for this update. Sales tax is collected and remitted by Depop under marketplace facilitator rules; enter it only if you want the processing fee on tax included.",
+    "changelog": [
+      {
+        "date": "2026-03-23",
+        "change": "Boosted Listings fee for new US and UK listings set at 12% of the sale price (previously 8%)."
+      },
+      {
+        "date": "2024-07-18",
+        "change": "Buyer marketplace fee of up to 5% + $1 introduced in the US."
+      },
+      {
+        "date": "2024-07-15",
+        "change": "Depop removed the 10% selling fee for US sellers; payment processing of 3.3% + $0.45 remains."
+      }
+    ]
+  },
+  "related": [
+    "poshmark",
+    "vinted",
+    "mercari",
+    "grailed"
+  ]
+}
