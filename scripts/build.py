@@ -19,7 +19,7 @@ from tools_content import TOOLS  # noqa: E402
 
 OUT = os.path.join(ROOT, "docs")
 DATA = os.path.join(ROOT, "data")
-TODAY = dt.date.today()
+TODAY = dt.date.today()  # replaced in main() by the newest last_verified so builds are reproducible
 YEAR = TODAY.year
 
 
@@ -207,6 +207,9 @@ def main():
         if fn.endswith(".json"):
             platforms.append(load_json(os.path.join(pdir, fn)))
     by_slug = {p["slug"]: p for p in platforms}
+    global TODAY, YEAR
+    TODAY = dt.date.fromisoformat(max(p["last_verified"] for p in platforms))
+    YEAR = TODAY.year
 
     # engine results via node (single source of truth for arithmetic)
     ex = json.loads(subprocess.check_output(["node", os.path.join(ROOT, "scripts", "examples.js")]))
