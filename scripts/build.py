@@ -18,6 +18,7 @@ sys.path.insert(0, os.path.join(ROOT, "scripts"))
 from tools_content import TOOLS  # noqa: E402
 
 OUT = os.path.join(ROOT, "docs")
+EXPLICIT_INDEX = False  # --explicit-index: link to .../index.html (for hosts that do not serve directory indexes)
 DATA = os.path.join(ROOT, "data")
 TODAY = dt.date.today()  # replaced in main() by the newest last_verified so builds are reproducible
 YEAR = TODAY.year
@@ -175,7 +176,12 @@ def rel_factory(page_dir):
         if path.startswith("#"):
             return prefix + "index.html" + path if depth else path
         if path == "":
-            return prefix if depth else "./"
+            return (prefix + "index.html") if EXPLICIT_INDEX else (prefix if depth else "./")
+        if EXPLICIT_INDEX and "#" in path and path.split("#")[0].endswith("/"):
+            a, b = path.split("#", 1)
+            return prefix + a + "index.html#" + b
+        if EXPLICIT_INDEX and path.endswith("/"):
+            return prefix + path + "index.html"
         return prefix + path
     return rel
 
@@ -300,7 +306,7 @@ def main():
     compare_data = []
     for p in platforms:
         compare_data.append({"slug": p["slug"], "name": p["name"], "category": p["category"], "hub": hub_of[p["slug"]]["slug"],
-                             "url": "../" + p["url"], "currency": p["currency"], "inputs": p["inputs"], "fees": p["fees"]})
+                             "url": "../" + p["url"] + ("index.html" if EXPLICIT_INDEX else ""), "currency": p["currency"], "inputs": p["inputs"], "fees": p["fees"]})
     write("assets/compare-data.json", json.dumps(compare_data, separators=(",", ":")))
     jsonld = {"@context": "https://schema.org", "@type": "WebApplication", "name": "Platform Fee Comparison", "url": base_url + "/compare/",
               "applicationCategory": "FinanceApplication", "operatingSystem": "Any", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}
@@ -367,4 +373,9 @@ def main():
 
 
 if __name__ == "__main__":
+    args = sys.argv[1:]
+    if "--explicit-index" in args:
+        EXPLICIT_INDEX = True
+    if "--out" in args:
+        OUT = os.path.abspath(args[args.index("--out") + 1])
     main()
