@@ -2,17 +2,62 @@
   "name": "FeeTally",
   "tagline": "Free seller fee calculators for every marketplace and payment platform",
   "description": "Free, no-signup fee calculators for eBay, Etsy, Amazon, Poshmark, Stripe, PayPal and 50+ other platforms. See exactly what you keep after fees, your profit, and the price you need to charge.",
-  "url": "https://feetally.com",
-  "contact_email": "hello@feetally.com",
+  "url": "https://feetally.app",
+  "contact_email": "hello@feetally.app",
   "adsense_client": "",
   "ga4_id": "",
-  "cname": "",
+  "cname": "feetally.app",
   "founded_year": 2026,
   "hubs": [
-    {"slug": "marketplaces", "title": "Marketplace fee calculators", "short": "Marketplaces", "categories": ["marketplace"], "blurb": "eBay, Amazon, Etsy, Walmart, TikTok Shop, Shopify and other places to sell products online."},
-    {"slug": "resale-apps", "title": "Resale app fee calculators", "short": "Resale apps", "categories": ["resale-app"], "blurb": "Poshmark, Mercari, Depop, StockX, GOAT, Whatnot and other apps for selling clothes, sneakers and collectibles."},
-    {"slug": "payment-processors", "title": "Payment processing fee calculators", "short": "Payment processors", "categories": ["payment-processor"], "blurb": "Stripe, PayPal, Square, Venmo and other ways to take card and online payments."},
-    {"slug": "creator-platforms", "title": "Creator and freelance fee calculators", "short": "Creators & freelancers", "categories": ["creator-platform", "freelance", "publishing"], "blurb": "Patreon, Gumroad, Substack, Twitch, YouTube, Fiverr, Upwork, Amazon KDP and other platforms that pay creators."},
-    {"slug": "gig-and-hosting", "title": "Gig, hosting, events and crowdfunding fee calculators", "short": "Gig, hosting & crowdfunding", "categories": ["gig", "hosting", "events", "crowdfunding"], "blurb": "Airbnb, Vrbo, Turo, Rover, DoorDash, Uber Eats, Eventbrite, Kickstarter and GoFundMe."}
+    {
+      "slug": "marketplaces",
+      "title": "Marketplace fee calculators",
+      "short": "Marketplaces",
+      "categories": [
+        "marketplace"
+      ],
+      "blurb": "eBay, Amazon, Etsy, Walmart, TikTok Shop, Shopify and other places to sell products online."
+    },
+    {
+      "slug": "resale-apps",
+      "title": "Resale app fee calculators",
+      "short": "Resale apps",
+      "categories": [
+        "resale-app"
+      ],
+      "blurb": "Poshmark, Mercari, Depop, StockX, GOAT, Whatnot and other apps for selling clothes, sneakers and collectibles."
+    },
+    {
+      "slug": "payment-processors",
+      "title": "Payment processing fee calculators",
+      "short": "Payment processors",
+      "categories": [
+        "payment-processor"
+      ],
+      "blurb": "Stripe, PayPal, Square, Venmo and other ways to take card and online payments."
+    },
+    {
+      "slug": "creator-platforms",
+      "title": "Creator and freelance fee calculators",
+      "short": "Creators & freelancers",
+      "categories": [
+        "creator-platform",
+        "freelance",
+        "publishing"
+      ],
+      "blurb": "Patreon, Gumroad, Substack, Twitch, YouTube, Fiverr, Upwork, Amazon KDP and other platforms that pay creators."
+    },
+    {
+      "slug": "gig-and-hosting",
+      "title": "Gig, hosting, events and crowdfunding fee calculators",
+      "short": "Gig, hosting & crowdfunding",
+      "categories": [
+        "gig",
+        "hosting",
+        "events",
+        "crowdfunding"
+      ],
+      "blurb": "Airbnb, Vrbo, Turo, Rover, DoorDash, Uber Eats, Eventbrite, Kickstarter and GoFundMe."
+    }
   ]
 }
