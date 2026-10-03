@@ -7,11 +7,11 @@
   "currency": "USD",
   "tagline": "Buy Me a Coffee fee calculator: 5% platform fee plus Stripe 2.9% + $0.30, or let supporters cover it.",
   "fee_summary": "Buy Me a Coffee keeps 5% of every payment. Stripe processing of 2.9% + $0.30 (plus 0.5% on memberships and 1% on non-US cards) comes out of your earnings unless you turn off \"Cover credit card fee,\" in which case supporters pay it on top.",
-  "last_verified": "2026-09-29",
+  "last_verified": "2026-10-03",
   "sources": [
-    {"title": "Buy Me a Coffee Help: How to calculate charges on your payment?", "url": "https://help.buymeacoffee.com/en/articles/8105744-how-to-calculate-charges-on-your-payment", "accessed": "2026-09-29"},
-    {"title": "Buy Me a Coffee Help: Frequently Asked Questions", "url": "https://help.buymeacoffee.com/en/articles/4539170-frequently-asked-questions", "accessed": "2026-09-29"},
-    {"title": "Buy Me a Coffee Help: How to eliminate the credit card fee from your earnings?", "url": "https://help.buymeacoffee.com/en/articles/8105320-how-to-eliminate-the-credit-card-fee-from-your-earnings", "accessed": "2026-09-29"}
+    {"title": "Buy Me a Coffee Help: How to calculate charges on your payment?", "url": "https://help.buymeacoffee.com/en/articles/8105744-how-to-calculate-charges-on-your-payment", "accessed": "2026-10-03"},
+    {"title": "Buy Me a Coffee Help: Frequently Asked Questions", "url": "https://help.buymeacoffee.com/en/articles/4539170-frequently-asked-questions", "accessed": "2026-10-03"},
+    {"title": "Buy Me a Coffee Help: How to eliminate the credit card fee from your earnings?", "url": "https://help.buymeacoffee.com/en/articles/8105320-how-to-eliminate-the-credit-card-fee-from-your-earnings", "accessed": "2026-10-03"}
   ],
   "inputs": [
     {"id": "amount", "label": "Support amount", "type": "money", "role": "price", "default": 5, "help": "What the supporter pays: the coffee total, membership charge, or extra/shop price."},

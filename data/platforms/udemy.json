@@ -74,5 +74,5 @@
     "notes": "Revenue shares are from Udemy's instructor revenue share help article, read 2026-09-30. Udemy's full definition of net amount is in its Instructor Terms, which could not be read for this page; the calculator models the one deduction the help article puts a number on, the 30% Apple or Google fee on in-app purchases, and expects the price before tax. Each fee line is rounded to the cent, so an in-app result can differ from Udemy's own figure by a cent. Subscription and Udemy Business earnings depend on minutes consumed and are not modeled. Refunds, currency conversion and any charges from your payout provider are not modeled.",
     "changelog": []
   },
-  "related": ["teachable", "gumroad", "patreon"]
+  "related": ["teachable", "gumroad", "patreon", "adobe-stock"]
 }

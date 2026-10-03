@@ -7,17 +7,17 @@
   "currency": "USD",
   "tagline": "Chairish commission calculator: 40% consignor, 30% professional, 20%/12%/3% Elite tiers, plus plan fees.",
   "fee_summary": "Chairish's commission depends on your selling plan: 40% for Consignors (1–9 listings), 30% for Professional (10+ listings), 25% on Premium ($49/month), 22% on Plus ($99/month), and a cumulative 20% / 12% / 3% scale on Elite ($149/month, invitation only). Commission is charged on the sale amount only, not shipping or tax.",
-  "last_verified": "2026-09-29",
+  "last_verified": "2026-10-03",
   "sources": [
     {
       "title": "Chairish Help Center – Chairish Selling Plans & Commission Rate Overview",
-      "url": "https://support.chairish.com/hc/en-us/articles/115006460407-Chairish-Selling-Plans-Commission-Rate-Overview",
-      "accessed": "2026-09-29"
+      "url": "https://support.chairish.com/hc/en-us/articles/44165603442321-Chairish-Selling-Plans-Commission-Rate-Overview",
+      "accessed": "2026-10-03"
     },
     {
       "title": "Chairish – Consign With Us (selling plans and pricing)",
       "url": "https://www.chairish.com/pages/consign-with-us",
-      "accessed": "2026-09-29"
+      "accessed": "2026-10-03"
     }
   ],
   "inputs": [
@@ -181,14 +181,14 @@
     "explanation": "A vintage armchair sells for $800 from a seller on the Consignor plan (fewer than 10 active listings). Chairish keeps a flat 40% commission, $320.00, and pays out $480.00 by PayPal after the 48-hour return window. After the $200 the seller paid for the chair, profit is $280.00. Shipping is arranged and paid separately and is not part of the commission base."
   },
   "content": {
-    "intro": "Chairish is a curated marketplace for vintage and pre-owned furniture, lighting, art, rugs, and decor, aimed at interior designers and design-minded buyers. Listings are curated, Chairish offers facilitated shipping for furniture, and Chairish collects the buyer's payment and pays you. Sellers range from individuals selling a few pieces to antique dealers and makers with large storefronts.\n\nCommission depends on your selling plan, and the difference is large. A Consignor with 1 to 9 active listings pays a flat 40%. A Professional seller with 10 or more listings pays 30% with no subscription. Paid plans lower the rate on one-of-a-kind (vintage or used) items: Premium is 25% for $49 a month, Plus is 22% for $99 a month, and Elite, by invitation, is $149 a month with a cumulative sliding scale of 20% on the first $2,500, 12% from $2,501 to $25,000, and 3% above that. Newly made and made-to-order items are 30% on Premium and Plus, and Chairish Auctions charge 20%.\n\nCommission is taken on the sale amount only. Shipping paid by the buyer, taxes, duties, and card transaction costs are excluded. On an $800 chair a Consignor keeps $480, a Professional keeps $560, and an Elite seller keeps $640 before the subscription.\n\nListing is free, and Chairish pays sellers by PayPal after delivery and a 48-hour return window.",
+    "intro": "Chairish is a curated marketplace for vintage and pre-owned furniture, lighting, art, rugs, and decor, aimed at interior designers and design-minded buyers. Listings are curated, Chairish offers facilitated shipping for furniture, and Chairish collects the buyer's payment and pays you. Sellers range from individuals selling a few pieces to antique dealers and makers with large storefronts.\n\nCommission depends on your selling plan, and the difference is large. A Consignor with 1 to 9 active listings pays a flat 40%. A Professional seller with 10 or more listings pays 30% with no subscription. Paid plans lower the rate on one-of-a-kind (vintage or used) items: Premium is 25% for $49 a month, Plus is 22% for $99 a month, and Elite, by invitation, is $149 a month with a cumulative sliding scale of 20% on the first $2,500, 12% from $2,501 to $25,000, and 3% above that. Newly made and made-to-order items are 30% on Premium, Plus, and Elite, and items sold through Chairish Auctions are charged 20% on most plans.\n\nCommission is taken on the sale amount only. Shipping paid by the buyer, taxes, duties, and card transaction costs are excluded. On an $800 chair a Consignor keeps $480, a Professional keeps $560, and an Elite seller keeps $640 before the subscription.\n\nListing is free, and Chairish pays sellers by PayPal after delivery and a 48-hour return window.",
     "how_fees_work": [
       "Consignor plan: a flat 40% commission on the sale amount for sellers with 1 to 9 active listings. No listing or monthly fee.",
       "Professional plan: a flat 30% commission for sellers with 10 or more active listings. No monthly fee.",
       "Premium plan ($49/month or $539/year): 25% on vintage and used items, 30% on newly made and made-to-order items. Requires 10+ listings.",
       "Plus plan ($99/month or $1,089/year): 22% on vintage and used items, 30% on newly made items, plus a $30 monthly promoted-listings credit.",
-      "Elite plan ($149/month or $1,639/year, invitation only) and Platinum: a cumulative sliding scale of 20% on the first $2,500, 12% on the portion between $2,501 and $25,000, and 3% on the portion above $25,000. A $15,000 sale pays $500 + $1,500 = $2,000.",
-      "Chairish Auctions: 20% commission on items sold at auction, on every plan.",
+      "Elite plan ($149/month or $1,639/year, invitation only) and Platinum: a cumulative sliding scale on vintage and used items of 20% on the first $2,500, 12% on the portion between $2,501 and $25,000, and 3% on the portion above $25,000. A $15,000 sale pays $500 + $1,500 = $2,000. Newly made and made-to-order items are 30%.",
+      "Chairish Auctions (powered by LiveAuctioneers): 20% commission on items sold at auction on the Consignor, Professional, Premium, and Plus plans. Elite shops that take part pay the 20% tiered commission, and Platinum sellers pay 0%.",
       "Sale amount excludes taxes, duties, shipping and delivery costs paid by the buyer, and card transaction fees, so none of those raise your commission."
     ],
     "tips": [
@@ -201,7 +201,7 @@
     "faq": [
       {
         "q": "What is Chairish's commission rate?",
-        "a": "It depends on the plan: 40% for Consignors (1–9 listings), 30% for Professional (10+ listings), 25% on Premium ($49/month), 22% on Plus ($99/month), and 20%/12%/3% cumulative tiers on Elite ($149/month). Auction items are 20% on every plan."
+        "a": "It depends on the plan: 40% for Consignors (1–9 listings), 30% for Professional (10+ listings), 25% on Premium ($49/month), 22% on Plus ($99/month), and 20%/12%/3% cumulative tiers on Elite ($149/month). Items sold at Chairish Auctions are 20% on Consignor through Plus, the tiered scale on Elite, and 0% on Platinum."
       },
       {
         "q": "Does Chairish charge commission on shipping?",
@@ -228,7 +228,7 @@
         "a": "Chairish moved from a single tiered scale for all sellers to plan-based rates; the 20%/12%/3% cumulative scale now applies only to Elite and Platinum sellers. The Help Center page does not carry a date for the change."
       }
     ],
-    "notes": "Rates and plan prices are from the Chairish Help Center commission overview and the Consign With Us page. Premium and Plus rates shown are for vintage and used (one-of-a-kind) items; newly made and made-to-order items are 30% on those plans and are not modeled. Platinum uses the same tiers as Elite. Whether Elite charges 30% on newly made items is not stated. PayPal receiving fees, if any, and shipping costs for sellers who ship on their own are not included. The Help Center page carries no update date; the plan structure was verified on both official pages on the access date.",
+    "notes": "Rates and plan prices are from the Chairish Help Center commission overview and the Consign With Us page. Premium and Plus rates shown are for vintage and used (one-of-a-kind) items; newly made and made-to-order items are 30% on those plans and are not modeled. Platinum uses the same tiers as Elite on vintage and used items and pays 0% on items sold at Chairish Auctions. Elite and Platinum pay 30% on newly made and made-to-order items, which is not modeled. Auction sales are not modeled. PayPal receiving fees, if any, and shipping costs for sellers who ship on their own are not included. The Help Center page carries no update date; the plan structure was verified on both official pages on the access date.",
     "changelog": []
   },
   "related": [

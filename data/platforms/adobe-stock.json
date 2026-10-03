@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "slug": "adobe-stock",
+  "name": "Adobe Stock",
+  "category": "creator-platform",
+  "region": "United States",
+  "currency": "USD",
+  "tagline": "Adobe Stock royalty calculator: 33% on photos, vectors and illustrations, 35% on video, per license.",
+  "fee_summary": "Adobe Stock pays contributors a royalty of 33% of the net price of each licensed photo, vector or illustration and 35% for video, so Adobe keeps 67% or 65%. Downloads under large subscriptions (350 or more items a month) pay a guaranteed minimum of $0.33 to $0.38 per item.",
+  "last_verified": "2026-10-03",
+  "sources": [
+    {"title": "Adobe Help: Adobe Stock royalty rates for contributors (last updated July 13, 2026)", "url": "https://helpx.adobe.com/stock/contributor/payments-earnings/royalties-pricing/royalty-rates-assets.html", "accessed": "2026-10-03"},
+    {"title": "Adobe Help: Adobe Stock contributor payment requirements", "url": "https://helpx.adobe.com/stock/contributor/payments-earnings/payment-taxes/payment-requirements.html", "accessed": "2026-10-03"},
+    {"title": "Adobe Help: Request payment for content in Adobe Stock", "url": "https://helpx.adobe.com/stock/contributor/payments-earnings/payment-taxes/request-payment-content.html", "accessed": "2026-10-03"},
+    {"title": "Adobe Help: Adobe Stock Contributor benefits overview", "url": "https://helpx.adobe.com/stock/contributor/get-started/become-contributor/benefits-contributing-content.html", "accessed": "2026-10-03"},
+    {"title": "Adobe Help: Assign price tiers in Adobe Stock", "url": "https://helpx.adobe.com/ph_en/stock/contributor/payments-earnings/royalties-pricing/premium-price-tier-selection.html", "accessed": "2026-10-03"},
+    {"title": "Adobe Stock plans and pricing (customer prices)", "url": "https://stock.adobe.com/plans", "accessed": "2026-10-03"}
+  ],
+  "inputs": [
+    {"id": "license_price", "label": "Net price of the license", "type": "money", "role": "price", "default": 3, "help": "What the customer's plan paid for this one license, after discounts. On Adobe's 10-credit, US$29.99-a-month plan that is about $3 per image."},
+    {"id": "asset_type", "label": "Asset type", "type": "select", "role": "other", "default": "image",
+     "options": [
+       {"id": "image", "label": "Photo, vector or illustration (33% royalty)", "note": "Adobe keeps 67% of the net price."},
+       {"id": "video", "label": "Video (35% royalty)", "note": "Adobe keeps 65% of the net price."}
+     ]},
+    {"id": "cost", "label": "Your cost per license", "type": "money", "role": "cost", "default": 0, "help": "Optional: model, location or production cost you want to net out per license."},
+    {"id": "target_profit", "label": "Target royalty per license", "type": "money", "role": "target_profit", "default": 2, "help": "We'll show the net license price needed to earn this much."}
+  ],
+  "fees": [
+    {"id": "adobe_share", "label": "Adobe's share of the net price", "basis": "price",
+     "pct_by": {"input": "asset_type", "values": {"image": 67, "video": 65}, "default": 67},
+     "note": "Adobe keeps 67% on photos, vectors and illustrations (you receive 33%) and 65% on video (you receive 35%)."}
+  ],
+  "worked_example": {
+    "inputs": {"license_price": 3, "asset_type": "image", "cost": 0},
+    "expected": {"total_fees": 2.01, "net_payout": 0.99, "profit": 0.99},
+    "explanation": "A customer licenses one of your photos and the net price of that license is $3.00, which is about what one download works out to on the US$29.99, 10-credit monthly plan. Adobe keeps 67%, or $2.01, and your 33% royalty is $0.99. A video license with the same $3.00 net price would pay 35%, or $1.05."
+  },
+  "content": {
+    "intro": "Adobe Stock is Adobe's stock marketplace. Contributors upload photos, vectors, illustrations, videos, templates, audio and 3D assets, and customers license them on Adobe Stock and inside Adobe products such as Express, Firefly and the Creative Cloud apps. The platform is non-exclusive, so you can sell the same content elsewhere.\n\nThe royalty is a fixed share of what the customer paid for that license: 33% for photos, vectors and illustrations and 35% for video. Adobe calculates it on the net price per licensed item, based on the U.S. purchase price and including any discounts, and keeps the other 67% or 65%. Because the net price depends on the customer's plan, the same image can pay different amounts on different sales.\n\nCustomer plans keep the per-download numbers small. Adobe's plans page lists 10 credits a month for US$29.99, good for up to 10 images, which is about $3.00 an image if every credit is used; 33% of $3.00 is $0.99. When your content is licensed under a large subscription (350 or more standard items a month), Adobe guarantees a minimum per item: $0.33 until you reach 1,000 lifetime licenses, $0.36 from 1,000 to 9,999, and $0.38 at 10,000 or more.\n\nRoyalties build up in your contributor account. You can request a payout once you have US$25 in royalties and your first sale is at least 45 days old; funds typically arrive within 7 to 10 business days by PayPal, Payoneer or Skrill.",
+    "how_fees_work": [
+      "Photos, vectors and illustrations: you earn a 33% royalty on the net price of each standard license, so Adobe keeps 67%.",
+      "Video: you earn a 35% royalty, so Adobe keeps 65%.",
+      "Net price: the royalty is calculated on the net price per licensed item, based on the U.S. purchase price and including any discounts. What a customer effectively pays per download depends on their plan, so your royalty per download varies from sale to sale.",
+      "Minimum royalty on large subscriptions: for standard content licensed under a subscription with 350 or more standard items a month, the minimum per item is $0.33 with 0 to 999 lifetime licenses, $0.36 with 1,000 to 9,999, and $0.38 with 10,000 or more. Up-front licenses from the Free Collection are excluded.",
+      "Custom agreements and non-standard plans: Adobe pays either 33% (non-video) or 35% (video) of the amount attributable to your content, or a flat rate.",
+      "Payouts: you need US$25 in royalties, a first sale at least 45 days ago, a linked PayPal, Payoneer or Skrill account, and a verified email address and phone number. Funds are typically deposited within 7 to 10 business days of a request.",
+      "Tax withholding: if you have no valid tax form on file, Adobe automatically withholds up to 30% of your royalties, depending on your country of residence."
+    ],
+    "tips": [
+      "Submit a valid tax form before your first payout request. Without one Adobe withholds up to 30%, which costs far more than the two-point gap between the image and video royalty rates.",
+      "Add video if you can shoot it. Video pays 35% instead of 33%, and Adobe's plans page shows the 10-credit plan covering up to 10 images but only 1 video, so each video license carries a much higher price.",
+      "Keep licenses coming to pass 1,000 and then 10,000 lifetime licenses. The large-subscription minimum rises from $0.33 to $0.36 and then $0.38 per item, about 15% more on your smallest sales.",
+      "List the same portfolio on other stock sites. Adobe Stock is non-exclusive, so the files you upload here can earn elsewhere too.",
+      "Plan cash flow around the payout rules: nothing can be withdrawn until you reach US$25 and 45 days have passed since your first sale, and the transfer then takes 7 to 10 business days."
+    ],
+    "faq": [
+      {"q": "How much does Adobe Stock pay per download?", "a": "33% of the net price of the license for photos, vectors and illustrations, and 35% for video. On a license with a $3.00 net price that is $0.99. Downloads under large subscriptions pay at least $0.33 to $0.38 per item, depending on your lifetime licenses."},
+      {"q": "What percentage does Adobe Stock keep?", "a": "67% of the net price on photos, vectors and illustrations and 65% on video. You receive the remaining 33% or 35% as your royalty."},
+      {"q": "What is the minimum royalty on Adobe Stock?", "a": "For standard content licensed under a large subscription (350 or more items a month), the minimum per item is $0.33 with fewer than 1,000 lifetime licenses, $0.36 from 1,000 to 9,999, and $0.38 from 10,000. Free Collection up-front licenses are excluded."},
+      {"q": "What is the minimum payout on Adobe Stock?", "a": "US$25 in royalties. Your first sale must also be at least 45 days old, your email and phone number must be verified, and you need a linked PayPal, Payoneer or Skrill account."},
+      {"q": "How long does an Adobe Stock payout take?", "a": "Adobe says funds are typically deposited into your payment account within 7 to 10 business days after you request the transfer."},
+      {"q": "Does Adobe Stock withhold tax from royalties?", "a": "Yes, if you have no valid tax form on file. Adobe then automatically withholds the maximum rate, up to 30%, depending on your country of residence."},
+      {"q": "Is Adobe Stock exclusive?", "a": "No. Adobe describes Adobe Stock as a non-exclusive platform, so you can sell the same content on other sites."}
+    ],
+    "notes": "Royalty rates are from Adobe's contributor royalty-rates article, which shows 'Last updated on July 13, 2026'. The calculator applies the standard percentage to the net price you enter. Adobe determines that net price from the customer's plan; the $3.00 default is only an illustration based on the US$29.99, 10-credit plan on Adobe's plans page. The large-subscription minimums ($0.33, $0.36, $0.38), Free Collection up-front payments, flat-rate custom agreements and tax withholding are not modeled. Premium Contributors can price content at 25 credits (US$249.99) or 50 credits (US$499.99); the pages read do not state a separate royalty rate for those tiers. Adobe does not list payout fees charged by PayPal, Payoneer or Skrill, so none are included.",
+    "changelog": []
+  },
+  "related": ["youtube", "udemy", "gumroad", "amazon-kdp"]
+}

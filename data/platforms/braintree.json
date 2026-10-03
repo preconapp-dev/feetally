@@ -7,10 +7,10 @@
   "currency": "USD",
   "tagline": "Braintree fee calculator: 2.89% + 29¢ cards and wallets, 3.49% + 49¢ Venmo, ACH 0.75% capped at $5.",
   "fee_summary": "PayPal Braintree charges 2.89% + 29¢ per card or digital-wallet transaction, 3.49% + 49¢ for Venmo, and 0.75% capped at $5 for ACH Direct Debit. Cards issued outside the US add 1%, and non-USD transactions add another 1%.",
-  "last_verified": "2026-09-29",
+  "last_verified": "2026-10-03",
   "sources": [
-    {"title": "PayPal Braintree Fees (US), last updated May 7, 2026", "url": "https://www.paypal.com/us/enterprise/paypal-braintree-fees", "accessed": "2026-09-29"},
-    {"title": "PayPal Merchant Fees (US), for PayPal transactions through Braintree", "url": "https://www.paypal.com/us/webapps/mpp/merchant-fees", "accessed": "2026-09-29"}
+    {"title": "PayPal Braintree Fees (US), last updated May 7, 2026", "url": "https://www.paypal.com/us/enterprise/paypal-braintree-fees", "accessed": "2026-10-03"},
+    {"title": "PayPal Merchant Fees (US), for PayPal transactions through Braintree", "url": "https://www.paypal.com/us/business/paypal-business-fees", "accessed": "2026-10-03"}
   ],
   "inputs": [
     {"id": "amount", "label": "Transaction amount", "type": "money", "role": "price", "default": 100, "help": "What the customer pays, before Braintree's fee."},

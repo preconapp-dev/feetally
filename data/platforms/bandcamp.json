@@ -7,13 +7,13 @@
   "currency": "USD",
   "tagline": "Bandcamp fee calculator: 15% on digital (10% after $5,000), 10% on merch, plus PayPal or card processing.",
   "fee_summary": "Bandcamp's revenue share is 15% on digital sales, dropping to 10% once you reach $5,000 in sales, and 10% on physical items (shipping and tax excluded). Payment processing is separate: 1.9% + $0.30 for PayPal or 2.2% + $0.30 for cards on transactions of $8.07 or more, and 5% + $0.05 below that. Revenue share is waived on Bandcamp Fridays.",
-  "last_verified": "2026-09-29",
+  "last_verified": "2026-10-03",
   "sources": [
-    {"title": "Bandcamp Help: What are Bandcamp's fees?", "url": "https://get.bandcamp.help/hc/en-us/articles/23020665520663-What-are-Bandcamp-s-fees", "accessed": "2026-09-29"},
-    {"title": "Bandcamp Help: How much are payment processor fees for digital sales?", "url": "https://get.bandcamp.help/en/articles/15263218-how-much-are-payment-processor-fees-for-digital-sales", "accessed": "2026-09-29"},
-    {"title": "Bandcamp Help: How much are payment processor fees for physical sales?", "url": "https://get.bandcamp.help/en/articles/15263264-how-much-are-payment-processor-fees-for-physical-sales", "accessed": "2026-09-29"},
-    {"title": "Bandcamp Help: How do I get paid on Bandcamp, and how often?", "url": "https://get.bandcamp.help/en/articles/15263080-how-do-i-get-paid-on-bandcamp-and-how-often", "accessed": "2026-09-29"},
-    {"title": "Bandcamp Help: Bandcamp Friday Help", "url": "https://get.bandcamp.help/hc/en-us/articles/23006342800407-Bandcamp-Friday-Help", "accessed": "2026-09-29"}
+    {"title": "Bandcamp Help: What are Bandcamp's fees?", "url": "https://get.bandcamp.help/en/articles/15263193-what-are-bandcamp-s-fees", "accessed": "2026-10-03"},
+    {"title": "Bandcamp Help: How much are payment processor fees for digital sales?", "url": "https://get.bandcamp.help/en/articles/15263218-how-much-are-payment-processor-fees-for-digital-sales", "accessed": "2026-10-03"},
+    {"title": "Bandcamp Help: How much are payment processor fees for physical sales?", "url": "https://get.bandcamp.help/en/articles/15263264-how-much-are-payment-processor-fees-for-physical-sales", "accessed": "2026-10-03"},
+    {"title": "Bandcamp Help: How do I get paid on Bandcamp, and how often?", "url": "https://get.bandcamp.help/en/articles/15263080-how-do-i-get-paid-on-bandcamp-and-how-often", "accessed": "2026-10-03"},
+    {"title": "Bandcamp Help: Bandcamp Friday Help", "url": "https://get.bandcamp.help/hc/en-us/articles/23006342800407-Bandcamp-Friday-Help", "accessed": "2026-10-03"}
   ],
   "inputs": [
     {"id": "price", "label": "Item price", "type": "money", "role": "price", "default": 10, "help": "What the fan pays for the album, track, or merch item, not counting shipping. Include any extra the fan adds; Bandcamp takes revenue share on that too."},

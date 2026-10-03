@@ -7,10 +7,10 @@
   "currency": "USD",
   "tagline": "PayPal fee calculator: 3.49% + 49¢ checkout, 2.99% + 49¢ cards, 2.29% + 9¢ QR. See what you keep.",
   "fee_summary": "PayPal charges 3.49% + 49¢ for PayPal Checkout and Venmo payments, 2.99% + 49¢ for standard card payments, 2.89% + 29¢ for advanced card payments and 2.29% + 9¢ for QR codes. International payers add 1.50%, and currency conversion adds 4.00%.",
-  "last_verified": "2026-09-29",
+  "last_verified": "2026-10-03",
   "sources": [
     {"title": "PayPal Merchant Fees (US), last updated September 1, 2026", "url": "https://www.paypal.com/us/webapps/mpp/merchant-fees", "accessed": "2026-09-29"},
-    {"title": "PayPal Business Fees (US)", "url": "https://www.paypal.com/us/business/paypal-business-fees", "accessed": "2026-09-29"}
+    {"title": "PayPal Business Fees (US), last updated October 1, 2026", "url": "https://www.paypal.com/us/business/paypal-business-fees", "accessed": "2026-10-03"}
   ],
   "inputs": [
     {"id": "amount", "label": "Transaction amount", "type": "money", "role": "price", "default": 100, "help": "What the customer pays, before PayPal's fee."},
@@ -75,8 +75,9 @@
       {"q": "What is the PayPal fee on a $1,000 invoice?", "a": "$35.39 if the client pays with PayPal or Venmo (3.49% + 49¢), or $30.39 if they pay by card (2.99% + 49¢)."},
       {"q": "How much does PayPal charge for QR code payments?", "a": "2.29% + 9¢ per in-person QR code transaction, whether the customer pays with PayPal or Venmo."}
     ],
-    "notes": "Rates are from PayPal's US merchant fee schedule, which shows 'Last Updated: September 1, 2026'. The currency-conversion toggle uses the 4.00% spread PayPal lists for goods-and-services transactions; converting a balance or withdrawal is 3.00%. Advanced Credit and Debit Card Payments requires approval; older articles still quote 2.59% + 49¢ for it, but the current schedule lists 2.89% + 29¢. Instant transfer to a bank or debit card costs 1.50% with a 50¢ minimum; standard transfers are free. Payout timing is not stated on the fee page. Dispute and chargeback fees are not modeled in the calculator.",
+    "notes": "Rates are from PayPal's US merchant fee schedule, which shows 'Last Updated: October 1, 2026'; every rate used here is the same as in the September 1, 2026 version. The currency-conversion toggle uses the 4.00% spread PayPal lists for goods-and-services transactions; converting a balance or withdrawal is 3.00%. Advanced Credit and Debit Card Payments requires approval; older articles still quote 2.59% + 49¢ for it, but the current schedule lists 2.89% + 29¢. Instant transfer to a bank or debit card costs 1.50% with a 50¢ minimum; standard transfers are free. Payout timing is not stated on the fee page. Dispute and chargeback fees are not modeled in the calculator.",
     "changelog": [
+      {"date": "2026-10-01", "change": "PayPal's US fee schedule now shows 'Last Updated: October 1, 2026'. The rates used in this calculator are unchanged in that version."},
       {"date": "2026-09-01", "change": "PayPal's US merchant fee schedule shows 'Last Updated: September 1, 2026'. The rates in this calculator are taken from that version, including Advanced Credit and Debit Card Payments at 2.89% + 29¢."}
     ]
   },

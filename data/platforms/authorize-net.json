@@ -73,5 +73,5 @@
     "notes": "The Gateway Only option's per-transaction cost excludes your merchant account's own processing fees (interchange plus your processor's markup), which vary. The daily batch fee is modeled as 10¢ multiplied by the number of batch days you enter, spread across your monthly transactions. The eCheck $10 monthly minimum is not modeled. No international surcharge is listed on the pricing page. Payout timing is not stated on the pricing page.",
     "changelog": []
   },
-  "related": ["stripe", "braintree", "paypal", "square"]
+  "related": ["stripe", "braintree", "helcim", "square"]
 }
