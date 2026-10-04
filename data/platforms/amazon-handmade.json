@@ -62,5 +62,5 @@
     "notes": "Rates are from Amazon's Handmade program page and its US pricing page, read 2026-09-30, and apply to the United States store. The Handmade page states the 15% or $0.30 referral fee and the monthly-fee waiver but does not restate what the 15% is charged on; the calculator uses Amazon's general definition of a referral fee from the pricing page (total sales price: list price plus shipping and gift wrap). Amazon's Seller Central help article on Handmade referral fees could not be read without signing in. The page does not describe any conditions for keeping the fee waiver. FBA fulfillment and storage fees, advertising and refund administration fees are not modeled.",
     "changelog": []
   },
-  "related": ["amazon", "etsy", "ebay"]
+  "related": ["amazon", "etsy", "ebay", "redbubble"]
 }

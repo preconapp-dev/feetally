@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "slug": "society6",
+  "name": "Society6",
+  "category": "creator-platform",
+  "region": "United States",
+  "currency": "USD",
+  "tagline": "Society6 earnings calculator: 10% on framed art, posters, pillows and tapestries, 5% on everything else.",
+  "fee_summary": "Society6 pays artists 10% of the net sale amount on pillows, wall tapestries, framed art and posters and 5% on all other products, so Society6 keeps 90% or 95%. Artists no longer set their own markups, and shipping fees are no longer deducted from earnings.",
+  "last_verified": "2026-10-04",
+  "sources": [
+    {"title": "Society6 Help: Updates to Pricing and Artist Earnings, Effective March 18, 2025", "url": "https://help.society6.com/hc/en-us/articles/33955575668493-Updates-to-Pricing-and-Artist-Earnings-Effective-March-18-2025", "accessed": "2026-10-04"},
+    {"title": "Society6 Help: Pricing & Earnings", "url": "https://help.society6.com/en-US/articles/pricing-earnings-258221", "accessed": "2026-10-04"},
+    {"title": "Society6 Help: When Will I Receive My Artist Earnings?", "url": "https://help.society6.com/en-US/when-will-i-receive-my-artist-earnings-1261748", "accessed": "2026-10-04"},
+    {"title": "Society6 Help: Your Society6 Artist Account", "url": "https://help.society6.com/hc/en-us/sections/205061168-Your-Society6-Artist-Account", "accessed": "2026-10-04"}
+  ],
+  "inputs": [
+    {"id": "sale_price", "label": "Net sale amount of the product", "type": "money", "role": "price", "default": 40, "help": "What the customer finally paid for the item after any sale or discount. Society6 sets the retail price."},
+    {"id": "product", "label": "Product type", "type": "select", "role": "other", "default": "ten",
+     "options": [
+       {"id": "ten", "label": "Framed art, art prints, posters, pillows, wall tapestries (10%)", "note": "You earn 10% of the net sale amount."},
+       {"id": "five", "label": "All other products (5%)", "note": "You earn 5% of the net sale amount."},
+       {"id": "trade", "label": "Trade, wholesale or marketplace order (5%)", "note": "Paid at 5% whatever the product."}
+     ]},
+    {"id": "cost", "label": "Your cost per sale", "type": "money", "role": "cost", "default": 0, "help": "Optional: design tools, stock assets or ads you want to net out per sale."},
+    {"id": "target_profit", "label": "Target earnings per sale", "type": "money", "role": "target_profit", "default": 5, "help": "We'll show the net sale amount needed to earn this much."}
+  ],
+  "fees": [
+    {"id": "society6_share", "label": "Society6's share of the net sale amount", "basis": "price",
+     "pct_by": {"input": "product", "values": {"ten": 90, "five": 95, "trade": 95}, "default": 90},
+     "note": "Society6 keeps 90% on pillows, wall tapestries, framed art and posters (you earn 10%) and 95% on all other products and on trade, wholesale and marketplace orders (you earn 5%)."}
+  ],
+  "worked_example": {
+    "inputs": {"sale_price": 40, "product": "ten", "cost": 0},
+    "expected": {"total_fees": 36.00, "net_payout": 4.00, "profit": 4.00},
+    "explanation": "A customer buys a framed art print of your design and the net sale amount, after any discount, is $40.00. Framed art is in the 10% group, so Society6 keeps 90%, or $36.00, and you earn $4.00. The same $40.00 spent on a product in the 5% group, or on a trade or wholesale order, would earn you $2.00."
+  },
+  "content": {
+    "intro": "Society6 is a print-on-demand marketplace for art and home decor. Artists upload designs, and Society6 prints them on framed art, posters, pillows, wall tapestries and other products, sets the retail price and sells them to customers. Society6 now limits and approves which artists and designs can be sold, so new sellers apply through its Sell Your Art page.\n\nArtist pay is a fixed share of the sale. Since March 18, 2025, Society6 sets standardized retail prices and artists no longer choose their own markups. You earn 10% of the net sale amount on pillows (rectangle and square), wall tapestries, framed art (art prints, framed art prints and recessed framed prints) and posters, and 5% of the net sale amount on every other product. Trade, wholesale and marketplace orders pay 5%. The net sale amount is the customer's final purchase price for the item after any sale or discount.\n\nThere are no other deductions to model. Society6 stopped deducting artist shipping fees from earnings for orders placed from March 18, 2025, and it no longer charges for Artist Plans. On a $40.00 framed art print you earn $4.00 and Society6 keeps $36.00.\n\nEarnings are paid by PayPal between the first and third business day of each month, once an order has cleared its 30-day pending period.",
+    "how_fees_work": [
+      "10% products: you earn 10% of the net sale amount on pillows (rectangle and square), wall tapestries, framed art (art print, framed art print and recessed framed print) and posters. Society6 keeps the other 90%.",
+      "All other products: you earn 5% of the net sale amount, and Society6 keeps 95%.",
+      "Trade, wholesale and marketplace orders: paid at a 5% net sale commission rate.",
+      "Net sale amount: the customer's final purchase price for the item after any sales or discounts are applied. When Society6 runs a promotion, your earnings fall with the discounted price.",
+      "Pricing: Society6 standardized retail prices on March 18, 2025. Artists no longer set a markup, so the product type is the only thing that changes your rate.",
+      "Shipping and plan fees: artist shipping fees are no longer deducted from earnings for orders placed from March 18, 2025, and Society6 no longer charges for Artist Plans.",
+      "Payout: earnings show as pending for 30 days after the order ships, then are paid by PayPal between the first and third business day of the month. Society6's example: an item that ships on January 15 is paid between March 1 and 3."
+    ],
+    "tips": [
+      "Put your best designs on the 10% products first. A $40.00 framed print earns $4.00, while $40.00 of products in the 5% group earns $2.00.",
+      "Expect lower earnings during sales. Your percentage applies to the price after the discount, so a 30%-off promotion turns a $4.00 royalty on a $40.00 print into $2.80.",
+      "Plan for a long payout lag. Earnings clear 30 days after shipment and are paid at the start of the following month, so a mid-January sale arrives in early March.",
+      "Keep your PayPal email current and verified. Society6 pays only through PayPal, and a payment left unclaimed for 30 days is returned.",
+      "Do not count an order until it clears. Earnings can be cancelled any time before the PayPal payment is processed, for example when the customer gets a full refund."
+    ],
+    "faq": [
+      {"q": "How much do artists make on Society6?", "a": "10% of the net sale amount on pillows, wall tapestries, framed art and posters, and 5% on all other products. Trade, wholesale and marketplace orders pay 5%. On a $40.00 framed print that is $4.00."},
+      {"q": "What percentage does Society6 keep?", "a": "90% of the net sale amount on the 10% products (pillows, wall tapestries, framed art and posters) and 95% on everything else, including trade, wholesale and marketplace orders."},
+      {"q": "Can I set my own prices or markup on Society6?", "a": "No. Since March 18, 2025, Society6 uses standardized pricing and artists earn a fixed 5% or 10% of the net sale amount instead of a markup they choose."},
+      {"q": "Does Society6 charge artists for shipping?", "a": "Not any more. Beginning with orders placed March 18, 2025, artist shipping fees are no longer deducted from artist earnings."},
+      {"q": "Is there a monthly fee to sell on Society6?", "a": "Society6's help center says artists are no longer charged for Artist Plans. Billing stopped on a February 3 cutoff and prepaid plan fees were prorated and refunded."},
+      {"q": "When does Society6 pay artists?", "a": "Between the first and third business day of each month, by PayPal, for orders that have finished the 30-day pending period after shipping. Depending on when the order was placed, that is 30 to 60 days after it ships."},
+      {"q": "Are Society6 earnings based on the full price or the sale price?", "a": "The sale price. The net sale amount is the customer's final purchase price for the item after any sales or discounts are applied."}
+    ],
+    "notes": "Rates are from Society6's help article on the March 18, 2025 pricing and artist-earnings changes and its Pricing & Earnings help pages, read 2026-10-04. The help pages do not say whether shipping charges and sales tax are excluded from the net sale amount; enter the item price after discounts. Society6 sets retail prices, so the $40.00 default is only an illustration. The help center does not state a minimum payout amount. Society6 limits and approves which artists and designs can be sold; the current application process is described on its Sell Your Art page and was not reviewed for this page. Any fees PayPal charges to receive or withdraw earnings are not included.",
+    "changelog": [
+      {"date": "2025-03-18", "change": "Standardized pricing replaced artist-set markups: artists earn 10% of the net sale amount on pillows, wall tapestries, framed art and posters and 5% on all other products, and shipping fees are no longer deducted from artist earnings."}
+    ]
+  },
+  "related": ["redbubble", "etsy", "adobe-stock", "amazon-handmade"]
+}

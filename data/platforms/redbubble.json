@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "slug": "redbubble",
+  "name": "Redbubble",
+  "category": "creator-platform",
+  "region": "United States",
+  "currency": "USD",
+  "tagline": "Redbubble fee calculator: 20% Premium or 50% Standard platform fee on your margin, plus the excess markup fee.",
+  "fee_summary": "Redbubble deducts a platform fee from your artist margin each month: 20% of gross earnings on Premium accounts, 50% on Standard and nothing on Pro. Standard and Premium artists also pay a 50% excess markup fee on earnings from markups above 20%, and total account fees are capped at $150 per payment period.",
+  "last_verified": "2026-10-04",
+  "sources": [
+    {"title": "Redbubble Help: How is my payment calculated? (updated July 9, 2026)", "url": "https://help.redbubble.com/hc/en-us/articles/202270799-How-is-my-payment-calculated", "accessed": "2026-10-04"},
+    {"title": "Redbubble Help: How does the platform fee get calculated? (updated July 31, 2026)", "url": "https://help.redbubble.com/hc/en-us/articles/50959494599060-How-does-the-platform-fee-get-calculated", "accessed": "2026-10-04"},
+    {"title": "Redbubble Help: What is the excess markup fee? (updated July 8, 2026)", "url": "https://help.redbubble.com/hc/en-us/articles/50959535480212-What-is-the-excess-markup-fee", "accessed": "2026-10-04"},
+    {"title": "Redbubble Help: How does my Account Tier determine my account fees? (updated July 31, 2026)", "url": "https://help.redbubble.com/hc/en-us/articles/50959863016724-How-does-my-Account-Tier-determine-my-account-fees", "accessed": "2026-10-04"},
+    {"title": "Redbubble Help: What are Account Tiers? (updated July 9, 2026)", "url": "https://help.redbubble.com/hc/en-us/articles/50959744156948-What-are-Account-Tiers", "accessed": "2026-10-04"},
+    {"title": "Redbubble Help: What is the Artist Payment Threshold? (updated September 14, 2026)", "url": "https://help.redbubble.com/hc/en-us/articles/360027407652-What-is-the-Artist-Payment-Threshold", "accessed": "2026-10-04"},
+    {"title": "Redbubble Help: When do I get paid? (updated September 14, 2026)", "url": "https://help.redbubble.com/hc/en-us/articles/202270389-When-do-I-get-paid", "accessed": "2026-10-04"}
+  ],
+  "inputs": [
+    {"id": "artist_margin", "label": "Your artist margin on the sale", "type": "money", "role": "price", "default": 4, "help": "Base price times your markup. A $20 base price at a 20% markup is a $4.00 margin. This is your gross earnings before account fees."},
+    {"id": "tier", "label": "Account tier", "type": "select", "role": "other", "default": "premium",
+     "options": [
+       {"id": "premium", "label": "Premium (20% platform fee)", "note": "20% of monthly gross earnings."},
+       {"id": "standard", "label": "Standard (50% platform fee)", "note": "50% of monthly gross earnings."},
+       {"id": "pro", "label": "Pro (no account fees)", "note": "Invite-only. No platform fee and no excess markup fee."}
+     ]},
+    {"id": "excess_margin", "label": "Part of the margin from markup above 20%", "type": "money", "role": "other", "default": 0, "help": "Leave at 0 if your markup is 20% or less. At a 30% markup on a $20 base price the margin is $6.00, and $2.00 of it is above the 20% threshold."},
+    {"id": "cost", "label": "Your cost per sale", "type": "money", "role": "cost", "default": 0, "help": "Optional: design tools, stock assets or ads you want to net out per sale."},
+    {"id": "target_profit", "label": "Target earnings per sale", "type": "money", "role": "target_profit", "default": 3, "help": "We'll show the margin you need to keep this much after account fees."}
+  ],
+  "fees": [
+    {"id": "platform_fee", "label": "Platform fee", "basis": "price",
+     "pct_by": {"input": "tier", "values": {"premium": 20, "standard": 50, "pro": 0}, "default": 20},
+     "note": "20% of gross earnings on Premium, 50% on Standard, 0% on Pro. Deducted at the end of each monthly payment period."},
+    {"id": "excess_markup_fee", "label": "Excess markup fee", "basis": "input:excess_margin", "pct": 50,
+     "when": {"input": "tier", "in": ["premium", "standard"]},
+     "note": "50% of the earnings made above a 20% markup. Standard and Premium accounts only."}
+  ],
+  "worked_example": {
+    "inputs": {"artist_margin": 4, "tier": "premium", "excess_margin": 0, "cost": 0},
+    "expected": {"total_fees": 0.80, "net_payout": 3.20, "profit": 3.20},
+    "explanation": "A Classic T-Shirt shipped to the US has a $20.00 base price in Redbubble's own example. At a 20% markup your artist margin is $4.00 and the retail price is $24.00. On a Premium account the platform fee is 20% of the $4.00, or $0.80, and no excess markup fee applies because the markup is not above 20%. You keep $3.20. The same sale on a Standard account pays a 50% platform fee of $2.00 and leaves $2.00; on a Pro account you keep the full $4.00."
+  },
+  "content": {
+    "intro": "Redbubble is a print-on-demand marketplace. Independent artists upload designs, third-party manufacturers print them on t-shirts, stickers and many other products, and Redbubble takes the customer's payment and arranges production and delivery. Creating an account and setting up a shop is free.\n\nYou earn the artist margin. Every product has a base price, which covers Redbubble's service fee and the manufacturer's fee, and you add a markup as a percentage of that base price. Markup defaults to 10% and you can change it per product. Redbubble's own example: a Classic T-Shirt with a $20.00 base price and a 20% markup earns a $4.00 margin and sells for $24.00 before tax.\n\nAccount fees then come out of that margin. Premium accounts pay a platform fee of 20% of monthly gross earnings, Standard accounts pay 50%, and invite-only Pro accounts pay nothing. Standard and Premium artists who set a markup above 20% also pay a 50% excess markup fee on the earnings made over that threshold. Fees are deducted at the end of each monthly payment period, are never billed out of pocket, and are capped at $150 per payment period; anything above the cap is credited back.\n\nSo the $4.00 margin on that t-shirt is $3.20 on Premium, $2.00 on Standard and $4.00 on Pro.",
+    "how_fees_work": [
+      "Artist margin: your earnings on a sale are the base price times your markup. Markup defaults to 10% and is set on the Product Pricing page. Base prices vary by product and by where the order ships, and you are paid only for orders that ship.",
+      "Platform fee: 20% of monthly gross earnings on Premium accounts and 50% on Standard accounts. Pro accounts pay no platform fee. It only applies when you make a sale.",
+      "Excess markup fee: if a product's markup is set above 20%, a 50% fee is deducted from the gross earnings made over that threshold. It applies to Standard and Premium accounts; Pro accounts are exempt. At or below a 20% markup it does not apply.",
+      "Standard accounts above 20%: Redbubble says earnings above a 20% markup go entirely toward fees until the monthly cap is reached, because the 50% platform fee and the 50% excess markup fee both apply to that part.",
+      "Fee cap: platform and excess markup fees together never exceed $150 in a payment period. Fees above the cap are credited back to your earnings within the same pay period.",
+      "When fees are taken: a payment period covers all orders shipped in a calendar month. Fees are deducted from that month's gross earnings before your monthly payment is processed.",
+      "Payout: Redbubble pays monthly once your balance after fees reaches $10 (lowered from $20 on July 1, 2026). The process starts at the beginning of the month and the payment should land by the 15th. Balances under $10 roll over."
+    ],
+    "tips": [
+      "On a Standard account, a markup above 20% earns you nothing extra until you hit the cap. A 30% markup on a $20 base price gives a $6.00 margin, but fees are $3.00 plus $1.00 and you keep $2.00, the same as at 20%.",
+      "On a Premium account, each extra dollar of margin above the 20% markup line keeps only $0.30 after the 20% platform fee and the 50% excess markup fee. Raise markups past 20% only where the higher price will not cost you sales.",
+      "Know where the $150 cap sits. With markups at 20% or less, a Standard account reaches it at $300 of gross earnings in a month and a Premium account at $750; earnings beyond that are not charged further fees in that period.",
+      "Bulk discounts cut your margin too. Markup is a percentage of the base price, so when a volume discount halves the base price of a sticker, your margin on each one halves with it.",
+      "Check your tier on the Account Tiers and Fees page before you price. Redbubble says tiers are not based on sales volume; Standard placement is tied to things like repetitive or low-effort uploads, unmodified clip art and tag spamming."
+    ],
+    "faq": [
+      {"q": "How much does Redbubble take from artists?", "a": "Redbubble deducts a platform fee from your artist margin: 20% of monthly gross earnings on Premium accounts, 50% on Standard accounts and 0% on Pro accounts. Standard and Premium accounts also pay a 50% excess markup fee on earnings from markups above 20%. Total account fees are capped at $150 per payment period."},
+      {"q": "What is the Redbubble platform fee?", "a": "A percentage of your monthly gross earnings, deducted at the end of each payment period: 20% for Premium artists and 50% for Standard artists. Pro artists pay no platform fee. If you make no sales, no fee is charged."},
+      {"q": "What is the Redbubble excess markup fee?", "a": "A 50% fee on the gross earnings you make above a 20% markup. It applies to Standard and Premium accounts on any product where the markup is set above 20%. If your markup is at or below 20%, it does not apply."},
+      {"q": "Is there a limit on Redbubble account fees?", "a": "Yes. Platform fees and excess markup fees together never exceed $150 (or 150 euros or 150 pounds) in a payment period. Any fees above that are credited back to your earnings within the same pay period."},
+      {"q": "How do I know which Redbubble tier I am in?", "a": "Your tier is shown on the Account Tiers and Fees page in your artist dashboard. Redbubble places accounts in Premium or Standard based on factors such as the origin of the artwork, file quality and consumer appeal, not on sales. Pro is invite-only for artists in the top 1% and is reviewed once a year."},
+      {"q": "When does Redbubble pay artists?", "a": "Monthly. Orders shipped in a calendar month are paid the following month; the process starts at the beginning of the month and the payment should land by the 15th. You need a balance of at least $10 after account fees and valid payment details."},
+      {"q": "Does it cost anything to open a Redbubble shop?", "a": "No. Creating an account and setting up a shop is free. Account fees are only deducted from earnings when you make a sale and are never charged out of pocket."}
+    ],
+    "notes": "Rates are from Redbubble's Help Center account-fee articles, updated July 2026, read 2026-10-04. Redbubble charges fees on monthly gross earnings, not per sale; this calculator applies the same percentages to one sale's margin, which gives the same result until the $150 cap per payment period is reached. The cap is not modeled. You enter the margin itself because base prices vary by product and delivery country and are shown only in your artist dashboard. The excess markup fee is modeled as 50% of the part of the margin above a 20% markup, following Redbubble's wording that the fee applies to gross earnings made over that threshold. Fees are charged in the currency you chose to be paid in. Sales tax is collected and remitted by Redbubble on US orders where marketplace facilitator laws require it and does not affect your margin. The date the percentage platform fee replaced Redbubble's earlier flat account fees was not confirmed on an official page.",
+    "changelog": [
+      {"date": "2026-07-01", "change": "Artist payment threshold lowered from $20 to $10."}
+    ]
+  },
+  "related": ["society6", "etsy", "adobe-stock", "amazon-handmade"]
+}

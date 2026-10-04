@@ -7,9 +7,9 @@
   "currency": "USD",
   "tagline": "DoorDash merchant fee calculator: Basic 15%, Plus 25%, Premier 30%, 6% pickup, and your payout per order.",
   "fee_summary": "DoorDash Marketplace charges restaurants a commission on each order's subtotal: 15% on Basic, 25% on Plus and 30% on Premier for delivery orders, and 6% on pickup orders on every plan. There are no activation, subscription or software fees.",
-  "last_verified": "2026-09-29",
+  "last_verified": "2026-10-04",
   "sources": [
-    {"title": "DoorDash for Merchants: Pricing", "url": "https://merchants.doordash.com/en-us/pricing", "accessed": "2026-09-29"}
+    {"title": "DoorDash for Merchants: Pricing", "url": "https://merchants.doordash.com/en-us/pricing", "accessed": "2026-10-04"}
   ],
   "inputs": [
     {"id": "order_subtotal", "label": "Order subtotal", "type": "money", "role": "price", "default": 40, "help": "Menu items only, before tax, tip and customer fees. DoorDash charges commission on this."},
@@ -67,7 +67,7 @@
       {"q": "What does DoorDash take on a $40 delivery order?", "a": "$6.00 on Basic, $10.00 on Plus and $12.00 on Premier. As a pickup order it is $2.40."},
       {"q": "Is there a free trial for DoorDash merchants?", "a": "Each plan has a 0% introductory commission: 7 days on Basic and 30 days on Plus and Premier."}
     ],
-    "notes": "Rates are from DoorDash's US merchant pricing page, read 2026-09-29; the page shows no effective date. Plan features beyond the commission (delivery radius, DashPass inclusion) are summarized from the same page and are not part of the calculation. The payment processing rate for Online Ordering (Storefront) is not published on the pricing page and is not modeled. DoorDash's payout schedule is not modeled.",
+    "notes": "Rates are from DoorDash's US merchant pricing page, read 2026-10-04; the page shows no effective date. Plan features beyond the commission (delivery radius, DashPass inclusion) are summarized from the same page and are not part of the calculation. The payment processing rate for Online Ordering (Storefront) is not published on the pricing page and is not modeled. DoorDash's payout schedule is not modeled.",
     "changelog": []
   },
   "related": ["uber-eats", "toast", "square"]

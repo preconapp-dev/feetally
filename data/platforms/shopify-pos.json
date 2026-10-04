@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "slug": "shopify-pos",
+  "name": "Shopify POS",
+  "category": "payment-processor",
+  "region": "United States",
+  "currency": "USD",
+  "tagline": "Shopify POS fee calculator: 2.6%, 2.5% or 2.4% + 10¢ in person by plan, 3.5% keyed, and $89 POS Pro add-on.",
+  "fee_summary": "In-person card payments through Shopify Payments cost 2.6% + 10¢ on the Basic plan, 2.5% + 10¢ on Grow and 2.4% + 10¢ on Advanced; manually entered cards cost 3.5% + 10¢. You also pay the plan subscription ($39, $105 or $399 a month billed monthly) and, optionally, $89 a month per location for POS Pro.",
+  "last_verified": "2026-10-04",
+  "sources": [
+    {"title": "Shopify Pricing (United States)", "url": "https://www.shopify.com/pricing", "accessed": "2026-10-04"},
+    {"title": "Shopify POS pricing", "url": "https://www.shopify.com/pos/pricing", "accessed": "2026-10-04"},
+    {"title": "Shopify POS payments", "url": "https://www.shopify.com/pos/payments", "accessed": "2026-10-04"},
+    {"title": "Shopify Help Center: Identify your POS needs", "url": "https://help.shopify.com/en/manual/sell-in-person/getting-started/identify-your-pos-needs", "accessed": "2026-10-04"},
+    {"title": "Shopify Help Center: Card payments in Shopify POS", "url": "https://help.shopify.com/en/manual/sell-in-person/shopify-pos/payment-management/card-payments", "accessed": "2026-10-04"},
+    {"title": "Shopify Help Center: The cost of Shopify Payments", "url": "https://help.shopify.com/en/manual/payments/shopify-payments/onboarding/cost-of-shopify-payments", "accessed": "2026-10-04"},
+    {"title": "Shopify Help Center: Shopify Payments credit card rates", "url": "https://help.shopify.com/en/manual/payments/shopify-payments/transactions/credit-card-rates", "accessed": "2026-10-04"}
+  ],
+  "inputs": [
+    {"id": "sale_amount", "label": "Sale total", "type": "money", "role": "price", "default": 60, "help": "What the customer pays at the counter. The card fee applies to the full amount charged to the card."},
+    {"id": "plan", "label": "Shopify plan", "type": "select", "role": "other", "default": "basic",
+     "options": [
+       {"id": "basic", "label": "Basic ($39/month billed monthly)", "note": "$29/month billed yearly. In-person cards 2.6% + 10¢."},
+       {"id": "grow", "label": "Grow ($105/month billed monthly)", "note": "$79/month billed yearly. In-person cards 2.5% + 10¢."},
+       {"id": "advanced", "label": "Advanced ($399/month billed monthly)", "note": "$299/month billed yearly. In-person cards 2.4% + 10¢."}
+     ]},
+    {"id": "entry", "label": "How the card is taken", "type": "select", "role": "other", "default": "card_present",
+     "options": [
+       {"id": "card_present", "label": "Tap, chip or swipe", "note": "The in-person card rate for your plan."},
+       {"id": "keyed", "label": "Manually entered card", "note": "3.5% + 10¢ on Basic, Grow and Advanced."}
+     ]},
+    {"id": "pos_pro", "label": "POS Pro location ($89/month)", "type": "toggle", "role": "other", "default": false},
+    {"id": "orders_per_month", "label": "In-person sales per month", "type": "number", "role": "orders_per_month", "default": 300, "help": "Used to spread the plan subscription and POS Pro across your sales."},
+    {"id": "item_cost", "label": "Cost of goods in the sale", "type": "money", "role": "cost", "default": 25, "help": "What the products in this sale cost you."},
+    {"id": "target_profit", "label": "Target profit", "type": "money", "role": "target_profit", "default": 20, "help": "We'll show the sale total you need to hit this profit."}
+  ],
+  "fees": [
+    {"id": "subscription", "label": "Plan subscription (monthly, split per sale)", "basis": "none", "monthly": true,
+     "fixed_by": {"input": "plan", "values": {"basic": 39, "grow": 105, "advanced": 399}, "default": 39},
+     "note": "Monthly-billing price divided by your in-person sales per month. Yearly billing is $29, $79 or $299 a month."},
+    {"id": "card_fee", "label": "Shopify Payments in-person card fee", "basis": "price",
+     "pct_by": {"input": "plan", "values": {"basic": 2.6, "grow": 2.5, "advanced": 2.4}, "default": 2.6},
+     "fixed": 0.10,
+     "when": {"input": "entry", "equals": "card_present"},
+     "note": "2.6% + 10¢ on Basic, 2.5% + 10¢ on Grow, 2.4% + 10¢ on Advanced for cards tapped, inserted or swiped."},
+    {"id": "keyed_fee", "label": "Shopify Payments manually entered card fee", "basis": "price", "pct": 3.5, "fixed": 0.10,
+     "when": {"input": "entry", "equals": "keyed"},
+     "note": "3.5% + 10¢ on Basic, Grow and Advanced when card details are typed in. Shopify treats these as card-not-present transactions."},
+    {"id": "pos_pro_fee", "label": "POS Pro (monthly per location, split per sale)", "basis": "none", "monthly": true, "fixed": 89,
+     "when": {"input": "pos_pro", "equals": true},
+     "note": "$89 a month for each POS Pro location, divided by your in-person sales per month."}
+  ],
+  "worked_example": {
+    "inputs": {"sale_amount": 60, "plan": "basic", "entry": "card_present", "pos_pro": false, "orders_per_month": 300, "item_cost": 25},
+    "expected": {"total_fees": 1.79, "net_payout": 58.21, "profit": 33.21},
+    "explanation": "A customer taps a card for a $60 sale at a shop on the Basic plan that makes 300 in-person sales a month. The Shopify Payments in-person fee is 2.6% of $60 = $1.56 plus 10¢, or $1.66. The $39 monthly subscription spread over 300 sales adds $0.13. Total fees are $1.79, so you keep $58.21; after $25 of cost of goods, profit is $33.21. If the same card were typed in by hand, the fee would be 3.5% + 10¢, or $2.20."
+  },
+  "content": {
+    "intro": "Shopify POS is the point-of-sale app that comes with a Shopify store. Retailers use it at the counter, at markets and at pop-ups, with a Shopify card reader or Tap to Pay on a phone, and every sale lands in the same inventory, orders and customer records as the online store.\n\nThe cost has three parts. First is the card fee: with Shopify Payments, cards that are tapped, inserted or swiped cost 2.6% + 10¢ on the Basic plan, 2.5% + 10¢ on Grow and 2.4% + 10¢ on Advanced (Plus is 2.3% + 10¢). In-person rates are lower than Shopify's online rates of 2.9%, 2.7% and 2.5% + 30¢ because a card that is physically present is lower risk. Typing a card number in by hand is the exception: manually entered cards cost 3.5% + 10¢, since Shopify treats them as card-not-present even when the customer is in your store.\n\nSecond is the plan itself: $39 a month for Basic, $105 for Grow or $399 for Advanced when billed monthly ($29, $79 or $299 billed yearly). In-person selling features are included with every paid plan at no extra cost.\n\nThird, and optional, is POS Pro at $89 a month per location, which adds advanced staff, inventory and customer tools for busy stores. Shopify states there are no setup fees and no hidden fees beyond the card rate and subscription.",
+    "how_fees_work": [
+      "In-person card rate: 2.6% + 10¢ on Basic, 2.5% + 10¢ on Grow, 2.4% + 10¢ on Advanced and 2.3% + 10¢ on Plus, for cards tapped, inserted or swiped through Shopify Payments.",
+      "Manually entered cards: 3.5% + 10¢ on Basic, Grow and Advanced (3.4% + 10¢ on Plus). Shopify classes these as card-not-present transactions even when the customer is standing in your store.",
+      "Plan subscription: Basic is $39 a month billed monthly or $29 billed yearly; Grow is $105 or $79; Advanced is $399 or $299. Plus starts at $2,300 a month on a three-year term.",
+      "POS Pro: an add-on at $89 a month for each location, which Shopify's POS pricing page describes as billed yearly. Plus plans include the first 20 POS Pro locations, and up to 200 when Shopify Payments is the primary payment provider.",
+      "What is free: the in-person selling features of Shopify POS are included with all paid plans, Tap to Pay on iPhone needs no additional hardware, and Tap to Pay on Android works with a compatible Android device.",
+      "No other processing fees: Shopify says that aside from the credit card rate and your plan's subscription fee there are no monthly fees, no hidden fees and no setup fees for Shopify Payments.",
+      "International cards: Shopify's help center says an additional charge applies above the base rate for international cards. The pricing page shows +1% for online international payments and does not list a separate in-person figure."
+    ],
+    "tips": [
+      "Tap, insert or swipe whenever you can. On a $60 sale on Basic, a keyed card costs $2.20 instead of $1.66, an extra 54¢ every time.",
+      "Do not upgrade plans for the in-person rate alone. Grow saves 0.1 point over Basic but costs $66 more a month, so card savings cover it only above about $66,000 a month in in-person sales.",
+      "Treat POS Pro as a per-sale cost. At 300 in-person sales a month, $89 works out to about 30¢ a sale; at 1,000 sales it is under 9¢.",
+      "Pay yearly if you are staying. Basic drops from $39 to $29 a month, which is $120 a year, the same as the card fees on roughly 72 sales of $60.",
+      "The 10¢ fixed fee is light on small tickets. A $5 coffee costs 23¢ in person on Basic (4.6%), compared with about 45¢ at the online rate of 2.9% + 30¢."
+    ],
+    "faq": [
+      {"q": "What are Shopify POS transaction fees?", "a": "With Shopify Payments, in-person card payments cost 2.6% + 10¢ on Basic, 2.5% + 10¢ on Grow and 2.4% + 10¢ on Advanced. Manually entered cards cost 3.5% + 10¢. There is no separate Shopify transaction fee on top when you use Shopify Payments."},
+      {"q": "Is Shopify POS free?", "a": "The in-person selling features are included with every paid Shopify plan at no extra cost, so you pay only the plan subscription and card fees. POS Pro, with advanced staff, inventory and customer tools, is an optional add-on at $89 a month per location."},
+      {"q": "How much is Shopify POS Pro?", "a": "$89 a month for each POS Pro location on the Basic, Grow and Advanced plans. Shopify Plus includes the first 20 POS Pro locations, and up to 200 when Shopify Payments is the primary payment provider."},
+      {"q": "Why are manually entered cards more expensive on Shopify POS?", "a": "Shopify treats a typed-in card as a card-not-present transaction, even when the customer is in your store, because the fraud risk is higher. The rate is 3.5% + 10¢ on Basic, Grow and Advanced instead of 2.4% to 2.6% + 10¢."},
+      {"q": "Are Shopify's in-person rates lower than its online rates?", "a": "Yes. In person is 2.6%, 2.5% or 2.4% + 10¢ by plan; online is 2.9%, 2.7% or 2.5% + 30¢. On a $60 sale on Basic that is $1.66 in person compared with $2.04 online."},
+      {"q": "What does Shopify take from a $100 in-person sale?", "a": "$2.70 on Basic (2.6% + 10¢), $2.60 on Grow and $2.50 on Advanced when the card is tapped, inserted or swiped. A manually entered card costs $3.60."},
+      {"q": "Do I need special hardware for Shopify POS?", "a": "Shopify says you need a smartphone or tablet and a Shopify card reader to start. Tap to Pay on iPhone accepts contactless payments with no additional hardware, and Tap to Pay on Android does the same on a compatible Android device."}
+    ],
+    "notes": "Rates are from Shopify's US pricing and POS pricing pages, read 2026-10-04; the pages show no effective date. The calculator assumes Shopify Payments. If you take cards on a third-party terminal instead, your provider's rates apply, and Shopify's pricing page says third-party transaction fees (2% on Basic, 1% on Grow, 0.6% on Advanced) may apply when you use a third-party payment provider; whether they apply to in-person orders was not confirmed on the pages read and is not modeled. Subscription uses the monthly-billing price; yearly billing is cheaper. The POS pricing page describes POS Pro's $89 a month as billed yearly, and the pages read do not state a separate month-to-month price. Shopify Plus (2.3% + 10¢ in person) and the Retail plan mentioned in the help center are not modeled. Premium, commercial and international cards may be charged above the base rate; the in-person surcharge is not published on the pricing page. Card reader and other hardware costs are not included. For online store fees, see the Shopify calculator.",
+    "changelog": []
+  },
+  "related": ["shopify", "square", "sumup", "zettle"]
+}

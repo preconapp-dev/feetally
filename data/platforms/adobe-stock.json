@@ -66,5 +66,5 @@
     "notes": "Royalty rates are from Adobe's contributor royalty-rates article, which shows 'Last updated on July 13, 2026'. The calculator applies the standard percentage to the net price you enter. Adobe determines that net price from the customer's plan; the $3.00 default is only an illustration based on the US$29.99, 10-credit plan on Adobe's plans page. The large-subscription minimums ($0.33, $0.36, $0.38), Free Collection up-front payments, flat-rate custom agreements and tax withholding are not modeled. Premium Contributors can price content at 25 credits (US$249.99) or 50 credits (US$499.99); the pages read do not state a separate royalty rate for those tiers. Adobe does not list payout fees charged by PayPal, Payoneer or Skrill, so none are included.",
     "changelog": []
   },
-  "related": ["youtube", "udemy", "gumroad", "amazon-kdp"]
+  "related": ["redbubble", "society6", "gumroad", "amazon-kdp"]
 }

@@ -58,5 +58,5 @@
     "notes": "Rates are from SumUp's US pricing page, which lists exactly two transaction rates: 'In-person transactions' at 2.6% + 10¢ and 'Online or manual entry transactions' at 3.5% + 15¢. Grouping payment links and invoices under the online rate is our reading of that label. Hardware prices, chargeback fees, instant payout fees and payout timing are not listed on the pricing page and are not modeled.",
     "changelog": []
   },
-  "related": ["square", "zettle", "stripe", "paypal"]
+  "related": ["square", "zettle", "stripe", "shopify-pos"]
 }

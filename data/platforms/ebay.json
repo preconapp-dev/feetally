@@ -7,11 +7,11 @@
   "currency": "USD",
   "tagline": "eBay fee calculator: 13.6% final value fee plus $0.30–$0.40 per order, Store rates, ads and international fee.",
   "fee_summary": "eBay takes one final value fee when an item sells: 13.6% of the item price plus shipping in most categories (12.7% with a Basic Store or higher) plus $0.30 per order under $10 or $0.40 over $10. Promoted Listings ads and a 1.65% international fee are optional extras.",
-  "last_verified": "2026-09-29",
+  "last_verified": "2026-10-04",
   "sources": [
-    {"title": "eBay Help: Selling fees", "url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822", "accessed": "2026-09-29"},
-    {"title": "eBay Help: Store selling fees", "url": "https://www.ebay.com/help/selling/fees-credits-invoices/store-selling-fees?id=4809", "accessed": "2026-09-29"},
-    {"title": "eBay Help: Promoted Listings General campaign strategy", "url": "https://www.ebay.com/help/selling/ebay-advertising/promoted-listings/general-campaign-strategy?id=4164", "accessed": "2026-09-29"}
+    {"title": "eBay Help: Selling fees", "url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822", "accessed": "2026-10-04"},
+    {"title": "eBay Help: Store selling fees", "url": "https://www.ebay.com/help/selling/fees-credits-invoices/store-selling-fees?id=4809", "accessed": "2026-10-04"},
+    {"title": "eBay Help: Promoted Listings General campaign strategy", "url": "https://www.ebay.com/help/selling/ebay-advertising/promoted-listings/general-campaign-strategy?id=4164", "accessed": "2026-10-04"}
   ],
   "inputs": [
     {"id": "sale_price", "label": "Item price", "type": "money", "role": "price", "default": 60, "help": "What the buyer pays for the item, before shipping and sales tax."},
@@ -96,7 +96,7 @@
       {"q": "Do I pay eBay fees on sales tax?", "a": "Yes. Sales tax collected from the buyer is part of the total amount of the sale, so the final value fee percentage applies to it. This calculator leaves tax out, so your real fee will be slightly higher in states where tax is collected."},
       {"q": "Do I get the fee back if the sale is canceled or refunded?", "a": "Often, yes. If you cancel the sale or refund the buyer in full, you may be eligible for a final value fee credit under eBay's fee credits policy. Ad fees and insertion fees are handled separately."}
     ],
-    "notes": "As of September 2026 from eBay's US selling fees pages. The calculator assumes the sale is $7,500 or less per item ($2,500 or less on Store rates); above that, the portion over the threshold is charged at 2.35% instead. Sales tax is not modeled even though eBay charges the final value fee on it. Store subscription prices use the yearly-plan monthly rate; month-to-month plans cost more (Basic $27.95). The Enterprise Store ($2,999.95 a year) is not modeled. Only Promoted Listings General is modeled; Priority campaigns bill per click. The 3% currency conversion charge applies only to non-USD payouts and is not modeled. eBay pays sale proceeds, minus fees, to your linked bank account on the payout schedule you choose in your payments settings.",
+    "notes": "As of October 2026 from eBay's US selling fees pages. The calculator assumes the sale is $7,500 or less per item ($2,500 or less on Store rates); above that, the portion over the threshold is charged at 2.35% instead. Sales tax is not modeled even though eBay charges the final value fee on it. Store subscription prices use the yearly-plan monthly rate; month-to-month plans cost more (Basic $27.95). The Enterprise Store ($2,999.95 a year) is not modeled. Only Promoted Listings General is modeled; Priority campaigns bill per click. The 3% currency conversion charge applies only to non-USD payouts and is not modeled. eBay pays sale proceeds, minus fees, to your linked bank account on the payout schedule you choose in your payments settings.",
     "changelog": [
       {"date": "2026-10-14", "change": "Currency conversion charge for US-registered sellers increases from 3% to 3.25% (announced on eBay's selling fees page)."}
     ]

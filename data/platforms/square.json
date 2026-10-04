@@ -75,5 +75,5 @@
     "notes": "The calculator uses Square Free plan rates. Square Plus ($49 a month per location): 2.5% + 15¢ in person, 2.9% + 30¢ online, ACH capped at $10. Square Premium ($149 a month per location): 2.4% + 15¢ in person, 2.9% + 30¢ online. Both paid plans have a 30-day trial. The 1.5% international fee is applied only to card options in the calculator. Instant transfer and chargeback fees are not listed on the pricing page we checked, so they are not modeled, and payout timing is not stated there. Gift card loads cost 2.5% on the Free and Plus plans.",
     "changelog": []
   },
-  "related": ["stripe", "helcim", "sumup", "zettle"]
+  "related": ["stripe", "helcim", "sumup", "shopify-pos"]
 }

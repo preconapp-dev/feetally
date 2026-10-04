@@ -7,12 +7,13 @@
   "currency": "USD",
   "tagline": "Bonanza fee calculator: 3.5% base fee, 9%–30% advertising tiers, $0.25 per sale plus PayPal or Stripe fees.",
   "fee_summary": "Bonanza charges a $0.25 transaction fee plus a final value fee of 3.5% at the Economy level, rising to 9%, 13%, 19% or 30% if you opt into its advertising program. Payments go through PayPal or Stripe, which take their own processing fee (3.49% + $0.49 or 2.9% + $0.30).",
-  "last_verified": "2026-09-29",
+  "last_verified": "2026-10-04",
   "sources": [
     {"title": "Bonanza Help Center: Bonanza Advertising FAQ", "url": "https://support.bonanza.com/hc/en-us/articles/360000606772-Bonanza-Advertising-FAQ", "accessed": "2026-09-29"},
-    {"title": "Bonanza blog: Advertising fees and top categories", "url": "https://www.bonanza.com/blog/main/bonanza_bulletin__advertising_fees_and_top_categories", "accessed": "2026-09-29"},
-    {"title": "PayPal US merchant fees", "url": "https://www.paypal.com/us/webapps/mpp/merchant-fees", "accessed": "2026-09-29"},
-    {"title": "Stripe pricing (US)", "url": "https://stripe.com/pricing", "accessed": "2026-09-29"}
+    {"title": "Bonanza blog: Advertising fees and top categories", "url": "https://www.bonanza.com/blog/main/bonanza_bulletin__advertising_fees_and_top_categories", "accessed": "2026-10-04"},
+    {"title": "Bonanza blog: All About Bonanza's New Transaction Fee (Aug 9, 2022)", "url": "https://www.bonanza.com/blog/main/All_About_Bonanza_s_New_Transaction_Fee", "accessed": "2026-10-04"},
+    {"title": "PayPal Business Fees (US), last updated October 1, 2026", "url": "https://www.paypal.com/us/business/paypal-business-fees", "accessed": "2026-10-04"},
+    {"title": "Stripe pricing (US)", "url": "https://stripe.com/pricing", "accessed": "2026-10-04"}
   ],
   "inputs": [
     {"id": "sale_price", "label": "Item price", "type": "money", "role": "price", "default": 40, "help": "The final offer value of the item, before shipping."},
@@ -75,7 +76,7 @@
       {"q": "Does Bonanza charge payment processing fees?", "a": "Not directly. Buyers pay through PayPal or Stripe, and those companies charge their standard rates: PayPal Checkout 3.49% + $0.49 and Stripe 2.9% + $0.30 per transaction."},
       {"q": "Are there sales with no final value fee?", "a": "Yes. If a buyer arrives through your Bonanza referral link and buys in that session, or the sale results from a customer marketing coupon campaign, Bonanza waives the final value fee."}
     ],
-    "notes": "Bonanza's percentage tiers and the $0.25 transaction fee come from its Advertising FAQ and blog as of September 2026. Bonanza's full pricing article and A-Z selling guide redirect to a login page for automated access, so two details could not be verified and are not modeled: how shipping charged to the buyer counts toward the final offer value, and any additional percentage on the portion of a sale above a high-value threshold. The final value fee here is applied to the item price only, which may slightly understate the fee on orders with large shipping charges. Membership plans are not modeled. Processing rates are PayPal's and Stripe's published US rates; international cards and currency conversion cost more.",
+    "notes": "Bonanza's percentage tiers and the $0.25 transaction fee were last read in its Advertising FAQ in September 2026 and re-checked in October 2026 against Bonanza's own blog posts (3.5% base and 9% to 30% advertising tiers; the 25-cent transaction fee announced August 9, 2022). That announcement says sellers with a paid Bonanza membership are exempt from the $0.25 fee. Bonanza's Help Center articles, including the Advertising FAQ, the full pricing article and the A-Z selling guide, now redirect to a login page for automated access, so two details could not be verified and are not modeled: how shipping charged to the buyer counts toward the final offer value, and any additional percentage on the portion of a sale above a high-value threshold. The final value fee here is applied to the item price only, which may slightly understate the fee on orders with large shipping charges. Membership plans are not modeled. Processing rates are PayPal's and Stripe's published US rates; international cards and currency conversion cost more.",
     "changelog": []
   },
   "related": ["ebay", "etsy", "mercari", "paypal"]
