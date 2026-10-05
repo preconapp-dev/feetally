@@ -80,5 +80,5 @@
     "notes": "Prices and rates are from Shopify's US pricing page as of September 2026. The calculator uses monthly-billing plan prices; yearly billing is cheaper ($29, $79, $299). Shopify Plus, in-person rates, international card surcharges, premium card rates and alternative payment methods are not modeled. Sales tax is not modeled even though card fees apply to it. When the third-party toggle is on, the calculator uses the provider rate and fixed fee you enter; check your own provider's pricing. Payout timing in the FAQ is a general description; check your Shopify Payments payout schedule for exact timing. The Grow plan was previously named \"Shopify\".",
     "changelog": []
   },
-  "related": ["stripe", "shopify-pos", "square", "etsy"]
+  "related": ["stripe", "shopify-pos", "printful", "etsy"]
 }

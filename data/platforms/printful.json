@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "slug": "printful",
+  "name": "Printful",
+  "category": "creator-platform",
+  "region": "United States",
+  "currency": "USD",
+  "tagline": "Printful profit calculator: product price, shipping, $0.99 or $2.49 labels and the $24.99 Growth plan.",
+  "fee_summary": "Printful takes no commission and has no monthly fee on its free plan. You pay the product price, shipping and any tax on each order, plus optional extras such as a custom inside label ($0.99) or outside label ($2.49). The optional Growth membership costs $24.99 a month and lowers product prices.",
+  "last_verified": "2026-10-05",
+  "sources": [
+    {"title": "Printful pricing", "url": "https://www.printful.com/pricing", "accessed": "2026-10-05"},
+    {"title": "Printful Growth: Get More Profit per Sale", "url": "https://www.printful.com/plans", "accessed": "2026-10-05"},
+    {"title": "Printful Help Center: How much does Printful cost?", "url": "https://help.printful.com/hc/en-us/articles/360014010240-How-much-does-Printful-cost", "accessed": "2026-10-05"},
+    {"title": "Printful Help Center: What should I know about the Printful Growth plan?", "url": "https://help.printful.com/hc/en-us/articles/10720462952988-What-should-I-know-about-Printful-Growth-and-Printful-Business-memberships-", "accessed": "2026-10-05"},
+    {"title": "Printful: How Payments Work, a Guide to Printful Pricing", "url": "https://www.printful.com/payments-guide", "accessed": "2026-10-05"},
+    {"title": "Printful: Shipping Speeds & Pricing", "url": "https://www.printful.com/shipping", "accessed": "2026-10-05"}
+  ],
+  "inputs": [
+    {"id": "retail_price", "label": "Retail price you charge", "type": "money", "role": "price", "default": 28, "help": "What your customer pays for the product in your store, before shipping and tax."},
+    {"id": "shipping_charged", "label": "Shipping you charge the customer", "type": "money", "role": "shipping_charged", "default": 4.95, "help": "Enter 0 if you offer free shipping."},
+    {"id": "product_cost", "label": "Printful product price", "type": "money", "role": "cost", "default": 13, "help": "What Printful bills you for the item: the blank product, one print or embroidery placement and fulfillment. Use the price shown in your Printful catalog, with your Growth discount if you have one."},
+    {"id": "printful_shipping", "label": "Printful shipping charge", "type": "money", "role": "shipping_cost", "default": 4.95, "help": "Printful's flat US rate for one shirt is $4.95, plus $2.20 for each additional shirt in the same order."},
+    {"id": "plan", "label": "Printful plan", "type": "select", "role": "other", "default": "free",
+     "options": [
+       {"id": "free", "label": "Free ($0/month)", "note": "No monthly fee."},
+       {"id": "growth", "label": "Growth ($24.99/month)", "note": "Up to 33% off product prices and 9% off branding. Free for a year once yearly sales reach $12,000."}
+     ]},
+    {"id": "orders_per_month", "label": "Orders per month", "type": "number", "role": "orders_per_month", "default": 50, "help": "Used to spread the Growth membership across your orders."},
+    {"id": "label", "label": "Custom apparel label", "type": "select", "role": "other", "default": "none",
+     "options": [
+       {"id": "none", "label": "No custom label"},
+       {"id": "inside", "label": "Inside label ($0.99)", "note": "List price per label. Growth members get 9% off branding."},
+       {"id": "outside", "label": "Outside label ($2.49)", "note": "List price per label. Growth members get 9% off branding."}
+     ]},
+    {"id": "target_profit", "label": "Target profit", "type": "money", "role": "target_profit", "default": 10, "help": "We'll show the retail price you need to hit this profit."}
+  ],
+  "fees": [
+    {"id": "growth_membership", "label": "Printful Growth membership (monthly, split per order)", "basis": "none", "monthly": true, "fixed": 24.99,
+     "when": {"input": "plan", "equals": "growth"},
+     "note": "$24.99 a month, divided by your orders per month. Not charged on the Free plan, or during the year of free Growth you get once yearly sales reach $12,000."},
+    {"id": "label_fee", "label": "Custom label", "basis": "none",
+     "fixed_by": {"input": "label", "values": {"none": 0, "inside": 0.99, "outside": 2.49}, "default": 0},
+     "when": {"input": "label", "in": ["inside", "outside"]},
+     "note": "$0.99 per printed inside label or $2.49 per printed outside label, at list price. Growth members pay 9% less on branding."}
+  ],
+  "worked_example": {
+    "inputs": {"retail_price": 28, "shipping_charged": 4.95, "product_cost": 13, "printful_shipping": 4.95, "plan": "growth", "orders_per_month": 50, "label": "inside"},
+    "expected": {"total_fees": 1.49, "net_payout": 31.46, "profit": 13.51},
+    "explanation": "You sell a t-shirt for $28.00 and charge the customer $4.95 for shipping, so you collect $32.95. Say Printful bills you $13.00 for the shirt (an example figure; use the price in your own catalog) and $4.95 for shipping, its flat US rate for one shirt. A printed inside label adds $0.99. You are on the Growth plan at $24.99 a month and sell 50 orders a month, which adds $0.50 per order. Extras total $1.49. After the $13.00 product price and $4.95 shipping, profit is $13.51. On the Free plan with no label the same sale makes $15.00. Fees charged by the store or marketplace where you take the payment are not included."
+  },
+  "content": {
+    "intro": "Printful is a print-on-demand fulfillment company. You connect it to a store on Shopify, Etsy or another platform, a customer orders, and Printful prints, packs and ships the item under your brand. Sellers are mostly small apparel and merchandise brands, artists and creators who do not want to hold stock.\n\nPrintful does not take a commission on your sales. Its Help Center says it is free to start, with no setup fees, no order minimums and no monthly subscription on the free plan; you only pay when an order is placed. Each order is billed at the product price, which covers the blank product, one print or embroidery placement and fulfillment, plus shipping and any tax. Your customer pays you through your own store, and Printful then charges your card, PayPal or Printful Wallet for the order.\n\nThe optional costs are branding and the Growth plan. A printed inside label is $0.99 and an outside label $2.49. Growth costs $24.99 a month, takes up to 33% off product prices and 9% off branding, and is free for a year once your yearly sales reach $12,000.\n\nSo your profit is the retail price and shipping you charge, less Printful's product price, shipping and extras, and less whatever your store platform and payment processor take.",
+    "how_fees_work": [
+      "Product price: Printful's base price for each item includes the blank product, one print or embroidery design placement and fulfillment. Prices vary by product and are listed in the Printful catalog; extra placements, large prints and other customization cost more.",
+      "Shipping: Printful charges fixed Standard shipping rates by product category. To US addresses a single shirt is $4.95 and each additional shirt in the order is $2.20; a hoodie or sweatshirt is $8.79 and $2.50; an 11 oz mug is $6.69 and $3.50.",
+      "Taxes: Printful adds tax to an order where it applies. The amount depends on the product, where it ships from and where it ships to.",
+      "Custom labels: a printed inside apparel label costs $0.99 per label and a printed outside label $2.49 per label.",
+      "Embroidery and premium images: a new embroidery design carries a one-time digitization fee of $2.95 to $6.50, and each additional embroidery placement is $2.95. Premium images cost $1 per image, placement and item sold.",
+      "Growth membership: $24.99 a month, sold only as a 30-day subscription that you can cancel anytime. It gives up to 33% off product prices (the discount varies by product), 9% off branding and 25% off sample orders. Once your yearly sales reach $12,000 you get Growth free for 12 months.",
+      "No commission: Printful takes no percentage of your sale and has no setup fee or order minimum. The store or marketplace where you sell charges its own fees separately."
+    ],
+    "tips": [
+      "Run the Growth math before you subscribe. At $24.99 a month it pays for itself once your monthly product discounts pass that amount; if Growth saves you $1.00 an item, that is 25 items a month.",
+      "Charge shipping that matches what Printful charges you. A second shirt in the same order adds only $2.20 to Printful's shipping, so flat per-item shipping in your store can over- or under-collect.",
+      "Add your storefront's fees before you set a price. Printful's bill is only part of the cost; a sale through Etsy or Shopify also pays that platform's transaction and payment fees.",
+      "Save labels for products where branding matters. A $0.99 inside label on a $28 shirt is about 3.5% of the retail price; a $2.49 outside label is almost 9%.",
+      "Track your yearly sales. Printful counts them after discounts, shipping, taxes and additional fees, and reaching $12,000 gives you Growth free for a year."
+    ],
+    "faq": [
+      {"q": "Does Printful charge a monthly fee?", "a": "Not on the free plan. Printful says it is free to start, with no setup fees, no order minimums and no monthly subscription required. The optional Growth plan costs $24.99 a month."},
+      {"q": "Does Printful take a percentage of my sales?", "a": "No. Printful charges you the product price, shipping and any applicable tax for each order, plus optional extras. It does not take a commission on your retail price."},
+      {"q": "How much is Printful Growth and is it worth it?", "a": "$24.99 a month for up to 33% off product prices, 9% off branding and 25% off sample orders. It is worth it when your monthly discounts exceed $24.99. Once your yearly sales reach $12,000, Printful gives you Growth free for 12 months."},
+      {"q": "How much does Printful charge for shipping in the US?", "a": "Printful uses fixed Standard rates by product category. One shirt ships for $4.95 and each additional shirt adds $2.20. A hoodie or sweatshirt is $8.79 plus $2.50 for each additional one, and an 11 oz mug is $6.69 plus $3.50."},
+      {"q": "How much do Printful custom labels cost?", "a": "A printed inside apparel label is $0.99 per label and a printed outside label is $2.49 per label. Growth members get 9% off product branding."},
+      {"q": "When does Printful charge me for an order?", "a": "When the order is placed. Your customer pays you through your store's payment provider, and Printful then charges your payment method (card, PayPal or Printful Wallet) for the product, shipping, tax and any extras."},
+      {"q": "What does the Printful product price include?", "a": "The blank product, one print or embroidery design placement and fulfillment. Shipping, tax and extras such as labels, additional placements and embroidery digitization are charged on top."}
+    ],
+    "notes": "Rates are from Printful's pricing, plans, payments guide and shipping pages and its Help Center, read 2026-10-05; none of these pages shows an effective date. Product prices vary by item and are not modeled: you enter the price from your own catalog, and the $13.00 default is only an example. The calculator uses list prices for labels; Growth members pay 9% less on branding, so a label costs them a few cents less than shown. Embroidery digitization, premium images, pack-ins, sample orders, sales tax and bulk-order discounts are not modeled. The Growth fee is spread across your orders per month and is not charged during the 12 months of free Growth that follow $12,000 in yearly sales. Fees charged by your store platform, marketplace or payment processor are separate and not included; see the calculator for that platform. Shipping rates shown are Printful's Standard flat rates to US addresses.",
+    "changelog": []
+  },
+  "related": ["redbubble", "society6", "zazzle", "etsy"]
+}

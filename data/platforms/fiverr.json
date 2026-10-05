@@ -7,13 +7,13 @@
   "currency": "USD",
   "tagline": "Fiverr fee calculator: sellers keep 80% of every order, extra, and tip. See the 20% cut and your payout.",
   "fee_summary": "Fiverr keeps 20% of everything a client pays for your order, including Gig extras and tips, so you earn 80%. Clients also pay a separate service fee of 5.5% plus $3.50 on orders under $200. Withdrawals to PayPal are free; funds clear 14 days after completion.",
-  "last_verified": "2026-09-29",
+  "last_verified": "2026-10-05",
   "sources": [
-    {"title": "Fiverr Help Center: Your Earnings page", "url": "https://help.fiverr.com/hc/en-us/articles/9234443621137-Your-Earnings-page", "accessed": "2026-09-29"},
-    {"title": "Fiverr Help Center: How Fiverr works for freelancers", "url": "https://help.fiverr.com/hc/en-us/articles/34069565843985", "accessed": "2026-09-29"},
-    {"title": "Fiverr Help Center: Paying for orders, extras, or custom offers", "url": "https://help.fiverr.com/hc/en-us/articles/360050216133-Paying-for-orders-extras-or-custom-offers", "accessed": "2026-09-29"},
-    {"title": "Fiverr Help Center: How Fiverr works for clients", "url": "https://help.fiverr.com/hc/en-us/articles/360010558038-How-Fiverr-works", "accessed": "2026-09-29"},
-    {"title": "Fiverr Help Center: Withdrawing your earnings & managing payout methods", "url": "https://help.fiverr.com/hc/en-us/articles/360010530058-Withdrawing-your-earnings-managing-payout-methods", "accessed": "2026-09-29"}
+    {"title": "Fiverr Help Center: Your Earnings page", "url": "https://help.fiverr.com/hc/en-us/articles/9234443621137-Your-Earnings-page", "accessed": "2026-10-05"},
+    {"title": "Fiverr Help Center: How Fiverr works for freelancers", "url": "https://help.fiverr.com/hc/en-us/articles/34069565843985", "accessed": "2026-10-05"},
+    {"title": "Fiverr Help Center: Paying for orders, extras, or custom offers", "url": "https://help.fiverr.com/hc/en-us/articles/360050216133-Paying-for-orders-extras-or-custom-offers", "accessed": "2026-10-05"},
+    {"title": "Fiverr Help Center: How Fiverr works for clients", "url": "https://help.fiverr.com/hc/en-us/articles/360010558038-How-Fiverr-works", "accessed": "2026-10-05"},
+    {"title": "Fiverr Help Center: Withdrawing your earnings & managing payout methods", "url": "https://help.fiverr.com/hc/en-us/articles/360010530058-Withdrawing-your-earnings-managing-payout-methods", "accessed": "2026-10-05"}
   ],
   "inputs": [
     {"id": "order_total", "label": "Order amount", "type": "money", "role": "price", "default": 100, "help": "Gig price plus any extras and tip, before Fiverr's buyer service fee. Fiverr takes 20% of all of it."},

@@ -7,11 +7,11 @@
   "currency": "USD",
   "tagline": "GOAT seller fee calculator: 9.5% commission, $0–$5 seller fee, and 2.9% cash-out fee, with your real payout.",
   "fee_summary": "GOAT deducts a 9.5% commission from the listing price (higher if your seller rating drops below 90) plus a flat seller fee of $5 for prepaid shipping or $0 for drop-off in the US. Cashing out to a bank or PayPal costs another 2.9% of your earnings.",
-  "last_verified": "2026-09-29",
+  "last_verified": "2026-10-05",
   "sources": [
-    {"title": "GOAT – Fee Policy (Last Updated August 1, 2026)", "url": "https://www.goat.com/fees", "accessed": "2026-09-29"},
-    {"title": "GOAT Support – What are the commissions for selling on GOAT?", "url": "https://support.goat.com/hc/en-us/articles/115004770888-What-are-the-commissions-for-selling-on-GOAT", "accessed": "2026-09-29"},
-    {"title": "GOAT Support – What is my Seller Fee?", "url": "https://support.goat.com/hc/en-us/articles/360003037832-What-is-my-Seller-Fee", "accessed": "2026-09-29"}
+    {"title": "GOAT – Fee Policy (Last Updated August 1, 2026)", "url": "https://www.goat.com/fees", "accessed": "2026-10-05"},
+    {"title": "GOAT Support – What are the commissions for selling on GOAT?", "url": "https://support.goat.com/hc/en-us/articles/115004770888-What-are-the-commissions-for-selling-on-GOAT", "accessed": "2026-10-05"},
+    {"title": "GOAT Support – What is my Seller Fee?", "url": "https://support.goat.com/hc/en-us/articles/360003037832-What-is-my-Seller-Fee", "accessed": "2026-10-05"}
   ],
   "inputs": [
     {"id": "sale_price", "label": "Listing price", "type": "money", "role": "price", "default": 180, "help": "The price your item sells for on GOAT."},

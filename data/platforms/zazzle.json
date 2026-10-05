@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "slug": "zazzle",
+  "name": "Zazzle",
+  "category": "creator-platform",
+  "region": "United States",
+  "currency": "USD",
+  "tagline": "Zazzle royalty calculator: the 35–50% Marketing Royalty Fee, the 5% Excess Royalty Fee and what you keep.",
+  "fee_summary": "Zazzle creators set a royalty rate, and two fees come out of that royalty. A Marketing Royalty Fee of 35% to 50% of the gross royalty, by product department, is deducted when the sale comes from Zazzle's marketing or another Ambassador's referral. An Excess Royalty Fee of 5% of the gross royalty applies when your royalty rate is above 10%.",
+  "last_verified": "2026-10-05",
+  "sources": [
+    {"title": "Zazzle Help Center: Zazzle Ambassador and Creator Royalties and Referrals (in effect April 1, 2025)", "url": "https://www.zazzle.com/hc/article/zazzle_ambassador_and_creator_royalties_and_referrals-360037785973", "accessed": "2026-10-05"},
+    {"title": "Zazzle Creator FAQ (PDF, updated March 31, 2025, effective April 1, 2025)", "url": "https://www.zazzle.com/assets/graphics/z5/zmisc/ambassador_program/Zazzle_Creator_FAQs.pdf", "accessed": "2026-10-05"},
+    {"title": "Zazzle Help Center: Frequently Asked Questions (cost of becoming a Creator)", "url": "https://www.zazzle.com/hc/article/frequently_asked_questions-115000209913", "accessed": "2026-10-05"}
+  ],
+  "inputs": [
+    {"id": "gross_royalty", "label": "Your gross royalty on the sale", "type": "money", "role": "price", "default": 10, "help": "The sale amount times your royalty rate, before Zazzle's royalty fees. A $100 sale at a 10% royalty rate is a $10.00 gross royalty."},
+    {"id": "department", "label": "Product department", "type": "select", "role": "other", "default": "invitations",
+     "options": [
+       {"id": "invitations", "label": "Invitations & Stationery, Weddings (50%)", "note": "Marketing Royalty Fee of 50% of the gross royalty."},
+       {"id": "office_sports", "label": "Office & School; Sports, Toys & Games (45%)", "note": "Marketing Royalty Fee of 45% of the gross royalty."},
+       {"id": "general", "label": "Accessories, Baby & Kids, Crafts & Party Supplies, Electronics, Home & Living, Wall Art & Décor (40%)", "note": "Marketing Royalty Fee of 40% of the gross royalty."},
+       {"id": "clothing", "label": "Clothing & Shoes (35%)", "note": "Marketing Royalty Fee of 35% of the gross royalty."}
+     ]},
+    {"id": "marketing_sale", "label": "Sale came from Zazzle marketing or another Ambassador's referral", "type": "toggle", "role": "other", "default": true, "help": "Leave on for any sale you did not drive yourself. Zazzle deducts the Marketing Royalty Fee on these sales."},
+    {"id": "above_10", "label": "Your royalty rate is above 10%", "type": "toggle", "role": "other", "default": false, "help": "Turns on the 5% Excess Royalty Fee."},
+    {"id": "cost", "label": "Your cost per sale", "type": "money", "role": "cost", "default": 0, "help": "Optional: design tools, stock assets or ads you want to net out per sale."},
+    {"id": "target_profit", "label": "Target earnings per sale", "type": "money", "role": "target_profit", "default": 5, "help": "We'll show the gross royalty you need to keep this much after fees."}
+  ],
+  "fees": [
+    {"id": "marketing_royalty_fee", "label": "Marketing Royalty Fee", "basis": "price",
+     "pct_by": {"input": "department", "values": {"invitations": 50, "office_sports": 45, "general": 40, "clothing": 35}, "default": 40},
+     "when": {"input": "marketing_sale", "equals": true},
+     "note": "35% of the gross royalty for Clothing & Shoes; 45% for Office & School and Sports, Toys & Games; 50% for Invitations & Stationery and Weddings; 40% for the other departments. Deducted when the sale results from Zazzle's marketing or another Ambassador's referral."},
+    {"id": "excess_royalty_fee", "label": "Excess Royalty Fee", "basis": "price", "pct": 5,
+     "when": {"input": "above_10", "equals": true},
+     "note": "5% of the gross royalty, charged only when your royalty rate is set above 10%."}
+  ],
+  "worked_example": {
+    "inputs": {"gross_royalty": 10, "department": "invitations", "marketing_sale": true, "above_10": false, "cost": 0},
+    "expected": {"total_fees": 5.00, "net_payout": 5.00, "profit": 5.00},
+    "explanation": "This is Zazzle's own example. A wedding save the date sells for $100 before tax and shipping at a 10% royalty rate, so the gross royalty is $10.00. You did not promote the sale yourself, so the Marketing Royalty Fee for the Weddings department, 50% of the gross royalty, takes $5.00. The royalty rate is not above 10%, so there is no Excess Royalty Fee. You keep $5.00. A 12% royalty on a $100 Clothing & Shoes sale is a $12.00 gross royalty: the 35% Marketing Royalty Fee is $4.20 and the 5% Excess Royalty Fee is $0.60, leaving $7.20."
+  },
+  "content": {
+    "intro": "Zazzle is a print-on-demand marketplace. Creators upload designs, Zazzle prints them on invitations, cards, clothing, mugs and many other products, and Zazzle handles the checkout, production and delivery. Becoming a creator is free, and you earn a royalty when a product with your design sells.\n\nYou name your own royalty rate. Zazzle's terms give a range of 5% to 50% on physical products and 5% to 99% on instant downloads. The royalty is built into the product's price, and the rate applied to the sale gives your gross royalty: 10% on a $100 order is $10.00.\n\nTwo royalty fees then come out of that gross royalty. The Marketing Royalty Fee is deducted whenever the sale results from Zazzle's own marketing or another Ambassador's referral. It runs from 35% to 50% of the gross royalty depending on the product department: 35% for Clothing & Shoes, 45% for Office & School and for Sports, Toys & Games, 50% for Invitations & Stationery and Weddings, and 40% for everything else. The Excess Royalty Fee is 5% of the gross royalty and applies only when your royalty rate is set above 10%.\n\nSo the $10.00 royalty on that wedding order pays you $5.00 if you did not bring the customer in yourself. Promoting your own products with a Self-Promotion Link changes the math: Zazzle then pays 35% to 50% of the sale in royalty and referral commission combined.",
+    "how_fees_work": [
+      "Gross royalty: your royalty rate applied to the sale. You set the rate per product, from 5% to 50% on physical products and 5% to 99% on instant downloads. Zazzle Heart products are fixed at 5%.",
+      "Marketing Royalty Fee: deducted from your gross royalty when a sale results from Zazzle's own marketing or another Ambassador's referral. By department it is 35% for Clothing & Shoes; 40% for Accessories, Baby & Kids, Crafts & Party Supplies, Electronics, Home & Living and Wall Art & Décor; 45% for Office & School and Sports, Toys & Games; and 50% for Invitations & Stationery and Weddings.",
+      "Excess Royalty Fee: 5% of your gross royalty, charged only when your royalty rate is above 10%. Zazzle's example: a 12% rate on a $100 sale is a $12.00 gross royalty, the fee is $0.60 and the net royalty is $11.40. It is 5% of the royalty, not 5 points off your rate.",
+      "Both fees together: each is a share of the same gross royalty, so they add up. A 12% royalty on a $100 Clothing & Shoes sale that Zazzle's marketing brought in pays $12.00 less $4.20 less $0.60, or $7.20.",
+      "Self-promoted sales: when a customer buys your own product through your Self-Promotion Link, Zazzle says your royalty and referral commission together come to 35% to 50% of net referral sales, by department. The Marketing Royalty Fee is still applied in Zazzle's system, but the referral commission is calculated to offset it.",
+      "Promoting other creators: a Cross-Promotion Link to someone else's product earns a flat 15% referral commission.",
+      "Payout: earnings become payable once they reach $50 for PayPal or $100 for a check, and Zazzle's terms say payments are processed within 45 days after the end of each month."
+    ],
+    "tips": [
+      "Share your own products with a Self-Promotion Link. In Zazzle's example, a $100 wedding order earns $50.00 when you drove the sale and $5.00 when you did not.",
+      "Check what a rate above 10% really adds. Going from 10% to 12% on a $100 sale raises the gross royalty from $10.00 to $12.00, but the 5% Excess Royalty Fee takes $0.60 of it, and a higher rate raises the product's price.",
+      "Know your department. The same $10.00 gross royalty keeps $6.50 in Clothing & Shoes and $5.00 in Weddings after the Marketing Royalty Fee.",
+      "You cannot opt out of Zazzle's marketing, so price your royalty on the assumption that the Marketing Royalty Fee applies to every sale you do not refer yourself.",
+      "Lower prices can help sales. Zazzle says its search and recommendations favor products that convert, and your royalty rate is built into the product price."
+    ],
+    "faq": [
+      {"q": "How much does Zazzle take from a creator's royalty?", "a": "On a sale that comes from Zazzle's marketing or another Ambassador's referral, Zazzle deducts a Marketing Royalty Fee of 35% to 50% of your gross royalty, depending on the product department. If your royalty rate is above 10%, an Excess Royalty Fee of 5% of the gross royalty also applies."},
+      {"q": "What is the Zazzle Marketing Royalty Fee?", "a": "A fee deducted from your gross royalty whenever a sale results from Zazzle's own marketing efforts or a fellow Ambassador's referral. It is 35% for Clothing & Shoes, 45% for Office & School and Sports, Toys & Games, 50% for Invitations & Stationery and Weddings, and 40% for other departments."},
+      {"q": "What is the Zazzle Excess Royalty Fee?", "a": "A 5% fee on your gross royalty that is charged only when your royalty rate exceeds 10%. At a 12% rate on a $100 sale the gross royalty is $12.00, the fee is $0.60 and the net royalty is $11.40."},
+      {"q": "What royalty rate can I set on Zazzle?", "a": "From 5% up to 50% on physical products and from 5% up to 99% on instant downloads. Zazzle Heart products are fixed at 5%. A rate above 10% triggers the 5% Excess Royalty Fee."},
+      {"q": "Can I avoid the Marketing Royalty Fee?", "a": "You cannot opt out of Zazzle's marketing. What you can do is promote your own products with a Self-Promotion Link: on those sales Zazzle pays 35% to 50% of net referral sales in royalty and referral commission combined, which offsets the fee."},
+      {"q": "When does Zazzle pay creators?", "a": "Earnings become payable once they reach the payment threshold, $50 for PayPal or $100 for a check. Zazzle's terms say payments are processed within 45 days following each month's end."},
+      {"q": "Does it cost anything to sell on Zazzle?", "a": "No. Zazzle's Help Center says becoming a Creator is completely free. Its fees are deducted from the royalty a sale earns: the Marketing Royalty Fee and, above a 10% royalty rate, the Excess Royalty Fee."}
+    ],
+    "notes": "Rates are from Zazzle's Help Center article 'Zazzle Ambassador and Creator Royalties and Referrals' (in effect April 1, 2025) and the Zazzle Creator FAQ (updated March 31, 2025), read 2026-10-05. You enter the gross royalty itself because Zazzle's fees are a share of the royalty, not of the sale price. The Marketing Royalty Fee toggle is on by default: Zazzle's FAQ says the fee is deducted whenever a sale results from its own marketing or another Ambassador's referral, and its own example applies the fee to a sale the creator did not promote. Self-promoted sales are not modeled, because they pay a share of net referral sales (35% to 50% by department) instead of a royalty less fees. Zazzle defines net referral sales as what the customer pays less shipping, taxes and other customary deductions. Referral tracking rules and tax withholding are not covered.",
+    "changelog": [
+      {"date": "2025-04-01", "change": "New Creator and Ambassador terms took effect: a Marketing Royalty Fee of 35% to 50% of the gross royalty, by product department, on sales from Zazzle's marketing or another Ambassador's referral, and a 5% Excess Royalty Fee on royalty rates above 10%."}
+    ]
+  },
+  "related": ["redbubble", "society6", "printful", "etsy"]
+}

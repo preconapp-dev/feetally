@@ -7,9 +7,11 @@
   "currency": "USD",
   "tagline": "GoFundMe fee calculator: 0% platform fee, 2.9% + $0.30 per donation, and what you actually receive.",
   "fee_summary": "GoFundMe charges no platform fee to start or run a fundraiser. Each donation carries a transaction fee of 2.9% + $0.30 (2.2% + $0.30 for certified nonprofits), deducted automatically. Donors may add an optional tip to GoFundMe, which does not affect your total.",
-  "last_verified": "2026-09-29",
+  "last_verified": "2026-10-05",
   "sources": [
-    {"title": "GoFundMe: Pricing and fees", "url": "https://www.gofundme.com/c/pricing", "accessed": "2026-09-29"}
+    {"title": "GoFundMe: Pricing and fees", "url": "https://www.gofundme.com/c/pricing", "accessed": "2026-09-29"},
+    {"title": "GoFundMe Help Center: Learn about GoFundMe fees (updated September 30, 2026)", "url": "https://support.gofundme.com/hc/en-us/articles/203604424-Learn-about-GoFundMe-fees", "accessed": "2026-10-05"},
+    {"title": "GoFundMe Pro Help Center: Nonprofit Pages on GoFundMe (updated October 2, 2026)", "url": "https://prosupport.gofundme.com/hc/en-us/articles/37288767138075-Nonprofit-Pages-on-GoFundMe", "accessed": "2026-10-05"}
   ],
   "inputs": [
     {"id": "donation", "label": "Donation amount", "type": "money", "role": "price", "default": 100, "help": "A single donation. Fees are charged per donation, so run typical gift sizes."},
@@ -60,7 +62,7 @@
       {"q": "Are GoFundMe fees taken from each donation or when I withdraw?", "a": "From each donation. GoFundMe says the transaction fee is automatically deducted, so your balance already reflects it."},
       {"q": "Does GoFundMe charge extra for recurring donations?", "a": "Supporters who set up a recurring donation pay a 5% fee per donation, on their side."}
     ],
-    "notes": "Fees are from GoFundMe's US pricing page, read 2026-09-29; the page gives no effective date. Fees differ in other countries. Whether the recurring-donation 5% fee is charged in addition to the standard transaction fee is not spelled out on the page; the calculator shows it as a supporter-side charge. Payout timing and bank transfer times are not modeled; see GoFundMe's withdrawals help articles.",
+    "notes": "Fees were first read on GoFundMe's US pricing page on 2026-09-29; the page gives no effective date. They were re-checked on 2026-10-05 against GoFundMe's Help Center: 'Learn about GoFundMe fees' (updated September 30, 2026) confirms no fee to start or manage a fundraiser, the 2.9% + $0.30 transaction fee, the optional donor tip and the 5% recurring-donation fee, and 'Nonprofit Pages on GoFundMe' (updated October 2, 2026) confirms 2.2% + $0.30 for nonprofits. The pricing page did not load its rates for that re-check, so its access date is unchanged. Fees differ in other countries. Whether the recurring-donation 5% fee is charged in addition to the standard transaction fee is not spelled out on the page; the calculator shows it as a supporter-side charge. Payout timing and bank transfer times are not modeled; see GoFundMe's withdrawals help articles.",
     "changelog": []
   },
   "related": ["kickstarter", "indiegogo", "ko-fi"]
