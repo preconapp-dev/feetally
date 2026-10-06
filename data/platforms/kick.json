@@ -7,10 +7,10 @@
   "currency": "USD",
   "tagline": "Kick payout calculator: streamers keep 95% of subs and KICKs. A $5 sub pays $4.75 after the 5% processing fee.",
   "fee_summary": "Kick keeps 5% of subscription and KICKs revenue as a processing fee and pays you 95%. Subscriptions are a flat $5 a month, so each one pays $4.75. Payouts go out through Stripe to your bank with no currency conversion fee.",
-  "last_verified": "2026-09-29",
+  "last_verified": "2026-10-06",
   "sources": [
-    {"title": "Kick Help Center: Understanding KICK's revenue split", "url": "https://help.kick.com/en/articles/15159722-understanding-kick-s-revenue-split", "accessed": "2026-09-29"},
-    {"title": "Kick Help Center: KICK payout schedule, thresholds, and methods", "url": "https://help.kick.com/en/articles/15159725-kick-payout-schedule-thresholds-and-methods", "accessed": "2026-09-29"}
+    {"title": "Kick Help Center: Understanding KICK's revenue split", "url": "https://help.kick.com/en/articles/15159722-understanding-kick-s-revenue-split", "accessed": "2026-10-06"},
+    {"title": "Kick Help Center: KICK payout schedule, thresholds, and methods", "url": "https://help.kick.com/en/articles/15159725-kick-payout-schedule-thresholds-and-methods", "accessed": "2026-10-06"}
   ],
   "inputs": [
     {"id": "amount", "label": "Revenue amount", "type": "money", "role": "price", "default": 5, "help": "One $5 subscription, your monthly sub total, or the dollar value of KICKs received."},

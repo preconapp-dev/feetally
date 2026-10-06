@@ -7,10 +7,10 @@
   "currency": "USD",
   "tagline": "Indiegogo fee calculator: 5% platform fee plus 3% + $0.20 per transaction, and what you net.",
   "fee_summary": "Indiegogo charges a flat 5% platform fee on the amount collected plus payment processing of 3% + $0.20 per transaction. If a campaign does not reach its goal, nothing is charged, including processing fees.",
-  "last_verified": "2026-09-29",
+  "last_verified": "2026-10-06",
   "sources": [
-    {"title": "Indiegogo Knowledge Base: Fees", "url": "https://help.indiegogo.com/article/596-fees", "accessed": "2026-09-29"},
-    {"title": "Indiegogo Knowledge Base: What changed with the Platform Upgrade?", "url": "https://help.indiegogo.com/article/645-what-changed-with-the-platform-upgrade", "accessed": "2026-09-29"}
+    {"title": "Indiegogo Knowledge Base: Fees", "url": "https://help.indiegogo.com/article/596-fees", "accessed": "2026-10-06"},
+    {"title": "Indiegogo Knowledge Base: What changed with the Platform Upgrade?", "url": "https://help.indiegogo.com/article/645-what-changed-with-the-platform-upgrade", "accessed": "2026-10-06"}
   ],
   "inputs": [
     {"id": "total_raised", "label": "Total raised", "type": "money", "role": "price", "default": 10000, "help": "The amount collected when the campaign ends, or your goal, to plan."},
@@ -55,7 +55,7 @@
       {"q": "What does the Indiegogo pledge manager cost?", "a": "Nothing to use. Indiegogo takes 5% of each successfully collected payment plus 3% + $0.20 per transaction, the same as the campaign."},
       {"q": "What happened to InDemand?", "a": "It was renamed Late Pledge in the 2025 upgrade. It is the post-campaign funding phase and is charged the same 5% + processing."}
     ],
-    "notes": "Fees are from Indiegogo's knowledge base (Fees article, last updated November 4, 2025, and the Platform Upgrade article), read 2026-09-29. The Fees article's processing sentence is truncated, but its worked example ($320 on $10,000 across 100 transactions) and the Platform Upgrade article both state 3% + $0.20 per transaction. Fees for campaigns in other currencies use the same structure with €0.20 in euro projects. Payout timing is not modeled.",
+    "notes": "Fees are from Indiegogo's knowledge base (Fees article, last updated November 4, 2025, and the Platform Upgrade article), read 2026-10-06. The Fees article's processing sentence is truncated, but its worked example ($320 on $10,000 across 100 transactions) and the Platform Upgrade article both state 3% + $0.20 per transaction. Fees for campaigns in other currencies use the same structure with €0.20 in euro projects. Payout timing is not modeled.",
     "changelog": [
       {"date": "2025-10-16", "change": "Indiegogo migrated to a new platform: fee structure simplified to a flat 5% platform fee plus 3% + $0.20 per transaction; flexible funding discontinued for new campaigns; InDemand renamed Late Pledge; new campaigns process payments through Adyen."}
     ]

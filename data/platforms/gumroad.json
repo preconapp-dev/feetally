@@ -7,10 +7,10 @@
   "currency": "USD",
   "tagline": "Gumroad fee calculator: 10% + $0.50 on direct sales, 30% on Discover sales. See your exact payout.",
   "fee_summary": "Gumroad keeps 10% + $0.50 on every sale that comes through your own links or profile, and a flat 30% when a new customer finds you through Gumroad Discover. There is no monthly fee; card and PayPal processing are not included in those figures.",
-  "last_verified": "2026-09-29",
+  "last_verified": "2026-10-06",
   "sources": [
-    {"title": "Gumroad Pricing", "url": "https://gumroad.com/pricing", "accessed": "2026-09-29"},
-    {"title": "Gumroad Help Center: Gumroad's fees", "url": "https://gumroad.com/help/article/66-gumroads-fees", "accessed": "2026-09-29"}
+    {"title": "Gumroad Pricing", "url": "https://gumroad.com/pricing", "accessed": "2026-10-06"},
+    {"title": "Gumroad Help Center: Gumroad's fees", "url": "https://gumroad.com/help/article/66-gumroads-fees", "accessed": "2026-10-06"}
   ],
   "inputs": [
     {"id": "sale_price", "label": "Sale price", "type": "money", "role": "price", "default": 30, "help": "What the customer pays for the product, before any sales tax Gumroad adds at checkout."},

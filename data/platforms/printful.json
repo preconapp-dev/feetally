@@ -79,5 +79,5 @@
     "notes": "Rates are from Printful's pricing, plans, payments guide and shipping pages and its Help Center, read 2026-10-05; none of these pages shows an effective date. Product prices vary by item and are not modeled: you enter the price from your own catalog, and the $13.00 default is only an example. The calculator uses list prices for labels; Growth members pay 9% less on branding, so a label costs them a few cents less than shown. Embroidery digitization, premium images, pack-ins, sample orders, sales tax and bulk-order discounts are not modeled. The Growth fee is spread across your orders per month and is not charged during the 12 months of free Growth that follow $12,000 in yearly sales. Fees charged by your store platform, marketplace or payment processor are separate and not included; see the calculator for that platform. Shipping rates shown are Printful's Standard flat rates to US addresses.",
     "changelog": []
   },
-  "related": ["redbubble", "society6", "zazzle", "etsy"]
+  "related": ["redbubble", "society6", "zazzle", "ingramspark"]
 }

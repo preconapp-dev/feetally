@@ -7,22 +7,22 @@
   "currency": "USD",
   "tagline": "Grailed fee calculator: 9% (or 6% under $120) commission plus 3.49% + $0.49 processing, and your payout.",
   "fee_summary": "Grailed takes 9% commission on sales of $120 or more and 6% (minimum $1.99) on sales under $120, plus a payment processing fee of 3.49% + $0.49 for US buyers (4.99% + $0.49 international). With a Grailed Label, commission is on the item price only; otherwise it includes shipping.",
-  "last_verified": "2026-09-29",
+  "last_verified": "2026-10-06",
   "sources": [
     {
       "title": "Grailed Help Center – What are the fees?",
       "url": "https://support.grailed.com/hc/en-us/articles/30282580172045-What-are-the-fees",
-      "accessed": "2026-09-29"
+      "accessed": "2026-10-06"
     },
     {
       "title": "Grailed Help Center – Does Grailed charge a payment processing fee?",
       "url": "https://support.grailed.com/hc/en-us/articles/30299544492301-Does-Grailed-charge-a-payment-processing-fee",
-      "accessed": "2026-09-29"
+      "accessed": "2026-10-06"
     },
     {
       "title": "Grailed Help Center – When do I get paid?",
       "url": "https://support.grailed.com/hc/en-us/articles/30298995312653-When-do-I-get-paid",
-      "accessed": "2026-09-29"
+      "accessed": "2026-10-06"
     }
   ],
   "inputs": [

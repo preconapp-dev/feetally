@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "slug": "ingramspark",
+  "name": "IngramSpark",
+  "category": "publishing",
+  "region": "United States",
+  "currency": "USD",
+  "tagline": "IngramSpark royalty calculator: list price less wholesale discount, print cost and the 1.875% fee.",
+  "fee_summary": "IngramSpark pays you the list price less the wholesale discount you set, less the print cost of the book. Its 2026 rate card also lists a Global Distribution Fee of 1.875% of the list price at the time of sale. Title setup is free.",
+  "last_verified": "2026-10-06",
+  "sources": [
+    {"title": "IngramSpark rate card, effective February 1, 2026 (PDF)", "url": "https://www.ingramspark.com/hubfs/Rate%20Card_IngramSpark_2026.pdf", "accessed": "2026-10-06"},
+    {"title": "IngramSpark User Guide, version 3.3, August 24, 2026 (PDF)", "url": "https://www.ingramspark.com/hubfs/downloads/user-guide.pdf", "accessed": "2026-10-06"},
+    {"title": "IngramSpark blog: Why Should I Discount My Book?", "url": "https://www.ingramspark.com/blog/why-should-i-discount-my-book", "accessed": "2026-10-06"},
+    {"title": "IngramSpark Pricing", "url": "https://www.ingramspark.com/pricing", "accessed": "2026-10-06"},
+    {"title": "IngramSpark Frequently Asked Questions", "url": "https://www.ingramspark.com/faqs", "accessed": "2026-10-06"}
+  ],
+  "inputs": [
+    {"id": "list_price", "label": "List price", "type": "money", "role": "price", "default": 20, "help": "The US retail list price you set for the print book."},
+    {"id": "wholesale_discount", "label": "Wholesale discount (%)", "type": "percent", "role": "other", "default": 53, "step": 1, "min": 0, "help": "The trade discount you set at title setup. IngramSpark's User Guide says 53% to 55% with returns allowed gives the widest availability."},
+    {"id": "print_cost", "label": "Print cost per copy", "type": "money", "role": "other", "default": 3.66, "help": "Take this from IngramSpark's Print & Ship calculator for your trim size, binding, interior and page count."},
+    {"id": "other_cost", "label": "Your other cost per copy", "type": "money", "role": "cost", "default": 0, "help": "Optional: ad spend, or editing and cover design spread across the copies you expect to sell."},
+    {"id": "target_profit", "label": "Target earnings per copy", "type": "money", "role": "target_profit", "default": 5, "help": "We'll show the list price you need."}
+  ],
+  "fees": [
+    {"id": "wholesale_discount", "label": "Wholesale discount", "basis": "price", "pct_input": "wholesale_discount",
+     "note": "The share of list price kept by the wholesaler and retailer. You choose the percentage at title setup."},
+    {"id": "print_cost", "label": "Print cost", "basis": "input:print_cost", "pct": 100,
+     "note": "The full print cost of the copy is deducted from each sale; you are not billed for it separately."},
+    {"id": "global_distribution_fee", "label": "Global Distribution Fee (1.875%)", "basis": "price", "pct": 1.875,
+     "note": "1.875% of the local list price at the time of sale, per the rate card effective February 1, 2026."}
+  ],
+  "worked_example": {
+    "inputs": {"list_price": 20, "wholesale_discount": 53, "print_cost": 3.66, "other_cost": 0},
+    "expected": {"total_fees": 14.64, "net_payout": 5.36, "profit": 5.36},
+    "explanation": "This starts from the example in IngramSpark's User Guide. A $20.00 book at a 53% wholesale discount gives up $10.60, leaving a $9.40 wholesale price. The print cost is $3.66, which the guide shows as $5.74 of compensation. The rate card's Global Distribution Fee is 1.875% of the $20.00 list price, $0.375, shown here as $0.38. Total deductions are $14.64 and you are paid about $5.36 per copy."
+  },
+  "content": {
+    "intro": "IngramSpark is Ingram's print-on-demand and distribution service for self-publishers and small presses. You upload a print book or ebook once, and it becomes orderable by the retailers, libraries, universities and educators in Ingram's network, which the rate card puts at more than 45,000. Authors use it to make a book orderable by bookstores and libraries, not only by online shoppers.\n\nThere is no commission in the usual sense. You set a list price and a wholesale discount, and Ingram's distribution partners buy the book at list price less that discount. IngramSpark then deducts the cost of printing the copy and pays you the rest. Its own example: a $20.00 book at a 53% discount has a $9.40 wholesale price; after a $3.66 print cost, compensation is $5.74.\n\nThe 2026 rate card adds one more line, a Global Distribution Fee of 1.875% of the local list price at the time of sale. On a $20.00 book that is about $0.38, which brings the example down to about $5.36 a copy.\n\nTitle setup is free for print, ebook and combined titles, and creating an account costs nothing. Ebooks are paid differently: you receive 85% of the net revenue IngramSpark receives for each sale, whichever retailer sold it.",
+    "how_fees_work": [
+      "Wholesale discount: you choose it at title setup, and distribution partners pay list price less that percentage. At 53%, a $20.00 book gives up $10.60 and has a $9.40 wholesale price; at 55% it gives up $11.00.",
+      "Print cost: the cost of printing the copy is deducted from each sale. It depends on trim size, binding, interior color and page count, so take it from IngramSpark's Print & Ship calculator. The User Guide's example book costs $3.66.",
+      "Global Distribution Fee: 1.875% of the local list price at the time of sale, listed on the rate card effective February 1, 2026. It is charged on list price, not on the wholesale price, so it is $0.375 on a $20.00 book at any discount.",
+      "What you are paid: list price less discount, less print cost, less the Global Distribution Fee. You are not invoiced for printing on distribution sales; the deductions come out of each sale.",
+      "Title setup: free for a print book, an ebook, or both together. IngramSpark's FAQ says there is no cost to create an account or set up a new book.",
+      "Returns: if you make a title returnable, you are charged the current wholesale cost of each returned book. Choosing Yes-Deliver adds $3.00 per book in shipping and handling for US addresses; Yes-Destroy adds nothing.",
+      "Payment timing: compensation is paid 90 days from the end of the month in which the sales are reported. US ACH direct deposit has no minimum; PayPal in USD has a $30.00 minimum.",
+      "Ebooks (not modeled here): you receive 85% of the net revenue IngramSpark receives for each ebook sale, regardless of retailer."
+    ],
+    "tips": [
+      "Price from the print cost up. At a 55% discount you keep 43.125% of list price before printing, so a book that costs $3.66 to print breaks even at a list price of about $8.50 and loses money below that.",
+      "Know what each discount point costs. Every point of wholesale discount is 1% of list price: on a $20.00 book, moving from 53% to 55% takes $0.40 off each sale.",
+      "Decide on returns with the numbers in view. A returned $20.00 book at 53% is charged back at its $9.40 wholesale cost, more than the $5.36 you were paid for it, and Yes-Deliver adds $3.00 per book.",
+      "Cut pages before you cut the discount. The rate card prices printing per cover plus per page, so a tighter layout with fewer pages raises earnings at every discount level. Re-run the Print & Ship calculator after any layout change.",
+      "Plan cash flow around the 90 days. A copy sold in January is paid 90 days after the end of the month in which the sale is reported, so launch spending has to be covered for a full quarter."
+    ],
+    "faq": [
+      {"q": "How much does IngramSpark take per book?", "a": "IngramSpark deducts the wholesale discount you set, the print cost, and a Global Distribution Fee of 1.875% of list price. On a $20.00 book at a 53% discount with a $3.66 print cost, that leaves about $5.36."},
+      {"q": "What is IngramSpark's Global Distribution Fee?", "a": "It is 1.875% of the local list price at the time of sale, listed on IngramSpark's rate card effective February 1, 2026. On a $20.00 book it is $0.375."},
+      {"q": "What wholesale discount should I set on IngramSpark?", "a": "IngramSpark's User Guide says a discount of 53% to 55% with returnable status generally allows the widest availability through retailers and bookstores. Its blog gives the US range as 40% to 55%; the current minimum is shown on the title setup page."},
+      {"q": "Does IngramSpark charge a setup fee?", "a": "No. The 2026 rate card lists title setup as free for print, ebook and combined titles, and the FAQ says there is no cost to create an account or set up a new book."},
+      {"q": "How is IngramSpark compensation calculated?", "a": "List price less the wholesale discount gives the wholesale price. IngramSpark deducts the print cost and the 1.875% Global Distribution Fee from that and pays you the rest."},
+      {"q": "When does IngramSpark pay?", "a": "The User Guide says payments are made 90 days from the end of the month in which the sales are reported. US ACH direct deposit has no minimum; USD PayPal has a $30.00 minimum."},
+      {"q": "What happens when a bookstore returns my IngramSpark book?", "a": "If the title is returnable, you are charged the current wholesale cost of each returned book. Yes-Deliver also charges $3.00 per book for shipping and handling to a US address; Yes-Destroy has no extra fee."}
+    ],
+    "notes": "The Global Distribution Fee (1.875% of the local list price at the time of sale) is on the rate card effective February 1, 2026, but the User Guide's compensation example (version 3.3, August 24, 2026) stops at $5.74 and does not show it. This calculator deducts the fee from each distribution sale, which is how IngramSpark's blog describes the earlier market access fee; your Publisher Compensation Report is the final word. IngramSpark does not publish how it rounds the fee, so results can differ by a cent. The 40% US minimum discount (35% in the UK, EU and Australia) comes from a June 28, 2023 blog post; the User Guide says the current minimum is shown on the title setup page. Print cost is entered by hand because it varies by trim size, binding, interior and page count. Revision fees, publisher direct (author copy) orders, returns and ebook sales are not modeled.",
+    "changelog": [
+      {"date": "2026-02-01", "change": "IngramSpark's current rate card took effect: title setup is free and the Global Distribution Fee is listed at 1.875% of the local list price at the time of sale."}
+    ]
+  },
+  "related": ["amazon-kdp", "printful", "gumroad", "amazon"]
+}

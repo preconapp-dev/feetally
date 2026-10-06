@@ -7,9 +7,9 @@
   "currency": "USD",
   "tagline": "Kickstarter fee calculator: 5% platform fee plus 3% + $0.30 per pledge, and what a funded project nets.",
   "fee_summary": "If your project is funded, Kickstarter keeps 5% of the total raised plus payment processing of 3% + $0.30 per pledge (5% + $0.08 for pledges under $10). If the project is not funded, there are no fees.",
-  "last_verified": "2026-09-29",
+  "last_verified": "2026-10-06",
   "sources": [
-    {"title": "Kickstarter Help: Fees for the United States", "url": "https://www.kickstarter.com/help/fees", "accessed": "2026-09-29"}
+    {"title": "Kickstarter Help: Fees for the United States", "url": "https://www.kickstarter.com/help/fees", "accessed": "2026-10-06"}
   ],
   "inputs": [
     {"id": "total_pledged", "label": "Total pledged", "type": "money", "role": "price", "default": 10000, "help": "The funding total when the campaign ends (or your goal, to plan)."},
@@ -65,7 +65,7 @@
       {"q": "Does it cost anything to launch a Kickstarter?", "a": "No. Creating and launching a project is free; fees are only deducted from a successfully funded project's collected funds."},
       {"q": "When does Kickstarter take its fees?", "a": "After a successful campaign ends and pledges are collected. The fees are deducted from the funding total before the money is transferred to you."}
     ],
-    "notes": "Fees are from Kickstarter's US fee page, read 2026-09-29. The page now lists processing at 3% + $0.30 per pledge and 5% + $0.08 for micropledges; many older guides still cite $0.20 and $0.05, and Kickstarter's page gives no date for the change. The micropledge select applies one rate to all pledges; a real campaign mixing sizes falls between the two. Fees differ for projects based outside the US. Payout timing is not modeled; see Kickstarter's funding handbook.",
+    "notes": "Fees are from Kickstarter's US fee page, read 2026-10-06. The page now lists processing at 3% + $0.30 per pledge and 5% + $0.08 for micropledges; many older guides still cite $0.20 and $0.05, and Kickstarter's page gives no date for the change. The micropledge select applies one rate to all pledges; a real campaign mixing sizes falls between the two. Fees differ for projects based outside the US. Payout timing is not modeled; see Kickstarter's funding handbook.",
     "changelog": []
   },
   "related": ["indiegogo", "gofundme", "patreon"]
