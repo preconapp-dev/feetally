@@ -7,13 +7,13 @@
   "currency": "USD",
   "tagline": "Poshmark fee calculator: flat $2.95 under $15 or 20% at $15+, and your exact payout and profit.",
   "fee_summary": "Poshmark keeps a flat $2.95 on sales under $15 and 20% of the sale price on sales of $15 or more. The buyer pays shipping and sales tax, so neither changes your fee.",
-  "last_verified": "2026-09-29",
+  "last_verified": "2026-10-07",
   "sources": [
-    {"title": "Poshmark Blog – FAQ: What are the fees for selling on Poshmark?", "url": "https://blog.poshmark.com/", "accessed": "2026-09-29"},
-    {"title": "Poshmark Blog – Simplified Lower-Priced Shipping and Commission Change (Mar 18, 2014)", "url": "https://blog.poshmark.com/2014/03/18/poshmark-update-for-sellers/", "accessed": "2026-09-29"},
-    {"title": "Poshmark Blog – FAQs: PoshPost Shipping, Commission Structure (Mar 17, 2014)", "url": "https://blog.poshmark.com/2014/03/17/faqs-poshpost-shipping-commission-update/", "accessed": "2026-09-29"},
-    {"title": "Poshmark Seller Fee Policy (Legal Center)", "url": "https://poshmark.com/fee_policy", "accessed": "2026-09-29"},
-    {"title": "TechCrunch – Poshmark reverses decision to lower selling fees (Oct 21, 2024)", "url": "https://techcrunch.com/2024/10/21/poshmark-reverses-decision-to-lower-selling-fees-after-sellers-experience-drop-in-sales", "accessed": "2026-09-29"}
+    {"title": "Poshmark Blog – FAQ: What are the fees for selling on Poshmark?", "url": "https://blog.poshmark.com/", "accessed": "2026-10-07"},
+    {"title": "Poshmark Blog – Simplified Lower-Priced Shipping and Commission Change (Mar 18, 2014)", "url": "https://blog.poshmark.com/2014/03/18/poshmark-update-for-sellers/", "accessed": "2026-10-07"},
+    {"title": "Poshmark Blog – FAQs: PoshPost Shipping, Commission Structure (Mar 17, 2014)", "url": "https://blog.poshmark.com/2014/03/17/faqs-poshpost-shipping-commission-update/", "accessed": "2026-10-07"},
+    {"title": "Poshmark Seller Fee Policy (Legal Center)", "url": "https://poshmark.com/fee_policy", "accessed": "2026-10-07"},
+    {"title": "TechCrunch – Poshmark reverses decision to lower selling fees (Oct 21, 2024)", "url": "https://techcrunch.com/2024/10/21/poshmark-reverses-decision-to-lower-selling-fees-after-sellers-experience-drop-in-sales", "accessed": "2026-10-07"}
   ],
   "inputs": [
     {"id": "sale_price", "label": "Sale price", "type": "money", "role": "price", "default": 45, "help": "What the buyer pays for the item, before shipping and sales tax."},
@@ -57,7 +57,7 @@
       {"q": "How does Poshmark pay sellers?", "a": "Earnings are credited to your Poshmark balance once the order is complete (after the buyer accepts the item or the return window closes). You can then redeem the balance to a bank account or other payout method. Check the Poshmark support site for current redemption options and any payout-method fees."},
       {"q": "Did Poshmark change its fees?", "a": "Yes, briefly. In October 2024 Poshmark moved to a 5.99% seller fee plus a buyer fee, then reversed the change on October 24, 2024 and went back to $2.95 / 20%, which is still the structure in 2026."}
     ],
-    "notes": "Fee amounts verified on Poshmark's official blog FAQ (blog.poshmark.com) and original 2014 commission announcement; the Fee Policy page in the Poshmark Legal Center is rendered client-side and could not be read directly. Payout timing (funds released after buyer acceptance or the return window) and current redemption methods were not re-verified on an official page for this update. Shipping label prices are set by Poshmark and paid by the buyer; the current label price is not stated here because it changes and does not affect the seller fee. Posh Shows (live selling) and Promoted Closet ads have their own terms and are not modeled.",
+    "notes": "Fee amounts verified on Poshmark's official blog FAQ (blog.poshmark.com) and original 2014 commission announcement; the Fee Policy address in the Poshmark Legal Center returns the Terms of Service text to a fetch (it refers to the Fee Policy and records the October 24, 2024 return to the original fees), so the fee table itself was not read there. Payout timing (funds released after buyer acceptance or the return window) and current redemption methods were not re-verified on an official page for this update. Shipping label prices are set by Poshmark and paid by the buyer; the current label price is not stated here because it changes and does not affect the seller fee. Posh Shows (live selling) and Promoted Closet ads have their own terms and are not modeled.",
     "changelog": [
       {"date": "2024-10-24", "change": "Poshmark reverted to the $2.95 flat fee (under $15) and 20% commission ($15+) after a three-week trial of a 5.99% seller fee plus a buyer protection fee that began October 3, 2024."},
       {"date": "2014-03-20", "change": "Flat $2.95 commission introduced for sales under $15; 20% commission for sales of $15 or more unchanged."}

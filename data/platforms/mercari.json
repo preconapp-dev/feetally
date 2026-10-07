@@ -7,11 +7,11 @@
   "currency": "USD",
   "tagline": "Mercari fee calculator (2026): flat 10% selling fee on item price plus buyer-paid shipping, no processing fee.",
   "fee_summary": "Since January 6, 2025 Mercari charges sellers a flat 10% of the item price plus buyer-paid shipping, with no separate payment processing fee. Buyers pay a 3.6% Buyer Protection fee on top of the price. Direct deposit is free; Instant Pay costs $3.",
-  "last_verified": "2026-09-29",
+  "last_verified": "2026-10-07",
   "sources": [
-    {"title": "Mercari Help: Fees on Mercari", "url": "https://www.mercari.com/us/help_center/article/169/", "accessed": "2026-09-29"},
-    {"title": "Mercari Help: Changes to our fee structure", "url": "https://www.mercari.com/us/help_center/article/2517/", "accessed": "2026-09-29"},
-    {"title": "Mercari Help: FAQs about our new fee structure", "url": "https://www.mercari.com/us/help_center/article/2518/", "accessed": "2026-09-29"}
+    {"title": "Mercari Help: Fees on Mercari", "url": "https://www.mercari.com/us/help_center/article/169/", "accessed": "2026-10-07"},
+    {"title": "Mercari Help: Changes to our fee structure", "url": "https://www.mercari.com/us/help_center/article/2517/", "accessed": "2026-10-07"},
+    {"title": "Mercari Help: FAQs about our new fee structure", "url": "https://www.mercari.com/us/help_center/article/2518/", "accessed": "2026-10-07"}
   ],
   "inputs": [
     {"id": "sale_price", "label": "Item price", "type": "money", "role": "price", "default": 40, "help": "The completed item price, before the buyer's 3.6% fee, shipping and tax."},
@@ -61,7 +61,7 @@
       {"q": "How much does it cost to cash out on Mercari?", "a": "Direct deposit to your bank is free. Instant Pay to a debit card is $3 per transfer, and a failed direct deposit is charged a non-refundable $2."},
       {"q": "Did Mercari's fees change in 2025?", "a": "Yes. After charging sellers 0% from March 2024, Mercari introduced the current 10% seller fee and 3.6% buyer fee on January 6, 2025 and dropped the separate payment processing fee."}
     ],
-    "notes": "Rates are from Mercari's help center as of September 2026 (Fees on Mercari article updated May 2026). Sales tax is collected from the buyer by Mercari and is not part of the fee base as described; it is not modeled. Legacy listings created before January 6, 2025 and never edited use the older structure and are not modeled. Mercari's Seller Tiers page could not be read when checked, so any tier benefits are not modeled. Mercari Local and other delivery options are not modeled. Funds become available in your balance after the sale completes (buyer rating or the end of the rating window), and standard direct deposits take a few business days.",
+    "notes": "Rates are from Mercari's help center as of October 2026 (Fees on Mercari article updated May 7, 2026). Sales tax is collected from the buyer by Mercari and is not part of the fee base as described; it is not modeled. Legacy listings created before January 6, 2025 and never edited use the older structure and are not modeled. Mercari's Seller Tiers page could not be read when checked, so any tier benefits are not modeled. Mercari Local and other delivery options are not modeled. Funds become available in your balance after the sale completes (buyer rating or the end of the rating window), and standard direct deposits take a few business days.",
     "changelog": [
       {"date": "2025-01-06", "change": "New fee structure: sellers pay a flat 10% on item price plus buyer-paid shipping, buyers pay a 3.6% Buyer Protection fee, and the separate payment processing fee and direct deposit fee are removed."},
       {"date": "2024-03-27", "change": "Selling fee dropped to 0%; buyers began paying a service fee plus a 2.9% + $0.50 payment processing fee (structure now retired except on untouched legacy listings)."}

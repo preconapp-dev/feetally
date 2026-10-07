@@ -7,10 +7,11 @@
   "currency": "USD",
   "tagline": "Ko-fi fee calculator: 0% on one-time tips, 5% on shop, memberships and commissions, or 0% with Gold.",
   "fee_summary": "On the free plan Ko-fi takes 0% of one-time tips and a flat 5% of shop sales, memberships, monthly tips, and commissions. Ko-fi Gold ($12/month) drops the service fee to 0%. PayPal or Stripe processing, typically around 3% + $0.30, applies on top because payments go straight to your own account.",
-  "last_verified": "2026-09-29",
+  "last_verified": "2026-10-07",
   "sources": [
-    {"title": "Ko-fi Help Center: What fees does Ko-fi charge?", "url": "https://help.ko-fi.com/hc/en-us/articles/360002506494-What-fees-does-Ko-fi-charge", "accessed": "2026-09-29"},
-    {"title": "Ko-fi Gold", "url": "https://ko-fi.com/gold", "accessed": "2026-09-29"}
+    {"title": "Ko-fi Help Center: Does Ko-fi take a fee?", "url": "https://help.ko-fi.com/hc/en-us/articles/360002506494-Does-Ko-fi-take-a-fee", "accessed": "2026-10-07"},
+    {"title": "Ko-fi Gold", "url": "https://ko-fi.com/gold", "accessed": "2026-10-07"},
+    {"title": "Ko-fi Pricing", "url": "https://ko-fi.com/pricing", "accessed": "2026-10-07"}
   ],
   "inputs": [
     {"id": "amount", "label": "Payment amount", "type": "money", "role": "price", "default": 25, "help": "The tip, membership charge, shop price, or commission price the supporter pays."},
@@ -61,7 +62,7 @@
     "how_fees_work": [
       "One-time tips on the free plan: 0%. Ko-fi takes nothing from a one-off donation; only your payment processor's fee comes out.",
       "Shop, memberships, monthly tips, and commissions on the free plan: a flat 5% service fee on each payment. A $40 commission costs $2.00.",
-      "Contributor / Standard plan: no monthly cost, but the flat 5% applies to every payment type, including one-time tips.",
+      "Contributor / Standard plan: no monthly cost, but the flat 5% applies to every payment type, including one-time tips. New creators now start with Standard switched on; you can turn it off under Settings > Payment to keep one-time tips at 0%.",
       "Ko-fi Gold: $12 per month for a 0% service fee on all payment options. The calculator spreads the $12 across the number of payments you enter per month.",
       "Payment processing: all payments go directly into your PayPal or Stripe account, and Ko-fi says your processor's usual fees still apply on top, typically around 3% + $0.30. Ko-fi does not set or collect this fee.",
       "No payout fee or waiting period from Ko-fi: money arrives in your PayPal or Stripe account with the payment itself, subject to those processors' own rules."
@@ -82,7 +83,7 @@
       {"q": "When does Ko-fi pay out?", "a": "Immediately. All payments go straight into your own PayPal or Stripe account; Ko-fi does not hold a balance or run payout cycles."},
       {"q": "Does Ko-fi's 5% include PayPal or Stripe fees?", "a": "No. The 5% is Ko-fi's service fee. PayPal and Stripe take their normal transaction fees on top, which Ko-fi says are usually around 3% + $0.30."}
     ],
-    "notes": "The 3% + $0.30 processing line is Ko-fi's own \"typically around\" estimate, not a published rate; your PayPal or Stripe account will charge its actual rate, which varies by account type, location, and currency. Ko-fi's help article calls the $0/month 5%-on-everything option the Standard plan while the Gold page calls it Contributor. Gold's $12/month price is from the Gold page; an annual price was not verified.",
+    "notes": "The 3% + $0.30 processing line is Ko-fi's own \"typically around\" estimate, not a published rate; your PayPal or Stripe account will charge its actual rate, which varies by account type, location, and currency. Ko-fi's help article (now titled \"Does Ko-fi take a fee?\") and its pricing page call the $0/month 5%-on-everything option Standard, while the Gold page calls it Contributor. The help article says new creators start with Standard on by default and can toggle it off under Settings > Payment. Gold's $12/month price is from the Gold page; an annual price was not verified.",
     "changelog": []
   },
   "related": ["buy-me-a-coffee", "patreon", "gumroad", "paypal"]

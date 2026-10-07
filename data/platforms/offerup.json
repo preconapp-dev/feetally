@@ -7,12 +7,12 @@
   "currency": "USD",
   "tagline": "OfferUp fee calculator: 0% on local sales since shipping ended in 2025; only optional promotions cost money.",
   "fee_summary": "OfferUp charges no fees and takes no commission on in-person sales, and since October 2025 every sale is local because nationwide shipping (and its service fee) has ended. The only costs are optional: Promote Plus at $19.99 a month or $99.99 a year, single promotions, and paid listings in some categories.",
-  "last_verified": "2026-09-29",
+  "last_verified": "2026-10-07",
   "sources": [
-    {"title": "OfferUp Support: What is OfferUp?", "url": "https://help.offerup.com/hc/en-us/articles/360031989092-What-is-OfferUp", "accessed": "2026-09-29"},
-    {"title": "OfferUp Support: Nationwide shipping ending", "url": "https://help.offerup.com/hc/en-us/articles/41043186552980-Nationwide-shipping-ending", "accessed": "2026-09-29"},
-    {"title": "OfferUp Support: Promote Plus subscription", "url": "https://help.offerup.com/hc/en-us/articles/360052029431-Promote-Plus-subscription", "accessed": "2026-09-29"},
-    {"title": "OfferUp Support: For Sale listing subscriptions", "url": "https://help.offerup.com/hc/en-us/articles/16354037338900-For-Sale-listing-subscriptions", "accessed": "2026-09-29"}
+    {"title": "OfferUp Support: What is OfferUp?", "url": "https://help.offerup.com/hc/en-us/articles/360031989092-What-is-OfferUp", "accessed": "2026-10-07"},
+    {"title": "OfferUp Support: Nationwide shipping ending", "url": "https://help.offerup.com/hc/en-us/articles/41043186552980-Nationwide-shipping-ending", "accessed": "2026-10-07"},
+    {"title": "OfferUp Support: Promote Plus subscription", "url": "https://help.offerup.com/hc/en-us/articles/360052029431-Promote-Plus-subscription", "accessed": "2026-10-07"},
+    {"title": "OfferUp Support: For Sale listing subscriptions", "url": "https://help.offerup.com/hc/en-us/articles/16354037338900-For-Sale-listing-subscriptions", "accessed": "2026-10-07"}
   ],
   "inputs": [
     {"id": "sale_price", "label": "Sale price", "type": "money", "role": "price", "default": 60, "help": "What the buyer pays you in person (cash or a payment app)."},
@@ -64,7 +64,7 @@
       {"q": "Is it free to list on OfferUp?", "a": "Yes, within the free monthly allotment of For Sale listings. Extra listings and listings in paid categories such as jobs and services cost money, with pricing that varies by category."},
       {"q": "How do I get paid on OfferUp?", "a": "Directly by the buyer when you meet: cash or a payment app you both agree on. OfferUp is not part of the payment and takes nothing from it."}
     ],
-    "notes": "As of September 2026 from OfferUp's help center. The former shipped-sale service fee is not modeled because shipping ended in October 2025; the 12.9% / $1.99 figures are quoted for history only and were not re-verified on a current OfferUp page. Single promotion prices, extra-listing package prices and paid-category listing fees vary and are not published on the pages checked, so they are not modeled. The Promote Plus yearly option is shown as $99.99 divided by 12 months. If you accept payment apps, their fees are separate.",
+    "notes": "As of October 2026 from OfferUp's help center. The former shipped-sale service fee is not modeled because shipping ended in October 2025; the 12.9% / $1.99 figures are quoted for history only and were not re-verified on a current OfferUp page. Single promotion prices, extra-listing package prices and paid-category listing fees vary and are not published on the pages checked, so they are not modeled. The Promote Plus yearly option is shown as $99.99 divided by 12 months. If you accept payment apps, their fees are separate.",
     "changelog": [
       {"date": "2025-10-21", "change": "Shipping option removed from all existing listings; OfferUp becomes local-only and the shipped-sale service fee no longer applies."},
       {"date": "2025-09-23", "change": "Sellers can no longer select shipping when posting new items."}
