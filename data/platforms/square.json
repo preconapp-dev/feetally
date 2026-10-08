@@ -7,9 +7,9 @@
   "currency": "USD",
   "tagline": "Square fee calculator: 2.6% + 15¢ in person, 3.3% + 30¢ online, 3.5% + 15¢ keyed. See your exact payout.",
   "fee_summary": "On Square's free plan you pay 2.6% + 15¢ for in-person card payments, 3.3% + 30¢ for online and invoice card payments, 2.9% + 30¢ through Square's payment APIs and 3.5% + 15¢ for keyed or card-on-file payments. International cards add 1.5%.",
-  "last_verified": "2026-09-29",
+  "last_verified": "2026-10-08",
   "sources": [
-    {"title": "Square Pricing and Processing Fees (US)", "url": "https://squareup.com/us/en/pricing", "accessed": "2026-09-29"}
+    {"title": "Square Pricing and Processing Fees (US)", "url": "https://squareup.com/us/en/pricing", "accessed": "2026-10-08"}
   ],
   "inputs": [
     {"id": "amount", "label": "Transaction amount", "type": "money", "role": "price", "default": 100, "help": "What the customer pays, before Square's fee."},

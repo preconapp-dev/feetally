@@ -7,13 +7,13 @@
   "currency": "USD",
   "tagline": "Reverb fee calculator: 5% selling fee plus 3.19% + $0.49 Reverb Payments, both on price plus shipping.",
   "fee_summary": "Reverb takes a 5% selling fee on the total sale including shipping (minimum $0.50, capped at $500) plus a Reverb Payments processing fee of 3.19% + $0.49 on the full order amount. Listing is free; Bump ads and a 1% cross-border fee are optional extras.",
-  "last_verified": "2026-09-29",
+  "last_verified": "2026-10-08",
   "sources": [
-    {"title": "Reverb Help: What fees will I pay for selling on Reverb?", "url": "https://help.reverb.com/hc/en-us/articles/40917652290843-What-fees-will-I-pay-for-selling-on-Reverb", "accessed": "2026-09-29"},
-    {"title": "Reverb Help: Availability and processing fees for Reverb Payments", "url": "https://help.reverb.com/hc/en-us/articles/41988473838491-Availability-and-processing-fees-for-Reverb-Payments", "accessed": "2026-09-29"},
+    {"title": "Reverb Help: What fees will I pay for selling on Reverb?", "url": "https://help.reverb.com/hc/en-us/articles/40917652290843-What-fees-will-I-pay-for-selling-on-Reverb", "accessed": "2026-10-08"},
+    {"title": "Reverb Help: Availability and processing fees for Reverb Payments", "url": "https://help.reverb.com/hc/en-us/articles/41988473838491-Availability-and-processing-fees-for-Reverb-Payments", "accessed": "2026-10-08"},
     {"title": "Reverb: Pricing & Payouts", "url": "https://reverb.com/selling/selling-fees", "accessed": "2026-09-29"},
-    {"title": "Reverb Help: Why was I charged a Bump fee?", "url": "https://help.reverb.com/hc/en-us/articles/41988457586715-Why-was-I-charged-a-Bump-fee", "accessed": "2026-09-29"},
-    {"title": "Reverb Help: Are there extra fees for selling to a buyer in a different country?", "url": "https://help.reverb.com/hc/en-us/articles/41988349763739-Are-there-extra-fees-for-selling-to-a-buyer-in-a-different-country", "accessed": "2026-09-29"}
+    {"title": "Reverb Help: Why was I charged a Bump fee?", "url": "https://help.reverb.com/hc/en-us/articles/41988457586715-Why-was-I-charged-a-Bump-fee", "accessed": "2026-10-08"},
+    {"title": "Reverb Help: Are there extra fees for selling to a buyer in a different country?", "url": "https://help.reverb.com/hc/en-us/articles/41988349763739-Are-there-extra-fees-for-selling-to-a-buyer-in-a-different-country", "accessed": "2026-10-08"}
   ],
   "inputs": [
     {"id": "sale_price", "label": "Sale price", "type": "money", "role": "price", "default": 120, "help": "What the buyer pays for the gear, before shipping and tax."},
@@ -67,7 +67,7 @@
       {"q": "Does Reverb charge more for international sales?", "a": "Yes. A 1% cross-border fee is deducted when the buyer's billing address is in another country, and a 2.5% currency conversion fee applies if you list in a currency other than your payout currency."},
       {"q": "Does Reverb send a 1099-K?", "a": "Reverb Payments reports your gross sales to the IRS on Form 1099-K if you meet the federal or your state's reporting threshold. Gross sales are before fees, so keep your fee records for deductions."}
     ],
-    "notes": "Rates are from Reverb's help center and Pricing & Payouts page as of September 2026. Sales tax is not modeled, though Reverb applies the 3.19% + $0.49 processing fee to it. Reverb Preferred Sellers have their own fee terms (see Reverb's help center) and are not modeled. The 2.5% currency conversion fee applies only to non-USD listings and is not modeled. The Bump fee basis (product amount plus shipping, tax excluded) is from Reverb's Bump article; Reverb does not publish a default Bump rate.",
+    "notes": "Rates are from Reverb's help center as of October 2026; the Pricing & Payouts page (reverb.com/selling/selling-fees) was last read in September 2026 and could not be opened for the October check. Sales tax is not modeled, though Reverb applies the 3.19% + $0.49 processing fee to it. Reverb Preferred Sellers have their own fee terms (see Reverb's help center) and are not modeled. The 2.5% currency conversion fee applies only to non-USD listings and is not modeled. The Bump fee basis (product amount plus shipping, tax excluded) is from Reverb's Bump article; Reverb does not publish a default Bump rate.",
     "changelog": [
       {"date": "2026-05-13", "change": "Fees on orders paid out through PayPal are now deducted directly from the payout instead of being billed on the month-end statement (orders placed on or after this date)."}
     ]

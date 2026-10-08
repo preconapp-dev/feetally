@@ -7,17 +7,17 @@
   "currency": "USD",
   "tagline": "Ruby Lane fee calculator: $45/month shop fee plus 9.9% service fee (5% over $2,500, 2.5% over $7,500).",
   "fee_summary": "Ruby Lane shops pay a $45 monthly maintenance fee for unlimited listings plus a service fee on each sale: 9.9% of the sale amount up to $2,500, 5% on the portion from $2,500 to $7,500, and 2.5% above $7,500. Payment processing is through your own PayPal or card account and is extra.",
-  "last_verified": "2026-09-29",
+  "last_verified": "2026-10-08",
   "sources": [
     {
       "title": "Ruby Lane – Terms of Use (fees section, effective June 1, 2024)",
       "url": "https://www.rubylane.com/info/termsofuse",
-      "accessed": "2026-09-29"
+      "accessed": "2026-10-08"
     },
     {
       "title": "Ruby Lane – FAQ: What does it cost to have a shop on Ruby Lane?",
       "url": "https://www.rubylane.com/info/faq?action=View&article=AVWYdjlZIc1iOM8wLwGO",
-      "accessed": "2026-09-29"
+      "accessed": "2026-10-08"
     }
   ],
   "inputs": [
