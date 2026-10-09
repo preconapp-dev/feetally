@@ -7,9 +7,9 @@
   "currency": "USD",
   "tagline": "Stripe fee calculator: 2.9% + 30¢ online, 2.7% + 5¢ in person, ACH 0.8% capped at $5. See your exact payout.",
   "fee_summary": "Stripe charges 2.9% + 30¢ per online card payment and 2.7% + 5¢ in person, with surcharges of +0.5% for keyed cards, +1.5% for international cards and +1% for currency conversion. ACH Direct Debit is 0.8% capped at $5.",
-  "last_verified": "2026-09-29",
+  "last_verified": "2026-10-09",
   "sources": [
-    {"title": "Stripe Pricing (US)", "url": "https://stripe.com/pricing", "accessed": "2026-09-29"}
+    {"title": "Stripe Pricing (US)", "url": "https://stripe.com/pricing", "accessed": "2026-10-09"}
   ],
   "inputs": [
     {"id": "amount", "label": "Transaction amount", "type": "money", "role": "price", "default": 100, "help": "What the customer pays, before Stripe's fee."},
@@ -55,7 +55,7 @@
     "intro": "Stripe is the payment processor behind a large share of online checkouts, subscription apps and marketplaces. If you sell through your own website, take card payments in an app, bill clients with Stripe Invoicing or run a Stripe Terminal reader at the counter, Stripe takes a cut of every successful payment. There is no monthly fee and no setup fee on standard pricing; you pay only when you get paid.\n\nThe headline rate for a US business is 2.9% + 30¢ per successful online card payment with a domestic card. In-person payments through Stripe Terminal cost 2.7% + 5¢. Two surcharges stack on top of the card rate: an extra 0.5% when you type a card number in manually, and an extra 1.5% when the card was issued outside the United States. If Stripe has to convert the payment into US dollars, add another 1%.\n\nACH Direct Debit is the cheap option for large invoices: 0.8% of the amount, capped at $5.00. On a $2,000 invoice that is $5 instead of $58.30 by card. This calculator applies Stripe's published pay-as-you-go rates; if you negotiate custom pricing with Stripe, your numbers will differ.",
     "how_fees_work": [
       "Online card payments: 2.9% + 30¢ per successful transaction with a US-issued card. A $100 payment costs $3.20.",
-      "In person with Stripe Terminal: 2.7% + 5¢ per successful transaction. A $100 tap or dip costs $2.75.",
+      "In person with Stripe Terminal: 2.7% + 5¢ per successful transaction. A $100 tap or dip on a Stripe reader costs $2.75. Tap to Pay on a phone adds 10¢ per authorization.",
       "Manually entered cards: an extra 0.5% on top of the online rate, so 3.4% + 30¢ in total when you key a card number into the Dashboard or a virtual terminal.",
       "International cards: an extra 1.5% whenever the card was issued outside the US. Stripe lists this for both online and Terminal payments.",
       "Currency conversion: an extra 1% when Stripe converts the payment into your settlement currency.",
@@ -78,7 +78,7 @@
       {"q": "How much is a Stripe instant payout?", "a": "1.5% of the payout amount with a 50¢ minimum. Standard payouts to your bank account are free."},
       {"q": "Is Stripe cheaper than PayPal?", "a": "For online payments, yes: Stripe charges 2.9% + 30¢ versus PayPal's 3.49% + 49¢ for PayPal Checkout. PayPal's standard card rate of 2.99% + 49¢ is closer, but still 28¢ more on a $100 sale."}
     ],
-    "notes": "Rates are Stripe's published US pay-as-you-go pricing; high-volume businesses negotiate custom pricing. The 0.5% manual-entry surcharge and the 1% currency-conversion surcharge are listed under online card payments; Terminal lists the 1.5% international surcharge. Link card payments cost the same as regular cards; Link instant bank payments are 2.6% + 30¢ and stablecoin payments 1.5%. Standard payouts are free, but the pricing page does not state payout timing, which depends on your account's payout schedule. Dispute fees ($15 received, $15 countered) are not modeled in the calculator.",
+    "notes": "Rates are Stripe's published US pay-as-you-go pricing; high-volume businesses negotiate custom pricing. The 0.5% manual-entry surcharge and the 1% currency-conversion surcharge are listed under online card payments; Terminal lists the 1.5% international surcharge, plus 10¢ per authorization for Tap to Pay and 5¢ for optional point-to-point encryption, neither of which is modeled. Link card payments cost the same as regular cards; Link instant bank payments are 2.6% + 30¢ and stablecoin payments 1.5%. Standard payouts are free, but the pricing page does not state payout timing, which depends on your account's payout schedule. Dispute fees ($15 received, $15 countered) are not modeled in the calculator.",
     "changelog": []
   },
   "related": ["paypal", "square", "braintree", "shopify"]

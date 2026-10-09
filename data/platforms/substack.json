@@ -7,10 +7,10 @@
   "currency": "USD",
   "tagline": "Substack fee calculator: 10% platform fee plus Stripe 2.9% + $0.30 and a 0.7% billing fee per payment.",
   "fee_summary": "Substack keeps 10% of paid subscription revenue. Stripe then charges 2.9% + $0.30 per payment for US cards plus a 0.7% recurring-billing fee. Free publications pay nothing.",
-  "last_verified": "2026-09-29",
+  "last_verified": "2026-10-09",
   "sources": [
-    {"title": "Substack Help: How much does Substack cost?", "url": "https://support.substack.com/hc/en-us/articles/360037607131-How-much-does-Substack-cost", "accessed": "2026-09-29"},
-    {"title": "Substack Help: How can readers pay for a subscription on my Substack publication?", "url": "https://support.substack.com/hc/en-us/articles/18687769631252-How-can-readers-pay-for-a-subscription-on-my-Substack-publication", "accessed": "2026-09-29"}
+    {"title": "Substack Help: How much does Substack cost?", "url": "https://support.substack.com/hc/en-us/articles/360037607131-How-much-does-Substack-cost", "accessed": "2026-10-09"},
+    {"title": "Substack Help: How can readers pay for a subscription on my Substack publication?", "url": "https://support.substack.com/hc/en-us/articles/18687769631252-How-can-readers-pay-for-a-subscription-on-my-Substack-publication", "accessed": "2026-10-09"}
   ],
   "inputs": [
     {"id": "sub_price", "label": "Subscription payment", "type": "money", "role": "price", "default": 8, "help": "What one subscriber pays per charge: the monthly price, or the full annual price if they pay yearly."},

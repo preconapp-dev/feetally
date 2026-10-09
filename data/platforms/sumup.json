@@ -7,8 +7,9 @@
   "currency": "USD",
   "tagline": "SumUp fee calculator: 2.6% + 10¢ in person, 3.5% + 15¢ online or keyed. No monthly fee on the free plan.",
   "fee_summary": "SumUp charges 2.6% + 10¢ for in-person transactions on its readers and 3.5% + 15¢ for online or manually entered transactions. There is no monthly fee on the free plan; paid software plans start at $49 a month and do not change the processing rate.",
-  "last_verified": "2026-09-29",
+  "last_verified": "2026-10-09",
   "sources": [
+    {"title": "SumUp Pricing USA", "url": "https://www.sumup.com/en-us/credit-card-processing-fees/", "accessed": "2026-10-09"},
     {"title": "SumUp Pricing (US)", "url": "https://www.sumup.com/en-us/pricing/", "accessed": "2026-09-29"}
   ],
   "inputs": [
@@ -55,7 +56,7 @@
       {"q": "Does SumUp charge extra for international cards?", "a": "No international surcharge is listed on SumUp's US pricing page."},
       {"q": "Does SumUp charge for payment links or invoices?", "a": "Yes. They fall under the online or manual entry rate of 3.5% + 15¢."}
     ],
-    "notes": "Rates are from SumUp's US pricing page, which lists exactly two transaction rates: 'In-person transactions' at 2.6% + 10¢ and 'Online or manual entry transactions' at 3.5% + 15¢. Grouping payment links and invoices under the online rate is our reading of that label. Hardware prices, chargeback fees, instant payout fees and payout timing are not listed on the pricing page and are not modeled.",
+    "notes": "Rates are from SumUp's US pricing page (read on October 9, 2026 at sumup.com/en-us/credit-card-processing-fees/, titled 'Pricing USA'; the /pricing/ address used earlier was not re-read and keeps its earlier access date), which lists exactly two transaction rates: 'In-person transactions' at 2.6% + 10¢ and 'Online or manual entry transactions' at 3.5% + 15¢. Grouping payment links and invoices under the online rate is our reading of that label. Hardware prices, chargeback fees, instant payout fees and payout timing are not listed on the pricing page and are not modeled.",
     "changelog": []
   },
   "related": ["square", "zettle", "stripe", "shopify-pos"]
