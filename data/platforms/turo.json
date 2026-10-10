@@ -5,70 +5,71 @@
   "category": "gig",
   "region": "United States",
   "currency": "USD",
-  "tagline": "Turo host payout calculator: what you keep on the 60 to 90 earnings plans, and Turo's cut per trip.",
-  "fee_summary": "Turo hosts keep 60%, 75%, 80%, 85% or 90% of the trip price depending on the earnings plan they choose; Turo keeps the remaining 40% to 10%. Higher-share plans come with less physical damage protection and higher deductibles.",
-  "last_verified": "2026-09-29",
+  "tagline": "Turo host payout calculator: keep 70%, 80% or 90% of the trip price by earnings plan, and see Turo's cut.",
+  "fee_summary": "Turo hosts keep 70%, 80% or 90% of the trip price depending on the earnings plan they choose (More peace of mind, Balanced or More earnings); Turo keeps the remaining 30% to 10%. Plans with a higher share carry a higher damage responsibility, from $250 up to $2,750.",
+  "last_verified": "2026-10-10",
   "sources": [
-    {"title": "Turo: Detailed explanation of US host protection plans available before 1/7/26 (PDF)", "url": "https://support-resources.turo.com/protection/us-host-protection-plans-available-before-1726.pdf", "accessed": "2026-09-29"},
-    {"title": "Turo Help: Earnings plans – In detail | US hosts", "url": "https://help.turo.com/en_us/earnings-plans-in-detail-us-hosts-ByMOIVxEc", "accessed": "2026-09-29"},
-    {"title": "Turo Help: Earnings plans – In brief | US hosts", "url": "https://help.turo.com/en_us/earnings-plans-in-brief-us-hosts-ryy_U4gE9", "accessed": "2026-09-29"},
-    {"title": "Turo Help: Earnings and host share", "url": "https://help.turo.com/en_us/earnings-and-host-share-r1zDrNlNc", "accessed": "2026-09-29"},
-    {"title": "Turo Host Hub: Earn passive income with your car (co-hosting)", "url": "https://turo.com/us/en/car-rental/united-states/host-hub/resources/earn-passive-income", "accessed": "2026-09-29"},
-    {"title": "Turo blog: Turo is investing $30 million in our hosts (July 2021 plan changes)", "url": "https://turo.com/blog/news/turo-is-investing-30-million-in-our-hosts/", "accessed": "2026-09-29"}
+    {"title": "Turo: Earnings Plans for Turo Hosts (US plans for trips booked on or after January 7)", "url": "https://turo.com/us/en/car-rental/united-states/how-turo-works/vehicle-protection", "accessed": "2026-10-10"},
+    {"title": "Turo: Insurance & protection at Turo", "url": "https://turo.com/us/en/car-rental/united-states/insurance", "accessed": "2026-10-10"},
+    {"title": "Turo Host Hub: What's new for hosts (delivery fees and Extras take rate from October 8)", "url": "https://turo.com/us/en/car-rental/united-states/host-hub/updates/whats-new-for-hosts", "accessed": "2026-10-10"},
+    {"title": "Turo Host Hub: Introducing earnings plans", "url": "https://turo.com/us/en/car-rental/united-states/host-hub/updates/introducing-earnings-plans", "accessed": "2026-10-10"},
+    {"title": "Turo: Detailed explanation of US host protection plans available before 1/7/26 (PDF)", "url": "https://support-resources.turo.com/protection/us-host-protection-plans-available-before-1726.pdf", "accessed": "2026-10-10"},
+    {"title": "Turo Help: Earnings plans – In detail | US hosts", "url": "https://help.turo.com/en_us/earnings-plans-in-detail-us-hosts-ByMOIVxEc", "accessed": "2026-10-10"},
+    {"title": "Turo blog: Turo is investing $30 million in our hosts (July 2021 plan changes)", "url": "https://turo.com/blog/news/turo-is-investing-30-million-in-our-hosts/", "accessed": "2026-10-10"}
   ],
   "inputs": [
-    {"id": "trip_price", "label": "Trip price", "type": "money", "role": "price", "default": 300, "help": "Your daily price × days for the trip, before guest fees, Extras and delivery charges."},
+    {"id": "trip_price", "label": "Trip price", "type": "money", "role": "price", "default": 300, "help": "Your daily price × days for the trip, before guest fees. On trips booked on or after October 8, 2026 the same share applies to delivery fees and Extras, so you can add them here."},
     {"id": "plan", "label": "Earnings plan", "type": "select", "role": "other", "default": "p80",
      "options": [
-       {"id": "p60", "label": "60 plan (you keep 60%)", "note": "Most protection, lowest share."},
-       {"id": "p75", "label": "75 plan (you keep 75%)"},
-       {"id": "p80", "label": "80 plan (you keep 80%)", "note": "Turo says many hosts choose this one."},
-       {"id": "p85", "label": "85 plan (you keep 85%)"},
-       {"id": "p90", "label": "90 plan (you keep 90%)", "note": "Highest share, highest deductible."}
+       {"id": "p70", "label": "More peace of mind (you keep 70%)", "note": "$250 damage responsibility, the lowest."},
+       {"id": "p80", "label": "Balanced (you keep 80%)", "note": "$1,500 damage responsibility."},
+       {"id": "p90", "label": "More earnings (you keep 90%)", "note": "$2,750 damage responsibility, the highest."}
      ]},
     {"id": "trip_cost", "label": "Your costs for this trip", "type": "money", "role": "cost", "default": 20, "help": "Cleaning, fuel top-up, wear, tolls or anything else the trip costs you."},
     {"id": "target_profit", "label": "Target profit", "type": "money", "role": "target_profit", "default": 200, "help": "We'll show the trip price you need to clear this."}
   ],
   "fees": [
     {"id": "turo_share", "label": "Turo's share of the trip price", "basis": "price",
-     "pct_by": {"input": "plan", "values": {"p60": 40, "p75": 25, "p80": 20, "p85": 15, "p90": 10}},
-     "note": "100% minus your plan's percentage. Turo keeps this in exchange for the plan's protection and for running the marketplace."}
+     "pct_by": {"input": "plan", "values": {"p70": 30, "p80": 20, "p90": 10}},
+     "note": "100% minus your plan's host share. This is the standard share used in most US markets; in nine markets it varies with how far ahead the guest books."}
   ],
   "worked_example": {
     "inputs": {"trip_price": 300, "plan": "p80", "trip_cost": 20},
     "expected": {"total_fees": 60.00, "net_payout": 240.00, "profit": 220.00},
-    "explanation": "A 3-day trip at $100 a day is a $300 trip price. On the 80 plan the host keeps 80%, so Turo's share is 20% = $60.00 and the host earns $240.00. After $20 for a wash and a fuel top-up, the trip nets $220.00 in profit. The same trip pays $180.00 on the 60 plan and $270.00 on the 90 plan."
+    "explanation": "A 3-day trip at $100 a day is a $300 trip price. On the Balanced plan the host keeps 80%, so Turo's share is 20% = $60.00 and the host earns $240.00. After $20 for a wash and a fuel top-up, the trip nets $220.00 in profit. The same trip pays $210.00 on More peace of mind and $270.00 on More earnings."
   },
   "content": {
-    "intro": "Turo is the largest peer-to-peer car sharing marketplace in the United States. Hosts list their own cars, set a daily price and availability, and guests book through the app. Turo handles payment, verification and the protection plan, then pays the host a share of the trip price.\n\nTuro does not charge a flat commission. Instead you pick an earnings plan (Turo used to call them protection plans), and the plan sets the percentage of the trip price you keep: 60%, 75%, 80%, 85% or 90%. Turo keeps the rest, 40% down to 10%. The trade-off is protection: the 60 plan gives the most coverage for physical damage and extra benefits such as wear-and-tear reimbursement, while the 90 plan pays you the most but leaves you with the highest deductible if the car is damaged. Turo's own site says many hosts settle on the 80 plan as the middle ground.\n\nThe share applies to the trip price, which is your daily rate times the number of days. Turo says the host take rate also covers some other guest charges, and in 2021 it moved hosts to 90% of delivery earnings. Turo revised its US plans on January 7, 2026, so check the current deductibles in the app before you choose.",
+    "intro": "Turo is the largest peer-to-peer car sharing marketplace in the United States. Hosts list their own cars, set a daily price and availability, and guests book through the app. Turo handles payment, verification and protection, then pays the host a share of the trip price.\n\nTuro does not charge a flat commission. Instead you pick an earnings plan (called protection plans until March 31, 2026), and the plan sets your host share, the percentage of the trip price you keep. For trips booked on or after January 7, 2026 there are three US plans: More peace of mind pays 70% with a $250 damage responsibility, Balanced pays 80% with $1,500, and More earnings pays 90% with $2,750. Turo keeps the rest, 30% down to 10%. Damage responsibility is the amount you cover yourself when the car has eligible damage on a trip.\n\nThe share applies to the trip price, which is what you charge for the days the car is booked. On trips booked on or after October 8, 2026, delivery fees and Extras use the same share as your plan. In nine markets (Austin, Dallas, Detroit, Las Vegas, Maui, Philadelphia, Phoenix, San Diego and Seattle) the share also moves with how far ahead the guest books: 65–80% on More peace of mind, 75–90% on Balanced and 85–100% on More earnings. This calculator uses the standard 70%, 80% and 90%.",
     "how_fees_work": [
-      "60 plan: you keep 60% of the trip price and Turo keeps 40%. This is the plan with the fullest physical damage protection and extra benefits such as exterior wear-and-tear reimbursement.",
-      "75 plan: you keep 75%, Turo keeps 25%.",
-      "80 plan: you keep 80%, Turo keeps 20%. Turo describes this as a popular middle option with a moderate deductible.",
-      "85 plan: you keep 85%, Turo keeps 15%.",
-      "90 plan: you keep 90%, Turo keeps 10%. Highest payout, highest deductible if the car is damaged during a trip.",
-      "What the share applies to: the trip price (daily price × days). Turo says your take rate also applies to some other guest charges, and since July 2021 US hosts receive 90% of delivery earnings. Guest-paid fees such as the guest's own trip fee and protection do not go to the host.",
+      "More peace of mind plan: you keep 70% of the trip price and Turo keeps 30%. Damage responsibility is $250, the lowest of the three, and you get two extra days to submit additional distance and refueling reimbursements.",
+      "Balanced plan: you keep 80%, Turo keeps 20%. Damage responsibility is $1,500, with one extra day to submit those reimbursements.",
+      "More earnings plan: you keep 90%, Turo keeps 10%. Damage responsibility is $2,750, the highest of the three.",
+      "What the share applies to: the trip price (what you charge for the days your car is booked), delivery fees and Extras. Turo moved delivery fees and Extras, such as car seats and prepaid refuel, to the same share as your earnings plan for new trips booked on or after October 8, 2026; existing trips and extensions were not affected.",
+      "Variable host share: in Austin, Dallas, Detroit, Las Vegas, Maui, Philadelphia, Phoenix, San Diego and Seattle, your share depends on booking lead time, within 65–80% (More peace of mind), 75–90% (Balanced) and 85–100% (More earnings). Trips booked further ahead generally earn more and last-minute bookings can earn less. Turo says More earnings hosts in these markets can capture 100% of the trip price on trips booked 28 or more days in advance.",
+      "What the plans cover: each includes up to $750,000 in third-party liability insurance in most states, and Turo reimburses eligible damage above your damage responsibility up to the car's actual cash value or $200,000, whichever is less. Wear and tear, lost hosting income and a replacement vehicle during repairs are not covered.",
       "No separate listing fee: the only platform cost on a standard trip is the share Turo keeps under your plan."
     ],
     "tips": [
-      "Run the numbers on the 80 and 90 plans side by side. On a $300 trip the difference is $30, but the 90 plan's deductible is thousands of dollars higher, so the extra 10% only pays off over many claim-free trips.",
-      "Price your daily rate so the plan share still leaves room for cleaning, mileage wear and depreciation. Use the target-profit field to work backward from what a trip needs to earn.",
-      "Offer delivery only if it is worth 90% of the delivery fee to you, since Turo keeps 10% of that too.",
-      "Cheaper, older cars with low depreciation tend to suit high-share plans; newer or expensive cars usually justify the 60 or 75 plan's protection.",
-      "Re-check your plan after Turo's January 7, 2026 revisions: plan names stayed the same but deductibles and coverage details changed, and you can switch plans in the app."
+      "Run the numbers on Balanced and More earnings side by side. On a $300 trip the difference is $30, but damage responsibility rises from $1,500 to $2,750, so the extra 10% only pays off over many claim-free trips.",
+      "Price your daily rate so the plan share still leaves room for cleaning, mileage wear and depreciation; no plan reimburses wear and tear. Use the target-profit field to work backward from what a trip needs to earn.",
+      "Reprice delivery and Extras if you are on More peace of mind or Balanced. On trips booked on or after October 8, 2026 those charges pay your plan's share, 70% or 80%, the same as the trip price.",
+      "In a variable-share market, encourage early bookings. Trips booked further in advance generally earn a higher share, and last-minute bookings can earn less than the standard rate.",
+      "You can switch plans at any time, but the change only applies to future trips, not ones already booked, so choose before your busy season fills up."
     ],
     "faq": [
-      {"q": "What percentage does Turo take from hosts?", "a": "Between 10% and 40% of the trip price, depending on your earnings plan. The 90 plan gives Turo 10%, the 85 plan 15%, the 80 plan 20%, the 75 plan 25% and the 60 plan 40%."},
-      {"q": "Which Turo plan do most hosts choose?", "a": "Turo's site says many vehicle owners choose the 80 plan, which keeps 80% of the trip price with a moderate deductible."},
-      {"q": "Does Turo take a cut of delivery fees?", "a": "Yes. Turo announced in July 2021 that US hosts receive 90% of delivery earnings, so Turo keeps 10% of the delivery fee."},
+      {"q": "What percentage does Turo take from hosts?", "a": "Between 10% and 30% of the trip price in most US markets, depending on your earnings plan: 10% on More earnings, 20% on Balanced and 30% on More peace of mind. In nine markets the share varies with how far ahead the guest books."},
+      {"q": "What are Turo's earnings plans?", "a": "For trips booked on or after January 7, 2026 there are three: More peace of mind (keep 70%, $250 damage responsibility), Balanced (80%, $1,500) and More earnings (90%, $2,750). They replaced the older 60, 75, 80, 85 and 90 plans, which still apply to trips booked before that date."},
+      {"q": "Does Turo take a cut of delivery fees and Extras?", "a": "Yes. On trips booked on or after October 8, 2026, delivery fees and Extras such as car seats and prepaid refuel use the same share as your earnings plan, so in most markets you keep 70%, 80% or 90% of them."},
       {"q": "Does Turo charge a monthly or listing fee?", "a": "No. Turo's cost to hosts is the share of each trip it keeps under your earnings plan. There is no subscription for a standard listing."},
-      {"q": "Is the plan share charged on the guest's fees too?", "a": "No. Fees the guest pays to Turo, such as the guest trip fee and the guest's protection plan, go to Turo. Your share is calculated on the trip price and, per Turo, some other guest charges."},
-      {"q": "Can I change my Turo earnings plan?", "a": "Yes, you choose a plan per vehicle and can change it in the app. Turo revised its US plans on January 7, 2026, so review the current deductibles before switching."},
-      {"q": "How much does a host make on a $300 Turo trip?", "a": "$240.00 on the 80 plan, $270.00 on the 90 plan, $255.00 on the 85 plan, $225.00 on the 75 plan and $180.00 on the 60 plan, before your own costs."}
+      {"q": "Is the plan share charged on the guest's fees too?", "a": "No. Fees the guest pays to Turo, such as the guest trip fee and the guest's protection plan, go to Turo. Your share is calculated on the trip price, delivery fees and Extras."},
+      {"q": "Can I change my Turo earnings plan?", "a": "Yes. Turo says you can choose a new plan at any time, and the change applies only to future trips, not trips that are already booked."},
+      {"q": "How much does a host make on a $300 Turo trip?", "a": "$210.00 on More peace of mind, $240.00 on Balanced and $270.00 on More earnings, before your own costs."}
     ],
-    "notes": "The five plan names and the rule that each plan is the percentage of the trip price the host keeps come from Turo's current US help pages (Earnings plans – In brief / In detail, Earnings and host share), which only expose their summaries to automated readers, and from Turo's official PDF describing the plans available before January 7, 2026 (60%, 75%, 80%, 85%, 90% of the trip price). Turo changed plan details on that date; the plan names and percentages on the current pages match the PDF, but current deductibles and coverage could not be read, so confirm them in the app. Deductibles announced in July 2021 were $250 (75 plan), $750 (80 plan), $1,625 (85 plan) and $2,500 (90 plan) and may have changed. Payout timing is not modeled; see Turo's payments help article.",
+    "notes": "Plan names, host shares and damage responsibility amounts are from Turo's US 'Earnings Plans for Turo Hosts' and 'Insurance & protection' pages, read 2026-10-10. The plans page says it covers trips booked on or after January 7 without a year; Turo's archived PDF of the five earlier plans (60, 75, 80, 85 and 90) is titled 'available before 1/7/26', which dates the change to January 7, 2026. Turo's Host Hub posts give 'March 31' (earnings plan renaming and variable host share) and 'October 8' (delivery fees and Extras) without a year; the posts are marked updated June 15, 2026 and October 1, 2026. Turo's help-center articles still show summaries of the five earlier plans to automated readers and their full text could not be read. Variable host share is published only as a range per plan, so it is not modeled; hosts in the nine listed markets should treat the result as the standard rate. Delivery fees and Extras are not separate inputs: add them to the trip price for trips booked on or after October 8, 2026 (before that, Turo's 2021 announcement put US hosts at 90% of delivery earnings). New York vehicles get state minimum liability coverage unless the host opts into More peace of mind for a $300,000 combined limit. Guest-side fees and payout timing are not modeled.",
     "changelog": [
-      {"date": "2026-01-07", "change": "Turo revised its US host earnings plans; the previous plan details are archived by Turo as \"available before 1/7/26\". Plan names (60, 75, 80, 85, 90) are unchanged."}
+      {"date": "2026-10-08", "change": "Delivery fees and Extras use the same share as the host's earnings plan on new trips booked on or after October 8, 2026. No change on More earnings; More peace of mind and Balanced adjust to match the plan. Existing trips and extensions are not affected."},
+      {"date": "2026-03-31", "change": "Protection plans renamed earnings plans (deductible became damage responsibility, host take became host share). Variable host share by booking lead time introduced in Austin, Dallas, Detroit, Las Vegas, Maui, Philadelphia, Phoenix, San Diego and Seattle: 65–80%, 75–90% and 85–100% by plan."},
+      {"date": "2026-01-07", "change": "For trips booked on or after January 7, 2026, three US host plans (More peace of mind 70% with $250 damage responsibility, Balanced 80% with $1,500, More earnings 90% with $2,750) replaced the earlier 60, 75, 80, 85 and 90 plans."}
     ]
   },
   "related": ["airbnb", "vrbo", "rover", "ebay-motors"]

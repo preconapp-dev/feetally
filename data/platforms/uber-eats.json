@@ -7,9 +7,9 @@
   "currency": "USD",
   "tagline": "Uber Eats merchant fee calculator: Lite 20%, Plus 25%, Premium 30%, 7% pickup, and your payout per order.",
   "fee_summary": "Uber Eats charges restaurants a marketplace fee per delivery order of 20% on Lite (as low as 15% in select cities), 25% on Plus, 30% on Premium and 15% on the Self-delivery plan. Pickup orders are 7% with validated in-store pricing, otherwise 10%.",
-  "last_verified": "2026-09-29",
+  "last_verified": "2026-10-10",
   "sources": [
-    {"title": "Uber Eats for Merchants: Pricing (US)", "url": "https://merchants.ubereats.com/us/en/pricing/", "accessed": "2026-09-29"}
+    {"title": "Uber Eats for Merchants: Pricing (US)", "url": "https://merchants.ubereats.com/us/en/pricing/", "accessed": "2026-10-10"}
   ],
   "inputs": [
     {"id": "order_subtotal", "label": "Order subtotal", "type": "money", "role": "price", "default": 40, "help": "Menu items only, before tax, tip and customer fees."},
@@ -70,7 +70,7 @@
       {"q": "How much does Uber Eats take on a $40 delivery order?", "a": "$8.00 on Lite, $10.00 on Plus, $12.00 on Premium and $6.00 on Self-delivery. A validated pickup order pays $2.80."},
       {"q": "Does Uber Eats charge extra for Uber One orders?", "a": "On the Plus plan, reaching Uber One members costs an additional 5% on those orders. On Premium it is included at no additional cost."}
     ],
-    "notes": "Rates are from Uber Eats's US merchant pricing page, read 2026-09-29; the page shows no effective date. Uber lists the Lite plan at 20% and says select cities (Portland, NYC, LA, San Francisco and others) start as low as 15%; the calculator uses 20%. The optional 5% Uber One surcharge on Plus, the Premium 6-month low-volume guarantee and the Self-delivery fallback to 25% are not modeled. Whether the percentage is applied to the subtotal or a larger base is not stated on the page. Payout timing is not modeled.",
+    "notes": "Rates are from Uber Eats's US merchant pricing page, read 2026-10-10; the page shows no effective date. Uber lists the Lite plan at 20% and says select cities (Portland, NYC, LA, San Francisco and others) start as low as 15%; the calculator uses 20%. The optional 5% Uber One surcharge on Plus, the Premium 6-month low-volume guarantee and the Self-delivery fallback to 25% are not modeled. Whether the percentage is applied to the subtotal or a larger base is not stated on the page. Payout timing is not modeled.",
     "changelog": []
   },
   "related": ["doordash", "toast", "square"]

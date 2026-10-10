@@ -7,9 +7,10 @@
   "currency": "USD",
   "tagline": "Teachable fee calculator: plan prices, the 7.5% Starter transaction fee, and processing per sale.",
   "fee_summary": "Teachable is a paid subscription: Starter $39/month ($29 billed annually) with a 7.5% transaction fee, Builder $89 ($69 annually) and Growth $189 ($139 annually) with 0% transaction fees. Every sale also pays payment processing, 2.9% + 30¢ for US cards.",
-  "last_verified": "2026-09-29",
+  "last_verified": "2026-10-10",
   "sources": [
-    {"title": "Teachable: Pricing", "url": "https://teachable.com/pricing", "accessed": "2026-09-29"}
+    {"title": "Teachable: Pricing", "url": "https://www.teachable.com/pricing", "accessed": "2026-10-10"},
+    {"title": "Teachable Help: Teachable Fees", "url": "https://support.teachable.com/en/articles/11682553-teachable-fees", "accessed": "2026-10-10"}
   ],
   "inputs": [
     {"id": "sale_price", "label": "Course or product price", "type": "money", "role": "price", "default": 100, "help": "What the student pays for one sale."},
@@ -74,12 +75,12 @@
     "faq": [
       {"q": "Does Teachable take a percentage of sales?", "a": "Only on the Starter plan, which charges 7.5% per sale. Builder and Growth have a 0% transaction fee. All plans pay payment processing, 2.9% + 30¢ on US cards."},
       {"q": "How much does Teachable cost per month?", "a": "Starter is $39 a month ($29 billed annually), Builder $89 ($69 annually) and Growth $189 ($139 annually). Custom plans are quoted by sales."},
-      {"q": "Is there a free Teachable plan?", "a": "No. Teachable says it is a paid service with a 7-day free trial and a 30-day money-back guarantee."},
+      {"q": "Is there a free Teachable plan?", "a": "No. Teachable says it is a paid service with a 7-day free trial and a 30-day money-back guarantee. In October 2026 a pop-up on the pricing page also advertised a 30-day free trial."},
       {"q": "What are Teachable's payment processing fees?", "a": "2.9% + 30¢ for US credit and debit cards, 3.9% + 30¢ for international cards, 3.49% + 49¢ for US PayPal and 4.99% + 49¢ for international PayPal, plus $15 per chargeback."},
       {"q": "How much do I keep from a $100 course sale on Teachable?", "a": "$89.30 after the 7.5% fee and US card processing on Starter, before the plan price; spreading a $29 annual Starter plan over 20 monthly sales brings it to $87.85. On Builder it is $96.80 before the plan price."},
       {"q": "When is Builder cheaper than Starter?", "a": "When 7.5% of your monthly sales exceeds the $40 difference in annual plan price, which happens at about $533 in monthly sales ($50 more per month, or $667 in sales, on monthly billing)."}
     ],
-    "notes": "Prices and fees are from Teachable's pricing page, read 2026-09-29, which lists Starter, Builder, Growth and Custom; no free plan or $1 + 10% fee appears on the page any longer. Teachable states the 0% transaction fee on Builder and Growth applies when using teachable:pay or the Monthly Payment Gateway; other gateway setups are not modeled. Processing rates are Teachable's standard rates and can differ if you connect your own gateway. Sales tax handling and payout schedules are not modeled.",
+    "notes": "Prices and fees are from Teachable's pricing page, read 2026-10-10, which lists Starter, Builder, Growth and Custom; no free plan or $1 + 10% fee appears on the page any longer. The plan cards and FAQ on that page say 7-day free trial, while a pop-up on the same page says the trial has been extended from 7 to 30 days. Teachable states the 0% transaction fee on Builder and Growth applies when using teachable:pay or the Monthly Payment Gateway; other gateway setups are not modeled. Processing rates are Teachable's standard rates and can differ if you connect your own gateway: Teachable's fees help article lists a 2% integration fee per transaction for US-based schools on a Stripe Custom Payment Gateway. The same article lists a 0.95% currency conversion fee and a 4.4% + 30¢ card rate on a line labeled 'International non-US/EU/AU school', and the pricing page lists an optional BackOffice fee of 2–2.8%; none of these are modeled. Sales tax handling and payout schedules are not modeled.",
     "changelog": []
   },
   "related": ["gumroad", "patreon", "substack", "udemy"]
