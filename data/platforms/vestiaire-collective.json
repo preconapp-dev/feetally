@@ -7,17 +7,17 @@
   "currency": "USD",
   "tagline": "Vestiaire Collective fee calculator: 12% selling fee ($10 flat under $83) plus 3% processing, and payout.",
   "fee_summary": "US sellers pay a 12% selling fee on items priced $83 to $16,667, a flat $10 under $83, and a flat $2,000 above $16,667, plus a 3% payment processing fee with a $3 minimum. Both come off the final sale price; the buyer pays shipping.",
-  "last_verified": "2026-09-29",
+  "last_verified": "2026-10-11",
   "sources": [
     {
       "title": "Vestiaire Collective Help Center – Seller: Selling Fees",
       "url": "https://faq.vestiairecollective.com/hc/en-us/articles/24659638721425-Seller-Selling-Fees",
-      "accessed": "2026-09-29"
+      "accessed": "2026-10-11"
     },
     {
       "title": "Vestiaire Collective Help Center – Seller: Selling Fees (until July 18th, 2025)",
       "url": "https://faq.vestiairecollective.com/hc/en-us/articles/37257080663185-Seller-Selling-Fees-until-July-18th-2025",
-      "accessed": "2026-09-29"
+      "accessed": "2026-10-11"
     }
   ],
   "inputs": [

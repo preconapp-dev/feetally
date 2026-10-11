@@ -7,12 +7,12 @@
   "currency": "USD",
   "tagline": "Venmo fee calculator: 1.9% + 10¢ business profile, 2.99% goods and services, 1.75% instant transfer.",
   "fee_summary": "Venmo takes 1.9% + 10¢ on payments to a business profile (2.29% + 9¢ with Tap to Pay) and 2.99% on personal-profile payments marked as goods and services. Instant transfers to your bank cost 1.75% (25¢ minimum, $25 maximum); standard transfers are free.",
-  "last_verified": "2026-09-29",
+  "last_verified": "2026-10-11",
   "sources": [
-    {"title": "Venmo Fees (official fees page)", "url": "https://venmo.com/resources/our-fees/", "accessed": "2026-09-29"},
-    {"title": "Venmo Help: Business Profile Transaction Fees", "url": "https://help.venmo.com/cs/articles/business-profile-transaction-fees-vhel221", "accessed": "2026-09-29"},
-    {"title": "Venmo Help: Instant Bank Transfer FAQ", "url": "https://help.venmo.com/cs/articles/instant-bank-transfer-faq-vhel302", "accessed": "2026-09-29"},
-    {"title": "Venmo Help: Bank Transfer Timeline", "url": "https://help.venmo.com/cs/articles/bank-transfer-timeline-vhel288", "accessed": "2026-09-29"}
+    {"title": "Venmo Fees (official fees page)", "url": "https://venmo.com/resources/our-fees/", "accessed": "2026-10-11"},
+    {"title": "Venmo Help: Business Profile Transaction Fees", "url": "https://help.venmo.com/cs/articles/business-profile-transaction-fees-vhel221", "accessed": "2026-10-11"},
+    {"title": "Venmo Help: Instant Bank Transfer FAQ", "url": "https://help.venmo.com/cs/articles/instant-bank-transfer-faq-vhel302", "accessed": "2026-10-11"},
+    {"title": "Venmo Help: Bank Transfer Timeline", "url": "https://help.venmo.com/cs/articles/bank-transfer-timeline-vhel288", "accessed": "2026-10-11"}
   ],
   "inputs": [
     {"id": "amount", "label": "Payment amount", "type": "money", "role": "price", "default": 100, "help": "What the customer sends you."},
@@ -65,7 +65,7 @@
       {"q": "What is the Venmo Tap to Pay fee?", "a": "2.29% + 9¢ per payment on a business profile, slightly more than the 1.9% + 10¢ for app or QR code payments."},
       {"q": "Does the customer pay a fee to pay my business on Venmo?", "a": "No. Venmo's 3% credit-card sending fee is waived for payments to business profiles, and bank or balance payments are free to send. The seller fee comes out of your side."}
     ],
-    "notes": "Venmo's official fees page lists Tap to Pay at 2.29% + $0.09; a Venmo help-center article on business profile fees says 2.29% + $0.10. This calculator uses the fees page figure; the difference is one cent. The instant transfer fee is charged on the amount you transfer, which is usually your net balance after the seller fee, so the calculator's estimate (based on the payment amount) can run a cent or two high. Charity profiles pay 1.9% + 10¢. Venmo is US-only, so there is no international or currency surcharge.",
+    "notes": "Venmo's official fees page lists Tap to Pay at 2.29% + $0.09; a Venmo help-center article on business profile fees says 2.29% + $0.10. This calculator uses the fees page figure; the difference is one cent. The instant transfer fee is charged on the amount you transfer, which is usually your net balance after the seller fee, so the calculator's estimate (based on the payment amount) can run a cent or two high. Charity profiles pay 1.9% + 10¢. Venmo is US-only, so there is no international or currency surcharge on payments you receive. Separately, Venmo's fees page says a 2.50% foreign transaction fee applies to Venmo Debit Card purchases and ATM withdrawals outside the US beginning November 4, 2026; that affects spending your balance abroad, not your seller fees.",
     "changelog": []
   },
   "related": ["paypal", "zettle", "square", "stripe"]
