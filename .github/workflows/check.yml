@@ -13,4 +13,5 @@ jobs:
       - run: node scripts/validate.js --all
       - run: python3 scripts/build.py
       - name: Ensure committed docs/ is up to date
-        run: git diff --stat --exit-code docs/ || (echo "docs/ is stale: run scripts/build.py and commit" && exit 1)
+        run: |
+          git diff --stat --exit-code docs/ || (echo "docs/ is stale: run scripts/build.py and commit" && exit 1)
