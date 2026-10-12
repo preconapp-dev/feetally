@@ -7,10 +7,10 @@
   "currency": "USD",
   "tagline": "PayPal Zettle fee calculator: 2.29% + 9¢ for card and QR payments in person, 3.49% + 9¢ keyed.",
   "fee_summary": "PayPal Zettle (now PayPal Point of Sale) charges 2.29% + 9¢ for cards tapped, dipped or swiped on its reader and for QR code payments, 3.49% + 9¢ for manually entered cards, and 3.49% + 49¢ (PayPal or Venmo) or 2.99% + 49¢ (card) on invoices. No monthly fee.",
-  "last_verified": "2026-09-29",
+  "last_verified": "2026-10-12",
   "sources": [
-    {"title": "PayPal Point of Sale Pricing (US)", "url": "https://www.paypal.com/us/business/pos-system/pricing", "accessed": "2026-09-29"},
-    {"title": "PayPal Merchant Fees (US), last updated September 1, 2026", "url": "https://www.paypal.com/us/webapps/mpp/merchant-fees", "accessed": "2026-09-29"}
+    {"title": "PayPal Point of Sale Pricing (US)", "url": "https://www.paypal.com/us/business/pos-system/pricing", "accessed": "2026-10-12"},
+    {"title": "PayPal Merchant Fees (US), last updated October 1, 2026", "url": "https://www.paypal.com/us/webapps/mpp/merchant-fees", "accessed": "2026-10-12"}
   ],
   "inputs": [
     {"id": "amount", "label": "Sale amount", "type": "money", "role": "price", "default": 100, "help": "What the customer pays, before PayPal's fee."},
@@ -60,7 +60,7 @@
       {"q": "Is Zettle cheaper than Square?", "a": "For in-person cards, yes at list rates: 2.29% + 9¢ versus Square's 2.6% + 15¢ on the free plan. On a $50 sale that is $1.24 versus $1.45."},
       {"q": "Where does the money go when I sell with Zettle?", "a": "Into your PayPal business account balance. From there you can make a free standard transfer to your bank, or pay 1.50% (minimum 50¢) for an instant transfer."}
     ],
-    "notes": "Rates are PayPal's published US Point of Sale pricing, which matches the PayPal Zettle rows on PayPal's merchant fee schedule dated September 1, 2026. International card and American Express surcharges are not listed on the POS pricing page, so no international toggle is included; PayPal's general 1.50% international fee applies to online commercial transactions. Instant transfer from PayPal to a bank or debit card costs 1.50% with a 50¢ minimum; standard transfers are free. Payout timing is not stated on the pricing page. The $29 reader offer is one per new business user and subject to change.",
+    "notes": "Rates are PayPal's published US Point of Sale pricing, which matches the PayPal Point of Sale rows on PayPal's merchant fee schedule dated October 1, 2026; they are unchanged from the September 1, 2026 version. That schedule also lists invoices paid with PayPal Pay Later at 4.99% + 49¢ and with Pay by Bank (ACH) at 1%, capped at $10 per transaction; neither is in the calculator. International card and American Express surcharges are not listed on the POS pricing page, so no international toggle is included; PayPal's general 1.50% international fee applies to online commercial transactions. Instant transfer from PayPal to a bank or debit card costs 1.50% with a 50¢ minimum; standard transfers are free. Payout timing is not stated on the pricing page. The $29 reader offer is one per new business user and subject to change.",
     "changelog": []
   },
   "related": ["paypal", "square", "sumup", "venmo"]

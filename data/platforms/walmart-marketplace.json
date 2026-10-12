@@ -7,9 +7,10 @@
   "currency": "USD",
   "tagline": "Walmart Marketplace fee calculator: referral fee by category (6%–15%), no monthly or setup fees.",
   "fee_summary": "Walmart Marketplace charges only a referral fee: 15% of the item price plus shipping in most categories, lower in some (8% consumer electronics, 6% personal computers, 12% automotive) and tiered for apparel, beauty, baby and grocery. There is no monthly, setup or per-item fee.",
-  "last_verified": "2026-09-29",
+  "last_verified": "2026-10-12",
   "sources": [
-    {"title": "Walmart Marketplace: Pricing and referral fees", "url": "https://marketplace.walmart.com/pricing/", "accessed": "2026-09-29"}
+    {"title": "Walmart Marketplace: Pricing and referral fees", "url": "https://marketplace.walmart.com/pricing/", "accessed": "2026-10-12"},
+    {"title": "Walmart Marketplace: New-Seller Savings 2026", "url": "https://marketplace.walmart.com/new-seller-savings-2026/", "accessed": "2026-10-12"}
   ],
   "inputs": [
     {"id": "sale_price", "label": "Item price", "type": "money", "role": "price", "default": 60, "help": "The price the buyer pays for the item, before tax."},
@@ -25,7 +26,7 @@
        {"id": "grocery", "label": "Grocery", "note": "8% up to $15, 15% over $15"},
        {"id": "toys_games", "label": "Toys & Games", "note": "15%"},
        {"id": "automotive", "label": "Automotive & Powersports", "note": "12%"},
-       {"id": "collectibles", "label": "Collectibles", "note": "8%"}
+       {"id": "collectibles", "label": "Collectibles", "note": "8%, approved sellers only"}
      ]},
     {"id": "item_cost", "label": "What the item cost you", "type": "money", "role": "cost", "default": 25, "help": "Wholesale or sourcing cost per unit."},
     {"id": "shipping_cost", "label": "Your shipping or fulfillment cost", "type": "money", "role": "shipping_cost", "default": 7, "help": "Your label cost, or the WFS fulfillment fee if Walmart ships it for you."},
@@ -59,7 +60,7 @@
     "how_fees_work": [
       "Referral fee: a percentage of the total sales price, which Walmart defines as the item price plus shipping and handling, gift wrap and other charges. It is 15% in most categories: Everything Else, Home, Kitchen, Decor & Garden, Toys & Games, Books, Music, Video & DVD, Pet Supplies, Tools & Home Improvement, Office Products, Luggage, Software & Video Games, and Shoes, Handbags, Backpacks & Sunglasses.",
       "Lower flat rates: Consumer Electronics 8%, Camera & Photo 8%, Collectibles 8%, Video Game Consoles 8%, Major Appliances 8%, Personal Computers 6%, Automotive & Powersports 12%, Musical Instruments 12%, Base Power Tools 12%, Industrial & Scientific 12%, Tires & Wheels 10%, Plumbing, Heating, Cooling & Ventilation 10%.",
-      "Price-tiered rates (the whole sale pays one rate): Apparel & Accessories 5% at $15 or less, 10% between $15 and $20, 15% above $20. Beauty, Health & Personal Care and Baby Products 8% at $10 or less, 15% above. Grocery 8% at $15 or less, 15% above.",
+      "Price-tiered rates (the whole sale pays one rate): Apparel & Accessories 5% at $15 or less, 10% between $15 and $20, 15% above $20. Beauty, Health & Personal Care and Baby Products 8% at $10 or less, 15% above. Grocery 8% at $15 or less, 15% above. Outdoor Power Tools 15% at $500 or less, 8% above $500.",
       "Split-rate categories not in this calculator: Electronics Accessories 15% on the first $100 of the price and 8% above; Indoor & Outdoor Furniture 15% on the first $200 and 10% above; Jewelry & Precious Metals 20% on the first $250 and 5% above; Watches 15% on the first $1,500 and 3% above; Compact Appliances 12% up to $300 and 8% above.",
       "No other selling fees: Walmart's pricing page states there are zero setup, monthly or hidden fees, and there is no separate payment processing charge. The page lists no minimum referral fee.",
       "Walmart Fulfillment Services (optional): if you use WFS, per-unit fulfillment fees and monthly storage fees apply in addition to the referral fee. They vary by size and weight and are not modeled here."
@@ -69,7 +70,7 @@
       "Watch the apparel thresholds. A garment priced at $20.00 pays 10% but $20.01 pays 15%, and $15.00 pays only 5%. Pricing just under a threshold can save more than the price cut costs.",
       "Free shipping does not cut the fee, because the referral percentage applies to shipping charged to the buyer as well. Fold shipping into the price and compare your own label cost against WFS rates.",
       "There is no monthly fee, so low-volume or seasonal catalogs cost nothing to keep listed. Use that to test products on Walmart without the fixed cost of an Amazon Professional plan.",
-      "Walmart periodically offers new-seller referral fee discounts for the first months after approval. Check the current offer when you apply; none is stated on the pricing page."
+      "If you are new, opt in to New-Seller Savings. Walmart's promotion runs February 2, 2026 to January 31, 2027 and takes 20% off base referral fees on your first $50,000 in GMV, 30% off between $50,000 and $500,000, and 40% off above $500,000. You have to opt in after your store goes live, and Walmart says savings vary by seller."
     ],
     "faq": [
       {"q": "Does Walmart Marketplace charge a fee on shipping?", "a": "Yes. The referral fee is calculated on the total sales price, which includes the item price plus shipping and handling, gift wrap and other charges you bill the customer."},
@@ -79,7 +80,7 @@
       {"q": "What is the referral fee for clothing on Walmart?", "a": "5% if the total sales price is $15 or less, 10% between $15 and $20, and 15% above $20. Shoes, handbags, backpacks and sunglasses are a separate category at a flat 15%."},
       {"q": "Are Walmart Fulfillment Services fees included here?", "a": "No. WFS fulfillment and storage fees depend on the item's size and weight and are charged in addition to the referral fee. Enter your WFS fulfillment fee in the shipping cost field to see the full picture."}
     ],
-    "notes": "Rates are from Walmart Marketplace's US pricing page as of September 2026. The calculator models 10 common categories; split-rate categories (Electronics Accessories, Furniture, Jewelry, Watches, Compact Appliances) and item-specific exceptions (for example 8% on certain outdoor and sports items, 12% on printer cartridges) are not modeled. Sales tax is not part of the total sales price. WFS fulfillment and storage fees and any new-seller promotional discounts are not modeled. Payout timing is not stated on the pricing page; Walmart pays sellers on a recurring cycle after order completion (commonly every two weeks for new sellers, then weekly).",
+    "notes": "Rates are from Walmart Marketplace's US pricing page as of October 2026. The calculator models 10 common categories; split-rate categories (Electronics Accessories, Furniture, Jewelry, Watches, Compact Appliances), the Outdoor Power Tools tier (15% up to $500, 8% above) and item-specific exceptions (for example 8% on certain outdoor and sports items, 12% on printer cartridges) are not modeled. Sales tax is not part of the total sales price. WFS fulfillment and storage fees are not modeled. Neither is the New-Seller Savings promotion (20% to 40% off base referral fees for eligible new sellers who opt in, through January 31, 2027); its full terms are on a separate Walmart page that was not read, and the pricing page itself lists no discount. Collectibles is open to approved sellers only. Payout timing is not stated on the pricing page; Walmart pays sellers on a recurring cycle after order completion (commonly every two weeks for new sellers, then weekly).",
     "changelog": []
   },
   "related": ["amazon", "ebay", "shopify", "tiktok-shop"]

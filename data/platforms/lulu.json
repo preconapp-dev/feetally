@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "slug": "lulu",
+  "name": "Lulu",
+  "category": "publishing",
+  "region": "United States",
+  "currency": "USD",
+  "tagline": "Lulu royalty calculator: keep 80% of profit after print cost, or after the 50% Global Distribution fee.",
+  "fee_summary": "Lulu keeps 20% of gross profit on print books and pays you 80%. On the Lulu Bookstore, gross profit is the retail price minus the print cost; with Global Distribution, 50% of the retail price goes to the distribution channel first.",
+  "last_verified": "2026-10-12",
+  "sources": [
+    {"title": "Lulu Help Center: Creator Revenue Guide", "url": "https://help.lulu.com/en/support/solutions/articles/64000262744-creator-revenue-guide", "accessed": "2026-10-12"},
+    {"title": "Lulu Help Center: Creator Revenue: The Basics", "url": "https://help.lulu.com/en/support/solutions/articles/64000255464-creator-revenue-the-basics", "accessed": "2026-10-12"}
+  ],
+  "inputs": [
+    {"id": "list_price", "label": "Retail price", "type": "money", "role": "price", "default": 20, "help": "The list price you set for the print book."},
+    {"id": "channel", "label": "Where the copy sells", "type": "select", "role": "other", "default": "bookstore",
+     "options": [
+       {"id": "bookstore", "label": "Lulu Bookstore", "note": "No distribution fee. You keep 80% of the price minus print cost."},
+       {"id": "global", "label": "Global Distribution (retailers)", "note": "Amazon, the Ingram network and other retailers. 50% of the retail price goes to the distribution channel before the 80/20 split."}
+     ]},
+    {"id": "print_cost", "label": "Print cost per copy", "type": "money", "role": "other", "default": 6, "help": "The print cost Lulu quotes for your book. The default is only an example."},
+    {"id": "other_cost", "label": "Your other cost per copy", "type": "money", "role": "cost", "default": 0, "help": "Optional: ad spend, or editing and cover design spread across the copies you expect to sell."},
+    {"id": "target_profit", "label": "Target earnings per copy", "type": "money", "role": "target_profit", "default": 5, "help": "We'll show the retail price you need."}
+  ],
+  "fees": [
+    {"id": "distribution", "label": "Distribution fee", "basis": "price", "pct": 50,
+     "when": {"input": "channel", "equals": "global"},
+     "note": "50% of the retail price goes to the distribution channel. Lulu Bookstore sales have no distribution fee."},
+    {"id": "lulu_share", "label": "Lulu's share (20% of the price left after any distribution fee)", "basis": "price",
+     "pct_by": {"input": "channel", "values": {"bookstore": 20, "global": 10}, "default": 20},
+     "note": "Lulu keeps 20% of gross profit. Before print cost that is 20% of the retail price on the Lulu Bookstore, or 20% of the half left after the distribution fee (10% of the retail price) with Global Distribution. The print-cost side of the split is the next line."},
+    {"id": "print_cost", "label": "Print cost borne by you (80% of it)", "basis": "input:print_cost", "pct": 80,
+     "note": "Print cost comes off before the 80/20 split, so each $1.00 of print cost lowers your revenue by $0.80 and Lulu's share by $0.20."}
+  ],
+  "worked_example": {
+    "inputs": {"list_price": 20, "channel": "bookstore", "print_cost": 6, "other_cost": 0},
+    "expected": {"total_fees": 8.80, "net_payout": 11.20, "profit": 11.20},
+    "explanation": "A $20.00 paperback sold on the Lulu Bookstore with a $6.00 print cost has $14.00 of gross profit. Lulu keeps 20% of that, $2.80, and pays you 80%, $11.20. The calculator shows the $8.80 that does not reach you as 20% of the $20.00 retail price ($4.00) plus 80% of the $6.00 print cost ($4.80), which is the same money as the $6.00 print cost plus Lulu's $2.80. Through Global Distribution the same book would pay $3.20: $10.00 goes to the distribution channel, $4.00 of gross profit is left after printing, and you keep 80% of it."
+  },
+  "content": {
+    "intro": "Lulu is a print-on-demand self-publishing platform. You upload a book, sell it through the Lulu Bookstore, and each copy is printed when someone orders it. You can also put a title into Global Distribution, which makes the print book available through Amazon, the Ingram network (which includes Barnes & Noble) and other retail channels.\n\nLulu does not take a percentage of the cover price. It works from gross profit: the retail price you set, minus the print cost of the copy, minus any distribution fee. You keep 80% of that gross profit and Lulu keeps 20%. The Lulu Bookstore has no distribution fee, so a $20.00 paperback that costs $6.00 to print has $14.00 of gross profit and pays you $11.20.\n\nGlobal Distribution costs far more. Lulu's help center says 50% of the retail price goes to the distribution channel. The same $20.00 book gives up $10.00, has $4.00 left after the $6.00 print cost, and pays you 80% of that, $3.20. This is why Lulu requires a list price of at least twice the print cost for distributed titles.\n\nEbooks are split 90/10 instead of 80/20. This calculator covers print books, where the print cost decides most of the result.",
+    "how_fees_work": [
+      "Print cost: Lulu calls it a set cost for each copy. It comes off the retail price before anything is split. Enter the print cost Lulu quotes for your own book; the $6.00 used here is only an example.",
+      "Lulu Bookstore sales: no distribution fee. Gross profit is the retail price minus the print cost, split 80% to you and 20% to Lulu. At $20.00 with a $6.00 print cost: $14.00 gross profit, $11.20 to you, $2.80 to Lulu.",
+      "Global Distribution sales: 50% of the retail price goes to the distribution channel. Gross profit is what remains after that and the print cost, and it is split the same 80/20. At $20.00 with a $6.00 print cost: $10.00 to the channel, $4.00 gross profit, $3.20 to you, $0.80 to Lulu.",
+      "How the calculator shows it: Lulu's 20% is taken after print cost, so each $1.00 of print cost lowers your revenue by $0.80 and Lulu's share by $0.20. The fee lines show Lulu's share on the retail price (20%, or 10% once the 50% distribution fee is out) and the 80% of print cost that falls on you. The total is the same as Lulu's formula.",
+      "Price floors: with Global Distribution the list price must be at least twice the print cost, the point where the distribution fee and the print cost use up the whole price. A title sold only on the Lulu Bookstore can be priced as low as its print cost, which leaves $0 of profit.",
+      "Retailer discounts: the price a retailer chooses to sell your book at does not change your revenue. Lulu says the selling price set by the retailer has no effect on what you earn.",
+      "Ebooks (not modeled here): profit is divided 90% to you and 10% to Lulu. Sending an ebook to Global Distribution carries a one-time $4.99 fee the first time it is reviewed."
+    ],
+    "tips": [
+      "Send buyers to your Lulu Bookstore listing when you can. A $20.00 book with a $6.00 print cost pays $11.20 there and $3.20 through Global Distribution.",
+      "Price distributed titles well above the floor. At exactly twice the print cost you earn nothing, and each $1.00 of list price above that adds $0.40 to your revenue per copy.",
+      "Work on the print cost before the price. Every $1.00 you take off the print cost adds $0.80 to your revenue on either channel, without making the book dearer for readers.",
+      "Choose PayPal if you want to be paid sooner. Revenue of $5 or more is paid monthly by PayPal, while checks need $20 and go out quarterly. PayPal may deduct its own service charge.",
+      "Allow for the reporting lag. Lulu says print sales through retailers can take 6 to 8 weeks to appear in your account."
+    ],
+    "faq": [
+      {"q": "How much does Lulu take from each book sale?", "a": "Lulu keeps 20% of gross profit, which is the retail price minus the print cost and any distribution fee. On a $20.00 Lulu Bookstore sale with a $6.00 print cost, Lulu's share is $2.80 and you receive $11.20."},
+      {"q": "How is Lulu creator revenue calculated?", "a": "Take the retail price, subtract the print cost, and subtract the 50% distribution fee if the copy sold through Global Distribution. That is gross profit. You receive 80% of it and Lulu keeps 20%."},
+      {"q": "What does Lulu Global Distribution cost?", "a": "Lulu's help center says 50% of the retail price goes to the distribution channel. The print cost and Lulu's 20% share of the remaining gross profit come out after that, so a $20.00 book with a $6.00 print cost pays you $3.20."},
+      {"q": "What is the minimum price for a book on Lulu?", "a": "For Global Distribution the list price must be at least twice the print cost. If you sell only on the Lulu Bookstore, the price can be as low as the print cost, at which point you earn nothing."},
+      {"q": "What is Lulu's revenue split for ebooks?", "a": "90% to the creator and 10% to Lulu. An ebook sent to Global Distribution also pays a one-time $4.99 fee the first time it is reviewed, which does not change the 90% share."},
+      {"q": "When does Lulu pay creators?", "a": "By PayPal, monthly, once accumulated revenue is at least $5: revenue earned in January is paid on or before the last day of February. By check, quarterly, once revenue is at least $20, with payments by February 15, May 15, August 15 and November 15."},
+      {"q": "Does a retailer's discount reduce my Lulu revenue?", "a": "No. Lulu says the selling price set by the retailer has no effect on the revenue you earn from the book."}
+    ],
+    "notes": "Rates are from two Lulu help center articles, the Creator Revenue Guide (modified March 25, 2026) and Creator Revenue: The Basics (modified June 11, 2026), read 2026-10-12. Lulu states its share as 20% of gross profit after print cost; the calculator shows the same amount as a share of the retail price plus the 80% of print cost that falls on the creator, and the totals are identical. The print cost is your own figure: the $6.00 default is an example, not a Lulu price. Ebooks are not modeled, because the articles give the 90/10 split but not the commission each ebook retailer takes. Sales through your own store with Lulu Direct, shipping charged to buyers, sales tax, PayPal's service charge on payouts and US tax withholding on royalties for books that use a Lulu-owned ISBN are not modeled; the articles give no figures for them. Checks are paid in US dollars only. Lulu says retailers may hold funds from sales on their sites for up to 160 days.",
+    "changelog": []
+  },
+  "related": ["amazon-kdp", "ingramspark", "gumroad", "printful"]
+}
