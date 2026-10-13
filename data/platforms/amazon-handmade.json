@@ -7,10 +7,10 @@
   "currency": "USD",
   "tagline": "Amazon Handmade fee calculator: 15% referral fee ($0.30 minimum), no monthly fee after month one.",
   "fee_summary": "Amazon Handmade deducts a referral fee of 15% or $0.30, whichever is greater, for every unit shipped. Approved makers pay the $39.99 Professional selling plan fee once, for their first month; after that the monthly fee is waived.",
-  "last_verified": "2026-09-30",
+  "last_verified": "2026-10-13",
   "sources": [
-    {"title": "Amazon Handmade program page (referral fee and Professional plan waiver)", "url": "https://sell.amazon.com/programs/handmade", "accessed": "2026-09-30"},
-    {"title": "Amazon: Pricing for selling on Amazon (referral fee basis, selling plans, standard category rates)", "url": "https://sell.amazon.com/pricing", "accessed": "2026-09-30"}
+    {"title": "Amazon Handmade program page (referral fee and Professional plan waiver)", "url": "https://sell.amazon.com/programs/handmade", "accessed": "2026-10-13"},
+    {"title": "Amazon: Pricing for selling on Amazon (referral fee basis, selling plans, standard category rates)", "url": "https://sell.amazon.com/pricing", "accessed": "2026-10-13"}
   ],
   "inputs": [
     {"id": "sale_price", "label": "Item price", "type": "money", "role": "price", "default": 40, "help": "The listed price the buyer pays for the item, before shipping and sales tax."},
@@ -59,7 +59,7 @@
       {"q": "How much do I keep on a $40 Amazon Handmade sale?", "a": "$34.00 after the $6.00 referral fee, if shipping is free and you are past your first month. With $10 of materials and $5 of postage, profit is $19.00."},
       {"q": "Is Amazon Handmade cheaper than selling in regular Amazon categories?", "a": "Often. Standard referral fees are 15% in most categories but 20% on the first $250 of jewelry and 17% on clothing over $20, and regular sellers keep paying $39.99 a month for the Professional plan or $0.99 per item on Individual. Handmade is a flat 15% with the monthly fee waived after month one."}
     ],
-    "notes": "Rates are from Amazon's Handmade program page and its US pricing page, read 2026-09-30, and apply to the United States store. The Handmade page states the 15% or $0.30 referral fee and the monthly-fee waiver but does not restate what the 15% is charged on; the calculator uses Amazon's general definition of a referral fee from the pricing page (total sales price: list price plus shipping and gift wrap). Amazon's Seller Central help article on Handmade referral fees could not be read without signing in. The page does not describe any conditions for keeping the fee waiver. FBA fulfillment and storage fees, advertising and refund administration fees are not modeled.",
+    "notes": "Rates are from Amazon's Handmade program page and its US pricing page, read 2026-10-13, and apply to the United States store. The Handmade page states the 15% or $0.30 referral fee and the monthly-fee waiver but does not restate what the 15% is charged on; the calculator uses Amazon's general definition of a referral fee from the pricing page (total sales price: list price plus shipping and gift wrap). Amazon's Seller Central help article on Handmade referral fees could not be read without signing in. The page does not describe any conditions for keeping the fee waiver. FBA fulfillment and storage fees, advertising and refund administration fees are not modeled.",
     "changelog": []
   },
   "related": ["amazon", "etsy", "ebay", "redbubble"]

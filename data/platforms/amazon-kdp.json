@@ -7,12 +7,13 @@
   "currency": "USD",
   "tagline": "Amazon KDP royalty calculator: 70% or 35% ebook royalty, $0.15/MB delivery cost, and your payout per sale.",
   "fee_summary": "KDP pays 70% of the list price minus delivery costs ($0.15 per MB on Amazon.com) for ebooks priced $2.99 to $12.99, or 35% of list price with no delivery cost at any price from $0.99 to $200. Amazon keeps the rest.",
-  "last_verified": "2026-09-30",
+  "last_verified": "2026-10-13",
   "sources": [
-    {"title": "KDP Help: Digital Pricing Page (eBook royalty options)", "url": "https://kdp.amazon.com/en_US/help/topic/G200644210", "accessed": "2026-09-30"},
-    {"title": "KDP Help: eBook List Price Requirements", "url": "https://kdp.amazon.com/en_US/help/topic/G200634560", "accessed": "2026-09-30"},
-    {"title": "KDP Help: eBook Delivery Costs", "url": "https://kdp.amazon.com/en_US/help/topic/G200634500", "accessed": "2026-09-30"},
-    {"title": "KDP Help: Paperback printing cost", "url": "https://kdp.amazon.com/en_US/help/topic/G201834340", "accessed": "2026-09-30"}
+    {"title": "KDP Help: eBook Royalties", "url": "https://kdp.amazon.com/en_US/help/topic/G200644210", "accessed": "2026-10-13"},
+    {"title": "KDP Help: eBook List Price Requirements", "url": "https://kdp.amazon.com/en_US/help/topic/G200634560", "accessed": "2026-10-13"},
+    {"title": "KDP Help: Digital Book Pricing Page (royalty options and delivery costs)", "url": "https://kdp.amazon.com/en_US/help/topic/G200634500", "accessed": "2026-10-13"},
+    {"title": "KDP Help: Paperback Printing Cost", "url": "https://kdp.amazon.com/en_US/help/topic/G201834340", "accessed": "2026-10-13"},
+    {"title": "KDP Help: Paperback Royalty", "url": "https://kdp.amazon.com/en_US/help/topic/G201834330", "accessed": "2026-10-13"}
   ],
   "inputs": [
     {"id": "list_price", "label": "eBook list price", "type": "money", "role": "price", "default": 4.99, "help": "Your Amazon.com list price in USD. The 70% option requires $2.99 to $12.99; the 35% option allows $0.99 to $200."},
@@ -46,7 +47,7 @@
       "35% royalty option: royalty = 35% x list price, with no delivery cost deducted. Minimum list price on Amazon.com is $0.99 for files under 3 MB, $1.99 for 3 to 10 MB, and $2.99 for 10 MB or more; the maximum is $200.",
       "Delivery cost (70% option only): $0.15 per MB on Amazon.com, based on the converted file size rounded up to the nearest kilobyte, with the cost rounded to two decimals and a $0.01 minimum. KDP says the average is about $0.06 per unit. Because it is subtracted before the 70% is applied, each MB costs you $0.105 of royalty.",
       "Amazon's share: on the 70% option Amazon keeps 30% of list price plus 70% of the delivery cost; on the 35% option it keeps 65% of list price. There are no listing, setup, or monthly fees.",
-      "Paperbacks (not modeled here): royalty is 50% or 60% of list price depending on list price and marketplace, minus printing cost. Amazon.com black-ink printing cost is $2.30 per book for 24 to 110 pages, or $1.00 + $0.012 per page for 110 to 828 pages; premium color is $3.60 for 24 to 40 pages or $1.00 + $0.065 per page; standard color is $1.00 + $0.0255 per page for 72 to 600 pages.",
+      "Paperbacks (not modeled here): royalty is (royalty rate x list price) minus printing cost. On Amazon.com the rate is 60% for list prices of $9.99 or more and 50% for $9.98 or less; Expanded Distribution pays 40%. Amazon.com black-ink printing cost at regular trim sizes is $2.30 per book for 24 to 110 pages, or $1.00 + $0.012 per page for 110 to 828 pages; premium color is $3.60 for 24 to 40 pages or $1.00 + $0.065 per page for 42 to 828 pages; standard color is $1.00 + $0.0255 per page for 72 to 600 pages. Large trim sizes cost more.",
       "Currency and VAT: royalties are calculated on list price without VAT. This calculator covers Amazon.com sales in USD; other marketplaces have their own price bands and delivery rates."
     ],
     "tips": [
@@ -62,10 +63,10 @@
       {"q": "What is the KDP delivery fee?", "a": "$0.15 per MB of your converted file on Amazon.com, with a $0.01 minimum, deducted only under the 70% royalty option. KDP subtracts it before applying the 70%, so a 1 MB file costs you about $0.11 of royalty."},
       {"q": "How much do I make on a $2.99 Kindle book?", "a": "About $2.05 on the 70% option with a small file: 70% of ($2.99 minus roughly $0.06 delivery). On the 35% option you make $1.05."},
       {"q": "Is there a fee to publish on KDP?", "a": "No. Publishing ebooks and print books is free; Amazon earns its share only when a copy sells."},
-      {"q": "How does KDP paperback royalty work?", "a": "Royalty is 50% or 60% of the list price, depending on the price and marketplace, minus the printing cost. On Amazon.com a 300-page black-ink paperback costs $1.00 + 300 x $0.012 = $4.60 to print, so a $14.99 book at 60% pays about $4.39."},
+      {"q": "How does KDP paperback royalty work?", "a": "Royalty is 60% of the list price at $9.99 or more on Amazon.com, or 50% at $9.98 or less, minus the printing cost. On Amazon.com a 300-page black-ink paperback costs $1.00 + 300 x $0.012 = $4.60 to print, so a $14.99 book at 60% pays about $4.39."},
       {"q": "Can I get 70% royalty on a $0.99 ebook?", "a": "No. The 70% option requires a list price of at least $2.99. A $0.99 book pays 35%, or about $0.35 per sale."}
     ],
-    "notes": "The 70% royalty option applies only to sales to customers in the countries on KDP's pricing page; other sales, and all public domain titles, pay 35%. Delivery cost uses the converted file size shown on your KDP pricing page, rounded up to the nearest KB; this calculator applies $0.105 per MB (70% of $0.15) directly and ignores the $0.01 minimum. The paperback figures in the notes are for Amazon.com black-ink, premium-color, and standard-color books from KDP's printing cost page; the exact list-price threshold between 50% and 60% paperback royalty was not verified here. KDP Select and Kindle Unlimited page-read payments are not modeled.",
+    "notes": "The 70% royalty option applies only to sales to customers in the countries on KDP's pricing page; other sales, and all public domain titles, pay 35%. Delivery cost uses the converted file size shown on your KDP pricing page, rounded up to the nearest KB; this calculator applies $0.105 per MB (70% of $0.15) directly and ignores the $0.01 minimum. The 70% option also requires a list price at least 20% below the list price of any physical edition of the book, and sales to customers in Brazil, Japan, Mexico and India earn 70% only for books enrolled in KDP Select. The paperback figures are for Amazon.com black-ink, premium-color and standard-color books at regular trim sizes from KDP's printing cost page, and the 50%/60% threshold ($9.98 and below, $9.99 and above) is from its Paperback Royalty page; other marketplaces have their own thresholds. KDP Select and Kindle Unlimited page-read payments are not modeled.",
     "changelog": [
       {"date": "2026-07-07", "change": "70% royalty option price band on Amazon.com expanded to $2.99 to $12.99 (previously $2.99 to $9.99)."}
     ]
